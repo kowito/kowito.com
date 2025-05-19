@@ -47,17 +47,47 @@ export default function Home() {
 
               <div>
                 <h2 className="text-3xl md:text-5xl font-light tracking-tighter leading-tight text-white">
-                  Crafting{" "}
+                
                   <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                    digital experiences
+                  Software Engineer &  BBQ Arsonist
                   </span>{" "}
-                  that merge form and function.
+                  – Faking competence in code, blockchain & charred meat for 30 years.
                 </h2>
 
-                <p className="mt-6 text-gray-300 leading-relaxed text-lg font-light">
-                  I architect elegant solutions across the full technology stack—from intuitive interfaces to robust
-                  backend systems. Co-founder at Cookly, where we're reimagining the culinary experience.
-                </p>
+                <div className="mt-6 text-gray-300 leading-relaxed text-lg font-light space-y-4">
+                  <p>
+                    I'm Kowito—a "veteran" software engineer who's been faking it for just under three decades. I've spent the better part of that time convincing teams that my rubber-duck debugging counts as "innovative problem solving." When I'm not heroically patching legacy code, you'll find me unleashing my "expertise" on Python, TypeScript, and Solidity projects—because someone has to keep the blockchain circus running.
+                  </p>
+                  <p>
+                    By night, I trade semicolons for skewers, incinerating meat in pursuit of BBQ godhood, or I become a passport-stamp addict, hoarding travel tales like rare coins.
+                  </p>
+                  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="font-medium text-white">Web3 & Blockchain:</p>
+                      <p>Because plain-old CRUD apps were putting me into a coma.</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Rust:</p>
+                      <p>My favorite self-inflicted torture device—nothing says "I love pain" like borrow checkers at 2 AM.</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">BBQ:</p>
+                      <p>On a relentless quest to char meat into legend (and occasionally my grill).</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Globetrotter:</p>
+                      <p>Collecting airport lounges, questionable street-food souvenirs, and delayed-flight war stories.</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Remote Work:</p>
+                      <p>Master of distracting Zoom backgrounds and "Sorry, I was muted" excuses.</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Conference Circuit:</p>
+                      <p>Champion of awkward small talk and unintentional door prizes.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="flex flex-wrap gap-3">
@@ -107,27 +137,27 @@ export default function Home() {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors">
                   <h4 className="font-medium text-white">Frontend</h4>
-                  <p className="text-sm text-gray-400 mt-1">React, Next.js, TypeScript</p>
+                  <p className="text-sm text-gray-400 mt-1">React, Next.js & endless states of confusion</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors">
                   <h4 className="font-medium text-white">Backend</h4>
-                  <p className="text-sm text-gray-400 mt-1">Django, Rails, Node.js</p>
+                  <p className="text-sm text-gray-400 mt-1">Where my bugs hide from the UI team</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors">
-                  <h4 className="font-medium text-white">Mobile</h4>
-                  <p className="text-sm text-gray-400 mt-1">React Native, Flutter</p>
+                  <h4 className="font-medium text-white">Blockchain</h4>
+                  <p className="text-sm text-gray-400 mt-1">Smart contracts & dumb mistakes</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors">
                   <h4 className="font-medium text-white">Languages</h4>
-                  <p className="text-sm text-gray-400 mt-1">Python, Ruby, JavaScript</p>
+                  <p className="text-sm text-gray-400 mt-1">Fluent in Googling & Stack Overflow</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors">
                   <h4 className="font-medium text-white">DevOps</h4>
-                  <p className="text-sm text-gray-400 mt-1">Docker, CI/CD, AWS</p>
+                  <p className="text-sm text-gray-400 mt-1">Breaking production with confidence</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors">
-                  <h4 className="font-medium text-white">Design</h4>
-                  <p className="text-sm text-gray-400 mt-1">UI/UX, Figma, Design Systems</p>
+                  <h4 className="font-medium text-white">Rust</h4>
+                  <p className="text-sm text-gray-400 mt-1">Fighting the borrow checker & losing</p>
                 </div>
               </div>
             </div>
@@ -142,8 +172,7 @@ export default function Home() {
               </div>
 
               <p className="text-gray-300 font-light">
-                Have an interesting project or opportunity? I'm always open to meaningful collaborations that push
-                boundaries.
+              Looking for a code-crashing sidekick to share the burden of bug hunts? A foolproof rib rub recipe that doesn't lead to literal smoking? Or a travel story so tall it needs its own zip code? Let's connect—if you dare.
               </p>
 
               <div className="inline-block">
