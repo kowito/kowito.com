@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Github, ExternalLink, ArrowRight } from "lucide-react"
+import { Github, ExternalLink, ArrowRight, Flame, Globe, Video, Coffee, Wrench, Coins } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -13,7 +13,7 @@ export default function Home() {
       </div>
 
       <header className="container mx-auto py-8 px-4 flex items-center justify-between">
-        <span className="font-light tracking-wider text-lg text-white">K.</span>
+        <span className="font-light tracking-wider text-lg text-white">Kowit C.</span>
         <ThemeToggle />
       </header>
 
@@ -61,30 +61,53 @@ export default function Home() {
                   <p>
                     By night, I trade semicolons for skewers, incinerating meat in pursuit of BBQ godhood, or I become a passport-stamp addict, hoarding travel tales like rare coins.
                   </p>
-                  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <p className="font-medium text-white">Web3 & Blockchain:</p>
-                      <p>Because plain-old CRUD apps were putting me into a coma.</p>
+                  <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
+                      <div className="flex items-start gap-2 mb-1">
+                        <Coins className="w-4 h-4 text-indigo-400 group-hover:text-indigo-300" />
+                        <h4 className="font-medium text-white">Web3 & Blockchain</h4>
+                      </div>
+                      <p className="text-sm text-gray-400">Because plain-old CRUD apps were putting me into a coma.</p>
                     </div>
-                    <div>
-                      <p className="font-medium text-white">Rust:</p>
-                      <p>My favorite self-inflicted torture device—nothing says "I love pain" like borrow checkers at 2 AM.</p>
+                    
+                    <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
+                      <div className="flex items-start gap-2 mb-1">
+                        <Wrench className="w-4 h-4 text-red-400 group-hover:text-red-300" />
+                        <h4 className="font-medium text-white">Rust</h4>
+                      </div>
+                      <p className="text-sm text-gray-400">My favorite self-inflicted torture device—nothing says "I love pain" like borrow checkers at 2 AM.</p>
                     </div>
-                    <div>
-                      <p className="font-medium text-white">BBQ:</p>
-                      <p>On a relentless quest to char meat into legend (and occasionally my grill).</p>
+                    
+                    <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
+                      <div className="flex items-start gap-2 mb-1">
+                        <Flame className="w-4 h-4 text-amber-400 group-hover:text-amber-300" />
+                        <h4 className="font-medium text-white">BBQ</h4>
+                      </div>
+                      <p className="text-sm text-gray-400">On a relentless quest to char meat into legend (and occasionally my grill).</p>
                     </div>
-                    <div>
-                      <p className="font-medium text-white">Globetrotter:</p>
-                      <p>Collecting airport lounges, questionable street-food souvenirs, and delayed-flight war stories.</p>
+                    
+                    <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
+                      <div className="flex items-start gap-2 mb-1">
+                        <Globe className="w-4 h-4 text-blue-400 group-hover:text-blue-300" />
+                        <h4 className="font-medium text-white">Globetrotter</h4>
+                      </div>
+                      <p className="text-sm text-gray-400">Collecting airport lounges, questionable street-food souvenirs, and delayed-flight war stories.</p>
                     </div>
-                    <div>
-                      <p className="font-medium text-white">Remote Work:</p>
-                      <p>Master of distracting Zoom backgrounds and "Sorry, I was muted" excuses.</p>
+                    
+                    <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
+                      <div className="flex items-start gap-2 mb-1">
+                        <Video className="w-4 h-4 text-green-400 group-hover:text-green-300" />
+                        <h4 className="font-medium text-white">Remote Work</h4>
+                      </div>
+                      <p className="text-sm text-gray-400">Master of distracting Zoom backgrounds and "Sorry, I was muted" excuses.</p>
                     </div>
-                    <div>
-                      <p className="font-medium text-white">Conference Circuit:</p>
-                      <p>Champion of awkward small talk and unintentional door prizes.</p>
+                    
+                    <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
+                      <div className="flex items-start gap-2 mb-1">
+                        <Coffee className="w-4 h-4 text-pink-400 group-hover:text-pink-300" />
+                        <h4 className="font-medium text-white">Conference Circuit</h4>
+                      </div>
+                      <p className="text-sm text-gray-400">Champion of awkward small talk and unintentional door prizes.</p>
                     </div>
                   </div>
                 </div>
