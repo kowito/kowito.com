@@ -27,7 +27,7 @@ export default function Home() {
                   <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-600 p-[2px]">
                     <div className="w-full h-full rounded-full overflow-hidden bg-gray-900">
                       <Image
-                        src="/placeholder.svg?height=128&width=128"
+                        src="/kowito.jpg"
                         alt="Kowit C."
                         width={128}
                         height={128}
