@@ -56,7 +56,7 @@ export default function Home() {
 
                 <div className="mt-6 text-gray-300 leading-relaxed text-lg font-light space-y-4">
                   <p>
-                    I'm Kowito—a "veteran" software engineer who's been faking it for just under three decades. I've spent the better part of that time convincing teams that my rubber-duck debugging counts as "innovative problem solving." When I'm not heroically patching legacy code, you'll find me unleashing my "expertise" on Python, TypeScript, and Solidity projects—because someone has to keep the blockchain circus running.
+                    I&apos;m Kowito—a &ldquo;veteran&rdquo; software engineer who&apos;s been faking it for just under three decades. I&apos;ve spent the better part of that time convincing teams that my rubber-duck debugging counts as &ldquo;innovative problem solving.&rdquo; When I&apos;m not heroically patching legacy code, you&apos;ll find me unleashing my &ldquo;expertise&rdquo; on Python, TypeScript, and Solidity projects—because someone has to keep the blockchain circus running.
                   </p>
                   <p>
                     By night, I trade semicolons for skewers, incinerating meat in pursuit of BBQ godhood, or I become a passport-stamp addict, hoarding travel tales like rare coins.
@@ -75,7 +75,7 @@ export default function Home() {
                         <Wrench className="w-4 h-4 text-red-400 group-hover:text-red-300" />
                         <h4 className="font-medium text-white">Rust</h4>
                       </div>
-                      <p className="text-sm text-gray-400">My favorite self-inflicted torture device—nothing says "I love pain" like borrow checkers at 2 AM.</p>
+                      <p className="text-sm text-gray-400">My favorite self-inflicted torture device—nothing says &ldquo;I love pain&rdquo; like borrow checkers at 2 AM.</p>
                     </div>
                     
                     <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
@@ -99,7 +99,7 @@ export default function Home() {
                         <Video className="w-4 h-4 text-green-400 group-hover:text-green-300" />
                         <h4 className="font-medium text-white">Remote Work</h4>
                       </div>
-                      <p className="text-sm text-gray-400">Master of distracting Zoom backgrounds and "Sorry, I was muted" excuses.</p>
+                      <p className="text-sm text-gray-400">Master of distracting Zoom backgrounds and &ldquo;Sorry, I was muted&rdquo; excuses.</p>
                     </div>
                     
                     <div className="p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors group">
@@ -190,12 +190,12 @@ export default function Home() {
           <div className="relative">
             <div className="space-y-6">
               <div>
-                <h3 className="text-xs uppercase tracking-widest text-gray-400 font-medium">Let's Connect</h3>
+                <h3 className="text-xs uppercase tracking-widest text-gray-400 font-medium">Let&apos;s Connect</h3>
                 <h2 className="text-2xl md:text-3xl font-light tracking-tight mt-2 text-white">Start a Conversation</h2>
               </div>
 
               <p className="text-gray-300 font-light">
-              Looking for a code-crashing sidekick to share the burden of bug hunts? A foolproof rib rub recipe that doesn't lead to literal smoking? Or a travel story so tall it needs its own zip code? Let's connect—if you dare.
+              Looking for a code-crashing sidekick to share the burden of bug hunts? A foolproof rib rub recipe that doesn&apos;t lead to literal smoking? Or a travel story so tall it needs its own zip code? Let&apos;s connect—if you dare.
               </p>
 
               <div className="inline-block">
