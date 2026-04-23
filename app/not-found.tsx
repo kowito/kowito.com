@@ -22,7 +22,7 @@ export default function NotFound() {
           </Button>
 
           <Button asChild variant="outline" className="rounded-full px-6 border-gray-700 text-gray-300 hover:text-white hover:bg-gray-800">
-            <Link href="mailto:contact@example.com">
+            <Link href="mailto:hi@kowito.com">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Contact
             </Link>
