@@ -46,21 +46,12 @@ export const metadata: Metadata = {
     siteName: "kowito.com",
     title: "Kowit C. | Software Engineer, TypeScript & Rust Developer",
     description: "Software engineer with 30 years of experience building high-quality web apps, open source tools, and blockchain products with TypeScript, Rust, and Solidity.",
-    images: [
-      {
-        url: "/og.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Kowit C. | Software Engineer, TypeScript & Rust Developer",
-      },
-    ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kowit C. | Software Engineer, TypeScript & Rust Developer",
     description: "Software engineer with 30 years of experience building high-quality web apps, open source tools, and blockchain products with TypeScript, Rust, and Solidity.",
-    images: ["/og.jpg"],
     creator: "@kowito",
   },
   robots: {
