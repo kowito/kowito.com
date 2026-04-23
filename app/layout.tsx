@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google"
-import "@/app/globals.css"
+import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
 const plusJakartaSans = Plus_Jakarta_Sans({

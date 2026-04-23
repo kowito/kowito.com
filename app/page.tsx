@@ -113,21 +113,21 @@ export default function Home() {
 
           {/* ── Hero ── */}
           <section className="flex flex-col gap-10">
-            <div className="flex items-center gap-5">
-              <div className="relative shrink-0">
-                <div className="h-20 w-20 md:h-24 md:w-24 rounded-full overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-600 p-[2px]">
+            <div className="flex flex-col items-center gap-5 text-center">
+              <div className="relative">
+                <div className="h-48 w-48 md:h-64 md:w-64 rounded-full overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-600 p-[3px]">
                   <div className="h-full w-full rounded-full overflow-hidden bg-gray-900">
                     <Image
                       src="/kowito.jpg"
                       alt="Kowit C."
-                      width={128}
-                      height={128}
-                      className="object-cover"
+                      width={320}
+                      height={320}
+                      className="object-cover w-full h-full"
                       priority
                     />
                   </div>
                 </div>
-                <span className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full bg-green-400 ring-2 ring-gray-950" />
+                <span className="absolute bottom-2 right-2 md:bottom-3 md:right-3 h-6 w-6 md:h-7 md:w-7 rounded-full bg-green-400 ring-[3px] ring-gray-950" />
               </div>
               <div>
                 <h1 className="text-2xl md:text-3xl font-light tracking-tight text-white">Kowit C.</h1>
