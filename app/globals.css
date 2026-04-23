@@ -53,7 +53,22 @@
   * {
     @apply border-border;
   }
+
+  html {
+    font-feature-settings: "ss01" 1, "cv02" 1, "cv11" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-[-0.035em];
   }
 }

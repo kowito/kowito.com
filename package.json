@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
+    "dev:reset": "sh -c 'lsof -ti tcp:3000 | xargs kill -9 2>/dev/null || true; next dev -p 3000'",
     "build": "next build",
-    "start": "next start",
+    "start": "serve -s out -l 3001",
     "lint": "next lint"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.4",
     "postcss": "^8.5.10",
+    "serve": "^14.2.6",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3"
   }

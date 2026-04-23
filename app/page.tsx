@@ -1,9 +1,18 @@
 import Image from "next/image"
 import Link from "next/link"
+import type { Metadata } from "next"
 import { Github, ArrowRight, Flame, Globe, Video, Coffee, Wrench, Coins, Dumbbell, Utensils, Boxes, Music4, PackageOpen } from "lucide-react"
 import type { ElementType } from "react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Kowit C. portfolio: software engineering work, open source projects, training plan, and diet plan.",
+  alternates: {
+    canonical: "/",
+  },
+}
 
 type InterestItem = {
   icon: ElementType
@@ -86,22 +95,8 @@ export default function Home() {
       </div>
 
       <header className="container mx-auto py-8 px-4 flex items-center justify-between">
-        <span className="font-light tracking-wider text-lg text-white">Kowit C.</span>
+        <span className="font-display text-lg font-medium tracking-[0.22em] text-white">Kowit C.</span>
         <div className="flex items-center gap-4">
-          <Link
-            href="/personal-training"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            <Dumbbell className="h-3.5 w-3.5" />
-            Training
-          </Link>
-          <Link
-            href="/diet"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            <Utensils className="h-3.5 w-3.5" />
-            Diet
-          </Link>
           <Link
             href="/opensource"
             className="hidden sm:inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
@@ -141,7 +136,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-6">
-              <h2 className="text-3xl md:text-5xl font-light tracking-tighter leading-tight text-white">
+              <h2 className="font-display text-3xl md:text-5xl font-medium leading-tight text-white">
                 <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                   Software Engineer &amp; BBQ Arsonist
                 </span>

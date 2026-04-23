@@ -1,17 +1,85 @@
 import type React from "react"
+import type { Metadata, Viewport } from "next"
+import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google"
 import "@/app/globals.css"
-import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  display: "swap",
+  variable: "--font-plus-jakarta",
 })
 
-export const metadata = {
-  title: "Kowit C. | Digital Craftsman",
-  description: "Full-stack developer crafting digital experiences that merge form and function",
-    generator: 'v0.dev'
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
+})
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://kowito.com"),
+  title: {
+    default: "Kowit C. | Digital Craftsman",
+    template: "%s | Kowit C.",
+  },
+  description: "Software engineer building high-quality web and open source experiences with TypeScript and Rust.",
+  applicationName: "kowito.com",
+  keywords: [
+    "Kowit C",
+    "Kowito",
+    "software engineer",
+    "full-stack developer",
+    "TypeScript",
+    "Rust",
+    "Next.js",
+    "open source",
+  ],
+  authors: [{ name: "Kowit C.", url: "https://kowito.com" }],
+  creator: "Kowit C.",
+  publisher: "Kowit C.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://kowito.com",
+    siteName: "kowito.com",
+    title: "Kowit C. | Digital Craftsman",
+    description: "Software engineer building high-quality web and open source experiences with TypeScript and Rust.",
+    images: [
+      {
+        url: "/kowito.jpg",
+        width: 320,
+        height: 320,
+        alt: "Kowit C.",
+      },
+    ],
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kowit C. | Digital Craftsman",
+    description: "Software engineer building high-quality web and open source experiences with TypeScript and Rust.",
+    images: ["/kowito.jpg"],
+    creator: "@kowito",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#020617",
 }
 
 export default function RootLayout({
@@ -21,7 +89,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
