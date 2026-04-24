@@ -25,7 +25,7 @@ import {
   Linkedin,
 } from "lucide-react"
 
-const PW = "ParseCode"
+const PW = "passcode"
 const SESSION_KEY = "anutta_unlocked"
 const TOTAL = 8
 
