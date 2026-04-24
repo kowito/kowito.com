@@ -51,33 +51,64 @@ function Card({ bg, border, children, className = "" }: { bg: string; border: st
 /* ─── Slide 1 · Identity ──────────────────────────────────────── */
 function Slide1() {
   return (
-    <div className="flex flex-col items-center justify-center text-center space-y-8 py-4">
-      <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-[#C49A3A] bg-[#C49A3A]/10 px-5 py-2 rounded-full border border-[#C49A3A]/25">
-        <Star className="h-3 w-3" />
-        Personal Branding Strategy
-      </span>
-      <div className="space-y-2">
-        <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight text-[#1E1A17] leading-none">
-          Anutta
-        </h1>
-        <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight text-[#D4715A] leading-none">
-          Parse Code
-        </h1>
-        <p className="mt-4 text-lg md:text-xl text-[#9B8E84] font-light italic">The Smart &amp; Sexy Logic</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center py-4">
+      {/* Left — copy */}
+      <div className="flex flex-col space-y-6 order-2 md:order-1">
+        <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-[#C49A3A] bg-[#C49A3A]/10 px-4 py-2 rounded-full border border-[#C49A3A]/25 w-fit">
+          <Star className="h-3 w-3" />
+          Personal Branding Strategy
+        </span>
+        <div>
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#1E1A17] leading-none">
+            Anutta
+          </h1>
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#D4715A] leading-none">
+            Parse Code
+          </h1>
+          <p className="mt-4 text-base md:text-lg text-[#9B8E84] font-light italic">The Smart &amp; Sexy Logic</p>
+        </div>
+        <p className="text-[#6B5F55] text-base leading-relaxed">
+          &ldquo;เพราะเรื่องยากๆ ไม่จำเป็นต้องน่าเบื่อ
+          <br />
+          และความฉลาดก็เซ็กซี่ได้&rdquo;
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {["32 Years Old", "Former Programmer", "Bank Governance & Compliance", "Software Logic & Regulatory Frameworks"].map(
+            (tag) => (
+              <span key={tag} className="px-3 py-1.5 bg-white border border-[#E8E2DA] rounded-full text-sm text-[#5C5046] shadow-sm">
+                {tag}
+              </span>
+            )
+          )}
+        </div>
       </div>
-      <p className="max-w-md text-[#6B5F55] text-base md:text-lg leading-relaxed">
-        &ldquo;เพราะเรื่องยากๆ ไม่จำเป็นต้องน่าเบื่อ
-        <br />
-        และความฉลาดก็เซ็กซี่ได้&rdquo;
-      </p>
-      <div className="flex flex-wrap justify-center gap-2 max-w-md">
-        {["32 Years Old", "Former Programmer", "Bank Governance & Compliance", "Software Logic & Regulatory Frameworks"].map(
-          (tag) => (
-            <span key={tag} className="px-4 py-2 bg-white border border-[#E8E2DA] rounded-full text-sm text-[#5C5046] shadow-sm">
-              {tag}
-            </span>
-          )
-        )}
+
+      {/* Right — photo */}
+      <div className="flex justify-center md:justify-end order-1 md:order-2">
+        <div className="relative">
+          {/* Offset decorative frame */}
+          <div className="absolute inset-0 rounded-3xl border-2 border-[#D4715A]/25 translate-x-3 translate-y-3" />
+          <div className="relative w-56 h-72 sm:w-64 sm:h-80 md:w-72 md:h-96 rounded-3xl overflow-hidden shadow-xl border border-[#EDE8E1]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/anutta.jpg"
+              alt="Anutta Parse Code"
+              className="w-full h-full object-cover object-[center_15%]"
+            />
+            {/* Subtle gradient overlay at bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#2C1F18]/40 to-transparent" />
+            {/* Name badge */}
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+              <div>
+                <p className="text-white font-bold text-sm font-display leading-tight drop-shadow">Anutta</p>
+                <p className="text-[#F5C4A8] text-xs font-medium drop-shadow">Parse Code</p>
+              </div>
+              <span className="text-[10px] font-semibold tracking-widest uppercase text-white/80 bg-white/15 backdrop-blur-sm px-2 py-1 rounded-full border border-white/20">
+                2026
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
