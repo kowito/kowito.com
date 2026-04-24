@@ -17,6 +17,10 @@ import {
   Star,
   Target,
   TrendingUp,
+  Music2,
+  Video,
+  Camera,
+  Linkedin,
 } from "lucide-react"
 
 const PW = "ParseCode"
@@ -183,7 +187,7 @@ function Slide3() {
 function Slide4() {
   const platforms = [
     {
-      emoji: "🎵",
+      icon: Music2,
       name: "TikTok",
       color: "#2C2825",
       bg: "#F5F4F2",
@@ -192,7 +196,7 @@ function Slide4() {
       format: "Viral · Short-form · Fashion Look",
     },
     {
-      emoji: "🎥",
+      icon: Video,
       name: "Facebook / YouTube",
       color: "#D4715A",
       bg: "#FDF3F0",
@@ -201,7 +205,7 @@ function Slide4() {
       format: "Long-form · In-depth · Trust-building",
     },
     {
-      emoji: "📸",
+      icon: Camera,
       name: "Instagram",
       color: "#B85D8E",
       bg: "#FBF1F7",
@@ -210,7 +214,7 @@ function Slide4() {
       format: "Aesthetic · Photo · Brand Identity",
     },
     {
-      emoji: "💼",
+      icon: Linkedin,
       name: "LinkedIn",
       color: "#4A9BA8",
       bg: "#F0F8F9",
@@ -228,10 +232,12 @@ function Slide4() {
         <p className="mt-1 text-sm text-[#8B7D72]">แผนการบุกโซเชียลแบบ Platform-Native</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {platforms.map(({ emoji, name, color, bg, border, strategy, format }) => (
+        {platforms.map(({ icon: Icon, name, color, bg, border, strategy, format }) => (
           <div key={name} className="rounded-2xl p-5 border" style={{ background: bg, borderColor: border }}>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xl">{emoji}</span>
+              <div className="rounded-xl p-1.5" style={{ background: `${color}20` }}>
+                <Icon className="h-4 w-4" style={{ color }} />
+              </div>
               <p className="font-bold text-[#2C2825]">{name}</p>
             </div>
             <p className="text-sm text-[#5C5046] leading-relaxed mb-1.5">{strategy}</p>
