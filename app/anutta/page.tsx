@@ -73,7 +73,7 @@ function Slide1() {
           และความฉลาดก็เซ็กซี่ได้&rdquo;
         </p>
         <div className="flex flex-wrap gap-2">
-          {["32 Years Old", "Former Programmer", "Bank Governance & Compliance", "Software Logic & Regulatory Frameworks"].map(
+          {["Experienced Programmer", "Bank Governance & Compliance", "Software Logic & Regulatory Frameworks"].map(
             (tag) => (
               <span key={tag} className="px-3 py-1.5 bg-white border border-[#E8E2DA] rounded-full text-sm text-[#5C5046] shadow-sm">
                 {tag}
