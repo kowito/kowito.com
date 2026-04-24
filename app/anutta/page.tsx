@@ -17,6 +17,8 @@ import {
   Star,
   Target,
   TrendingUp,
+  DollarSign,
+  BarChart3,
   Music2,
   Video,
   Camera,
@@ -25,7 +27,7 @@ import {
 
 const PW = "ParseCode"
 const SESSION_KEY = "anutta_unlocked"
-const TOTAL = 7
+const TOTAL = 8
 
 /* ─── Slide 1 ─────────────────────────────────────────────────── */
 function Slide1() {
@@ -446,8 +448,133 @@ function Slide7() {
   )
 }
 
+/* ─── Slide 8 ─────────────────────────────────────────────────── */
+function Slide8() {
+  const streams = [
+    { label: "Premium Sponsorships", share: 40, monthly: "$25,000+", thb: "800k+ THB", color: "#D4715A" },
+    { label: "Own Brand / Digital Products", share: 30, monthly: "$18,000+", thb: "600k+ THB", color: "#C49A3A" },
+    { label: "Exclusive Memberships", share: 15, monthly: "$9,000+", thb: "300k+ THB", color: "#B85D8E" },
+    { label: "Affiliate Marketing", share: 10, monthly: "$6,000+", thb: "200k+ THB", color: "#4A9BA8" },
+    { label: "YouTube AdSense", share: 5, monthly: "$3,000+", thb: "100k+ THB", color: "#6B7FD4" },
+  ]
+
+  const growth = [
+    {
+      year: "Year 1",
+      label: "Foundation",
+      height: 18,
+      color: "#4A9BA8",
+      desc: "Authority & Trust building. Small sponsors + AdSense.",
+    },
+    {
+      year: "Year 2",
+      label: "The Surge",
+      height: 52,
+      color: "#C49A3A",
+      desc: '"Hockey Stick" growth. Digital Products launch (Courses, Checklists).',
+    },
+    {
+      year: "Year 3",
+      label: "Empire",
+      height: 100,
+      color: "#D4715A",
+      desc: "High-ticket consulting + Own Brand (Swimwear / Tech Accessories).",
+    },
+  ]
+
+  return (
+    <div className="space-y-7 py-4">
+      <div className="text-center">
+        <p className="text-xs font-medium tracking-widest uppercase text-[#D4715A] mb-1">08 · Money Slide</p>
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-[#2C2825]">Revenue &amp; Growth</h2>
+        <p className="mt-1 text-sm text-[#8B7D72]">Projection at 1M Subscribers</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* ── Revenue Streams ── */}
+        <div className="rounded-2xl border border-[#EDE8E1] bg-white p-5 space-y-3">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="rounded-xl p-1.5 bg-[#FDF3F0] border border-[#F0C9C0]">
+              <DollarSign className="h-4 w-4 text-[#D4715A]" />
+            </div>
+            <p className="font-bold text-[#2C2825] text-sm">Income Sources</p>
+          </div>
+          <div className="space-y-2.5">
+            {streams.map(({ label, share, monthly, thb, color }) => (
+              <div key={label}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs text-[#5C5046] font-medium">{label}</span>
+                  <span className="text-xs font-bold tabular-nums" style={{ color }}>{share}%</span>
+                </div>
+                <div className="h-2 rounded-full bg-[#F5F4F2] overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{ width: `${share}%`, background: color }}
+                  />
+                </div>
+                <div className="flex justify-between mt-0.5">
+                  <span className="text-[10px] text-[#BFB8B0]">{monthly}</span>
+                  <span className="text-[10px] text-[#BFB8B0]">{thb}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 pt-3 border-t border-[#EDE8E1] rounded-xl bg-[#FDF8EE] px-3 py-2" style={{ border: "1px solid #E8D99A" }}>
+            <p className="text-xs text-[#8B7D72]">Total Estimated</p>
+            <p className="font-bold text-[#C49A3A] text-base">$61,000+ / month</p>
+            <p className="text-xs text-[#8B7D72]">~2,000,000+ THB</p>
+          </div>
+        </div>
+
+        {/* ── Growth Chart ── */}
+        <div className="rounded-2xl border border-[#EDE8E1] bg-white p-5 space-y-3">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="rounded-xl p-1.5 bg-[#F0F8F9] border border-[#B8DDE3]">
+              <BarChart3 className="h-4 w-4 text-[#4A9BA8]" />
+            </div>
+            <p className="font-bold text-[#2C2825] text-sm">Revenue Growth</p>
+          </div>
+          {/* Bar chart */}
+          <div className="flex items-end justify-around h-36 bg-[#FAF9F6] rounded-xl px-4 py-3 gap-4">
+            {growth.map(({ year, label, height, color }) => (
+              <div key={year} className="flex flex-col items-center gap-1 flex-1">
+                <span
+                  className="text-[10px] font-bold"
+                  style={{ color }}
+                >
+                  {label}
+                </span>
+                <div
+                  className="w-full rounded-t-lg transition-all"
+                  style={{
+                    height: `${height}%`,
+                    minHeight: "12px",
+                    background: `linear-gradient(to top, ${color}, ${color}99)`,
+                  }}
+                />
+                <span className="text-[10px] text-[#8B7D72] font-medium">{year}</span>
+              </div>
+            ))}
+          </div>
+          {/* Legend */}
+          <div className="space-y-2">
+            {growth.map(({ year, label, color, desc }) => (
+              <div key={year} className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full shrink-0" style={{ background: color }} />
+                <p className="text-xs text-[#8B7D72] leading-relaxed">
+                  <span className="font-semibold text-[#5C5046]">{year} – {label}:</span> {desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ─── Slide registry ───────────────────────────────────────────── */
-const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7]
+const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8]
 
 /* ─── Main page ────────────────────────────────────────────────── */
 export default function AnuttaPage() {
