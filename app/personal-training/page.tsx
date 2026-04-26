@@ -29,14 +29,14 @@ type Stretch = {
 
 const mondayExercises: Exercise[] = [
   {
-    name: "Chest Press",
-    machine: "Chest Press Machine",
-    setup: "Seat so handles are at mid-chest height",
-    sets: 3, reps: 10,
-    tempo: "1s push / 2s return",
+    name: "Box Squat",
+    machine: "Bench or Box + Bodyweight (or light dumbbell)",
+    setup: "Stand in front of a bench, feet shoulder-width, sit back to the bench then stand tall",
+    sets: 3, reps: 8,
+    tempo: "2s down / 1s pause / 1s stand",
     rest: "60–90s",
-    cue: "Before you push, take a big breath, brace your core, and press your back firmly into the seat pad — this is your base. Drive both handles forward explosively but smoothly, stopping just short of full elbow lockout so the chest stays under tension the whole time. On the way back, resist the weight for a full 2 seconds; this eccentric phase is where most of the muscle growth actually happens — don't let it snap back.",
-    muscle: "Chest",
+    cue: "Sit back under control until your hips lightly touch the bench, keep your chest tall and knees tracking over mid-foot, then stand up by pushing through your whole foot. Do not crash onto the bench or rock forward; the bench is only a depth target. This replaces heavy barbell squats so you can build safe leg strength first.",
+    muscle: "Legs",
   },
   {
     name: "Lat Pulldown",
@@ -122,13 +122,13 @@ const mondayExercises: Exercise[] = [
 
 const wednesdayExercises: Exercise[] = [
   {
-    name: "Chest Press",
-    machine: "Chest Press Machine",
-    setup: "Same as Monday — handles at mid-chest",
-    sets: 3, reps: 10,
-    tempo: "1s push / 2s return",
+    name: "Incline Push-up",
+    machine: "Bench, Smith bar, or sturdy table",
+    setup: "Hands elevated at chest height, body in a straight line from head to heels",
+    sets: 3, reps: 8,
+    tempo: "1s press / 2s lower",
     rest: "60–90s",
-    cue: "By Wednesday your chest may still feel slightly fatigued from Monday — that's normal, but don't reduce the weight; instead focus harder on the 2-second return and make each rep as deliberate as possible. Brace your core against the seat, keep a natural arch in your lower back, and lead the push with your chest rather than your arms. If you feel it mostly in your shoulders, drop 5–10% of the weight and reset your grip slightly wider.",
+    cue: "Brace your core before each rep and lower your chest to the edge in control; press back up without flaring your elbows. The higher the surface, the easier and safer the movement. This replaces floor burpees and mountain climbers to avoid rapid blood-pressure spikes.",
     muscle: "Chest",
   },
   {
@@ -215,14 +215,14 @@ const wednesdayExercises: Exercise[] = [
 
 const fridayExercises: Exercise[] = [
   {
-    name: "Chest Press",
-    machine: "Chest Press Machine",
-    setup: "Same as Monday",
-    sets: 3, reps: 10,
-    tempo: "1s push / 2s return",
-    rest: "60–90s",
-    cue: "Friday is your benchmark day — if the weight from Monday felt manageable by Wednesday, consider adding 2.5–5 kg today and see how the first set feels. Brace hard against the seat, keep your chest forward, and push with intention; focus on feeling the chest working rather than just completing the reps mechanically. If the last 2–3 reps of any set become difficult to complete with good form, that's exactly the right intensity — grind through them with control rather than speeding up or leaning forward.",
-    muscle: "Chest",
+    name: "Long Walk",
+    machine: "Outdoor walk or treadmill incline 0–2%",
+    setup: "Comfortable pace where you can speak in full sentences",
+    sets: 1, reps: "20–30 min",
+    tempo: "Steady",
+    rest: "N/A",
+    cue: "Keep effort at a steady conversational pace from start to finish. No jogging, no jumping, and no all-out intervals. This replaces jumping jacks as your Friday cardio.",
+    muscle: "Legs",
   },
   {
     name: "Lat Pulldown",
@@ -305,13 +305,13 @@ const fridayExercises: Exercise[] = [
     muscle: "Glutes",
   },
   {
-    name: "Plank",
-    machine: "Bodyweight",
-    setup: "Forearms on floor, straight line from head to heels",
-    sets: 3, reps: "30–45s",
-    tempo: "Hold",
+    name: "Dead Bug",
+    machine: "Bodyweight (floor mat)",
+    setup: "Lie on back, knees over hips at 90°, arms straight toward ceiling, low back gently pressed into floor",
+    sets: 3, reps: "8 each side",
+    tempo: "Controlled",
     rest: "45–60s",
-    cue: "End the week strong: aim to add 5 seconds to your best time from Monday. But only if you can maintain perfect form — abs braced, glutes squeezed, hips in line. If 45 seconds of perfect form is easy, progress by adding a rep or elevating your feet slightly on the next session rather than extending the time further; after 60 seconds a plank becomes an endurance exercise rather than a core strength one.",
+    cue: "Slowly lower opposite arm and leg while keeping your lower back glued to the floor, then return and switch sides. Exhale during the reach to keep your ribs down. This replaces crunches and sit-ups to train your core without straining your neck or lower back.",
     muscle: "Core",
   },
 ]
@@ -327,8 +327,30 @@ const tuesdayStretches: Stretch[] = [
 const globalRules = [
   { topic: "Weight selection", rule: "Last 2–3 reps of each set should be hard but doable with good form." },
   { topic: "Weekly progression", rule: "Once all reps feel easy, add a small amount of weight next session." },
-  { topic: "Session length", rule: "50–60 min total including warm-up and bike. Don\u2019t drag it out." },
+  { topic: "Cardio intensity", rule: "Steady effort only. No HIIT/sprints until your base fitness is built." },
+  { topic: "Session length", rule: "50–60 min total including warm-up and steady cardio. Don\u2019t drag it out." },
   { topic: "Training frequency", rule: "3\u00d7 per week. Rest days between sessions are not optional — they\u2019re when you grow." },
+]
+
+const safetyOverrides = [
+  {
+    day: "Monday (Lower Body / Leg Day)",
+    remove: "Remove #1 running/jumping and #3 barbell squats.",
+    detail: "No treadmill running, box jumps, or heavy back-loaded squats at 115kg as a beginner.",
+    replace: "Use box squats (sit to bench, stand up under control).",
+  },
+  {
+    day: "Wednesday (Upper Body / Push-Pull Day)",
+    remove: "Remove #2 floor burpees/mountain climbers and #5 HIIT/sprints.",
+    detail: "Avoid repeated floor-to-stand spikes and all-out intervals while building cardiovascular base.",
+    replace: "Use incline push-ups and seated rows with steady effort cardio only.",
+  },
+  {
+    day: "Friday (Full Body / Circuit Day)",
+    remove: "Remove #4 crunches/sit-ups and #1 jumping jacks.",
+    detail: "Protect neck, lower back, knees, and ankles by removing high-impact and neck-dominant ab work.",
+    replace: "Use dead bugs for abs and a long walk for cardio.",
+  },
 ]
 
 const weekOverview = [
@@ -428,59 +450,36 @@ function ExerciseGrid({ exercises }: { exercises: Exercise[] }) {
   )
 }
 
-function BikeHiit({ minutes = 10 }: { minutes?: number }) {
-  const intervals = 5
+function SteadyCardio({ minutes = 15, mode = "bike" }: { minutes?: number; mode?: "bike" | "walk" }) {
+  const steadyMinutes = Math.max(minutes - 5, 8)
+  const title = mode === "walk" ? "Long Walk (No Jogging)" : "Steady Bike (No Sprints)"
   return (
     <div className="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden">
       <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-800">
         <Bike className="h-4 w-4 text-cyan-400 shrink-0" />
-        <span className="text-sm font-semibold text-white">Bike HIIT</span>
+        <span className="text-sm font-semibold text-white">{title}</span>
         <span className="ml-auto text-xs text-gray-400">{minutes} min total</span>
       </div>
 
-      {/* Phases */}
       <div className="px-5 py-4 space-y-3">
-        {/* Warm-up */}
-        <div className="flex items-center gap-3">
-          <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">Warm-up</span>
+        <p className="text-xs text-gray-300">
+          Keep effort steady at conversation pace (RPE 4–5/10). You should be able to speak full sentences.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div className="rounded-xl border border-sky-500/25 bg-sky-500/10 px-3 py-2">
+            <p className="text-[10px] uppercase tracking-wider text-sky-300 font-medium">Warm-up</p>
+            <p className="text-xs text-sky-200 mt-0.5">3 min easy pace</p>
           </div>
-          <div className="h-6 w-16 rounded-md bg-sky-500/20 border border-sky-500/30 flex items-center justify-center">
-            <span className="text-[10px] text-sky-300 font-medium">0–2 min</span>
+          <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-3 py-2">
+            <p className="text-[10px] uppercase tracking-wider text-emerald-300 font-medium">Steady Work</p>
+            <p className="text-xs text-emerald-200 mt-0.5">{steadyMinutes} min continuous</p>
           </div>
-          <span className="text-xs text-gray-300">Easy, low resistance. Get your heart rate rising slowly.</span>
-        </div>
-
-        {/* Interval strip */}
-        <div className="flex items-center gap-3">
-          <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">Intervals</span>
-          </div>
-          <div className="flex gap-1 flex-1">
-            {Array.from({ length: intervals }).map((_, i) => (
-              <div key={i} className="flex gap-0.5 flex-1">
-                <div className="h-6 flex-[1] rounded-l-md bg-red-500/25 border border-red-500/30 flex items-center justify-center">
-                  <span className="text-[9px] text-red-300 font-bold">20s</span>
-                </div>
-                <div className="h-6 flex-[2] rounded-r-md bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center">
-                  <span className="text-[9px] text-emerald-300">40s</span>
-                </div>
-              </div>
-            ))}
+          <div className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 px-3 py-2">
+            <p className="text-[10px] uppercase tracking-wider text-cyan-300 font-medium">Cool-down</p>
+            <p className="text-xs text-cyan-200 mt-0.5">2 min very easy</p>
           </div>
         </div>
-
-        {/* Legend */}
-        <div className="flex gap-4 pt-1">
-          <div className="flex items-center gap-1.5">
-            <div className="h-2.5 w-5 rounded bg-red-500/25 border border-red-500/30" />
-            <span className="text-[10px] text-gray-400">Sprint — all-out effort</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="h-2.5 w-5 rounded bg-emerald-500/15 border border-emerald-500/20" />
-            <span className="text-[10px] text-gray-400">Easy — catch your breath</span>
-          </div>
-        </div>
+        <p className="text-[10px] text-amber-300">No HIIT and no all-out sprints.</p>
       </div>
     </div>
   )
@@ -580,10 +579,30 @@ export default function PersonalTrainingPage() {
             <h1 className="text-3xl md:text-4xl font-light tracking-tight text-white">Personal Training Plan</h1>
           </div>
           <p className="max-w-xl text-gray-400 text-sm leading-relaxed">
-            Machine-only, 3&times;/week. Every exercise includes machine setup, sets&times;reps, tempo, rest time, and
-            a coaching cue. No squats or push-ups.
+            Beginner-safe and low-impact, 3&times;/week. Every exercise includes setup, sets&times;reps, tempo, rest
+            time, and a coaching cue. No running, jumping, sprint HIIT, barbell back squats, floor burpees, crunches,
+            or sit-ups.
           </p>
         </div>
+
+        {/* Mandatory safety overrides */}
+        <section className="mb-8 rounded-3xl border border-rose-500/25 bg-rose-500/8 p-5 md:p-6">
+          <p className="text-[11px] uppercase tracking-widest text-rose-300 font-medium">Mandatory Safety Overrides</p>
+          <p className="mt-1 text-xs text-rose-200/80 max-w-3xl">
+            Starting at 115kg with no exercise history: remove the listed high-risk categories exactly as shown and use
+            the replacement movement.
+          </p>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            {safetyOverrides.map(({ day, remove, detail, replace }) => (
+              <article key={day} className="rounded-2xl border border-rose-500/20 bg-black/20 px-4 py-3">
+                <p className="text-sm font-semibold text-rose-100">{day}</p>
+                <p className="mt-2 text-xs text-rose-100/90"><span className="font-semibold">Remove:</span> {remove}</p>
+                <p className="mt-1 text-xs text-rose-200/80">{detail}</p>
+                <p className="mt-2 text-xs text-emerald-200"><span className="font-semibold">Instead:</span> {replace}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         {/* Week overview strip */}
         <div className="mb-10 flex flex-wrap items-center gap-2">
@@ -597,8 +616,8 @@ export default function PersonalTrainingPage() {
             </div>
           ))}
           <div className="ml-auto rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-2.5 text-xs text-gray-400 shrink-0">
-            <span className="font-medium text-white block mb-0.5">Exercise Order</span>
-            Chest &rarr; Back &rarr; Back &rarr; Chest &rarr; Arms &rarr; Legs &rarr; Bike
+            <span className="font-medium text-white block mb-0.5">Safety Flow</span>
+            Controlled strength &rarr; no impact &rarr; steady cardio
           </div>
         </div>
 
@@ -606,9 +625,9 @@ export default function PersonalTrainingPage() {
         <div className="space-y-5">
 
           {/* ── Monday ── */}
-          <DayCard day="Monday" title="Weights + Bike" type="train">
+          <DayCard day="Monday" title="Lower Body / Leg Day (Low Impact)" type="train">
             <ExerciseGrid exercises={mondayExercises} />
-            <BikeHiit minutes={10} />
+            <SteadyCardio minutes={15} mode="bike" />
           </DayCard>
 
           {/* ── Tuesday ── */}
@@ -620,9 +639,9 @@ export default function PersonalTrainingPage() {
           </DayCard>
 
           {/* ── Wednesday ── */}
-          <DayCard day="Wednesday" title="Weights + Bike" type="train">
+          <DayCard day="Wednesday" title="Upper Body / Push-Pull Day (Steady Effort)" type="train">
             <ExerciseGrid exercises={wednesdayExercises} />
-            <BikeHiit minutes={10} />
+            <SteadyCardio minutes={15} mode="bike" />
           </DayCard>
 
           {/* ── Thursday ── */}
@@ -642,9 +661,8 @@ export default function PersonalTrainingPage() {
           </DayCard>
 
           {/* ── Friday ── */}
-          <DayCard day="Friday" title="Weights + Extra Arms + Bike" type="train">
+          <DayCard day="Friday" title="Full Body / Circuit Day (No Jumping)" type="train">
             <ExerciseGrid exercises={fridayExercises} />
-            <BikeHiit minutes={10} />
           </DayCard>
 
           {/* ── Saturday ── */}

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Metadata } from "next"
-import { Github, ArrowRight, Flame, Globe, Video, Coffee, Wrench, Coins, Dumbbell, Utensils, Boxes, Music4, PackageOpen } from "lucide-react"
+import { Github, ArrowRight, Flame, Globe, Video, Coffee, Wrench, Coins, Boxes, Music4, PackageOpen } from "lucide-react"
 import type { ElementType } from "react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -183,26 +183,6 @@ export default function Home() {
                 <Link href="https://github.com/kowito" target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2 h-4 w-4" />
                   GitHub
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-full px-5 border-gray-500 text-white bg-gray-800/50 hover:bg-gray-700 hover:border-gray-400"
-                asChild
-              >
-                <Link href="/personal-training">
-                  <Dumbbell className="mr-2 h-4 w-4" />
-                  Training Plan
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-full px-5 border-gray-500 text-white bg-gray-800/50 hover:bg-gray-700 hover:border-gray-400"
-                asChild
-              >
-                <Link href="/diet">
-                  <Utensils className="mr-2 h-4 w-4" />
-                  Diet Plan
                 </Link>
               </Button>
               <Button
