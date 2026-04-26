@@ -593,16 +593,14 @@ const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8]
 
 /* ─── Main page ────────────────────────────────────────────────── */
 export default function AnuttaPage() {
-  const [authed, setAuthed] = useState(false)
+  const [authed, setAuthed] = useState(() =>
+    typeof window !== "undefined" && sessionStorage.getItem(SESSION_KEY) === "1"
+  )
   const [input, setInput] = useState("")
   const [showPw, setShowPw] = useState(false)
   const [err, setErr] = useState(false)
   const [current, setCurrent] = useState(0)
   const touchX = useRef<number>(0)
-
-  useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY) === "1") setAuthed(true)
-  }, [])
 
   function unlock(e: React.FormEvent) {
     e.preventDefault()
