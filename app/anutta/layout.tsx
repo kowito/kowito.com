@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Anutta Parse Code",
-  description: "Private presentation.",
+  description: "A personal blog by Anutta Parse Code on travel, tech, and smart lifestyle stories.",
   robots: {
     index: false,
     follow: false,

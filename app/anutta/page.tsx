@@ -47,7 +47,7 @@ export default function AnuttaPage() {
     <main className="min-h-[100dvh] bg-[#FAF8F5] px-6 py-10 md:px-10">
       <div className="mx-auto w-full max-w-4xl">
         <h1 className="font-display text-3xl font-bold text-[#1E1A17] md:text-5xl">Anutta</h1>
-        <p className="mt-3 text-base text-[#6B5F55] md:text-lg">Table of contents</p>
+        <p className="mt-3 text-base text-[#6B5F55] md:text-lg">A personal blog by Anutta Parse Code on travel, tech, and smart lifestyle stories.</p>
 
         <div className="mt-8 overflow-hidden rounded-2xl border border-[#E8E2DA] bg-white shadow-sm">
           <table className="w-full table-auto text-left">
