@@ -15,14 +15,6 @@ export async function generateStaticParams() {
   return files.map((f) => ({ slug: f }))
 }
 
-function slugToTitle(slug: string) {
-  return slug
-    .replace(/^\d+-/, "")
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ")
-}
-
 export default async function ContentPage({
   params,
 }: {
@@ -36,8 +28,6 @@ export default async function ContentPage({
   } catch {
     notFound()
   }
-
-  const title = slugToTitle(slug)
 
   return (
     <main className="min-h-[100dvh] bg-[#FAF8F5] px-5 py-10 md:px-10">
