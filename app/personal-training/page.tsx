@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft, Dumbbell, Timer, Repeat2, Zap, Info, Bike, Utensils } from "lucide-react"
+import { ArrowLeft, Dumbbell, Footprints, Timer, Repeat2, Zap, Info, Utensils } from "lucide-react"
 import type { ReactNode } from "react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -141,13 +141,13 @@ const tuesdayStretches: Stretch[] = [
   { name: "ยืดหลัง", how: "นั่งแล้วเอื้อมแขนไปข้างหน้า โค้งหลังส่วนบนเบาๆ", duration: "2 นาที" },
   { name: "ยืดหน้าขา", how: "ยืนจับข้อเท้าข้างหนึ่งดึงเข้าหาก้น ใช้มือข้างเดียวกันจับไว้", duration: "1 นาที/ข้าง" },
   { name: "ยืดหลังขา", how: "นั่งเหยียดขาตรง เอื้อมมือไปแตะปลายเท้า", duration: "1–2 นาที" },
-  { name: "ปั่นจักรยานเบาๆ", how: "ปั่นช้าๆ ระดับเบาสบาย เหนื่อยนิดเดียวพอ", duration: "10–15 นาที" },
+  { name: "เดินเร็วทางราบ", how: "เดินในหมู่บ้านหรือสวนสาธารณะ แกว่งแขนสบายๆ คุมชีพจรให้ต่ำ", duration: "20–30 นาที" },
 ]
 
 const globalRules = [
   { topic: "ความหนัก", rule: "จบแต่ละเซตโดยยังเหลือแรงอีก 3–4 ครั้ง ควรรู้สึกทำได้สบาย ไม่ใช่โหดเกินไป" },
   { topic: "ปริมาณ", rule: "ตอนนี้ใช้แค่ 3 ท่าต่อวันฝึก และท่าละ 2 เซตพอ" },
-  { topic: "คาร์ดิโอ", rule: "ใช้จักรยานเบาๆ เท่านั้น และต้องยังพูดเป็นประโยคได้ตลอดเวลา" },
+  { topic: "คาร์ดิโอ", rule: "ใช้เดินลู่ปรับชันหรือเดินทางราบเป็นหลัก และต้องยังพูดเป็นประโยคได้ตลอดเวลา" },
   { topic: "เวลาต่อเซสชัน", rule: "รวมทั้งหมดประมาณ 25–35 นาที ออกจากยิมแล้วควรรู้สึกว่ายังพอไหวอีกนิด" },
   { topic: "การเพิ่มระดับ", rule: "เพิ่มจำนวนครั้งก่อน แล้วค่อยเพิ่มน้ำหนักเมื่อครบสัปดาห์แล้วรู้สึกสบาย" },
   { topic: "ความถี่การฝึก", rule: "3\u00d7 ต่อสัปดาห์ วันพักระหว่างเซสชันห้ามขาด เพราะช่วงนั้นคือเวลาฟื้นตัว" },
@@ -251,75 +251,55 @@ function ExerciseGrid({ exercises }: { exercises: Exercise[] }) {
   )
 }
 
-function EasyBike({ minutes = 8 }: { minutes?: number }) {
-  const easyMinutes = Math.max(minutes - 4, 4)
+function TreadmillWalk({
+  title,
+  minutes,
+  incline,
+  speed,
+  focus,
+  note,
+}: {
+  title: string
+  minutes: string
+  incline: string
+  speed: string
+  focus: string
+  note: string
+}) {
   return (
     <div className="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden">
       <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-800">
-        <Bike className="h-4 w-4 text-cyan-400 shrink-0" />
-        <span className="text-sm font-semibold text-white">ปั่นจักรยานเบาๆ</span>
-        <span className="ml-auto text-xs text-gray-400">{minutes} min total</span>
+        <Footprints className="h-4 w-4 text-cyan-400 shrink-0" />
+        <span className="text-sm font-semibold text-white">{title}</span>
+        <span className="ml-auto text-xs text-gray-400">{minutes}</span>
       </div>
 
       <div className="px-5 py-4 space-y-3">
         <div className="flex items-center gap-3">
           <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">วอร์มอัพ</span>
+            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">ความชัน</span>
           </div>
           <div className="h-6 w-16 rounded-md bg-sky-500/20 border border-sky-500/30 flex items-center justify-center">
-            <span className="text-[10px] text-sky-300 font-medium">0–2 นาที</span>
+            <span className="text-[10px] text-sky-300 font-medium">{incline}</span>
           </div>
-          <span className="text-xs text-gray-300">ปั่นช้ามาก แค่ให้ร่างกายอุ่น และหายใจทางจมูกได้ถ้าไหว</span>
+          <span className="text-xs text-gray-300">{focus}</span>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">ช่วงปั่น</span>
+            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">ความเร็ว</span>
           </div>
           <div className="h-6 flex-1 rounded-md bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center">
-            <span className="text-[10px] text-emerald-300 font-medium">{easyMinutes} นาทีแบบสบายๆ</span>
+            <span className="text-[10px] text-emerald-300 font-medium">{speed}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">คูลดาวน์</span>
+            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">หมายเหตุ</span>
           </div>
-          <div className="h-6 w-16 rounded-md bg-cyan-500/15 border border-cyan-500/20 flex items-center justify-center">
-            <span className="text-[10px] text-cyan-300 font-medium">2 นาทีสุดท้าย</span>
-          </div>
-          <span className="text-xs text-gray-300">ค่อยๆ เบาลง แล้วจบแบบรู้สึกดีขึ้นกว่าตอนเริ่ม</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function TreadmillWalk({ minutes = 10 }: { minutes?: number }) {
-  return (
-    <div className="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-800">
-        <Timer className="h-4 w-4 text-cyan-400 shrink-0" />
-        <span className="text-sm font-semibold text-white">เดินลู่</span>
-        <span className="ml-auto text-xs text-gray-400">{minutes} min</span>
-      </div>
-
-      <div className="px-5 py-4 space-y-3">
-        <div className="flex items-center gap-3">
-          <div className="w-16 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">เดิน</span>
-          </div>
-          <div className="h-6 flex-1 rounded-md bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center">
-            <span className="text-[10px] text-emerald-300 font-medium">ความเร็วสบายๆ ถ้าทำได้ให้หายใจทางจมูก</span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="w-16 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">เป้าหมาย</span>
-          </div>
-          <div className="h-6 rounded-md bg-sky-500/15 border border-sky-500/20 flex items-center justify-center px-3">
-            <span className="text-[10px] text-sky-300 font-medium">ช่วยคลายกล้ามเนื้อ อย่าเปลี่ยนเป็นคาร์ดิโอหนัก</span>
+          <div className="h-6 rounded-md bg-cyan-500/15 border border-cyan-500/20 flex items-center justify-center px-3">
+            <span className="text-[10px] text-cyan-300 font-medium">{note}</span>
           </div>
         </div>
       </div>
@@ -444,7 +424,7 @@ export default function PersonalTrainingPage() {
           </div>
           <p className="max-w-xl text-gray-400 text-sm leading-relaxed">
             แผนนี้ผูกกับอุปกรณ์ที่มีจริงในยิมของคุณ: Multi-Press, เครื่องเคเบิลคอมโบ, Leg Extension, ดัมเบล,
-            ลู่เดิน และจักรยาน ปรับให้ฝึก 3&times; ต่อสัปดาห์แบบคุมแรงและคุมฟอร์มได้ง่าย
+            ลู่เดินและเดินทางราบ ปรับให้ฝึก 3&times; ต่อสัปดาห์แบบคุมแรงและคุมฟอร์มได้ง่าย
           </p>
         </div>
 
@@ -462,7 +442,7 @@ export default function PersonalTrainingPage() {
           <div className="ml-auto rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-2.5 text-xs text-gray-400 shrink-0">
             <span className="font-medium text-white block mb-0.5">ลำดับเริ่มต้น</span>
             วันจันทร์/ศุกร์ ใช้ Multi-Press + เคเบิล + Leg Extension, วันพุธเพิ่มเครื่องเคเบิลรอกล่างและไหล่
-            &rarr; คาร์ดิโอเบาๆ &rarr; กลับบ้าน
+            &rarr; เดินคาร์ดิโอ &rarr; กลับบ้าน
           </div>
         </div>
 
@@ -472,7 +452,14 @@ export default function PersonalTrainingPage() {
           {/* ── Monday ── */}
           <DayCard day="จันทร์" title="เวิร์กเอาต์เริ่มต้น A" type="train">
             <ExerciseGrid exercises={mondayExercises} />
-            <EasyBike minutes={8} />
+            <TreadmillWalk
+              title="เดินลู่ปรับชัน"
+              minutes="10 นาที"
+              incline="5–6"
+              speed="3.5 กม./ชม."
+              focus="หลังเวท A ใช้เป็นคาร์ดิโอจบเซสชันแทนโปรแกรมเดิม"
+              note="คุมให้ยังพูดได้"
+            />
           </DayCard>
 
           {/* ── Tuesday ── */}
@@ -491,7 +478,14 @@ export default function PersonalTrainingPage() {
             </p>
             <WednesdayMachineFlow />
             <ExerciseGrid exercises={wednesdayExercises} />
-            <TreadmillWalk minutes={10} />
+            <TreadmillWalk
+              title="เดินลู่ปรับชัน"
+              minutes="15–20 นาที"
+              incline="6–8"
+              speed="3.8 กม./ชม."
+              focus="คุมลมหายใจทางจมูกและเดินต่อเนื่องหลังเวท B"
+              note="โซนเบิร์นไขมัน"
+            />
           </DayCard>
 
           {/* ── Thursday ── */}
@@ -513,18 +507,25 @@ export default function PersonalTrainingPage() {
           {/* ── Friday ── */}
           <DayCard day="ศุกร์" title="เวิร์กเอาต์เริ่มต้น C" type="train">
             <ExerciseGrid exercises={fridayExercises} />
-            <EasyBike minutes={8} />
+            <TreadmillWalk
+              title="เดินลู่ปรับชัน"
+              minutes="10 นาที"
+              incline="5"
+              speed="3.5 กม./ชม."
+              focus="เดินเบาๆ คลายขาหลังจบเวท C"
+              note="แทนโปรแกรมเดิม"
+            />
           </DayCard>
 
           {/* ── Saturday ── */}
           <DayCard day="เสาร์" title="เลือกได้" type="optional">
             <p className="text-sm text-gray-400 -mt-2 mb-3">
-              ทำกิจกรรมเบาๆ เท่านั้น วันนี้ไม่ใช่วันฝึก คุมชีพจรให้อยู่ต่ำไว้ และใช้จักรยานหรือลู่เฉพาะถ้ารู้สึกฟื้นตัวดี
+              ทำกิจกรรมเบาๆ เท่านั้น วันนี้ไม่ใช่วันฝึก คุมชีพจรให้อยู่ต่ำไว้ และเลือกเดินทางราบหรือลู่เฉพาะถ้ารู้สึกฟื้นตัวดี
             </p>
             <div className="flex flex-wrap gap-2">
               <div className="rounded-2xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-sm">
-                <p className="font-medium text-amber-200">ปั่นจักรยานคงที่</p>
-                <p className="text-amber-300/70 text-xs mt-0.5">15–20 นาที แบบสบายๆ ระดับปานกลาง</p>
+                <p className="font-medium text-amber-200">เดินเร็วทางราบ / ลู่</p>
+                <p className="text-amber-300/70 text-xs mt-0.5">20–30 นาที แบบชิลๆ เลือกพักเต็มที่ได้</p>
               </div>
               <div className="rounded-2xl border border-gray-700 bg-gray-900/30 px-4 py-3 text-sm">
                 <p className="font-medium text-gray-300">หรือพักเต็มที่</p>
