@@ -29,6 +29,16 @@ type Stretch = {
 
 const mondayExercises: Exercise[] = [
   {
+    name: "Goblet Squat",
+    machine: "ดัมเบล 1 ลูก",
+    setup: "ยืนเท้ากว้างประมาณหัวไหล่ ถือดัมเบลแนบที่ระดับอกให้มั่นคง เก็บซี่โครงลงและตั้งลำตัวให้ตรงก่อนเริ่มย่อ",
+    sets: 3, reps: "8–10",
+    tempo: "ย่อลงช้า / ดันขึ้นตรง",
+    rest: "90s",
+    cue: "เลือกน้ำหนักที่ยังล็อกลำตัวได้นิ่งทั้งเซ็ต ลดสะโพกลงตรงๆ แล้วดันพื้นกลับขึ้นโดยไม่ปล่อยเข่าล้มเข้าด้านใน",
+    muscle: "แกนกลาง",
+  },
+  {
     name: "ดันอก",
     machine: "เครื่อง Multi-Press",
     setup: "ปรับเบาะให้มือจับอยู่ระดับกลางอก พิงหลังชิดเบาะเต็มแผ่น วางเท้าราบกับพื้นและเก็บสะบักลงก่อนเริ่มดัน",
@@ -105,6 +115,16 @@ const wednesdayExercises: Exercise[] = [
 
 const fridayExercises: Exercise[] = [
   {
+    name: "Goblet Squat",
+    machine: "ดัมเบล 1 ลูก",
+    setup: "ยืนเท้ากว้างประมาณหัวไหล่ ถือดัมเบลแนบที่ระดับอก เกร็งลำตัวให้แน่นและวางน้ำหนักกลางเท้าก่อนย่อ",
+    sets: 3, reps: "8–10",
+    tempo: "ย่อลงช้า / ดันขึ้นตรง",
+    rest: "90s",
+    cue: "ทำให้คมและนิ่งเหมือนวันจันทร์ แต่ยังเหลือแรงอีก 1–2 ครั้งในแต่ละเซ็ตเพื่อไม่ให้ล้าก่อนจบสัปดาห์",
+    muscle: "แกนกลาง",
+  },
+  {
     name: "ดันอก",
     machine: "เครื่อง Multi-Press",
     setup: "ใช้เบาะระดับอกเหมือนวันจันทร์ ปรับตำแหน่งมือจับให้สอดคล้องกับกลางหน้าอก พิงหลังเต็มแผ่นและคุมไหล่ให้นิ่ง",
@@ -133,6 +153,16 @@ const fridayExercises: Exercise[] = [
     rest: "90s",
     cue: "ทำเหมือนวันจันทร์ แต่ให้เนียนและคุมมากกว่าเดิม ค้างบนสุดสั้นๆ แล้วปล่อยลงช้าๆ โดยไม่ดีดกลับ",
     muscle: "ขา",
+  },
+  {
+    name: "Glute Bridge",
+    machine: "เสื่อ / พื้นราบ",
+    setup: "นอนหงาย ชันเข่า วางเท้าราบกับพื้น กดส้นเท้าเบาๆ แล้วเกร็งก้นก่อนดันสะโพกขึ้น",
+    sets: 3, reps: 15,
+    tempo: "ดันขึ้น / ค้าง 2 วินาที / ลงช้า",
+    rest: "60s",
+    cue: "บีบก้นให้สุดที่จุดบนสุดแล้วค่อยหย่อนลงช้าๆ อย่าแอ่นหลังเกินจำเป็น และเก็บแรงไว้ให้ครบทุกเซ็ต",
+    muscle: "ก้น",
   },
 ]
 
@@ -258,6 +288,7 @@ function TreadmillWalk({
   speed,
   focus,
   note,
+  technique,
 }: {
   title: string
   minutes: string
@@ -265,6 +296,7 @@ function TreadmillWalk({
   speed: string
   focus: string
   note: string
+  technique?: string
 }) {
   return (
     <div className="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden">
@@ -302,6 +334,15 @@ function TreadmillWalk({
             <span className="text-[10px] text-cyan-300 font-medium">{note}</span>
           </div>
         </div>
+
+        {technique ? (
+          <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-200 leading-relaxed">
+            <span className="text-emerald-300 font-medium uppercase tracking-wide text-[10px] mr-1.5">
+              เทคนิคเดิน
+            </span>
+            {technique}
+          </div>
+        ) : null}
       </div>
     </div>
   )
@@ -441,7 +482,7 @@ export default function PersonalTrainingPage() {
           ))}
           <div className="ml-auto rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-2.5 text-xs text-gray-400 shrink-0">
             <span className="font-medium text-white block mb-0.5">ลำดับเริ่มต้น</span>
-            วันจันทร์/ศุกร์ ใช้ Multi-Press + เคเบิล + Leg Extension, วันพุธเพิ่มเครื่องเคเบิลรอกล่างและไหล่
+            วันจันทร์/ศุกร์ เริ่มด้วย Goblet Squat แล้วค่อยต่อ Multi-Press + เคเบิล + Leg Extension, วันพุธเพิ่มเครื่องเคเบิลรอกล่างและไหล่
             &rarr; เดินคาร์ดิโอ &rarr; กลับบ้าน
           </div>
         </div>
@@ -459,6 +500,7 @@ export default function PersonalTrainingPage() {
               speed="3.5 กม./ชม."
               focus="หลังเวท A ใช้เป็นคาร์ดิโอจบเซสชันแทนโปรแกรมเดิม"
               note="คุมให้ยังพูดได้"
+              technique="ไม่จับบาร์ ปล่อยแขนแกว่งตามธรรมชาติ ลำตัวตั้งตรง เกร็งแกนกลางเบาๆ ตลอดช่วงเดินชัน"
             />
           </DayCard>
 
@@ -485,6 +527,7 @@ export default function PersonalTrainingPage() {
               speed="3.8 กม./ชม."
               focus="คุมลมหายใจทางจมูกและเดินต่อเนื่องหลังเวท B"
               note="โซนเบิร์นไขมัน"
+              technique="ไม่จับบาร์เช่นกัน คุมลำตัวนิ่งและหายใจเป็นจังหวะ ฝึกแขม่วท้องเบาๆ เป็นระยะเพื่อพยุงแกนกลาง"
             />
           </DayCard>
 
@@ -514,6 +557,7 @@ export default function PersonalTrainingPage() {
               speed="3.5 กม./ชม."
               focus="เดินเบาๆ คลายขาหลังจบเวท C"
               note="แทนโปรแกรมเดิม"
+              technique="คงท่ายืนตรง ไม่เกาะบาร์ และขยับสะโพกกับเข่าให้ทำงานพร้อมกันเพื่อรับน้ำหนักตัวเต็มช่วง"
             />
           </DayCard>
 
