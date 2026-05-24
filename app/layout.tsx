@@ -80,7 +80,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
+      <body
+        suppressHydrationWarning
+        className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} font-sans antialiased`}
+      >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
