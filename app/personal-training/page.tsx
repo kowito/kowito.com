@@ -30,7 +30,7 @@ type Stretch = {
 const mondayExercises: Exercise[] = [
   {
     name: "Smith Machine Squat",
-    machine: "เครื่อง Smith Machine",
+    machine: "Smith Machine",
     setup: "วางบาร์บนบ่าด้านหลัง ก้าวเท้าไปข้างหน้าเล็กน้อย เกร็งท้องและตั้งลำตัวให้มั่นคงก่อนเริ่มย่อ",
     sets: 3, reps: "8–10",
     tempo: "ย่อลงช้า / ดันขึ้นตรง",
@@ -39,8 +39,8 @@ const mondayExercises: Exercise[] = [
     muscle: "ขา",
   },
   {
-    name: "ดันอก",
-    machine: "เครื่อง Multi-Press",
+    name: "Chest Press",
+    machine: "Multi-Press",
     setup: "ปรับเบาะให้มือจับอยู่ระดับกลางอก พิงหลังชิดเบาะเต็มแผ่น วางเท้าราบกับพื้นและเก็บสะบักลงก่อนเริ่มดัน",
     sets: 2, reps: 8,
     tempo: "ดัน 1 วินาที / ปล่อยกลับ 2 วินาที",
@@ -49,8 +49,8 @@ const mondayExercises: Exercise[] = [
     muscle: "อก",
   },
   {
-    name: "ดึงหลังบน",
-    machine: "เครื่องดึงหลังคอมโบ - รอกบน",
+    name: "Lat Pulldown",
+    machine: "Cable Combo - High Pulley",
     setup: "ล็อกนวมต้นขาให้แน่น จับบาร์กว้างกว่าไหล่เล็กน้อย นั่งให้ลำตัวตั้งตรงและเชิดอกก่อนเริ่มดึงลง",
     sets: 2, reps: 8,
     tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
@@ -59,8 +59,8 @@ const mondayExercises: Exercise[] = [
     muscle: "หลัง",
   },
   {
-    name: "เตะขาหน้า",
-    machine: "เครื่อง Leg Extension",
+    name: "Leg Extension",
+    machine: "Leg Extension",
     setup: "ปรับพนักพิงให้หลังแนบเบาะ วางนวมเหนือข้อเท้าเล็กน้อย และจัดหัวเข่าให้ตรงแนวกับแกนเครื่อง",
     sets: 2, reps: 10,
     tempo: "ยกขึ้นลื่นไหล / ลงช้าๆ",
@@ -72,8 +72,8 @@ const mondayExercises: Exercise[] = [
 
 const wednesdayExercises: Exercise[] = [
   {
-    name: "ดึงหลังบน",
-    machine: "เครื่องเคเบิลคอมโบ - รอกบน",
+    name: "Lat Pulldown",
+    machine: "Cable Combo - High Pulley",
     setup: "นั่งใต้ที่ล็อกต้นขา จับบาร์ยาวกว้างกว่าไหล่เล็กน้อย ตั้งอกขึ้น เก็บคาง และเตรียมดึงลงด้วยหลังไม่ใช่แขน",
     sets: 3, reps: "10–12",
     tempo: "ดึงคุมจังหวะ / กลับช้า",
@@ -82,8 +82,8 @@ const wednesdayExercises: Exercise[] = [
     muscle: "หลัง",
   },
   {
-    name: "ดันอก",
-    machine: "เครื่อง Multi-Press - เบาะระดับอก",
+    name: "Chest Press",
+    machine: "Multi-Press - Chest Height",
     setup: "ปรับเบาะให้มือจับอยู่ระดับกลางหน้าอก พิงหลังชิดเบาะเต็มแผ่น แล้ววางเท้าทั้งสองข้างให้มั่นคงก่อนเริ่ม",
     sets: 2, reps: "8–10",
     tempo: "ดันลื่นไหล / กลับอย่างควบคุม",
@@ -92,8 +92,8 @@ const wednesdayExercises: Exercise[] = [
     muscle: "อก",
   },
   {
-    name: "ดึงนั่ง",
-    machine: "เครื่องเคเบิลคอมโบ - รอกล่าง",
+    name: "Seated Row",
+    machine: "Cable Combo - Low Pulley",
     setup: "นั่งตัวตรง ยืดอก ฝ่าเท้ากดกับที่พัก เข่าผ่อนเล็กน้อย และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
     sets: 2, reps: "10–12",
     tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
@@ -102,8 +102,8 @@ const wednesdayExercises: Exercise[] = [
     muscle: "หลัง",
   },
   {
-    name: "ดันไหล่",
-    machine: "เครื่อง Multi-Press - ปรับพนักพิงตั้งชัน",
+    name: "Shoulder Press",
+    machine: "Multi-Press - Incline Press",
     setup: "ยกเบาะและพนักพิงให้มือจับเริ่มที่ระดับไหล่ เก็บซี่โครงลง สะโพกติดเบาะ และให้ข้อศอกอยู่ใต้มือจับก่อนดันขึ้น",
     sets: 2, reps: "8–10",
     tempo: "ดันขึ้น / กลับช้าๆ",
@@ -116,7 +116,7 @@ const wednesdayExercises: Exercise[] = [
 const fridayExercises: Exercise[] = [
   {
     name: "Smith Machine Squat",
-    machine: "เครื่อง Smith Machine",
+    machine: "Smith Machine",
     setup: "วางบาร์บนบ่าด้านหลัง ก้าวเท้าไปข้างหน้าเล็กน้อย เกร็งท้องและล็อกลำตัวก่อนเริ่มย่อ",
     sets: 3, reps: "8–10",
     tempo: "ย่อลงช้า / ดันขึ้นตรง",
@@ -125,8 +125,8 @@ const fridayExercises: Exercise[] = [
     muscle: "ขา",
   },
   {
-    name: "ดันอก",
-    machine: "เครื่อง Multi-Press",
+    name: "Chest Press",
+    machine: "Multi-Press",
     setup: "ใช้เบาะระดับอกเหมือนวันจันทร์ ปรับตำแหน่งมือจับให้สอดคล้องกับกลางหน้าอก พิงหลังเต็มแผ่นและคุมไหล่ให้นิ่ง",
     sets: 2, reps: 8,
     tempo: "ดัน 1 วินาที / ปล่อยกลับ 2 วินาที",
@@ -135,8 +135,8 @@ const fridayExercises: Exercise[] = [
     muscle: "อก",
   },
   {
-    name: "ดึงนั่ง",
-    machine: "เครื่องดึงหลังคอมโบ - รอกล่าง",
+    name: "Seated Row",
+    machine: "Cable Combo - Low Pulley",
     setup: "นั่งตัวตรง พิงอกกับแผ่นรอง วางเท้าบนที่พัก แล้วดึงโดยเริ่มจากสะบักก่อนแขนทุกครั้ง",
     sets: 2, reps: 8,
     tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
@@ -145,8 +145,8 @@ const fridayExercises: Exercise[] = [
     muscle: "หลัง",
   },
   {
-    name: "เตะขาหน้า",
-    machine: "เครื่อง Leg Extension",
+    name: "Leg Extension",
+    machine: "Leg Extension",
     setup: "ปรับพนักพิงให้หลังแนบเบาะ วางนวมเหนือข้อเท้าเล็กน้อย และตั้งเท้าให้หัวเข่าเคลื่อนในแนวตรง",
     sets: 2, reps: 10,
     tempo: "ยกขึ้นลื่นไหล / ลงช้าๆ",
@@ -156,7 +156,7 @@ const fridayExercises: Exercise[] = [
   },
   {
     name: "Smith Machine Hip Thrust",
-    machine: "เครื่อง Smith Machine + ม้านั่งยาว",
+    machine: "Smith Machine + Long Bench",
     setup: "ลากม้านั่งยาวมาขวาง รองสะบักบนขอบเบาะ สอดตัวใต้บาร์ให้พาดตรงข้อพับสะโพกและหาโฟมรองไว้",
     sets: 3, reps: 15,
     tempo: "ดันขึ้น / ค้าง 2 วินาที / ลงช้า",
@@ -167,11 +167,11 @@ const fridayExercises: Exercise[] = [
 ]
 
 const tuesdayStretches: Stretch[] = [
-  { name: "ยืดอก", how: "ยืนพิงวงกบประตู ยกแขน 90\u00b0 แล้วเอนไปข้างหน้าเบาๆ", duration: "2 นาที" },
-  { name: "ยืดหลัง", how: "นั่งแล้วเอื้อมแขนไปข้างหน้า โค้งหลังส่วนบนเบาๆ", duration: "2 นาที" },
-  { name: "ยืดหน้าขา", how: "ยืนจับข้อเท้าข้างหนึ่งดึงเข้าหาก้น ใช้มือข้างเดียวกันจับไว้", duration: "1 นาที/ข้าง" },
-  { name: "ยืดหลังขา", how: "นั่งเหยียดขาตรง เอื้อมมือไปแตะปลายเท้า", duration: "1–2 นาที" },
-  { name: "เดินเร็วทางราบ", how: "เดินในหมู่บ้านหรือสวนสาธารณะ แกว่งแขนสบายๆ คุมชีพจรให้ต่ำ", duration: "20–30 นาที" },
+  { name: "Chest Stretch", how: "ยืนพิงวงกบประตู ยกแขน 90\u00b0 แล้วเอนไปข้างหน้าเบาๆ", duration: "2 นาที" },
+  { name: "Upper Back Stretch", how: "นั่งแล้วเอื้อมแขนไปข้างหน้า โค้งหลังส่วนบนเบาๆ", duration: "2 นาที" },
+  { name: "Quad Stretch", how: "ยืนจับข้อเท้าข้างหนึ่งดึงเข้าหาก้น ใช้มือข้างเดียวกันจับไว้", duration: "1 นาที/ข้าง" },
+  { name: "Hamstring Stretch", how: "นั่งเหยียดขาตรง เอื้อมมือไปแตะปลายเท้า", duration: "1–2 นาที" },
+  { name: "Brisk Flat Walk", how: "เดินในหมู่บ้านหรือสวนสาธารณะ แกว่งแขนสบายๆ คุมชีพจรให้ต่ำ", duration: "20–30 นาที" },
 ]
 
 const globalRules = [
@@ -359,11 +359,11 @@ function WednesdayMachineFlow() {
       <div className="px-5 py-4 grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="rounded-xl border border-gray-800 bg-black/20 px-4 py-3">
           <p className="text-[11px] uppercase tracking-wider text-emerald-300 font-medium">สถานี 1</p>
-          <p className="mt-1 text-sm text-gray-200">เครื่องเคเบิลคอมโบสำหรับดึงหลังบน แล้วต่อด้วยดึงนั่ง</p>
+          <p className="mt-1 text-sm text-gray-200">Cable station for Lat Pulldown, then Seated Row</p>
         </div>
         <div className="rounded-xl border border-gray-800 bg-black/20 px-4 py-3">
           <p className="text-[11px] uppercase tracking-wider text-sky-300 font-medium">สถานี 2</p>
-          <p className="mt-1 text-sm text-gray-200">เครื่อง Multi-Press สำหรับดันอก แล้วปรับเบาะขึ้นเพื่อดันไหล่</p>
+          <p className="mt-1 text-sm text-gray-200">Multi-Press for Chest Press, then raise the seat for Shoulder Press</p>
         </div>
       </div>
     </div>
@@ -464,8 +464,8 @@ export default function PersonalTrainingPage() {
             <h1 className="text-3xl md:text-4xl font-light tracking-tight text-white">แผนฝึกส่วนตัว</h1>
           </div>
           <p className="max-w-xl text-gray-400 text-sm leading-relaxed">
-            แผนนี้ผูกกับอุปกรณ์ที่มีจริงในยิมของคุณ: Multi-Press, เครื่องเคเบิลคอมโบ, Leg Extension,
-            เครื่อง Smith Machine, ดัมเบล และลู่เดิน/เดินทางราบ ปรับให้ฝึก 3&times; ต่อสัปดาห์แบบคุมแรงและคุมฟอร์มได้ง่าย
+            แผนนี้ผูกกับอุปกรณ์ที่มีจริงในยิมของคุณ: Multi-Press, Cable Combo, Leg Extension, Smith Machine,
+            Dumbbell, Treadmill, and Flat Walk ปรับให้ฝึก 3&times; ต่อสัปดาห์แบบคุมแรงและคุมฟอร์มได้ง่าย
           </p>
         </div>
 
@@ -516,7 +516,7 @@ export default function PersonalTrainingPage() {
           <DayCard day="พุธ" title="เน้นเครื่องดัน-ดึง" type="train">
             <p className="text-sm text-gray-400 -mt-2 mb-1">
               เลือกน้ำหนักที่ยังเหลือแรงอีกประมาณ 1–3 ครั้ง เป้าหมายคือท่าที่นิ่ง ลื่นไหล ตึงต่อเนื่อง และสลับ
-              ระหว่างเครื่องเคเบิลกับ Multi-Press ให้เป็นระบบเพื่อลดการเดินและประหยัดแรง
+              ระหว่าง Cable Combo กับ Multi-Press ให้เป็นระบบเพื่อลดการเดินและประหยัดแรง
             </p>
             <WednesdayMachineFlow />
             <ExerciseGrid exercises={wednesdayExercises} />
@@ -568,7 +568,7 @@ export default function PersonalTrainingPage() {
             </p>
             <div className="flex flex-wrap gap-2">
               <div className="rounded-2xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-sm">
-                <p className="font-medium text-amber-200">เดินเร็วทางราบ / ลู่</p>
+                <p className="font-medium text-amber-200">Brisk Flat Walk / Treadmill</p>
                 <p className="text-amber-300/70 text-xs mt-0.5">20–30 นาที แบบชิลๆ เลือกพักเต็มที่ได้</p>
               </div>
               <div className="rounded-2xl border border-gray-700 bg-gray-900/30 px-4 py-3 text-sm">
