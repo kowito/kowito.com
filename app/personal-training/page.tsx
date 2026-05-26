@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft, Dumbbell, Footprints, Timer, Repeat2, Zap, Info, Utensils } from "lucide-react"
+import { ArrowLeft, Dumbbell, Footprints, Utensils } from "lucide-react"
 import type { ReactNode } from "react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -32,20 +32,20 @@ const mondayExercises: Exercise[] = [
     name: "Chest Press",
     machine: "Multi-Press",
     setup: "ปรับเบาะให้มือจับอยู่ระดับกลางอก พิงหลังชิดเบาะเต็มแผ่น วางเท้าราบกับพื้นและเก็บสะบักลงก่อนเริ่มดัน",
-    sets: 2, reps: 8,
+    sets: 3, reps: 8,
     tempo: "ดัน 1 วินาที / ปล่อยกลับ 2 วินาที",
     rest: "2 นาที",
-    cue: "เริ่มวันด้วยท่ากดอกให้คม ดันเป็นเส้นตรง คุมไหล่ให้นิ่ง และไม่รีบเพิ่มน้ำหนัก",
+    cue: "เพิ่มเป็น 3 เซ็ตเพื่อสะสมเนื้ออก ดันเป็นเส้นตรง คุมไหล่ให้นิ่ง พักครบ 2 นาทีก่อนเซ็ตถัดไปทุกครั้ง",
     muscle: "อก",
   },
   {
     name: "Lat Pulldown",
     machine: "Cable Combo - High Pulley",
     setup: "ล็อกนวมต้นขาให้แน่น จับบาร์กว้างกว่าไหล่เล็กน้อย นั่งให้ลำตัวตั้งตรงและเชิดอกก่อนเริ่มดึงลง",
-    sets: 2, reps: 8,
+    sets: 3, reps: 8,
     tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
     rest: "2 นาที",
-    cue: "ดึงบาร์ลงหาอกส่วนบนโดยไม่เหวี่ยงลำตัว คุมทางขึ้นช้าๆ และให้หลังเป็นคนทำงานหลัก",
+    cue: "ดึงบาร์ลงหาอกส่วนบนโดยไม่เหวี่ยงลำตัว คุมทางขึ้นช้าๆ ให้หลังเป็นคนทำงานหลัก พักเต็ม 2 นาที",
     muscle: "หลัง",
   },
   {
@@ -54,28 +54,28 @@ const mondayExercises: Exercise[] = [
     setup: "วางบาร์บนบ่าด้านหลัง ก้าวเท้าไปข้างหน้าเล็กน้อย เกร็งท้องและตั้งลำตัวให้มั่นคงก่อนเริ่มย่อ",
     sets: 3, reps: "8–10",
     tempo: "ย่อลงช้า / ดันขึ้นตรง",
-    rest: "90s",
-    cue: "ใช้ท่านี้คุมแรงช่วงล่างต่อจากท่าบน ให้ส้นเท้ากดพื้นและลำตัวนิ่งตลอดเซ็ต",
+    rest: "90 วินาที",
+    cue: "ใช้ท่านี้คุมแรงช่วงล่าง ให้ส้นเท้ากดพื้นและลำตัวนิ่งตลอดเซ็ต",
     muscle: "ขา",
   },
   {
-    name: "Myo-Reps Triceps Pushdown",
+    name: "Cable Triceps Pushdown",
     machine: "Cable Combo - Low Pulley",
-    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัวและกดไหล่ลงก่อนเริ่ม",
-    sets: 1, reps: "12 + 3–5 mini-sets",
+    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัวและกดไหล่ลงก่อนเริ่ม เลือกน้ำหนักที่ครั้งที่ 8–10 เริ่มตึงมือจัดๆ",
+    sets: 5, reps: "8–10",
     tempo: "บีบลง / คุมกลับ",
-    rest: "พัก 5 วินาทีระหว่าง mini-set",
-    cue: "ทำ 1 activation set ให้ใกล้หมดแรง จากนั้นพัก 5 วินาทีแล้วซ้ำ mini-set จนครบ 4 rounds",
+    rest: "2 นาที",
+    cue: "เล่นเซ็ตตรง 5 เซ็ตเต็ม เลือกน้ำหนักหนักจนครั้งที่ 8–10 ตึงมือ แล้วพักครบ 2 นาทีก่อนเซ็ตถัดไปทุกครั้ง ไม่มี mini-set ไม่มี Myo-Reps",
     muscle: "หลังแขน",
   },
   {
-    name: "Myo-Reps Biceps Curl",
+    name: "Cable Biceps Curl",
     machine: "Cable Combo - Low Pulley",
-    setup: "ตั้งรอกต่ำ จับบาร์หรือเชือก ศอกแนบลำตัวและตรึงข้อมือให้มั่นคง",
-    sets: 1, reps: "12 + 3–5 mini-sets",
+    setup: "ตั้งรอกต่ำ จับบาร์หรือเชือก ตรึงข้อศอกข้างลำตัวให้แน่นและล็อกข้อมือให้มั่นคง",
+    sets: 4, reps: "8–10",
     tempo: "คุมขึ้น / คุมลง",
-    rest: "พัก 5 วินาทีระหว่าง mini-set",
-    cue: "ทำต่อทันทีจากหลังแขน ใช้รูปแบบเดียวกันจนจบ 4 rounds แล้วค่อยพักยาว",
+    rest: "2 นาที",
+    cue: "ม้วนดึงบาร์ขึ้นบีบหน้าแขนเน้นๆ ที่ด้านบน ตรึงศอกไม่ให้ขยับ เล่นเซ็ตตรง 4 เซ็ต พักเต็ม 2 นาทีทุกเซ็ต",
     muscle: "หน้าแขน",
   },
 ]
@@ -85,39 +85,39 @@ const wednesdayExercises: Exercise[] = [
     name: "Lat Pulldown",
     machine: "Cable Combo - High Pulley",
     setup: "นั่งใต้ที่ล็อกต้นขา จับบาร์ยาวกว้างกว่าไหล่เล็กน้อย ตั้งอกขึ้น เก็บคาง และเตรียมดึงลงด้วยหลังไม่ใช่แขน",
-    sets: 3, reps: "10–12",
+    sets: 4, reps: "10–12",
     tempo: "ดึงคุมจังหวะ / กลับช้า",
-    rest: "60–90s",
-    cue: "คุมจังหวะให้เนียน ดึงด้วยหลังให้ศอกกดลงข้างลำตัว และอย่าโยนตัวช่วย",
+    rest: "90 วินาที",
+    cue: "คุมจังหวะให้เนียน ดึงด้วยหลังให้ศอกกดลงข้างลำตัว เน้นจังหวะปล่อยกลับช้าๆ อย่าโยนตัวช่วย",
     muscle: "หลัง",
   },
   {
     name: "Chest Press",
     machine: "Multi-Press - Chest Height",
     setup: "ปรับเบาะให้มือจับอยู่ระดับกลางหน้าอก พิงหลังชิดเบาะเต็มแผ่น แล้ววางเท้าทั้งสองข้างให้มั่นคงก่อนเริ่ม",
-    sets: 2, reps: "8–10",
+    sets: 3, reps: "8–10",
     tempo: "ดันลื่นไหล / กลับอย่างควบคุม",
-    rest: "75–90s",
-    cue: "ดันออกตรงๆ โดยให้ข้อศอกไม่กางมากเกินไป เก็บไหล่ลงตลอด และเลือกน้ำหนักที่นิ่งตั้งแต่ครั้งแรกจนจบ",
+    rest: "90 วินาที",
+    cue: "ดันออกตรงๆ ข้อศอกไม่กางมากเกินไป เก็บไหล่ลงตลอด เลือกน้ำหนักที่นิ่งตั้งแต่ครั้งแรกจนจบเซ็ต",
     muscle: "อก",
   },
   {
     name: "Seated Row",
     machine: "Cable Combo - Low Pulley",
     setup: "นั่งตัวตรง ยืดอก ฝ่าเท้ากดกับที่พัก เข่าผ่อนเล็กน้อย และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
-    sets: 2, reps: "10–12",
-    tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
-    rest: "60–90s",
-    cue: "ดึงเข้าหาชายโครงล่างโดยไม่ปล่อยไหล่งุ้ม เกร็งหน้าท้องล็อกแกนกลางต้านแรงไว้ตลอด แล้วค่อยปล่อยกลับอย่างช้าๆ",
+    sets: 4, reps: "10–12",
+    tempo: "ดึง 1 วินาที / ค้างบีบสะบัก 1 วินาที / ปล่อยกลับ 2 วินาที",
+    rest: "90 วินาที",
+    cue: "ดึงเข้าหาชายโครงแล้วเกร็งบีบสะบักเข้าหากันแน่นๆ ค้างไว้ 1 วินาทีเต็มทุกครั้ง ท่านี้ดึงโครงไหล่ที่ตกให้ตั้งตรงผึ่งผาย",
     muscle: "หลัง",
   },
   {
     name: "Shoulder Press",
     machine: "Multi-Press - Incline Press",
     setup: "ยกเบาะและพนักพิงให้มือจับเริ่มที่ระดับไหล่ เก็บซี่โครงลง สะโพกติดเบาะ และให้ข้อศอกอยู่ใต้มือจับก่อนดันขึ้น",
-    sets: 2, reps: "8–10",
+    sets: 3, reps: "8–10",
     tempo: "ดันขึ้น / กลับช้าๆ",
-    rest: "60–90s",
+    rest: "90 วินาที",
     cue: "ดันมือจับขึ้นตรงๆ โดยไม่แอ่นหลัง ถ้าทางดันสั่นหรือคุมลงไม่ได้ ให้ลดน้ำหนักลงทันที",
     muscle: "ไหล่",
   },
@@ -128,30 +128,30 @@ const fridayExercises: Exercise[] = [
     name: "Chest Press",
     machine: "Multi-Press",
     setup: "ใช้เบาะระดับอกเหมือนวันจันทร์ ปรับตำแหน่งมือจับให้สอดคล้องกับกลางหน้าอก พิงหลังเต็มแผ่นและคุมไหล่ให้นิ่ง",
-    sets: 2, reps: 8,
+    sets: 3, reps: 8,
     tempo: "ดัน 1 วินาที / ปล่อยกลับ 2 วินาที",
-    rest: "75–90s",
-    cue: "เริ่มต้นวันศุกร์ด้วยท่ากดอกให้คมและนิ่ง ใช้น้ำหนักที่ดันได้สวยก่อนค่อยไปท่าถัดไป",
+    rest: "90 วินาที",
+    cue: "อุ่นเครื่องช่วงบนก่อนลงช่วงล่าง ดันให้คมและนิ่ง ใช้น้ำหนักที่คุมฟอร์มได้ตลอด 3 เซ็ต",
     muscle: "อก",
   },
   {
     name: "Seated Row",
     machine: "Cable Combo - Low Pulley",
     setup: "นั่งตัวตรง พิงอกกับแผ่นรอง วางเท้าบนที่พัก แล้วดึงโดยเริ่มจากสะบักก่อนแขนทุกครั้ง",
-    sets: 2, reps: 8,
+    sets: 3, reps: 8,
     tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
-    rest: "75–90s",
-    cue: "คุมแรงดึงให้สั้นและแน่น อย่าเหวี่ยงตัว แล้วหยุดก่อนร่างกายเริ่มเสียทรง",
+    rest: "90 วินาที",
+    cue: "ดึงแน่นและคุมฟอร์ม อย่าเหวี่ยงตัว บีบสะบักที่ปลายการเคลื่อนไหวทุกครั้ง",
     muscle: "หลัง",
   },
   {
     name: "Leg Extension",
     machine: "Leg Extension",
     setup: "ปรับพนักพิงให้หลังแนบเบาะ วางนวมเหนือข้อเท้าเล็กน้อย และตั้งเท้าให้หัวเข่าเคลื่อนในแนวตรง",
-    sets: 2, reps: "12–15",
+    sets: 4, reps: "12–15",
     tempo: "ยกขึ้นลื่นไหล / ลงช้าๆ",
-    rest: "90s",
-    cue: "เตะขึ้นให้สุดแล้วค้าง 1 วินาทีที่ด้านบน ลดลงช้าๆ โดยไม่ปล่อยน้ำหนักตก",
+    rest: "90 วินาที",
+    cue: "เตะขึ้นให้สุดแล้วค้าง 1 วินาทีที่ด้านบน ลดลงช้าๆ โดยไม่ปล่อยน้ำหนักตก ปั๊มเนื้อขาได้ดีสุดขีด",
     muscle: "ขา",
   },
   {
@@ -160,8 +160,8 @@ const fridayExercises: Exercise[] = [
     setup: "วางบาร์บนบ่าด้านหลัง ก้าวเท้าไปข้างหน้าเล็กน้อย เกร็งท้องและล็อกลำตัวก่อนเริ่มย่อ",
     sets: 3, reps: "8–10",
     tempo: "ย่อลงช้า / ดันขึ้นตรง",
-    rest: "90s",
-    cue: "ใช้เป็นท่าหลักของช่วงล่างในวันศุกร์เพื่อปิดสัปดาห์แบบคุมฟอร์มแน่นๆ",
+    rest: "90 วินาที",
+    cue: "ท่าหลักของช่วงล่างวันศุกร์ ส้นเท้ากดพื้น ลำตัวตั้งตรง คุมฟอร์มแน่นทุกเซ็ต",
     muscle: "ขา",
   },
   {
@@ -170,19 +170,29 @@ const fridayExercises: Exercise[] = [
     setup: "ลากม้านั่งยาวมาขวาง รองสะบักบนขอบเบาะ สอดตัวใต้บาร์ให้พาดตรงข้อพับสะโพกและหาโฟมรองไว้",
     sets: 3, reps: 15,
     tempo: "ดันขึ้น / ค้าง 2 วินาที / ลงช้า",
-    rest: "60s",
+    rest: "60 วินาที",
     cue: "เกร็งก้นดันสะโพกขึ้นจนลำตัวขนานพื้น ค้างบนสุด 2 วินาที เพื่อสร้างแรงขับจากสะโพกให้ต่อเนื่อง",
     muscle: "ก้น",
   },
   {
-    name: "Myo-Reps Arm Combo",
+    name: "Cable Triceps Pushdown",
     machine: "Cable Combo - Low Pulley",
-    setup: "ทำหลังแขน 1 activation set แล้วต่อหน้าแขน 1 activation set พัก 5 วินาทีระหว่าง mini-set และคุมศอกให้นิ่ง",
-    sets: 1, reps: "12 + 3–5 mini-sets",
-    tempo: "บีบสั้น / คุมลง",
-    rest: "พัก 5 วินาทีระหว่าง mini-set",
-    cue: "ปิดท้ายด้วยหลังแขนและหน้าแขนอย่างละ 1 ชุดใหญ่ ทำ mini-set ให้ครบ 4 rounds ต่อท่า",
-    muscle: "แขน",
+    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัว กดไหล่ลง เลือกน้ำหนักหนักเท่าวันจันทร์",
+    sets: 5, reps: "8–10",
+    tempo: "บีบลง / คุมกลับ",
+    rest: "2 นาที",
+    cue: "ถล่มหลังแขนรอบสอง 5 เซ็ตตรง น้ำหนักหนักเท่าวันจันทร์ พักครบ 2 นาทีเต็มก่อนเซ็ตถัดไปทุกครั้ง",
+    muscle: "หลังแขน",
+  },
+  {
+    name: "Cable Biceps Curl",
+    machine: "Cable Combo - Low Pulley",
+    setup: "ตั้งรอกต่ำ จับบาร์หรือเชือก ตรึงข้อศอกข้างลำตัวให้แน่นและล็อกข้อมือให้มั่นคง",
+    sets: 4, reps: "8–10",
+    tempo: "คุมขึ้น / คุมลง",
+    rest: "2 นาที",
+    cue: "ปิดสัปดาห์ด้วยหน้าแขนรอบสอง 4 เซ็ตตรง บีบบนสุดเน้นๆ และพักเต็ม 2 นาทีทุกเซ็ต",
+    muscle: "หน้าแขน",
   },
 ]
 
@@ -195,12 +205,13 @@ const tuesdayStretches: Stretch[] = [
 ]
 
 const globalRules = [
-  { topic: "ความหนัก", rule: "จบแต่ละเซตโดยยังเหลือแรงอีก 1–3 ครั้ง คุมฟอร์มก่อนคุมตัวเลข" },
-  { topic: "ปริมาณ", rule: "จันทร์/พุธ/ศุกร์มี 4–6 ท่าตามตารางนี้ และ Myo-Reps ใช้เฉพาะวันที่ระบุ" },
-  { topic: "คาร์ดิโอ", rule: "ใช้เดินลู่ปรับชัน 5%–8% เป็นหลัก ความเร็วราว 3.5–3.8 กม./ชม. และไม่จับบาร์" },
-  { topic: "เวลาต่อเซสชัน", rule: "รวมทั้งหมดประมาณ 35–50 นาที แล้วแต่วันฝึก" },
-  { topic: "การเพิ่มระดับ", rule: "เพิ่มจำนวนครั้งก่อน แล้วค่อยเพิ่มน้ำหนักหรือความชันเมื่อคุมฟอร์มได้สบาย" },
-  { topic: "ความถี่การฝึก", rule: "3\u00d7 ต่อสัปดาห์ วันพักระหว่างเซสชันห้ามขาด เพราะช่วงนั้นคือเวลาฟื้นตัว" },
+  { topic: "ความหนัก", rule: "เซ็ตตรงดั้งเดิม เพิ่มน้ำหนักได้เต็มที่ ขอให้ครั้งที่ 8–10 ยังคุมฟอร์มได้และเหลือแรงสำรองแค่ RIR 1–2" },
+  { topic: "เวลาพัก", rule: "ห้ามเร่ง! พักเต็ม 2 นาทีทุกเซ็ตแขน ยิ่งพักครบ กล้ามเนื้อคืน ATP ได้สมบูรณ์ เซ็ตถัดไปยกได้หนักเท่าเดิม" },
+  { topic: "ปริมาณแขน", rule: "18 เซ็ตแขน/สัปดาห์ (จันทร์ + ศุกร์) เล่นเซ็ตตรงล้วน ไม่มี Myo-Reps" },
+  { topic: "คาร์ดิโอ", rule: "เดินลู่ปรับชัน 5–8% หลังเวท ความเร็ว 3.5–3.8 กม./ชม. ไม่จับบาร์" },
+  { topic: "โภชนาการ", rule: "เวย์โปรตีน 3 ช้อน/วัน (75 กรัม) ทุกวันไม่ขาด เพื่อซ่อมแขนและโกยกล้ามให้ระเบิด" },
+  { topic: "เวลาต่อเซสชัน", rule: "ประมาณ 50–65 นาที แล้วแต่วัน เพิ่มขึ้นเล็กน้อยเพราะยัดเซ็ตแขนโหดขึ้น" },
+  { topic: "ความถี่การฝึก", rule: "3× ต่อสัปดาห์ วันพักระหว่างเซสชันห้ามขาด เพราะช่วงนั้นคือเวลาฟื้นตัวและโตของกล้าม" },
 ]
 
 const weekOverview = [
@@ -227,76 +238,39 @@ const muscleColor: Record<Muscle, string> = {
   แขน: "bg-pink-500/15 text-pink-300 border-pink-500/25",
 }
 
-function StatPill({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
+function ExerciseRow({ ex, index }: { ex: Exercise; index: number }) {
   return (
-    <div className="flex flex-col gap-0.5 rounded-xl border border-gray-800 bg-gray-900/50 px-3 py-2.5 min-w-0">
-      <div className="flex items-center gap-1.5 text-gray-400">
-        <span className="shrink-0">{icon}</span>
-        <span className="text-[10px] uppercase tracking-wider font-medium">{label}</span>
-      </div>
-      <span className="text-sm font-semibold text-white truncate">{value}</span>
-    </div>
-  )
-}
-
-function ExerciseCard({ ex, index }: { ex: Exercise; index: number }) {
-  return (
-    <div className="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3 px-5 pt-4 pb-3">
-        <div className="flex items-start gap-3 min-w-0">
-          <span className="mt-0.5 shrink-0 h-6 w-6 rounded-full bg-gray-800 flex items-center justify-center text-xs font-semibold text-gray-400">
-            {index}
-          </span>
-          <div className="min-w-0">
-            <h3 className="text-base font-semibold text-white leading-tight">{ex.name}</h3>
-            <p className="text-xs text-gray-500 mt-0.5">{ex.machine}</p>
-          </div>
+    <div className="py-4 border-b border-gray-800/60 last:border-0">
+      <div className="flex items-start justify-between gap-3 mb-1.5">
+        <div className="flex items-baseline gap-2 min-w-0">
+          <span className="text-xs text-gray-600 font-mono shrink-0">{index}.</span>
+          <span className="text-sm font-semibold text-white">{ex.name}</span>
+          <span className="text-xs text-gray-500 truncate">{ex.machine}</span>
         </div>
-        <span className={`shrink-0 text-[11px] font-medium px-2.5 py-1 rounded-full border ${muscleColor[ex.muscle]}`}>
+        <span className={`shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-full border ${muscleColor[ex.muscle]}`}>
           {ex.muscle}
         </span>
       </div>
-
-      {/* Setup */}
-      <div className="mx-5 mb-3 rounded-xl bg-gray-800/40 px-3 py-2 text-xs text-gray-300 leading-relaxed">
-        <span className="text-gray-500 font-medium uppercase tracking-wide text-[10px] mr-1.5">วิธีตั้งท่า</span>
-        {ex.setup}
-      </div>
-
-      {/* Stats row */}
-      <div className="px-5 pb-3 grid grid-cols-3 gap-2">
-        <StatPill
-          icon={<Repeat2 className="h-3 w-3" />}
-          label="เซต × ครั้ง"
-          value={`${ex.sets}\u00d7${ex.reps}`}
-        />
-        <StatPill
-          icon={<Zap className="h-3 w-3" />}
-          label="จังหวะ"
-          value={ex.tempo}
-        />
-        <StatPill
-          icon={<Timer className="h-3 w-3" />}
-          label="พัก"
-          value={ex.rest}
-        />
-      </div>
-
-      {/* Cue */}
-      <div className="mx-5 mb-4 flex gap-2 rounded-xl border border-indigo-500/20 bg-indigo-500/5 px-3 py-2.5">
-        <Info className="h-3.5 w-3.5 shrink-0 mt-0.5 text-indigo-400" />
-        <p className="text-xs text-indigo-200 leading-relaxed">{ex.cue}</p>
+      <div className="pl-4 space-y-1">
+        <p className="text-xs text-gray-400">
+          {ex.sets}×{ex.reps}
+          <span className="mx-1.5 text-gray-700">·</span>
+          พัก {ex.rest}
+          <span className="mx-1.5 text-gray-700">·</span>
+          <span className="text-gray-500">{ex.tempo}</span>
+        </p>
+        <p className="text-xs text-gray-500 leading-relaxed">{ex.setup}</p>
+        <p className="text-xs text-indigo-300/70 leading-relaxed">{ex.cue}</p>
       </div>
     </div>
   )
 }
 
-function ExerciseGrid({ exercises }: { exercises: Exercise[] }) {
+function ExerciseList({ exercises }: { exercises: Exercise[] }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div className="rounded-2xl border border-gray-800 bg-gray-900/30 px-5">
       {exercises.map((ex, i) => (
-        <ExerciseCard key={ex.name} ex={ex} index={i + 1} />
+        <ExerciseRow key={ex.name} ex={ex} index={i + 1} />
       ))}
     </div>
   )
@@ -307,7 +281,6 @@ function TreadmillWalk({
   minutes,
   incline,
   speed,
-  focus,
   note,
   technique,
 }: {
@@ -320,71 +293,37 @@ function TreadmillWalk({
   technique?: string
 }) {
   return (
-    <div className="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-800">
-        <Footprints className="h-4 w-4 text-cyan-400 shrink-0" />
-        <span className="text-sm font-semibold text-white">{title}</span>
-        <span className="ml-auto text-xs text-gray-400">{minutes}</span>
+    <div className="rounded-2xl border border-gray-800 bg-gray-900/30 px-5 py-3.5">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <Footprints className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+        <span className="text-sm font-medium text-white">{title}</span>
+        <span className="text-xs text-gray-500">{minutes}</span>
+        <span className="text-xs text-gray-600">·</span>
+        <span className="text-xs text-gray-500">ชัน {incline}</span>
+        <span className="text-xs text-gray-600">·</span>
+        <span className="text-xs text-gray-500">{speed}</span>
+        <span className="text-xs text-gray-600">·</span>
+        <span className="text-xs text-gray-500">{note}</span>
       </div>
-
-      <div className="px-5 py-4 space-y-3">
-        <div className="flex items-center gap-3">
-          <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">ความชัน</span>
-          </div>
-          <div className="h-6 w-16 rounded-md bg-sky-500/20 border border-sky-500/30 flex items-center justify-center">
-            <span className="text-[10px] text-sky-300 font-medium">{incline}</span>
-          </div>
-          <span className="text-xs text-gray-300">{focus}</span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">ความเร็ว</span>
-          </div>
-          <div className="h-6 flex-1 rounded-md bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center">
-            <span className="text-[10px] text-emerald-300 font-medium">{speed}</span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="w-14 shrink-0">
-            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-medium">หมายเหตุ</span>
-          </div>
-          <div className="h-6 rounded-md bg-cyan-500/15 border border-cyan-500/20 flex items-center justify-center px-3">
-            <span className="text-[10px] text-cyan-300 font-medium">{note}</span>
-          </div>
-        </div>
-
-        {technique ? (
-          <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-200 leading-relaxed">
-            <span className="text-emerald-300 font-medium uppercase tracking-wide text-[10px] mr-1.5">
-              เทคนิคเดิน
-            </span>
-            {technique}
-          </div>
-        ) : null}
-      </div>
+      {technique && (
+        <p className="mt-1.5 pl-5 text-xs text-gray-500 leading-relaxed">{technique}</p>
+      )}
     </div>
   )
 }
 
 function WednesdayMachineFlow() {
   return (
-    <div className="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden">
-      <div className="px-5 py-3 border-b border-gray-800">
-        <p className="text-sm font-semibold text-white">ลำดับสถานี</p>
-        <p className="text-xs text-gray-500 mt-0.5">ใช้แค่ 2 สถานี จะได้ไม่ต้องเดินวุ่นในยิม</p>
-      </div>
-
-      <div className="px-5 py-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div className="rounded-xl border border-gray-800 bg-black/20 px-4 py-3">
-          <p className="text-[11px] uppercase tracking-wider text-emerald-300 font-medium">สถานี 1</p>
-          <p className="mt-1 text-sm text-gray-200">Cable Combo: Lat Pulldown, แล้วค่อย Seated Row</p>
+    <div className="rounded-2xl border border-gray-800 bg-gray-900/30 px-5 py-4">
+      <p className="text-xs font-medium text-gray-400 mb-3">ลำดับสถานี — ใช้แค่ 2 สถานี</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="rounded-xl border border-gray-800 px-4 py-3">
+          <p className="text-[10px] uppercase tracking-wider text-emerald-400 font-medium mb-1">สถานี 1</p>
+          <p className="text-sm text-gray-300">Cable Combo — Lat Pulldown → Seated Row</p>
         </div>
-        <div className="rounded-xl border border-gray-800 bg-black/20 px-4 py-3">
-          <p className="text-[11px] uppercase tracking-wider text-sky-300 font-medium">สถานี 2</p>
-          <p className="mt-1 text-sm text-gray-200">Multi-Press: Chest Press แล้วยกเบาะต่อเป็น Shoulder Press</p>
+        <div className="rounded-xl border border-gray-800 px-4 py-3">
+          <p className="text-[10px] uppercase tracking-wider text-sky-400 font-medium mb-1">สถานี 2</p>
+          <p className="text-sm text-gray-300">Multi-Press — Chest Press → Shoulder Press</p>
         </div>
       </div>
     </div>
@@ -393,17 +332,15 @@ function WednesdayMachineFlow() {
 
 function StretchList({ stretches }: { stretches: Stretch[] }) {
   return (
-    <div className="space-y-2">
-      {stretches.map((s) => (
-        <div key={s.name} className="flex gap-3 rounded-2xl border border-gray-800 bg-gray-900/40 px-4 py-3">
+    <div className="rounded-2xl border border-gray-800 bg-gray-900/30 px-5">
+      {stretches.map((s, i) => (
+        <div key={s.name} className={`py-3.5 flex items-start gap-3 ${i < stretches.length - 1 ? "border-b border-gray-800/60" : ""}`}>
           <div className="min-w-0 flex-1">
-            <div className="flex items-baseline gap-2">
-              <span className="text-sm font-semibold text-white">{s.name}</span>
-              <span className="text-[10px] font-medium rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-300 px-2 py-0.5 shrink-0">
-                {s.duration}
-              </span>
+            <div className="flex items-baseline gap-2 mb-0.5">
+              <span className="text-sm font-medium text-white">{s.name}</span>
+              <span className="text-xs text-gray-500 shrink-0">{s.duration}</span>
             </div>
-            <p className="mt-0.5 text-xs text-gray-400 leading-relaxed">{s.how}</p>
+            <p className="text-xs text-gray-500 leading-relaxed">{s.how}</p>
           </div>
         </div>
       ))}
@@ -419,26 +356,25 @@ type DayCardProps = {
 }
 
 function DayCard({ day, title, type, children }: DayCardProps) {
-  const topBar: Record<DayType, string> = {
-    train: "from-emerald-500 to-teal-400",
-    rest: "from-sky-500 to-blue-400",
-    optional: "from-amber-500 to-orange-400",
-    special: "from-violet-500 to-purple-400",
+  const accent: Record<DayType, string> = {
+    train: "text-emerald-400",
+    rest: "text-sky-400",
+    optional: "text-amber-400",
+    special: "text-violet-400",
   }
-  const titleColor: Record<DayType, string> = {
-    train: "text-emerald-300",
-    rest: "text-sky-300",
-    optional: "text-amber-300",
-    special: "text-violet-300",
+  const border: Record<DayType, string> = {
+    train: "border-emerald-900/50",
+    rest: "border-sky-900/50",
+    optional: "border-amber-900/50",
+    special: "border-violet-900/50",
   }
   return (
-    <section className="rounded-3xl border border-gray-800 bg-black/30 overflow-hidden">
-      <div className={`h-[2px] bg-gradient-to-r ${topBar[type]}`} />
-      <div className="p-6 md:p-8 space-y-5">
-        <div>
-          <p className="text-[11px] uppercase tracking-widest text-gray-500 font-medium">{day}</p>
-          <h2 className={`text-xl font-semibold tracking-tight mt-1 ${titleColor[type]}`}>{title}</h2>
-        </div>
+    <section className={`rounded-2xl border ${border[type]} bg-gray-950/60`}>
+      <div className="px-6 py-5 border-b border-gray-800/60 flex items-baseline gap-3">
+        <h2 className={`text-base font-semibold ${accent[type]}`}>{title}</h2>
+        <span className="text-xs text-gray-600">{day}</span>
+      </div>
+      <div className="px-6 py-5 space-y-4">
         {children}
       </div>
     </section>
@@ -449,27 +385,22 @@ function DayCard({ day, title, type, children }: DayCardProps) {
 
 export default function PersonalTrainingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-1/4 right-0 h-[650px] w-[650px] rounded-full bg-gradient-to-b from-emerald-900/20 to-cyan-900/20 blur-3xl translate-x-1/3 opacity-50" />
-        <div className="absolute bottom-0 left-0 h-[650px] w-[650px] rounded-full bg-gradient-to-t from-orange-900/20 to-amber-900/20 blur-3xl -translate-x-1/3 translate-y-1/3 opacity-40" />
-      </div>
-
-      <header className="container mx-auto max-w-6xl px-4 py-8 flex items-center justify-between">
-        <Link href="/" className="font-light tracking-wider text-lg text-white hover:text-gray-300 transition-colors">
+    <div className="min-h-screen bg-gray-950 text-gray-100">
+      <header className="container mx-auto max-w-3xl px-4 py-6 flex items-center justify-between">
+        <Link href="/" className="text-sm text-gray-400 hover:text-white transition-colors">
           Kowit C.
         </Link>
         <div className="flex items-center gap-4">
           <Link
             href="/diet"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-white transition-colors"
           >
             <Utensils className="h-3.5 w-3.5" />
             แผนอาหาร
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             กลับ
@@ -477,142 +408,124 @@ export default function PersonalTrainingPage() {
         </div>
       </header>
 
-      <main className="container mx-auto max-w-6xl px-4 pb-20">
+      <main className="container mx-auto max-w-3xl px-4 pb-20">
         {/* Page heading */}
-        <div className="mb-8 space-y-3">
-          <div className="flex items-center gap-3">
-            <Dumbbell className="h-6 w-6 text-emerald-400 shrink-0" />
-            <h1 className="text-3xl md:text-4xl font-light tracking-tight text-white">แผนฝึกส่วนตัว</h1>
+        <div className="mb-8">
+          <div className="flex items-center gap-2.5 mb-2">
+            <Dumbbell className="h-5 w-5 text-emerald-400 shrink-0" />
+            <h1 className="text-2xl font-semibold text-white">แผนฝึกส่วนตัว</h1>
           </div>
-          <p className="max-w-xl text-gray-400 text-sm leading-relaxed">
-            แผนนี้ผูกกับอุปกรณ์ที่มีจริงในยิมของคุณ: Multi-Press, Cable Combo, Leg Extension, Smith Machine และ
-            Treadmill ปรับให้ฝึก 3&times; ต่อสัปดาห์แบบคุมแรง คุมฟอร์ม และมี Myo-Reps ปิดท้ายเฉพาะวันที่กำหนด
+          <p className="text-sm text-gray-500 leading-relaxed max-w-lg">
+            ฝึก 3&times;/สัปดาห์ · Multi-Press, Cable Combo, Leg Extension, Smith Machine, Treadmill
           </p>
         </div>
 
         {/* Week overview strip */}
-        <div className="mb-10 flex flex-wrap items-center gap-2">
+        <div className="mb-8 flex flex-wrap gap-1.5">
           {weekOverview.map(({ label, tag, style }) => (
             <div
               key={label}
-              className={`flex flex-col items-center gap-0.5 rounded-xl border px-4 py-2.5 min-w-[52px] ${style}`}
+              className={`flex flex-col items-center gap-0.5 rounded-lg border px-3 py-2 ${style}`}
             >
-              <span className="text-xs font-semibold tracking-wide">{label}</span>
+              <span className="text-xs font-semibold">{label}</span>
               <span className="text-[10px] opacity-60">{tag}</span>
             </div>
           ))}
-          <div className="ml-auto rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-2.5 text-xs text-gray-400 shrink-0">
-            <span className="font-medium text-white block mb-0.5">ลำดับเริ่มต้น</span>
-            จันทร์เริ่มด้วยอก/หลัง แล้วปิดด้วยขาและ Myo-Reps แขน, พุธเน้นเครื่องช่วงบน, ศุกร์ปิดสัปดาห์ด้วยขา + แขนคอมโบ
-            &rarr; เดินลู่ปรับชัน &rarr; กลับบ้าน
-          </div>
         </div>
 
         {/* Day cards */}
-        <div className="space-y-5">
+        <div className="space-y-3">
 
           {/* ── Monday ── */}
-          <DayCard day="จันทร์" title="Workout A - อก/หลัง + ขา + แขน" type="train">
-            <ExerciseGrid exercises={mondayExercises} />
+          <DayCard day="จันทร์" title="Workout A — อก / หลัง / ขา / ระเบิดแขน" type="train">
+            <ExerciseList exercises={mondayExercises} />
             <TreadmillWalk
               title="เดินลู่ปรับชัน"
               minutes="10 นาที"
               incline="5%–6%"
               speed="3.5 กม./ชม."
-              focus="หลังเวท A ใช้เป็นคาร์ดิโอจบเซสชันแบบ low impact"
+              focus="หลังเวท A"
               note="ไม่จับบาร์"
-              technique="ปล่อยแขนแกว่งตามธรรมชาติ ลำตัวตั้งตรง และก้าวสั้นสม่ำเสมอ"
+              technique="ปล่อยแขนแกว่งตามธรรมชาติ ลำตัวตั้งตรง ก้าวสั้นสม่ำเสมอ"
             />
           </DayCard>
 
           {/* ── Tuesday ── */}
           <DayCard day="อังคาร" title="พักแบบแอคทีฟ" type="rest">
-            <p className="text-sm text-gray-400 -mt-2 mb-1">
-              ขยับเบาๆ เพื่อคลายอาการตึง อย่าข้ามการยืดเหยียด เพราะจะช่วยให้วันพุธรู้สึกดีขึ้น
+            <p className="text-sm text-gray-500">
+              ขยับเบาๆ เพื่อคลายอาการตึง อย่าข้ามการยืดเหยียด
             </p>
             <StretchList stretches={tuesdayStretches} />
           </DayCard>
 
           {/* ── Wednesday ── */}
-          <DayCard day="พุธ" title="Workout B - ช่วงบน + ไหล่" type="train">
-            <p className="text-sm text-gray-400 -mt-2 mb-1">
-              คุมจังหวะให้ท่าแรกไหลก่อนแล้วค่อยไล่น้ำหนักตามลำดับ เป้าหมายคือท่าที่นิ่ง ลื่นไหล และใช้เครื่อง
-              Cable Combo กับ Multi-Press ให้เป็นระบบเพื่อลดการเดิน
-            </p>
+          <DayCard day="พุธ" title="Workout B — ช่วงบน / ไหล่" type="train">
             <WednesdayMachineFlow />
-            <ExerciseGrid exercises={wednesdayExercises} />
+            <ExerciseList exercises={wednesdayExercises} />
             <TreadmillWalk
               title="เดินลู่ปรับชัน"
               minutes="15–20 นาที"
               incline="6%–8%"
               speed="3.8 กม./ชม."
-              focus="เดินต่อเนื่องหลังเวท B เพื่อปิดเซสชัน"
+              focus="หลังเวท B"
               note="คุมลมหายใจ"
-              technique="ไม่จับบาร์ คุมลำตัวนิ่ง และรักษาจังหวะก้าวให้สม่ำเสมอ"
+              technique="ไม่จับบาร์ คุมลำตัวนิ่ง รักษาจังหวะก้าวให้สม่ำเสมอ"
             />
           </DayCard>
 
           {/* ── Thursday ── */}
           <DayCard day="พฤหัสบดี" title="พักเต็มที่" type="rest">
-            <div className="space-y-3">
-              <p className="text-sm text-gray-400">
-                พักเต็มที่ กล้ามเนื้อซ่อมแซมและโตตอนฟื้นตัว ไม่ใช่ตอนฝึก ให้วันนี้เป็นวันพักจริงๆ
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {["นอน 7–9 ชั่วโมง", "กินโปรตีนให้ถึง", "ถ้าอยากทำ: ยืดเบาๆ 5 นาที"].map((tip) => (
-                  <span key={tip} className="rounded-full border border-sky-500/25 bg-sky-500/10 px-3 py-1.5 text-xs text-sky-200">
-                    {tip}
-                  </span>
-                ))}
-              </div>
+            <p className="text-sm text-gray-500">
+              กล้ามเนื้อซ่อมแซมและโตตอนฟื้นตัว ไม่ใช่ตอนฝึก
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {["นอน 7–9 ชั่วโมง", "กินโปรตีนให้ถึง", "ยืดเบาๆ 5 นาที (ถ้าอยาก)"].map((tip) => (
+                <span key={tip} className="text-xs text-sky-300 border border-sky-800/60 bg-sky-900/20 rounded-full px-3 py-1">
+                  {tip}
+                </span>
+              ))}
             </div>
           </DayCard>
 
           {/* ── Friday ── */}
-          <DayCard day="ศุกร์" title="Workout C - ช่วงล่าง + แขน" type="train">
-            <ExerciseGrid exercises={fridayExercises} />
+          <DayCard day="ศุกร์" title="Workout C — ช่วงล่าง / ถล่มแขนย้ำแค้น" type="train">
+            <ExerciseList exercises={fridayExercises} />
             <TreadmillWalk
               title="เดินลู่ปรับชัน"
               minutes="10 นาที"
               incline="5%"
               speed="3.5 กม./ชม."
-              focus="เดินเบาๆ ปิดสัปดาห์หลังท่าหลักและแขนคอมโบ"
+              focus="ปิดสัปดาห์"
               note="ไม่จับบาร์"
-              technique="คงลำตัวตรง ปล่อยแขนแกว่งสบายๆ และไม่เร่งความเร็ว"
+              technique="คงลำตัวตรง ปล่อยแขนแกว่งสบายๆ ไม่เร่งความเร็ว"
             />
           </DayCard>
 
           {/* ── Saturday ── */}
           <DayCard day="เสาร์" title="เลือกได้" type="optional">
-            <p className="text-sm text-gray-400 -mt-2 mb-3">
-              ทำกิจกรรมเบาๆ เท่านั้น วันนี้ไม่ใช่วันฝึก คุมชีพจรให้อยู่ต่ำไว้ และเลือกเดินทางราบหรือลู่เฉพาะถ้ารู้สึกฟื้นตัวดี
-            </p>
             <div className="flex flex-wrap gap-2">
-              <div className="rounded-2xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-sm">
-                <p className="font-medium text-amber-200">Incline Walk / Treadmill</p>
-                <p className="text-amber-300/70 text-xs mt-0.5">15–20 นาที แบบชิลๆ เลือกพักเต็มที่ได้</p>
+              <div className="rounded-xl border border-amber-800/40 bg-amber-900/20 px-4 py-3">
+                <p className="text-sm font-medium text-amber-200">Incline Walk</p>
+                <p className="text-xs text-amber-300/60 mt-0.5">15–20 นาที แบบชิลๆ</p>
               </div>
-              <div className="rounded-2xl border border-gray-700 bg-gray-900/30 px-4 py-3 text-sm">
-                <p className="font-medium text-gray-300">หรือพักเต็มที่</p>
-                <p className="text-gray-500 text-xs mt-0.5">เลือกแบบไหนก็ได้ ฟังร่างกายตัวเองเป็นหลัก</p>
+              <div className="rounded-xl border border-gray-800 bg-gray-900/30 px-4 py-3">
+                <p className="text-sm font-medium text-gray-300">หรือพักเต็มที่</p>
+                <p className="text-xs text-gray-600 mt-0.5">ฟังร่างกายตัวเองเป็นหลัก</p>
               </div>
             </div>
           </DayCard>
 
           {/* ── Sunday ── */}
           <DayCard day="อาทิตย์" title="พักเต็มที่" type="rest">
-            <p className="text-sm text-gray-400 -mt-2 mb-3">
-              ฟื้นตัวเต็มที่ เตรียมตัวสำหรับสัปดาห์หน้า
-            </p>
             <div className="flex flex-wrap gap-2">
               {[
                 { label: "การนอน", note: "สำคัญที่สุดสำหรับการฟื้นตัว" },
                 { label: "โปรตีน", note: "กินให้ถึงเป้าหมายทุกวัน" },
                 { label: "น้ำ", note: "สำคัญมากหลังฝึกมาตลอดทั้งสัปดาห์" },
               ].map(({ label, note }) => (
-                <div key={label} className="rounded-2xl border border-rose-500/20 bg-rose-500/8 px-4 py-2.5">
+                <div key={label} className="rounded-xl border border-rose-900/40 bg-rose-900/20 px-4 py-3">
                   <p className="text-sm font-medium text-rose-200">{label}</p>
-                  <p className="text-[10px] text-rose-300/60 mt-0.5">{note}</p>
+                  <p className="text-xs text-rose-300/50 mt-0.5">{note}</p>
                 </div>
               ))}
             </div>
@@ -620,11 +533,11 @@ export default function PersonalTrainingPage() {
 
           {/* ── Global Rules ── */}
           <DayCard day="ตลอดเวลา" title="กฎหลัก" type="special">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="space-y-2">
               {globalRules.map(({ topic, rule }) => (
-                <div key={topic} className="rounded-2xl border border-gray-800 bg-gray-900/50 px-4 py-3.5">
-                  <p className="text-[11px] uppercase tracking-wider text-gray-500 font-medium mb-1">{topic}</p>
-                  <p className="text-sm text-gray-200 leading-relaxed">{rule}</p>
+                <div key={topic} className="flex gap-3">
+                  <span className="text-xs text-violet-400 font-medium shrink-0 w-32 pt-0.5">{topic}</span>
+                  <span className="text-sm text-gray-400 leading-relaxed">{rule}</span>
                 </div>
               ))}
             </div>
