@@ -29,53 +29,58 @@ type Stretch = {
 
 const mondayExercises: Exercise[] = [
   {
-    name: "Chest Press",
-    machine: "Multi-Press",
-    setup: "ปรับเบาะให้มือจับอยู่ระดับกลางอก พิงหลังชิดเบาะเต็มแผ่น วางเท้าราบกับพื้นและเก็บสะบักลงก่อนเริ่มดัน",
-    sets: 3, reps: 8,
-    tempo: "ดัน 1 วินาที / ปล่อยกลับ 2 วินาที",
-    rest: "2 นาที",
-    cue: "เพิ่มเป็น 3 เซ็ตเพื่อสะสมเนื้ออก ดันเป็นเส้นตรง คุมไหล่ให้นิ่ง พักครบ 2 นาทีก่อนเซ็ตถัดไปทุกครั้ง",
-    muscle: "อก",
-  },
-  {
-    name: "Lat Pulldown",
-    machine: "Cable Combo - High Pulley",
-    setup: "ล็อกนวมต้นขาให้แน่น จับบาร์กว้างกว่าไหล่เล็กน้อย นั่งให้ลำตัวตั้งตรงและเชิดอกก่อนเริ่มดึงลง",
-    sets: 3, reps: 8,
-    tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
-    rest: "2 นาที",
-    cue: "ดึงบาร์ลงหาอกส่วนบนโดยไม่เหวี่ยงลำตัว คุมทางขึ้นช้าๆ ให้หลังเป็นคนทำงานหลัก พักเต็ม 2 นาที",
-    muscle: "หลัง",
-  },
-  {
     name: "Smith Machine Squat",
     machine: "Smith Machine",
     setup: "วางบาร์บนบ่าด้านหลัง ก้าวเท้าไปข้างหน้าเล็กน้อย เกร็งท้องและตั้งลำตัวให้มั่นคงก่อนเริ่มย่อ",
-    sets: 3, reps: "8–10",
+    sets: 3,
+    reps: "8–10",
     tempo: "ย่อลงช้า / ดันขึ้นตรง",
     rest: "90 วินาที",
-    cue: "ใช้ท่านี้คุมแรงช่วงล่าง ให้ส้นเท้ากดพื้นและลำตัวนิ่งตลอดเซ็ต",
+    cue: "เกร็งท้องให้แกนกลางนิ่ง ตั้งลำตัวตรง ตอนดันขึ้นให้คิดว่ากำลังใช้ส้นเท้าถีบพื้นทลุโลก",
     muscle: "ขา",
+  },
+  {
+    name: "Leg Extension",
+    machine: "Leg Extension",
+    setup: "ปรับพนักพิงให้หลังแนบเบาะ วางนวมเหนือข้อเท้าเล็กน้อย และตั้งเท้าให้หัวเข่าเคลื่อนในแนวตรง",
+    sets: 3,
+    reps: "12–15",
+    tempo: "ยกขึ้นลื่นไหล / ลงช้า ๆ",
+    rest: "90 วินาที",
+    cue: "เตะขึ้นสุดแล้วล็อกค้างไว้บนสุด 1 วินาทีเต็ม บีบเนื้อหน้าขาให้แข็งเป็นก้อนก่อนผ่อนลงช้า ๆ",
+    muscle: "ขา",
+  },
+  {
+    name: "Smith Machine Hip Thrust",
+    machine: "Smith Machine + Long Bench",
+    setup: "ลากม้านั่งมาให้รองสะบัก จัดโฟมที่สะโพกและพาดบาร์ตรงข้อพับสะโพกให้มั่นคงก่อนเริ่ม",
+    sets: 2,
+    reps: 15,
+    tempo: "ดันขึ้น / ค้าง 2 วินาที / ลงช้า",
+    rest: "60 วินาที",
+    cue: "ดันสะโพกขึ้นจนลำตัวขนานพื้น ขลิบบีบเนื้อก้นค้างไว้บนสุด 2 วินาทีเต็ม",
+    muscle: "ก้น",
   },
   {
     name: "Cable Triceps Pushdown",
     machine: "Cable Combo - Low Pulley",
-    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัวและกดไหล่ลงก่อนเริ่ม เลือกน้ำหนักที่ครั้งที่ 8–10 เริ่มตึงมือจัดๆ",
-    sets: 5, reps: "8–10",
-    tempo: "บีบลง / คุมกลับ",
-    rest: "2 นาที",
-    cue: "เล่นเซ็ตตรง 5 เซ็ตเต็ม เลือกน้ำหนักหนักจนครั้งที่ 8–10 ตึงมือ แล้วพักครบ 2 นาทีก่อนเซ็ตถัดไปทุกครั้ง ไม่มี mini-set ไม่มี Myo-Reps",
+    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัวและกดไหล่ลงก่อนเริ่ม เลือกน้ำหนักให้ครั้งที่ 8–10 เริ่มตึงมือจัดๆ",
+    sets: 3,
+    reps: "8–10",
+    tempo: "กดลง / กลับช้า 2 วินาที",
+    rest: "2–3 นาที",
+    cue: "ใส่น้ำหนักหน่วงตึงมือ ล็อกข้อศอกข้างลำตัวนิ่งสนิทเป็นหิน กดเชือกลงมาสุดแล้วกางออก บีบเค้นหลังแขนให้แสบร้อน",
     muscle: "หลังแขน",
   },
   {
     name: "Cable Biceps Curl",
     machine: "Cable Combo - Low Pulley",
     setup: "ตั้งรอกต่ำ จับบาร์หรือเชือก ตรึงข้อศอกข้างลำตัวให้แน่นและล็อกข้อมือให้มั่นคง",
-    sets: 4, reps: "8–10",
-    tempo: "คุมขึ้น / คุมลง",
-    rest: "2 นาที",
-    cue: "ม้วนดึงบาร์ขึ้นบีบหน้าแขนเน้นๆ ที่ด้านบน ตรึงศอกไม่ให้ขยับ เล่นเซ็ตตรง 4 เซ็ต พักเต็ม 2 นาทีทุกเซ็ต",
+    sets: 3,
+    reps: "8–10",
+    tempo: "ม้วนขึ้น / กลับช้า 2 วินาที",
+    rest: "2–3 นาที",
+    cue: "ตรึงศอกข้างลำตัว ห้ามใช้ไหล่หรือแรงเหวี่ยงตัวช่วย ม้วนดึงบาร์ขึ้นมาบีบเนื้อหน้าแขนด้านบนให้แน่นที่สุด",
     muscle: "หน้าแขน",
   },
 ]
@@ -83,42 +88,46 @@ const mondayExercises: Exercise[] = [
 const wednesdayExercises: Exercise[] = [
   {
     name: "Lat Pulldown",
-    machine: "Cable Combo - High Pulley",
-    setup: "นั่งใต้ที่ล็อกต้นขา จับบาร์ยาวกว้างกว่าไหล่เล็กน้อย ตั้งอกขึ้น เก็บคาง และเตรียมดึงลงด้วยหลังไม่ใช่แขน",
-    sets: 4, reps: "10–12",
+    machine: "Cable Combo",
+    setup: "นั่งตัวตรง ล็อกนวมต้นขาให้แน่น จับบาร์กว้างกว่าไหล่เล็กน้อย และเชิดอกก่อนเริ่มดึงลง",
+    sets: 3,
+    reps: "10–12",
     tempo: "ดึงคุมจังหวะ / กลับช้า",
     rest: "90 วินาที",
-    cue: "คุมจังหวะให้เนียน ดึงด้วยหลังให้ศอกกดลงข้างลำตัว เน้นจังหวะปล่อยกลับช้าๆ อย่าโยนตัวช่วย",
+    cue: "คิดว่ากำลังกดข้อศอกลงหาเอวเพื่อใช้หลังดึง ไม่ใช้แรงแขนโกง",
     muscle: "หลัง",
   },
   {
     name: "Chest Press",
-    machine: "Multi-Press - Chest Height",
-    setup: "ปรับเบาะให้มือจับอยู่ระดับกลางหน้าอก พิงหลังชิดเบาะเต็มแผ่น แล้ววางเท้าทั้งสองข้างให้มั่นคงก่อนเริ่ม",
-    sets: 3, reps: "8–10",
-    tempo: "ดันลื่นไหล / กลับอย่างควบคุม",
+    machine: "Multi-Press",
+    setup: "ปรับเบาะลงต่ำให้มือจับอยู่ระดับหัวนมพอดีเป๊ะ เชิดอกและกดสะบักหลังกดจมติดเบาะแน่น",
+    sets: 2,
+    reps: "8–10",
+    tempo: "ดันออก / กลับคุมจังหวะ",
     rest: "90 วินาที",
-    cue: "ดันออกตรงๆ ข้อศอกไม่กางมากเกินไป เก็บไหล่ลงตลอด เลือกน้ำหนักที่นิ่งตั้งแต่ครั้งแรกจนจบเซ็ต",
+    cue: "ห้ามไหล่ลอย จังหวะดันออกไปให้จินตนาการว่ากำลังหนีบข้อศอกทั้งสองข้างเข้าหากันตรงกลางอก",
     muscle: "อก",
   },
   {
     name: "Seated Row",
-    machine: "Cable Combo - Low Pulley",
-    setup: "นั่งตัวตรง ยืดอก ฝ่าเท้ากดกับที่พัก เข่าผ่อนเล็กน้อย และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
-    sets: 4, reps: "10–12",
-    tempo: "ดึง 1 วินาที / ค้างบีบสะบัก 1 วินาที / ปล่อยกลับ 2 วินาที",
+    machine: "Cable Combo",
+    setup: "นั่งตัวตรง ยืดอก ดึงบาร์เข้าหาชายโครงล่าง และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
+    sets: 3,
+    reps: "10–12",
+    tempo: "ดึง 1 วิ / ค้างสะบัก 1 วิ / ปล่อยกลับ 2 วิ",
     rest: "90 วินาที",
-    cue: "ดึงเข้าหาชายโครงแล้วเกร็งบีบสะบักเข้าหากันแน่นๆ ค้างไว้ 1 วินาทีเต็มทุกครั้ง ท่านี้ดึงโครงไหล่ที่ตกให้ตั้งตรงผึ่งผาย",
+    cue: "เกร็งบีบสะบักหลังสองข้างเข้าหากันแน่น ๆ ค้างไว้ 1 วินาทีเต็มทุกครั้ง เพื่อดึงแนวไหล่ที่งุ้มตกลงให้เปิดผึ่งผายออก",
     muscle: "หลัง",
   },
   {
     name: "Shoulder Press",
-    machine: "Multi-Press - Incline Press",
-    setup: "ยกเบาะและพนักพิงให้มือจับเริ่มที่ระดับไหล่ เก็บซี่โครงลง สะโพกติดเบาะ และให้ข้อศอกอยู่ใต้มือจับก่อนดันขึ้น",
-    sets: 3, reps: "8–10",
-    tempo: "ดันขึ้น / กลับช้าๆ",
+    machine: "Multi-Press",
+    setup: "สะโพกติดเบาะ ดันขึ้นตรง ๆ และไม่แอ่นหลัง ถ้าน้ำหนักหน่วงจนสั่นสะท้านให้คุมฟอร์มก่อนเสมอ",
+    sets: 2,
+    reps: "8–10",
+    tempo: "ดันขึ้น / กลับช้า ๆ",
     rest: "90 วินาที",
-    cue: "ดันมือจับขึ้นตรงๆ โดยไม่แอ่นหลัง ถ้าทางดันสั่นหรือคุมลงไม่ได้ ให้ลดน้ำหนักลงทันที",
+    cue: "ถ้าน้ำหนักหน่วงจนสั่นสะท้านคุมลงไม่ได้ ให้ลดเหล็กลงทันที",
     muscle: "ไหล่",
   },
 ]
@@ -127,77 +136,51 @@ const fridayExercises: Exercise[] = [
   {
     name: "Chest Press",
     machine: "Multi-Press",
-    setup: "ใช้เบาะระดับอกเหมือนวันจันทร์ ปรับตำแหน่งมือจับให้สอดคล้องกับกลางหน้าอก พิงหลังเต็มแผ่นและคุมไหล่ให้นิ่ง",
-    sets: 3, reps: 8,
-    tempo: "ดัน 1 วินาที / ปล่อยกลับ 2 วินาที",
+    setup: "ปรับเบาะลงต่ำให้มือจับอยู่ระดับหัวนมพอดีเป๊ะ เชิดอกและบีบสะบักหลังกดจมติดเบาะแน่น",
+    sets: 2,
+    reps: 8,
+    tempo: "ดัน 1 วิ / ปล่อยกลับ 2 วิ",
     rest: "90 วินาที",
-    cue: "อุ่นเครื่องช่วงบนก่อนลงช่วงล่าง ดันให้คมและนิ่ง ใช้น้ำหนักที่คุมฟอร์มได้ตลอด 3 เซ็ต",
+    cue: "นำทริคล็อกสะบักจมเบาะมาใช้ ดันคม ๆ เน้น ๆ เอาเนื้ออกทำงานล้วน ๆ",
     muscle: "อก",
   },
   {
     name: "Seated Row",
-    machine: "Cable Combo - Low Pulley",
-    setup: "นั่งตัวตรง พิงอกกับแผ่นรอง วางเท้าบนที่พัก แล้วดึงโดยเริ่มจากสะบักก่อนแขนทุกครั้ง",
-    sets: 3, reps: 8,
-    tempo: "ดึง 1 วินาที / ปล่อยกลับ 2 วินาที",
+    machine: "Cable Combo",
+    setup: "นั่งตัวตรง ยืดอก ดึงบาร์เข้าหาชายโครงล่าง และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
+    sets: 2,
+    reps: 8,
+    tempo: "ดึง 1 วิ / ปล่อยกลับ 2 วิ",
     rest: "90 วินาที",
-    cue: "ดึงแน่นและคุมฟอร์ม อย่าเหวี่ยงตัว บีบสะบักที่ปลายการเคลื่อนไหวทุกครั้ง",
+    cue: "ดึงคุมฟอร์มแน่น ๆ บีบสะบักที่ปลายจังหวะ ไม่ใช้แรงเหวี่ยงลำตัว",
     muscle: "หลัง",
-  },
-  {
-    name: "Leg Extension",
-    machine: "Leg Extension",
-    setup: "ปรับพนักพิงให้หลังแนบเบาะ วางนวมเหนือข้อเท้าเล็กน้อย และตั้งเท้าให้หัวเข่าเคลื่อนในแนวตรง",
-    sets: 4, reps: "12–15",
-    tempo: "ยกขึ้นลื่นไหล / ลงช้าๆ",
-    rest: "90 วินาที",
-    cue: "เตะขึ้นให้สุดแล้วค้าง 1 วินาทีที่ด้านบน ลดลงช้าๆ โดยไม่ปล่อยน้ำหนักตก ปั๊มเนื้อขาได้ดีสุดขีด",
-    muscle: "ขา",
-  },
-  {
-    name: "Smith Machine Squat",
-    machine: "Smith Machine",
-    setup: "วางบาร์บนบ่าด้านหลัง ก้าวเท้าไปข้างหน้าเล็กน้อย เกร็งท้องและล็อกลำตัวก่อนเริ่มย่อ",
-    sets: 3, reps: "8–10",
-    tempo: "ย่อลงช้า / ดันขึ้นตรง",
-    rest: "90 วินาที",
-    cue: "ท่าหลักของช่วงล่างวันศุกร์ ส้นเท้ากดพื้น ลำตัวตั้งตรง คุมฟอร์มแน่นทุกเซ็ต",
-    muscle: "ขา",
-  },
-  {
-    name: "Smith Machine Hip Thrust",
-    machine: "Smith Machine + Long Bench",
-    setup: "ลากม้านั่งยาวมาขวาง รองสะบักบนขอบเบาะ สอดตัวใต้บาร์ให้พาดตรงข้อพับสะโพกและหาโฟมรองไว้",
-    sets: 3, reps: 15,
-    tempo: "ดันขึ้น / ค้าง 2 วินาที / ลงช้า",
-    rest: "60 วินาที",
-    cue: "เกร็งก้นดันสะโพกขึ้นจนลำตัวขนานพื้น ค้างบนสุด 2 วินาที เพื่อสร้างแรงขับจากสะโพกให้ต่อเนื่อง",
-    muscle: "ก้น",
   },
   {
     name: "Cable Triceps Pushdown",
     machine: "Cable Combo - Low Pulley",
-    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัว กดไหล่ลง เลือกน้ำหนักหนักเท่าวันจันทร์",
-    sets: 5, reps: "8–10",
-    tempo: "บีบลง / คุมกลับ",
-    rest: "2 นาที",
-    cue: "ถล่มหลังแขนรอบสอง 5 เซ็ตตรง น้ำหนักหนักเท่าวันจันทร์ พักครบ 2 นาทีเต็มก่อนเซ็ตถัดไปทุกครั้ง",
+    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัว กดไหล่ลง เลือกน้ำหนักหนักจนครั้งที่ 8–10 ตึงมือ",
+    sets: 3,
+    reps: "8–10",
+    tempo: "กดลง / กลับช้า 2 วินาที",
+    rest: "2–3 นาที",
+    cue: "บดขยี้หลังแขนรอบสอง ล็อกศอกให้แน่น ถ้าเริ่มสั่นให้ลดเหล็กลง 1–2 แผ่นแล้วพักให้ยาวขึ้น",
     muscle: "หลังแขน",
   },
   {
     name: "Cable Biceps Curl",
     machine: "Cable Combo - Low Pulley",
     setup: "ตั้งรอกต่ำ จับบาร์หรือเชือก ตรึงข้อศอกข้างลำตัวให้แน่นและล็อกข้อมือให้มั่นคง",
-    sets: 4, reps: "8–10",
-    tempo: "คุมขึ้น / คุมลง",
-    rest: "2 นาที",
-    cue: "ปิดสัปดาห์ด้วยหน้าแขนรอบสอง 4 เซ็ตตรง บีบบนสุดเน้นๆ และพักเต็ม 2 นาทีทุกเซ็ต",
+    sets: 3,
+    reps: "8–10",
+    tempo: "ม้วนขึ้น / กลับช้า 2 วินาที",
+    rest: "2–3 นาที",
+    cue: "ปิดสัปดาห์ด้วยหน้าแขน 3 เซ็ตตรงคุณภาพสูง บีบเนื้อหน้าแขนด้านบนเน้น ๆ",
     muscle: "หน้าแขน",
   },
 ]
 
 const tuesdayStretches: Stretch[] = [
-  { name: "Chest Stretch", how: "ยืนพิงวงกบประตู ยกแขน 90\u00b0 แล้วเอนไปข้างหน้าเบาๆ", duration: "2 นาที" },
+  { name: "Chest Stretch", how: "ยืนพิงวงกบประตู ยกแขน 90° แล้วเอนไปข้างหน้าเบาๆ", duration: "2 นาที" },
   { name: "Upper Back Stretch", how: "นั่งแล้วเอื้อมแขนไปข้างหน้า โค้งหลังส่วนบนเบาๆ", duration: "2 นาที" },
   { name: "Quad Stretch", how: "ยืนจับข้อเท้าข้างหนึ่งดึงเข้าหาก้น ใช้มือข้างเดียวกันจับไว้", duration: "1 นาที/ข้าง" },
   { name: "Hamstring Stretch", how: "นั่งเหยียดขาตรง เอื้อมมือไปแตะปลายเท้า", duration: "1–2 นาที" },
@@ -205,13 +188,14 @@ const tuesdayStretches: Stretch[] = [
 ]
 
 const globalRules = [
-  { topic: "ความหนัก", rule: "เซ็ตตรงดั้งเดิม เพิ่มน้ำหนักได้เต็มที่ ขอให้ครั้งที่ 8–10 ยังคุมฟอร์มได้และเหลือแรงสำรองแค่ RIR 1–2" },
-  { topic: "เวลาพัก", rule: "ห้ามเร่ง! พักเต็ม 2 นาทีทุกเซ็ตแขน ยิ่งพักครบ กล้ามเนื้อคืน ATP ได้สมบูรณ์ เซ็ตถัดไปยกได้หนักเท่าเดิม" },
-  { topic: "ปริมาณแขน", rule: "18 เซ็ตแขน/สัปดาห์ (จันทร์ + ศุกร์) เล่นเซ็ตตรงล้วน ไม่มี Myo-Reps" },
-  { topic: "คาร์ดิโอ", rule: "เดินลู่ปรับชัน 5–8% หลังเวท ความเร็ว 3.5–3.8 กม./ชม. ไม่จับบาร์" },
-  { topic: "โภชนาการ", rule: "เวย์โปรตีน 3 ช้อน/วัน (75 กรัม) ทุกวันไม่ขาด เพื่อซ่อมแขนและโกยกล้ามให้ระเบิด" },
-  { topic: "เวลาต่อเซสชัน", rule: "ประมาณ 50–65 นาที แล้วแต่วัน เพิ่มขึ้นเล็กน้อยเพราะยัดเซ็ตแขนโหดขึ้น" },
-  { topic: "ความถี่การฝึก", rule: "3× ต่อสัปดาห์ วันพักระหว่างเซสชันห้ามขาด เพราะช่วงนั้นคือเวลาฟื้นตัวและโตของกล้าม" },
+  { topic: "ความหนัก", rule: "เซ็ตตรงคุณภาพ 100% ครั้งที่ 8–10 ต้องยังคุมฟอร์มได้และเหลือแรงสำรองแค่ RIR 1–2" },
+  { topic: "เวลาพัก", rule: "ห้ามเร่ง พักเต็ม 2–3 นาทีในท่าแขน และพักตามที่กำหนดในท่าหลักทุกเซ็ต" },
+  { topic: "ก่อนเข้ายิม", rule: "ก่อนซ้อม 1.5–2 ชั่วโมง ซัดข้าวสวย 1 ทัพพีเล็ก หรือขนมปังขาว 1 แผ่นเพื่อเติมไกลโคเจน" },
+  { topic: "ระหว่างซ้อม", rule: "พกเครื่องดื่มที่มีน้ำตาลไว้จิบเล็ก ๆ ระหว่างพักยาวเพื่อเลี้ยงพลังงานให้ระบบประสาทไม่ตก" },
+  { topic: "หลังซ้อม", rule: "นั่งพัก 15–20 นาทีให้ร่างกายเย็นลงก่อนอาบน้ำ แล้วค่อยดื่มเวย์ 1.5 ช้อนเพื่อปิดงาน" },
+  { topic: "ความถี่การฝึก", rule: "ฝึก 3 วันต่อสัปดาห์ วันพักระหว่างเซสชันคือเวลาฟื้นตัวจริงของกล้าม" },
+  { topic: "คาร์ดิโอ", rule: "เดินลู่ปรับชัน 5–8% หลังเวท ความเร็ว 3.5–3.8 กม./ชม. และไม่จับบาร์" },
+  { topic: "การฟื้นตัว", rule: "หลัง Workout A และ C ให้เว้นช่วงยาวพอให้กล้ามเนื้อขา อก หลัง และแขนได้คืนตัวเต็มที่" },
 ]
 
 const weekOverview = [
@@ -220,7 +204,7 @@ const weekOverview = [
   { label: "พุธ", tag: "ฝึก", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
   { label: "พฤหัส", tag: "พัก", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
   { label: "ศุกร์", tag: "ฝึก", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "เสาร์", tag: "เลือกได้", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
+  { label: "เสาร์", tag: "พัก", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
   { label: "อาทิตย์", tag: "พัก", style: "bg-rose-500/15 text-rose-300 border-rose-500/30" },
 ]
 
@@ -260,6 +244,7 @@ function ExerciseRow({ ex, index }: { ex: Exercise; index: number }) {
           <span className="text-gray-500">{ex.tempo}</span>
         </p>
         <p className="text-xs text-gray-500 leading-relaxed">{ex.setup}</p>
+        <p className="text-[10px] uppercase tracking-[0.2em] text-indigo-400">Max Intent</p>
         <p className="text-xs text-indigo-300/70 leading-relaxed">{ex.cue}</p>
       </div>
     </div>
@@ -281,6 +266,7 @@ function TreadmillWalk({
   minutes,
   incline,
   speed,
+  focus,
   note,
   technique,
 }: {
@@ -304,6 +290,9 @@ function TreadmillWalk({
         <span className="text-xs text-gray-500">{speed}</span>
         <span className="text-xs text-gray-600">·</span>
         <span className="text-xs text-gray-500">{note}</span>
+        <span className="rounded-full border border-gray-700 bg-gray-900/70 px-2 py-0.5 text-[10px] font-medium text-gray-300">
+          โฟกัส {focus}
+        </span>
       </div>
       {technique && (
         <p className="mt-1.5 pl-5 text-xs text-gray-500 leading-relaxed">{technique}</p>
@@ -413,10 +402,10 @@ export default function PersonalTrainingPage() {
         <div className="mb-8">
           <div className="flex items-center gap-2.5 mb-2">
             <Dumbbell className="h-5 w-5 text-emerald-400 shrink-0" />
-            <h1 className="text-2xl font-semibold text-white">แผนฝึกส่วนตัว</h1>
+            <h1 className="text-2xl font-semibold text-white">แผนฝึกส่วนตัว — โมดิฟายยกเครื่อง</h1>
           </div>
           <p className="text-sm text-gray-500 leading-relaxed max-w-lg">
-            ฝึก 3&times;/สัปดาห์ · Multi-Press, Cable Combo, Leg Extension, Smith Machine, Treadmill
+            ฝึก 3&times;/สัปดาห์ · เน้น quality sets, พักฟื้น 48–96 ชั่วโมง และเดินลู่ไม่จับบาร์
           </p>
         </div>
 
@@ -437,14 +426,14 @@ export default function PersonalTrainingPage() {
         <div className="space-y-3">
 
           {/* ── Monday ── */}
-          <DayCard day="จันทร์" title="Workout A — อก / หลัง / ขา / ระเบิดแขน" type="train">
+          <DayCard day="จันทร์" title="Workout A — ถล่มช่วงล่าง + รุมระเบิดแขน" type="train">
             <ExerciseList exercises={mondayExercises} />
             <TreadmillWalk
               title="เดินลู่ปรับชัน"
               minutes="10 นาที"
               incline="5%–6%"
               speed="3.5 กม./ชม."
-              focus="หลังเวท A"
+              focus="ปลายสัปดาห์กล้ามได้พักยาว"
               note="ไม่จับบาร์"
               technique="ปล่อยแขนแกว่งตามธรรมชาติ ลำตัวตั้งตรง ก้าวสั้นสม่ำเสมอ"
             />
@@ -459,7 +448,7 @@ export default function PersonalTrainingPage() {
           </DayCard>
 
           {/* ── Wednesday ── */}
-          <DayCard day="พุธ" title="Workout B — ช่วงบน / ไหล่" type="train">
+          <DayCard day="พุธ" title="Workout B — วันแห่งช่วงบน (อก / หลัง / ไหล่)" type="train">
             <WednesdayMachineFlow />
             <ExerciseList exercises={wednesdayExercises} />
             <TreadmillWalk
@@ -467,7 +456,7 @@ export default function PersonalTrainingPage() {
               minutes="15–20 นาที"
               incline="6%–8%"
               speed="3.8 กม./ชม."
-              focus="หลังเวท B"
+              focus="อก หลัง ไหล่"
               note="คุมลมหายใจ"
               technique="ไม่จับบาร์ คุมลำตัวนิ่ง รักษาจังหวะก้าวให้สม่ำเสมอ"
             />
@@ -488,30 +477,31 @@ export default function PersonalTrainingPage() {
           </DayCard>
 
           {/* ── Friday ── */}
-          <DayCard day="ศุกร์" title="Workout C — ช่วงล่าง / ถล่มแขนย้ำแค้น" type="train">
+          <DayCard day="ศุกร์" title="Workout C — วันเก็บยอดมหาศึก (หวดซ้ำแบบกระชับ)" type="train">
             <ExerciseList exercises={fridayExercises} />
             <TreadmillWalk
               title="เดินลู่ปรับชัน"
               minutes="10 นาที"
               incline="5%"
               speed="3.5 กม./ชม."
-              focus="ปิดสัปดาห์"
+              focus="ปิดสัปดาห์แบบฟื้นตัว"
               note="ไม่จับบาร์"
               technique="คงลำตัวตรง ปล่อยแขนแกว่งสบายๆ ไม่เร่งความเร็ว"
             />
           </DayCard>
 
           {/* ── Saturday ── */}
-          <DayCard day="เสาร์" title="เลือกได้" type="optional">
+          <DayCard day="เสาร์" title="พักเต็มที่" type="rest">
             <div className="flex flex-wrap gap-2">
-              <div className="rounded-xl border border-amber-800/40 bg-amber-900/20 px-4 py-3">
-                <p className="text-sm font-medium text-amber-200">Incline Walk</p>
-                <p className="text-xs text-amber-300/60 mt-0.5">15–20 นาที แบบชิลๆ</p>
-              </div>
-              <div className="rounded-xl border border-gray-800 bg-gray-900/30 px-4 py-3">
-                <p className="text-sm font-medium text-gray-300">หรือพักเต็มที่</p>
-                <p className="text-xs text-gray-600 mt-0.5">ฟังร่างกายตัวเองเป็นหลัก</p>
-              </div>
+              {[
+                "นอนให้ครบ",
+                "คาร์ดิโอเบาได้ถ้าอยาก",
+                "ปล่อยให้ขาและแขนคืนตัว",
+              ].map((tip) => (
+                <span key={tip} className="text-xs text-amber-300 border border-amber-800/60 bg-amber-900/20 rounded-full px-3 py-1">
+                  {tip}
+                </span>
+              ))}
             </div>
           </DayCard>
 
@@ -532,7 +522,7 @@ export default function PersonalTrainingPage() {
           </DayCard>
 
           {/* ── Global Rules ── */}
-          <DayCard day="ตลอดเวลา" title="กฎหลัก" type="special">
+          <DayCard day="ตลอดเวลา" title="กฎเหล็กโภชนาการ + ฟื้นตัว" type="special">
             <div className="space-y-2">
               {globalRules.map(({ topic, rule }) => (
                 <div key={topic} className="flex gap-3">
