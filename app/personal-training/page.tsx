@@ -98,14 +98,14 @@ const wednesdayExercises: Exercise[] = [
     muscle: "หลัง",
   },
   {
-    name: "Chest Press",
+    name: "Incline Chest Press",
     machine: "Multi-Press",
-    setup: "ปรับเบาะลงต่ำให้มือจับอยู่ระดับหัวนมพอดีเป๊ะ เชิดอกและกดสะบักหลังกดจมติดเบาะแน่น",
+    setup: "ปรับเบาะเครื่อง Multi-Press ให้เฉียงขึ้น (30–45 องศา) ให้มือจับอยู่ระดับเหนือนมเล็กน้อย เชิดอก ล็อกสะบักหลังจมเบาะแน่น ห้ามไหล่ลอย",
     sets: 2,
     reps: "8–10",
-    tempo: "ดันออก / กลับคุมจังหวะ",
+    tempo: "ดันเฉียงขึ้น / กลับคุมจังหวะ 2 วิ",
     rest: "90 วินาที",
-    cue: "ห้ามไหล่ลอย จังหวะดันออกไปให้จินตนาการว่ากำลังหนีบข้อศอกทั้งสองข้างเข้าหากันตรงกลางอก",
+    cue: "จังหวะดันออกไป ให้จินตนาการว่ากำลังใช้ต้นแขนด้านในบีบเข้าหากัน เค้นเนื้ออกส่วนบนให้แน่นตึงเปรี๊ยะดันไปถึงไหปลาร้า เพื่อดึงแผงอกให้เชิดหนา",
     muscle: "อก",
   },
   {
@@ -141,7 +141,7 @@ const fridayExercises: Exercise[] = [
     reps: 8,
     tempo: "ดัน 1 วิ / ปล่อยกลับ 2 วิ",
     rest: "90 วินาที",
-    cue: "นำทริคล็อกสะบักจมเบาะมาใช้ ดันคม ๆ เน้น ๆ เอาเนื้ออกทำงานล้วน ๆ",
+    cue: "นำทริคล็อกสะบักจมเบาะมาใช้ ดันคม ๆ เน้น ๆ เอาเนื้ออกโดยรวมทำงานเพื่อสร้างฐานอกหนาตัดขอบชัด",
     muscle: "อก",
   },
   {
@@ -312,7 +312,7 @@ function WednesdayMachineFlow() {
         </div>
         <div className="rounded-xl border border-gray-800 px-4 py-3">
           <p className="text-[10px] uppercase tracking-wider text-sky-400 font-medium mb-1">สถานี 2</p>
-          <p className="text-sm text-gray-300">Multi-Press — Chest Press → Shoulder Press</p>
+          <p className="text-sm text-gray-300">Multi-Press — Incline Chest Press → Shoulder Press</p>
         </div>
       </div>
     </div>
@@ -448,7 +448,7 @@ export default function PersonalTrainingPage() {
           </DayCard>
 
           {/* ── Wednesday ── */}
-          <DayCard day="พุธ" title="Workout B — วันแห่งช่วงบน (อก / หลัง / ไหล่)" type="train">
+          <DayCard day="พุธ" title="Workout B — วันแห่งช่วงบน (เวอร์ชันล็อกเป้าอกบน)" type="train">
             <WednesdayMachineFlow />
             <ExerciseList exercises={wednesdayExercises} />
             <TreadmillWalk
@@ -468,7 +468,7 @@ export default function PersonalTrainingPage() {
               กล้ามเนื้อซ่อมแซมและโตตอนฟื้นตัว ไม่ใช่ตอนฝึก
             </p>
             <div className="flex flex-wrap gap-2">
-              {["นอน 7–9 ชั่วโมง", "กินโปรตีนให้ถึง", "ยืดเบาๆ 5 นาที (ถ้าอยาก)"].map((tip) => (
+              {["นอน 7–9 ชั่วโมง", "กินโปรตีนให้ถึง (เวย์ BAAM!! + นมโอ๊ต Alpro)", "ยืดเบาๆ 5 นาที (ถ้าอยาก)"].map((tip) => (
                 <span key={tip} className="text-xs text-sky-300 border border-sky-800/60 bg-sky-900/20 rounded-full px-3 py-1">
                   {tip}
                 </span>
