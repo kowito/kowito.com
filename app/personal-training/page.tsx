@@ -23,6 +23,61 @@ type Exercise = {
 
 const mondayExercises: Exercise[] = [
   {
+    name: "Lat Pulldown",
+    machine: "Cable Combo",
+    setup: "นั่งตัวตรง ล็อกนวมต้นขาให้แน่น จับบาร์กว้างกว่าไหล่เล็กน้อย และเชิดอกก่อนเริ่มดึงลง",
+    sets: 3,
+    reps: "10–12",
+    tempo: "ดึงคุมจังหวะ / ปล่อยกลับช้า 3 วิ",
+    rest: "90 วินาที",
+    cue: "คิดว่ากำลังกดข้อศอกลงหาเอวเพื่อใช้หลังดึง ไม่ใช้แรงแขนโกง จังหวะปล่อยบาร์กลับช้า ๆ 3 วิ ให้แผงหลังโดนยืดสุด",
+    muscle: "หลัง",
+    weight: "45–55 KG",
+    video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
+  },
+  {
+    name: "Incline Chest Press",
+    machine: "Multi-Press",
+    setup: "ปรับเบาะเครื่อง Multi-Press ให้เฉียงขึ้น (30–45 องศา) หุบศอกลงมาเป็นรูปหัวลูกศร 45–60 องศา จับแคบลงให้ท่อนแขนตั้งฉาก ล็อกสะบักหลังจมเบาะแน่น ห้ามไหล่ลอย",
+    sets: 2,
+    reps: "8–10",
+    tempo: "ดันเฉียงขึ้น / ลงช้า 3 วิ",
+    rest: "90 วินาที",
+    cue: "ฟอร์มใหม่! หุบศอกลงมาเป็นรูปหัวลูกศร (45–60 องศา) บีบศอกเข้าหาอกตอนดันสุด เลิกกางศอกเป็นตัว T ไหล่หน้าจะได้ไม่ขโมยซีน ตอนปล่อยลงนับ 1...2...3...",
+    muscle: "อก",
+    weight: "40–50 KG",
+    video: "https://www.youtube.com/shorts/98HWfiRonkE",
+  },
+  {
+    name: "Seated Row",
+    machine: "Cable Combo",
+    setup: "นั่งตัวตรง ยืดอก ดึงบาร์เข้าหาชายโครงล่าง และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
+    sets: 3,
+    reps: "10–12",
+    tempo: "ดึง 1 วิ / ค้างสะบัก 1 วิ / ปล่อยกลับ 3 วิ",
+    rest: "90 วินาที",
+    cue: "ดึง 1 วิ ค้างบีบสะบักแน่น ๆ 1 วิ ปล่อยกลับช้า ๆ 3 วิ ดึงไหล่ที่ห่อให้เปิดผึ่งผาย",
+    muscle: "หลัง",
+    weight: "45–55 KG",
+    video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
+  },
+  {
+    name: "Shoulder Press",
+    machine: "Multi-Press",
+    setup: "สะโพกติดเบาะ ดันขึ้นตรง ๆ และไม่แอ่นหลัง ถ้าน้ำหนักหน่วงจนสั่นสะท้านให้คุมฟอร์มก่อนเสมอ",
+    sets: 2,
+    reps: "8–10",
+    tempo: "ดันขึ้น / ลงช้า 3 วิ",
+    rest: "90 วินาที",
+    cue: "นั่งพิงเบาะให้แน่น ตอนผ่อนลงนับ 1...2...3... เซฟข้อต่อไหล่ ถ้าน้ำหนักหน่วงจนสั่นสะท้านให้ลดเหล็กลงทันที",
+    muscle: "ไหล่",
+    weight: "20–25 KG",
+    video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
+  },
+]
+
+const wednesdayExercises: Exercise[] = [
+  {
     name: "Smith Machine Squat",
     machine: "Smith Machine",
     setup: "วางบาร์บนบ่าด้านหลัง ก้าวเท้าไปข้างหน้าเล็กน้อย เกร็งท้องและตั้งลำตัวให้มั่นคงก่อนเริ่มย่อ",
@@ -30,7 +85,7 @@ const mondayExercises: Exercise[] = [
     reps: "8–10",
     tempo: "ย่อลงช้า 3 วิ / ดันขึ้นเร็ว",
     rest: "90 วินาที",
-    cue: "เกร็งท้องให้แกนกลางนิ่ง ตั้งลำตัวตรง ตอนย่อลงให้นับ 1...2...3... วินาทีเต็ม ตอนดันขึ้นให้คิดว่ากำลังใช้ส้นเท้าถีบพื้นทะลุโลก",
+    cue: "หายใจเข้าท้องเบ่ง ล็อกเอวหนา ย่อลงช้า 3 วิ ดึงส้นเท้าถีบพื้นทะลุโลก",
     muscle: "ขา",
     weight: "50–60 KG เริ่มต้น → ไต่ระบบถึง 80+ KG",
     video: "https://www.youtube.com/shorts/jPrzu4kp47o",
@@ -43,7 +98,7 @@ const mondayExercises: Exercise[] = [
     reps: "12–15",
     tempo: "เตะขึ้นลื่นไหล / ลงช้า 3 วิ",
     rest: "90 วินาที",
-    cue: "เตะขึ้นสุดแล้วล็อคค้างไว้บนสุด 1 วินาทีเต็ม บีบเนื้อหน้าขาให้แข็งเป็นก้อน ตอนผ่อนลงให้นับ 1...2...3... เต่าๆ สร้าง Time Under Tension",
+    cue: "เตะขึ้นสุดล็อกขาค้าง 1 วิ ผ่อนลงช้า ๆ 3 วิ เต่า ๆ สร้าง Time Under Tension",
     muscle: "ขา",
     weight: "32–40 KG",
     video: "https://www.youtube.com/shorts/iQ92TuvBqRo",
@@ -56,7 +111,7 @@ const mondayExercises: Exercise[] = [
     reps: 15,
     tempo: "ดันขึ้น / ค้าง 2 วินาที / ลงช้า",
     rest: "60 วินาที",
-    cue: "ดันสะโพกขึ้นจนลำตัวขนานพื้น ขลิบบีบเนื้อก้นค้างไว้บนสุด 2 วินาทีเต็ม",
+    cue: "ดันสะโพกขึ้นจนสุด ขลิบบีบก้นค้างไว้บนสุด 2 วินาทีเต็ม",
     muscle: "ก้น",
     weight: "50–60 KG เริ่มต้น → ไต่ระบบถึง 80+ KG",
     video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
@@ -71,7 +126,7 @@ const mondayExercises: Exercise[] = [
     rest: "2–3 นาที",
     cue: "ล็อคข้อศอกข้างลำตัวนิ่งสนิท บีบเค้นหลังแขนให้แสบร้อน ตอนผ่อนกลับให้นับ 1...2...3... • เซ็ตที่ 3: Lengthened Partials (ครึ่งทางล่าง) 4–5 ครั้ง",
     muscle: "หลังแขน",
-    weight: "32 KG (Double Progression - Fixed)",
+    weight: "32 KG (Fixed)",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
   {
@@ -84,63 +139,8 @@ const mondayExercises: Exercise[] = [
     rest: "2–3 นาที",
     cue: "ตรึงศอกข้างลำตัว ห้ามใช้แรงเหวี่ยง ม้วนดึงบีบเนื้อหน้าแขนแน่น ผ่อนกลับนับ 1...2...3... • เซ็ตที่ 3: Lengthened Partials (ครึ่งทางล่าง) 4–5 ครั้ง",
     muscle: "หน้าแขน",
-    weight: "20–25 KG (ลดจาก 32 KG เพื่อป้องกัน momentum + elbow safety)",
+    weight: "20–25 KG",
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
-  },
-]
-
-const wednesdayExercises: Exercise[] = [
-  {
-    name: "Lat Pulldown",
-    machine: "Cable Combo",
-    setup: "นั่งตัวตรง ล็อกนวมต้นขาให้แน่น จับบาร์กว้างกว่าไหล่เล็กน้อย และเชิดอกก่อนเริ่มดึงลง",
-    sets: 3,
-    reps: "10–12",
-    tempo: "ดึงคุมจังหวะ / ปล่อยกลับช้า 3 วิ",
-    rest: "90 วินาที",
-    cue: "คิดว่ากำลังกดข้อศอกลงหาเอวเพื่อใช้หลังดึง ไม่ใช้แรงแขนโกง ตอนปล่อยให้หลังโดนยืดสุด ยืดสต่อ 1...2...3... วินาที",
-    muscle: "หลัง",
-    weight: "45–55 KG",
-    video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
-  },
-  {
-    name: "Incline Chest Press",
-    machine: "Multi-Press",
-    setup: "ปรับเบาะเครื่อง Multi-Press ให้เฉียงขึ้น (30–45 องศา) ให้มือจับอยู่ระดับเหนือนมเล็กน้อย เชิดอก ล็อกสะบักหลังจมเบาะแน่น ห้ามไหล่ลอย",
-    sets: 2,
-    reps: "8–10",
-    tempo: "ดันเฉียงขึ้น / ลงช้า 3 วิ",
-    rest: "90 วินาที",
-    cue: "จินตนาการว่าต้นแขนด้านในบีบเข้าหากัน เค้นเนื้ออกส่วนบนให้แน่น ตอนปล่อยลงนับ 1...2...3... ยืดอกสูงสุด",
-    muscle: "อก",
-    weight: "40–50 KG (เพิ่มจาก 32 KG เพราะไหล่+หลังแขนช่วยรุมดัน)",
-    video: "https://www.youtube.com/shorts/98HWfiRonkE",
-  },
-  {
-    name: "Seated Row",
-    machine: "Cable Combo",
-    setup: "นั่งตัวตรง ยืดอก ดึงบาร์เข้าหาชายโครงล่าง และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
-    sets: 3,
-    reps: "10–12",
-    tempo: "ดึง 1 วิ / ค้างสะบัก 1 วิ / ปล่อยกลับ 3 วิ",
-    rest: "90 วินาที",
-    cue: "เกร็งบีะสะบักหลังสองข้างเข้าหากันแน่น ๆ ค้างไว้ 1 วินาทีเต็มทุกครั้ง ตอนปล่อยกลับให้นับ 1...2...3... ดึงแนวไหล่ที่งุ้มตกให้เปิดผึ่งผายออก",
-    muscle: "หลัง",
-    weight: "45–55 KG",
-    video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
-  },
-  {
-    name: "Shoulder Press",
-    machine: "Multi-Press",
-    setup: "สะโพกติดเบาะ ดันขึ้นตรง ๆ และไม่แอ่นหลัง ถ้าน้ำหนักหน่วงจนสั่นสะท้านให้คุมฟอร์มก่อนเสมอ",
-    sets: 2,
-    reps: "8–10",
-    tempo: "ดันขึ้น / ลงช้า 3 วิ",
-    rest: "90 วินาที",
-    cue: "ตอนลงให้นับ 1...2...3... ช้าๆ เพื่อยืดกล้ามไหล่สูงสุด ถ้าน้ำหนักหน่วงจนสั่นสะท้านลงไม่ได้ ให้ลดเหล็กลงทันทีเพื่อรักษาข้อต่อ",
-    muscle: "ไหล่",
-    weight: "20–25 KG (เน้นความปลอดภัยของข้อต่อหัวไหล่)",
-    video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
 ]
 
@@ -322,14 +322,14 @@ export default function PersonalTrainingPage() {
         <section>
           <div className="flex items-baseline gap-2 mb-3">
             <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">จันทร์</span>
-            <h2 className="text-base font-semibold text-white">Workout A · ช่วงล่าง + แขน</h2>
+            <h2 className="text-base font-semibold text-white">Workout B · ช่วงบน (อก + หลัง + ไหล่)</h2>
           </div>
           <div className="rounded-xl border border-gray-800 bg-gray-900/20 px-4">
             {mondayExercises.map((ex, i) => <ExerciseRow key={ex.name} ex={ex} index={i + 1} />)}
           </div>
           <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
             <Footprints className="h-3 w-3 shrink-0" />
-            <span>เดินลู่ชัน 5–6% · 10 นาที · 3.5 กม./ชม. · ไม่จับบาร์</span>
+            <span>เดินลู่ชัน 6–8% · 15–20 นาที · 3.8 กม./ชม. · ไม่จับบาร์</span>
           </div>
         </section>
 
@@ -344,14 +344,14 @@ export default function PersonalTrainingPage() {
         <section>
           <div className="flex items-baseline gap-2 mb-3">
             <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">พุธ</span>
-            <h2 className="text-base font-semibold text-white">Workout B · ช่วงบน (อก + หลัง + ไหล่)</h2>
+            <h2 className="text-base font-semibold text-white">Workout A · ช่วงล่าง + แขน</h2>
           </div>
           <div className="rounded-xl border border-gray-800 bg-gray-900/20 px-4">
             {wednesdayExercises.map((ex, i) => <ExerciseRow key={ex.name} ex={ex} index={i + 1} />)}
           </div>
           <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
             <Footprints className="h-3 w-3 shrink-0" />
-            <span>เดินลู่ชัน 6–8% · 15–20 นาที · 3.8 กม./ชม. · ไม่จับบาร์</span>
+            <span>เดินลู่ชัน 5–6% · 10 นาที · 3.5 กม./ชม. · ไม่จับบาร์</span>
           </div>
         </section>
 
@@ -366,7 +366,7 @@ export default function PersonalTrainingPage() {
         <section>
           <div className="flex items-baseline gap-2 mb-3">
             <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">ศุกร์</span>
-            <h2 className="text-base font-semibold text-white">Workout C · ช่วงบน (กระชับ)</h2>
+            <h2 className="text-base font-semibold text-white">Workout C · ช่วงบนกระชับ + แขน</h2>
           </div>
           <div className="rounded-xl border border-gray-800 bg-gray-900/20 px-4">
             {fridayExercises.map((ex, i) => <ExerciseRow key={ex.name} ex={ex} index={i + 1} />)}
