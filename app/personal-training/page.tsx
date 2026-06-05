@@ -44,7 +44,7 @@ const mondayExercises: Exercise[] = [
       "ยืดแผงหลังให้สุด"
     ],
     muscle: "หลัง",
-    weight: "30–40 KG",
+    weight: "36 KG",
     video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
   },
   {
@@ -127,7 +127,7 @@ const wednesdayExercises: Exercise[] = [
       "No-Squat Edition เซฟหัวเข่า"
     ],
     muscle: "ขา",
-    weight: "50–80 KG",
+    weight: "50 KG",
     video: "https://www.youtube.com/watch?v=L3B4nwqHufs",
   },
   {
@@ -165,7 +165,7 @@ const wednesdayExercises: Exercise[] = [
       "สร้างก้นกระชับ"
     ],
     muscle: "ก้น",
-    weight: "50–60 KG",
+    weight: "40 KG",
     video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
   },
   {
@@ -184,7 +184,7 @@ const wednesdayExercises: Exercise[] = [
       "เซ็ตที่ 3: Partials ครึ่งล่าง 4–5 ครั้ง"
     ],
     muscle: "หลังแขน",
-    weight: "32 KG",
+    weight: "36 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
   {
@@ -204,7 +204,7 @@ const wednesdayExercises: Exercise[] = [
       "เซ็ตที่ 3: Partials ครึ่งล่าง 4–5 ครั้ง"
     ],
     muscle: "หน้าแขน",
-    weight: "20–25 KG",
+    weight: "20 KG",
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
   },
 ]
@@ -226,7 +226,7 @@ const fridayExercises: Exercise[] = [
       "สร้างฐานอกหนาตัดขอบชัด"
     ],
     muscle: "อก",
-    weight: "45–55 KG",
+    weight: "56 KG",
     video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
   },
   {
