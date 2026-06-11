@@ -8,52 +8,49 @@ import { ArrowLeft, Dumbbell, Footprints, Utensils, Play, Heart } from "lucide-r
 
 type Muscle = "Chest" | "Back" | "Shoulders" | "Triceps" | "Biceps" | "Legs" | "Glutes" | "Core" | "Arms"
 
-type Exercise = {
+type ExerciseDef = {
   name: string
   machine: string
   altMachine?: string
   setup: string
-  altSetup?: string
-  sets: number
-  reps: number | string
   tempo: string
   rest: string
-  cues: string[]
+  cues: readonly string[]
   muscle: Muscle
-  weight?: string
   video?: string
 }
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+type DayExercise = ExerciseDef & {
+  sets: number
+  reps: number | string
+  weight?: string
+}
 
-const mondayExercises: Exercise[] = [
-  {
+// ─── Exercise Library (single source of truth) ───────────────────────────────
+
+const exercises = {
+  latPulldown: {
     name: "Lat Pulldown",
     machine: "Lat Pulldown Machine",
     altMachine: "Iso-Lateral High Row",
     setup: "Sit upright, lock the thigh pad firmly, grip slightly wider than shoulders, and puff your chest up before pulling down",
-    sets: 3,
-    reps: "10–12",
     tempo: "Return slowly over 3s, fully stretch the lats",
     rest: "90 sec",
     cues: [
       "Puff chest up",
       "Drive elbows down to your waist",
-      "Don't cheat with arm strength",
+      "Don&apos;t cheat with arm strength",
       "Return slowly over 3 seconds",
       "Fully stretch the lats"
     ],
-    muscle: "Back",
-    weight: "36 KG",
+    muscle: "Back" as Muscle,
     video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
   },
-  {
+  inclineChestPress: {
     name: "Incline Chest Press",
     machine: "Incline Chest Press Machine",
     altMachine: "Pec Fly Machine (lower the seat)",
-    setup: "Set the seat to an incline (30–45°), tuck elbows in to form an arrow shape at 45–60°, grip narrower so forearms are vertical, pin shoulder blades into the pad, don't let shoulders lift",
-    sets: 4,
-    reps: "8–10",
+    setup: "Set the seat to an incline (30–45°), tuck elbows in to form an arrow shape at 45–60°, grip narrower so forearms are vertical, pin shoulder blades into the pad, don&apos;t let shoulders lift",
     tempo: "Tuck elbows at 45°, lower slowly over 3s",
     rest: "90 sec",
     cues: [
@@ -63,17 +60,14 @@ const mondayExercises: Exercise[] = [
       "Pin shoulder blades into the pad",
       "Lower slowly 1...2...3..."
     ],
-    muscle: "Chest",
-    weight: "35–45 KG",
+    muscle: "Chest" as Muscle,
     video: "https://www.youtube.com/shorts/98HWfiRonkE",
   },
-  {
+  seatedCableRow: {
     name: "Seated Cable Row",
     machine: "Seated Cable Row",
     altMachine: "Chest-Supported Row Machine",
     setup: "Sit upright, chest out, pull the bar into your lower rib cage, keep your core braced throughout",
-    sets: 3,
-    reps: "10–12",
     tempo: "Pull 1s / squeeze shoulder blades 1s / return 3s",
     rest: "90 sec",
     cues: [
@@ -83,17 +77,14 @@ const mondayExercises: Exercise[] = [
       "Return slowly over 3 seconds",
       "Open up the chest, shoulders back"
     ],
-    muscle: "Back",
-    weight: "45–55 KG",
+    muscle: "Back" as Muscle,
     video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
   },
-  {
+  shoulderPress: {
     name: "Shoulder Press",
     machine: "Shoulder Press Machine",
     altMachine: "Dumbbell Shoulder Press",
     setup: "Hips glued to the seat, press straight up without arching your back. If the weight shakes, prioritize form first",
-    sets: 2,
-    reps: "8–10",
     tempo: "Stay pressed into the backrest, lower slowly over 3s to protect the joints",
     rest: "90 sec",
     cues: [
@@ -103,20 +94,14 @@ const mondayExercises: Exercise[] = [
       "Protect the shoulder joints",
       "If it shakes, strip weight immediately"
     ],
-    muscle: "Shoulders",
-    weight: "25 KG",
+    muscle: "Shoulders" as Muscle,
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
-]
-
-const wednesdayExercises: Exercise[] = [
-  {
+  legPress: {
     name: "Leg Press",
     machine: "Leg Press & Calf Raise",
     altMachine: "Lying/Seated Leg Curl",
-    setup: "Place feet high and wide on the platform, brace your core and stabilize your torso before pressing. Don't let knees cave inward",
-    sets: 5,
-    reps: "10–12",
+    setup: "Place feet high and wide on the platform, brace your core and stabilize your torso before pressing. Don&apos;t let knees cave inward",
     tempo: "Press out 1s / return slowly counting 1...2...3...",
     rest: "90 sec",
     cues: [
@@ -126,17 +111,14 @@ const wednesdayExercises: Exercise[] = [
       "Return slowly 1...2...3...",
       "No-Squat Edition – knee-friendly"
     ],
-    muscle: "Legs",
-    weight: "50 KG",
+    muscle: "Legs" as Muscle,
     video: "https://www.youtube.com/watch?v=L3B4nwqHufs",
   },
-  {
+  hipThrust: {
     name: "Hip Thrust",
     machine: "Smith Machine Hip Thrust",
     altMachine: "Cable Pull-Through",
-    setup: "Pull a bench under your shoulder blades, pad the bar at your hip crease and make sure it's secure before starting",
-    sets: 3,
-    reps: "12–15",
+    setup: "Pull a bench under your shoulder blades, pad the bar at your hip crease and make sure it&apos;s secure before starting",
     tempo: "Drive hips up to full extension, squeeze glutes hard at the top for a full 2 seconds",
     rest: "60 sec",
     cues: [
@@ -144,17 +126,14 @@ const wednesdayExercises: Exercise[] = [
       "Squeeze glutes for 2 seconds",
       "Build firm, shapely glutes"
     ],
-    muscle: "Glutes",
-    weight: "40 KG",
+    muscle: "Glutes" as Muscle,
     video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
   },
-  {
+  chestPress: {
     name: "Chest Press",
     machine: "Chest Press Machine",
     altMachine: "Pec Fly Machine",
     setup: "Lower the seat so the handles align exactly at nipple level. Puff your chest and pin your shoulder blades firmly into the pad",
-    sets: 2,
-    reps: "10–12",
     tempo: "Pin shoulder blades into the pad, press sharply, return slowly over 3s",
     rest: "90 sec",
     cues: [
@@ -163,17 +142,14 @@ const wednesdayExercises: Exercise[] = [
       "Return slowly 1...2...3...",
       "Extra chest volume mid-week"
     ],
-    muscle: "Chest",
-    weight: "50–56 KG",
+    muscle: "Chest" as Muscle,
     video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
   },
-  {
+  tricepsPushdown: {
     name: "Triceps Pushdown",
     machine: "Cable Triceps Pushdown",
     altMachine: "Machine Triceps Dip",
     setup: "Set the pulley low, use a rope or straight bar, elbows glued to your sides, depress your shoulders before starting. Pick a weight where reps 8–10 feel hard",
-    sets: 3,
-    reps: "8–10",
     tempo: "Lock elbows in place, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
     rest: "2–3 min",
     cues: [
@@ -182,17 +158,14 @@ const wednesdayExercises: Exercise[] = [
       "Return slowly 1...2...3...",
       "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
-    muscle: "Triceps",
-    weight: "36 KG",
+    muscle: "Triceps" as Muscle,
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
-  {
+  bicepsCurl: {
     name: "Biceps Curl",
     machine: "Cable Biceps Curl",
     altMachine: "Dumbbell Biceps Curl",
     setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
-    sets: 3,
-    reps: "8–10",
     tempo: "Pin elbows, no swinging, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
     rest: "2–3 min",
     cues: [
@@ -202,116 +175,41 @@ const wednesdayExercises: Exercise[] = [
       "Return slowly 1...2...3...",
       "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
-    muscle: "Biceps",
-    weight: "20 KG",
+    muscle: "Biceps" as Muscle,
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
   },
+} as const
+
+// ─── Workout Programs ────────────────────────────────────────────────────────
+
+const mondayExercises: DayExercise[] = [
+  { ...exercises.latPulldown, sets: 3, reps: "10–12", weight: "36 KG" },
+  { ...exercises.inclineChestPress, sets: 4, reps: "8–10", weight: "35–45 KG" },
+  { ...exercises.seatedCableRow, sets: 3, reps: "10–12", weight: "45–55 KG" },
+  { ...exercises.shoulderPress, sets: 2, reps: "8–10", weight: "25 KG" },
 ]
 
-const fridayExercises: Exercise[] = [
-  {
-    name: "Chest Press",
-    machine: "Chest Press Machine",
-    altMachine: "Pec Fly Machine",
-    setup: "Lower the seat so the handles align exactly at nipple level. Puff your chest and pin your shoulder blades firmly into the pad",
-    sets: 4,
-    reps: "8–10",
-    tempo: "Pin shoulder blades into the pad, press sharply, return slowly over 3s",
-    rest: "90 sec",
-    cues: [
-      "Pin shoulder blades firmly into the pad",
-      "Press sharp and focused",
-      "Return slowly 1...2...3...",
-      "Full chest emphasis – 4 sets"
-    ],
-    muscle: "Chest",
-    weight: "56 KG",
-    video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
-  },
-  {
-    name: "Seated Row",
-    machine: "Seated Row Machine",
-    altMachine: "Reverse Delt Fly",
-    setup: "Sit upright, chest out, pull the bar into your lower rib cage, keep your core braced throughout",
-    sets: 3,
-    reps: "8–10",
-    tempo: "Keep form tight, no momentum, return slowly over 3s",
-    rest: "90 sec",
-    cues: [
-      "Sit upright, chest out",
-      "Pull with tight, controlled form",
-      "Squeeze shoulder blades at the end range",
-      "No torso momentum",
-      "Return slowly 1...2...3..."
-    ],
-    muscle: "Back",
-    weight: "45–50 KG",
-    video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
-  },
-  {
-    name: "Shoulder Press",
-    machine: "Shoulder Press Machine",
-    altMachine: "Dumbbell Shoulder Press",
-    setup: "Hips glued to the seat, press straight up without arching your back. If the weight shakes, prioritize form first",
-    sets: 2,
-    reps: "8–10",
-    tempo: "Stay pressed into the backrest, lower slowly over 3s to protect the joints",
-    rest: "90 sec",
-    cues: [
-      "Stay pressed into the backrest",
-      "Press straight up, no back arch",
-      "Lower slowly 1...2...3...",
-      "Protect the shoulder joints",
-      "If it shakes, strip weight immediately"
-    ],
-    muscle: "Shoulders",
-    weight: "20–25 KG",
-    video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
-  },
-  {
-    name: "Triceps Pushdown",
-    machine: "Cable Triceps Pushdown",
-    altMachine: "Dumbbell Overhead Extension",
-    setup: "Set the pulley low, use a rope or bar, elbows glued to your sides, depress your shoulders. Pick a weight where reps 8–10 feel hard",
-    sets: 3,
-    reps: "8–10",
-    tempo: "Squeeze the triceps until they burn, count 1...2...3... on the return",
-    rest: "2–3 min",
-    cues: [
-      "Lock elbows at your sides",
-      "Press and squeeze the triceps",
-      "Return slowly 1...2...3...",
-      "Set 3: Lengthened Partials bottom half 4–5 reps"
-    ],
-    muscle: "Triceps",
-    weight: "32 KG",
-    video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
-  },
-  {
-    name: "Biceps Curl",
-    machine: "Cable Biceps Curl",
-    altMachine: "Dumbbell Hammer Curl",
-    setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
-    sets: 3,
-    reps: "8–10",
-    tempo: "Curl and squeeze the biceps tight, count 1...2...3... on the return",
-    rest: "2–3 min",
-    cues: [
-      "Pin elbows, curl and squeeze tight",
-      "Return slowly 1...2...3...",
-      "Set 3: Lengthened Partials bottom half 4–5 reps"
-    ],
-    muscle: "Biceps",
-    weight: "20–25 KG",
-    video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
-  },
+const wednesdayExercises: DayExercise[] = [
+  { ...exercises.legPress, sets: 5, reps: "10–12", weight: "50 KG" },
+  { ...exercises.hipThrust, sets: 3, reps: "12–15", weight: "40 KG" },
+  { ...exercises.chestPress, sets: 2, reps: "10–12", weight: "50–56 KG" },
+  { ...exercises.tricepsPushdown, sets: 3, reps: "8–10", weight: "36 KG" },
+  { ...exercises.bicepsCurl, sets: 3, reps: "8–10", weight: "20 KG" },
+]
+
+const fridayExercises: DayExercise[] = [
+  { ...exercises.chestPress, sets: 4, reps: "8–10", weight: "56 KG" },
+  { ...exercises.seatedCableRow, sets: 3, reps: "8–10", weight: "45–50 KG" },
+  { ...exercises.shoulderPress, sets: 2, reps: "8–10", weight: "20–25 KG" },
+  { ...exercises.tricepsPushdown, sets: 3, reps: "8–10", weight: "32 KG" },
+  { ...exercises.bicepsCurl, sets: 3, reps: "8–10", weight: "20–25 KG" },
 ]
 
 
 
 const globalRules = [
   { topic: "Intensity", rule: "Working sets at 100% quality. Reps 8–10 must still be controlled with good form, leaving only RIR 1–2 in reserve" },
-  { topic: "Rest Periods", rule: "Don't rush. Rest a full 2–3 min on arm exercises and follow the prescribed rest on all main lifts every set" },
+  { topic: "Rest Periods", rule: "Don&apos;t rush. Rest a full 2–3 min on arm exercises and follow the prescribed rest on all main lifts every set" },
   { topic: "Pre-Gym", rule: "1.5–2 hours before training, eat 1 small scoop of jasmine rice or 1 slice of white bread to top off glycogen. No carbs during the session" },
   { topic: "Intra-Workout", rule: "Bring a sugary drink to sip slowly during longer rest periods to keep your nervous system fueled" },
   { topic: "Post-Workout (Critical)", rule: "Sit and cool down 15–20 min before consuming 1.5 scoops BAAM whey + ice-cold water (cut oat milk 100%), or unsweetened almond/pistachio milk to prevent an insulin spike" },
@@ -339,7 +237,7 @@ function ExerciseRow({
   completedSets,
   onToggleSet,
 }: {
-  ex: Exercise
+  ex: DayExercise
   completedSets: boolean[]
   onToggleSet: (setIndex: number) => void
 }) {
@@ -424,7 +322,6 @@ function ExerciseRow({
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function PersonalTrainingPage() {
-  // Track completed sets [exerciseIndex][setIndex]
   const [mondaySets, setMondaySets] = React.useState<boolean[][]>(
     mondayExercises.map((ex) => Array(ex.sets).fill(false))
   )
@@ -512,7 +409,7 @@ export default function PersonalTrainingPage() {
           <div className="rounded-xl border border-gray-800 bg-gray-900/20">
             {mondayExercises.map((ex, i) => (
               <ExerciseRow
-                key={ex.name}
+                key={ex.name + i}
                 ex={ex}
                 completedSets={mondaySets[i]}
                 onToggleSet={(setIndex) => toggleSet("monday", i, setIndex)}
@@ -544,7 +441,7 @@ export default function PersonalTrainingPage() {
           <div className="rounded-xl border border-gray-800 bg-gray-900/20">
             {wednesdayExercises.map((ex, i) => (
               <ExerciseRow
-                key={ex.name}
+                key={ex.name + i}
                 ex={ex}
                 completedSets={wednesdaySets[i]}
                 onToggleSet={(setIndex) => toggleSet("wednesday", i, setIndex)}
@@ -576,7 +473,7 @@ export default function PersonalTrainingPage() {
           <div className="rounded-xl border border-gray-800 bg-gray-900/20">
             {fridayExercises.map((ex, i) => (
               <ExerciseRow
-                key={ex.name}
+                key={ex.name + i}
                 ex={ex}
                 completedSets={fridaySets[i]}
                 onToggleSet={(setIndex) => toggleSet("friday", i, setIndex)}
