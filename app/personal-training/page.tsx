@@ -8,22 +8,19 @@ import { ArrowLeft, Dumbbell, Footprints, Utensils, Play, Heart } from "lucide-r
 
 type Muscle = "Chest" | "Back" | "Shoulders" | "Triceps" | "Biceps" | "Legs" | "Glutes" | "Core" | "Arms"
 
-type ExerciseDef = {
+type Exercise = {
   name: string
   machine: string
   altMachine?: string
   setup: string
+  sets: number
+  reps: number | string
   tempo: string
   rest: string
   cues: readonly string[]
   muscle: Muscle
-  video?: string
-}
-
-type DayExercise = ExerciseDef & {
-  sets: number
-  reps: number | string
   weight?: string
+  video?: string
 }
 
 // ─── Exercise Library (single source of truth) ───────────────────────────────
@@ -34,6 +31,8 @@ const exercises = {
     machine: "Lat Pulldown Machine",
     altMachine: "Iso-Lateral High Row",
     setup: "Sit upright, lock the thigh pad firmly, grip slightly wider than shoulders, and puff your chest up before pulling down",
+    sets: 3,
+    reps: "10–12",
     tempo: "Return slowly over 3s, fully stretch the lats",
     rest: "90 sec",
     cues: [
@@ -44,6 +43,7 @@ const exercises = {
       "Fully stretch the lats"
     ],
     muscle: "Back" as Muscle,
+    weight: "36 KG",
     video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
   },
   inclineChestPress: {
@@ -51,6 +51,8 @@ const exercises = {
     machine: "Incline Chest Press Machine",
     altMachine: "Pec Fly Machine (lower the seat)",
     setup: "Set the seat to an incline (30–45°), tuck elbows in to form an arrow shape at 45–60°, grip narrower so forearms are vertical, pin shoulder blades into the pad, don&apos;t let shoulders lift",
+    sets: 4,
+    reps: "8–10",
     tempo: "Tuck elbows at 45°, lower slowly over 3s",
     rest: "90 sec",
     cues: [
@@ -61,6 +63,7 @@ const exercises = {
       "Lower slowly 1...2...3..."
     ],
     muscle: "Chest" as Muscle,
+    weight: "35–45 KG",
     video: "https://www.youtube.com/shorts/98HWfiRonkE",
   },
   seatedCableRow: {
@@ -68,6 +71,8 @@ const exercises = {
     machine: "Seated Cable Row",
     altMachine: "Chest-Supported Row Machine",
     setup: "Sit upright, chest out, pull the bar into your lower rib cage, keep your core braced throughout",
+    sets: 3,
+    reps: "10–12",
     tempo: "Pull 1s / squeeze shoulder blades 1s / return 3s",
     rest: "90 sec",
     cues: [
@@ -78,6 +83,7 @@ const exercises = {
       "Open up the chest, shoulders back"
     ],
     muscle: "Back" as Muscle,
+    weight: "45–55 KG",
     video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
   },
   shoulderPress: {
@@ -85,6 +91,8 @@ const exercises = {
     machine: "Shoulder Press Machine",
     altMachine: "Dumbbell Shoulder Press",
     setup: "Hips glued to the seat, press straight up without arching your back. If the weight shakes, prioritize form first",
+    sets: 2,
+    reps: "8–10",
     tempo: "Stay pressed into the backrest, lower slowly over 3s to protect the joints",
     rest: "90 sec",
     cues: [
@@ -95,6 +103,7 @@ const exercises = {
       "If it shakes, strip weight immediately"
     ],
     muscle: "Shoulders" as Muscle,
+    weight: "20–25 KG",
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
   legPress: {
@@ -102,6 +111,8 @@ const exercises = {
     machine: "Leg Press & Calf Raise",
     altMachine: "Lying/Seated Leg Curl",
     setup: "Place feet high and wide on the platform, brace your core and stabilize your torso before pressing. Don&apos;t let knees cave inward",
+    sets: 5,
+    reps: "10–12",
     tempo: "Press out 1s / return slowly counting 1...2...3...",
     rest: "90 sec",
     cues: [
@@ -112,6 +123,7 @@ const exercises = {
       "No-Squat Edition – knee-friendly"
     ],
     muscle: "Legs" as Muscle,
+    weight: "50 KG",
     video: "https://www.youtube.com/watch?v=L3B4nwqHufs",
   },
   hipThrust: {
@@ -119,6 +131,8 @@ const exercises = {
     machine: "Smith Machine Hip Thrust",
     altMachine: "Cable Pull-Through",
     setup: "Pull a bench under your shoulder blades, pad the bar at your hip crease and make sure it&apos;s secure before starting",
+    sets: 3,
+    reps: "12–15",
     tempo: "Drive hips up to full extension, squeeze glutes hard at the top for a full 2 seconds",
     rest: "60 sec",
     cues: [
@@ -127,6 +141,7 @@ const exercises = {
       "Build firm, shapely glutes"
     ],
     muscle: "Glutes" as Muscle,
+    weight: "40 KG",
     video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
   },
   chestPress: {
@@ -134,15 +149,18 @@ const exercises = {
     machine: "Chest Press Machine",
     altMachine: "Pec Fly Machine",
     setup: "Lower the seat so the handles align exactly at nipple level. Puff your chest and pin your shoulder blades firmly into the pad",
+    sets: 4,
+    reps: "8–10",
     tempo: "Pin shoulder blades into the pad, press sharply, return slowly over 3s",
     rest: "90 sec",
     cues: [
       "Pin shoulder blades firmly into the pad",
       "Press sharp and focused",
       "Return slowly 1...2...3...",
-      "Extra chest volume mid-week"
+      "Full chest emphasis"
     ],
     muscle: "Chest" as Muscle,
+    weight: "56 KG",
     video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
   },
   tricepsPushdown: {
@@ -150,6 +168,8 @@ const exercises = {
     machine: "Cable Triceps Pushdown",
     altMachine: "Machine Triceps Dip",
     setup: "Set the pulley low, use a rope or straight bar, elbows glued to your sides, depress your shoulders before starting. Pick a weight where reps 8–10 feel hard",
+    sets: 3,
+    reps: "8–10",
     tempo: "Lock elbows in place, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
     rest: "2–3 min",
     cues: [
@@ -159,6 +179,7 @@ const exercises = {
       "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
     muscle: "Triceps" as Muscle,
+    weight: "32–36 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
   bicepsCurl: {
@@ -166,6 +187,8 @@ const exercises = {
     machine: "Cable Biceps Curl",
     altMachine: "Dumbbell Biceps Curl",
     setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
+    sets: 3,
+    reps: "8–10",
     tempo: "Pin elbows, no swinging, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
     rest: "2–3 min",
     cues: [
@@ -176,34 +199,35 @@ const exercises = {
       "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
     muscle: "Biceps" as Muscle,
+    weight: "20–25 KG",
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
   },
 } as const
 
 // ─── Workout Programs ────────────────────────────────────────────────────────
 
-const mondayExercises: DayExercise[] = [
-  { ...exercises.latPulldown, sets: 3, reps: "10–12", weight: "36 KG" },
-  { ...exercises.inclineChestPress, sets: 4, reps: "8–10", weight: "35–45 KG" },
-  { ...exercises.seatedCableRow, sets: 3, reps: "10–12", weight: "45–55 KG" },
-  { ...exercises.shoulderPress, sets: 2, reps: "8–10", weight: "25 KG" },
-]
+const mondayExercises = [
+  exercises.latPulldown,
+  exercises.inclineChestPress,
+  exercises.seatedCableRow,
+  exercises.shoulderPress,
+] as const
 
-const wednesdayExercises: DayExercise[] = [
-  { ...exercises.legPress, sets: 5, reps: "10–12", weight: "50 KG" },
-  { ...exercises.hipThrust, sets: 3, reps: "12–15", weight: "40 KG" },
-  { ...exercises.chestPress, sets: 2, reps: "10–12", weight: "50–56 KG" },
-  { ...exercises.tricepsPushdown, sets: 3, reps: "8–10", weight: "36 KG" },
-  { ...exercises.bicepsCurl, sets: 3, reps: "8–10", weight: "20 KG" },
-]
+const wednesdayExercises = [
+  exercises.legPress,
+  exercises.hipThrust,
+  exercises.chestPress,
+  exercises.tricepsPushdown,
+  exercises.bicepsCurl,
+] as const
 
-const fridayExercises: DayExercise[] = [
-  { ...exercises.chestPress, sets: 4, reps: "8–10", weight: "56 KG" },
-  { ...exercises.seatedCableRow, sets: 3, reps: "8–10", weight: "45–50 KG" },
-  { ...exercises.shoulderPress, sets: 2, reps: "8–10", weight: "20–25 KG" },
-  { ...exercises.tricepsPushdown, sets: 3, reps: "8–10", weight: "32 KG" },
-  { ...exercises.bicepsCurl, sets: 3, reps: "8–10", weight: "20–25 KG" },
-]
+const fridayExercises = [
+  exercises.chestPress,
+  exercises.seatedCableRow,
+  exercises.shoulderPress,
+  exercises.tricepsPushdown,
+  exercises.bicepsCurl,
+] as const
 
 
 
@@ -237,7 +261,7 @@ function ExerciseRow({
   completedSets,
   onToggleSet,
 }: {
-  ex: DayExercise
+  ex: Exercise
   completedSets: boolean[]
   onToggleSet: (setIndex: number) => void
 }) {
