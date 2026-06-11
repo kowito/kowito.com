@@ -2,11 +2,11 @@
 
 import React from "react"
 import Link from "next/link"
-import { ArrowLeft, Dumbbell, Footprints, Utensils, ChevronDown, Play, Check, Circle, ArrowRight } from "lucide-react"
+import { ArrowLeft, Dumbbell, Footprints, Utensils, Play, Heart } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type Muscle = "อก" | "หลัง" | "ไหล่" | "หลังแขน" | "หน้าแขน" | "ขา" | "ก้น" | "แกนกลาง" | "แขน"
+type Muscle = "Chest" | "Back" | "Shoulders" | "Triceps" | "Biceps" | "Legs" | "Glutes" | "Core" | "Arms"
 
 type Exercise = {
   name: string
@@ -18,7 +18,7 @@ type Exercise = {
   reps: number | string
   tempo: string
   rest: string
-  cues: string[]  // Changed to array for bullets
+  cues: string[]
   muscle: Muscle
   weight?: string
   video?: string
@@ -31,39 +31,39 @@ const mondayExercises: Exercise[] = [
     name: "Lat Pulldown",
     machine: "Lat Pulldown Machine",
     altMachine: "Iso-Lateral High Row",
-    setup: "นั่งตัวตรง ล็อกนวมต้นขาให้แน่น จับบาร์กว้างกว่าไหล่เล็กน้อย และเชิดอกก่อนเริ่มดึงลง",
+    setup: "Sit upright, lock the thigh pad firmly, grip slightly wider than shoulders, and puff your chest up before pulling down",
     sets: 3,
     reps: "10–12",
-    tempo: "ผ่อนกลับช้า 3 วิ ยืดหลังให้สุด",
-    rest: "90 วินาที",
+    tempo: "Return slowly over 3s, fully stretch the lats",
+    rest: "90 sec",
     cues: [
-      "เชิดอกขึ้น",
-      "กดข้อศอกลงหาเอว",
-      "ไม่ใช้แรงแขนโกง",
-      "ผ่อนกลับช้า 3 วินาที",
-      "ยืดแผงหลังให้สุด"
+      "Puff chest up",
+      "Drive elbows down to your waist",
+      "Don't cheat with arm strength",
+      "Return slowly over 3 seconds",
+      "Fully stretch the lats"
     ],
-    muscle: "หลัง",
+    muscle: "Back",
     weight: "36 KG",
     video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
   },
   {
     name: "Incline Chest Press",
     machine: "Incline Chest Press Machine",
-    altMachine: "Pec Fly Machine (ปรับเบาะต่ำ)",
-    setup: "ปรับเบาะให้เฉียงขึ้น (30–45 องศา) หุบศอกลงมาเป็นรูปหัวลูกศร 45–60 องศา จับแคบลงให้ท่อนแขนตั้งฉาก ล็อกสะบักหลังจมเบาะแน่น ห้ามไหล่ลอย",
-    sets: 2,
+    altMachine: "Pec Fly Machine (lower the seat)",
+    setup: "Set the seat to an incline (30–45°), tuck elbows in to form an arrow shape at 45–60°, grip narrower so forearms are vertical, pin shoulder blades into the pad, don't let shoulders lift",
+    sets: 4,
     reps: "8–10",
-    tempo: "หุบศอก 45 องศา ตอนลงผ่อนช้า 3 วิ",
-    rest: "90 วินาที",
+    tempo: "Tuck elbows at 45°, lower slowly over 3s",
+    rest: "90 sec",
     cues: [
-      "เซ็ตที่ 1: ดร็อปเหลือ 30–35 KG จูนฟอร์ม",
-      "เซ็ตที่ 2: ซัด 40 KG เต็มที่",
-      "หุบศอก 45–60 องศา (ไม่กางเป็นตัว T)",
-      "ล็อกสะบักจมเบาะ",
-      "ผ่อนลงช้า 1...2...3..."
+      "Set 1: Drop to 30–35 KG to dial in form",
+      "Sets 2–4: Go hard at 40 KG",
+      "Tuck elbows 45–60° (no T-flare)",
+      "Pin shoulder blades into the pad",
+      "Lower slowly 1...2...3..."
     ],
-    muscle: "อก",
+    muscle: "Chest",
     weight: "35–45 KG",
     video: "https://www.youtube.com/shorts/98HWfiRonkE",
   },
@@ -71,19 +71,19 @@ const mondayExercises: Exercise[] = [
     name: "Seated Cable Row",
     machine: "Seated Cable Row",
     altMachine: "Chest-Supported Row Machine",
-    setup: "นั่งตัวตรง ยืดอก ดึงบาร์เข้าหาชายโครงล่าง และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
+    setup: "Sit upright, chest out, pull the bar into your lower rib cage, keep your core braced throughout",
     sets: 3,
     reps: "10–12",
-    tempo: "ดึง 1 วิ / ค้างบีบสะบัก 1 วิ / ผ่อน 3 วิ",
-    rest: "90 วินาที",
+    tempo: "Pull 1s / squeeze shoulder blades 1s / return 3s",
+    rest: "90 sec",
     cues: [
-      "นั่งตัวตรง ยืดอก",
-      "ดึง 1 วิ",
-      "ค้างบีบสะบัก 1 วิ",
-      "ผ่อนกลับช้า 3 วิ",
-      "ดึงไหล่ห่อให้เปิดผึ่งผาย"
+      "Sit upright, chest out",
+      "Pull 1 second",
+      "Squeeze shoulder blades 1 second",
+      "Return slowly over 3 seconds",
+      "Open up the chest, shoulders back"
     ],
-    muscle: "หลัง",
+    muscle: "Back",
     weight: "45–55 KG",
     video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
   },
@@ -91,20 +91,20 @@ const mondayExercises: Exercise[] = [
     name: "Shoulder Press",
     machine: "Shoulder Press Machine",
     altMachine: "Dumbbell Shoulder Press",
-    setup: "สะโพกติดเบาะ ดันขึ้นตรง ๆ และไม่แอ่นหลัง ถ้าน้ำหนักหน่วงจนสั่นสะท้านให้คุมฟอร์มก่อนเสมอ",
+    setup: "Hips glued to the seat, press straight up without arching your back. If the weight shakes, prioritize form first",
     sets: 2,
     reps: "8–10",
-    tempo: "นั่งพิงเบาะให้แน่น ผ่อนลงช้า 3 วิ เซฟข้อต่อ",
-    rest: "90 วินาที",
+    tempo: "Stay pressed into the backrest, lower slowly over 3s to protect the joints",
+    rest: "90 sec",
     cues: [
-      "นั่งพิงเบาะให้แน่น",
-      "ดันขึ้นตรง ไม่แอ่นหลัง",
-      "ผ่อนลงช้า 1...2...3...",
-      "เซฟข้อต่อไหล่",
-      "ถ้าสั่นให้ลดเหล็กทันที"
+      "Stay pressed into the backrest",
+      "Press straight up, no back arch",
+      "Lower slowly 1...2...3...",
+      "Protect the shoulder joints",
+      "If it shakes, strip weight immediately"
     ],
-    muscle: "ไหล่",
-    weight: "20–25 KG",
+    muscle: "Shoulders",
+    weight: "25 KG",
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
 ]
@@ -114,76 +114,75 @@ const wednesdayExercises: Exercise[] = [
     name: "Leg Press",
     machine: "Leg Press & Calf Raise",
     altMachine: "Lying/Seated Leg Curl",
-    setup: "วางเท้าสูงและกว้างบนแผ่นเท้า เกร็งท้องและตั้งลำตัวให้มั่นคงก่อนเริ่มดัน อย่าให้หัวเข่าโค้งเข้าหากัน",
-    sets: 3,
+    setup: "Place feet high and wide on the platform, brace your core and stabilize your torso before pressing. Don't let knees cave inward",
+    sets: 5,
     reps: "10–12",
-    tempo: "ดันออก 1 วิ / ผ่อนกลับช้า ๆ นับ 1...2...3...",
-    rest: "90 วินาที",
+    tempo: "Press out 1s / return slowly counting 1...2...3...",
+    rest: "90 sec",
     cues: [
-      "วางเท้าสูงและกว้าง",
-      "เกร็งท้อง ตั้งลำตัวมั่น",
-      "ดันออกคุมจังหวะ",
-      "ผ่อนกลับช้า 1...2...3...",
-      "No-Squat Edition เซฟหัวเข่า"
+      "Place feet high and wide",
+      "Brace core, torso stable",
+      "Press out with controlled rhythm",
+      "Return slowly 1...2...3...",
+      "No-Squat Edition – knee-friendly"
     ],
-    muscle: "ขา",
+    muscle: "Legs",
     weight: "50 KG",
     video: "https://www.youtube.com/watch?v=L3B4nwqHufs",
-  },
-  {
-    name: "Leg Extension",
-    machine: "Leg Extension Machine",
-    altMachine: "Horizontal Leg Press",
-    setup: "ปรับพนักพิงให้หลังแนบเบาะ วางนวมเหนือข้อเท้าเล็กน้อย และตั้งเท้าให้หัวเข่าเคลื่อนในแนวตรง",
-    sets: 3,
-    reps: "12–15",
-    tempo: "เตะสุดล็อกขาค้าง 1 วิ / ผ่อนลงช้า ๆ 3 วิ",
-    rest: "90 วินาที",
-    cues: [
-      "เตะขึ้นสุดล็อกขา",
-      "ค้างไว้ 1 วินาที",
-      "ผ่อนลงช้า 3 วินาที",
-      "สร้าง Time Under Tension",
-      "แยกชิ้นหน้าขาให้ชัด"
-    ],
-    muscle: "ขา",
-    weight: "32–40 KG",
-    video: "https://www.youtube.com/shorts/iQ92TuvBqRo",
   },
   {
     name: "Hip Thrust",
     machine: "Smith Machine Hip Thrust",
     altMachine: "Cable Pull-Through",
-    setup: "ลากม้านั่งมาให้รองสะบัก จัดโฟมที่สะโพกและพาดบาร์ตรงข้อพับสะโพกให้มั่นคงก่อนเริ่ม",
-    sets: 2,
-    reps: 15,
-    tempo: "ดันสะโพกขึ้นสุด บีบก้นค้างไว้บนสุด 2 วินาทีเต็ม",
-    rest: "60 วินาที",
+    setup: "Pull a bench under your shoulder blades, pad the bar at your hip crease and make sure it's secure before starting",
+    sets: 3,
+    reps: "12–15",
+    tempo: "Drive hips up to full extension, squeeze glutes hard at the top for a full 2 seconds",
+    rest: "60 sec",
     cues: [
-      "ดันสะโพกขึ้นสุด",
-      "บีบก้นค้างไว้ 2 วินาที",
-      "สร้างก้นกระชับ"
+      "Drive hips to full lockout",
+      "Squeeze glutes for 2 seconds",
+      "Build firm, shapely glutes"
     ],
-    muscle: "ก้น",
+    muscle: "Glutes",
     weight: "40 KG",
     video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
+  },
+  {
+    name: "Chest Press",
+    machine: "Chest Press Machine",
+    altMachine: "Pec Fly Machine",
+    setup: "Lower the seat so the handles align exactly at nipple level. Puff your chest and pin your shoulder blades firmly into the pad",
+    sets: 2,
+    reps: "10–12",
+    tempo: "Pin shoulder blades into the pad, press sharply, return slowly over 3s",
+    rest: "90 sec",
+    cues: [
+      "Pin shoulder blades firmly into the pad",
+      "Press sharp and focused",
+      "Return slowly 1...2...3...",
+      "Extra chest volume mid-week"
+    ],
+    muscle: "Chest",
+    weight: "50–56 KG",
+    video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
   },
   {
     name: "Triceps Pushdown",
     machine: "Cable Triceps Pushdown",
     altMachine: "Machine Triceps Dip",
-    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัวและกดไหล่ลงก่อนเริ่ม เลือกน้ำหนักให้ครั้งที่ 8–10 เริ่มตึงมือจัดๆ",
+    setup: "Set the pulley low, use a rope or straight bar, elbows glued to your sides, depress your shoulders before starting. Pick a weight where reps 8–10 feel hard",
     sets: 3,
     reps: "8–10",
-    tempo: "ล็อกศอกนิ่ง ผ่อนกลับช้า 3 วิ (เซ็ตสุดท้ายทำ Partials ครึ่งล่าง 4-5 ครั้ง)",
-    rest: "2–3 นาที",
+    tempo: "Lock elbows in place, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
+    rest: "2–3 min",
     cues: [
-      "ล็อกศอกข้างลำตัวนิ่งสนิท",
-      "กดบีบหลังแขนให้แสบ",
-      "ผ่อนกลับช้า 1...2...3...",
-      "เซ็ตที่ 3: Partials ครึ่งล่าง 4–5 ครั้ง"
+      "Lock elbows firmly at your sides",
+      "Press and squeeze triceps till they burn",
+      "Return slowly 1...2...3...",
+      "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
-    muscle: "หลังแขน",
+    muscle: "Triceps",
     weight: "36 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
@@ -191,19 +190,19 @@ const wednesdayExercises: Exercise[] = [
     name: "Biceps Curl",
     machine: "Cable Biceps Curl",
     altMachine: "Dumbbell Biceps Curl",
-    setup: "ตั้งรอกต่ำ จับบาร์หรือเชือก ตรึงข้อศอกข้างลำตัวให้แน่นและล็อกข้อมือให้มั่นคง",
+    setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
     sets: 3,
     reps: "8–10",
-    tempo: "ตรึงศอกห้ามเหวี่ยง ผ่อนกลับช้า 3 วิ (เซ็ตสุดท้ายทำ Partials ครึ่งล่าง 4-5 ครั้ง)",
-    rest: "2–3 นาที",
+    tempo: "Pin elbows, no swinging, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
+    rest: "2–3 min",
     cues: [
-      "ตรึงศอกข้างลำตัว",
-      "ห้ามใช้แรงเหวี่ยง",
-      "บีบเนื้อหน้าแขนแน่น",
-      "ผ่อนกลับช้า 1...2...3...",
-      "เซ็ตที่ 3: Partials ครึ่งล่าง 4–5 ครั้ง"
+      "Pin elbows at your sides",
+      "No momentum, no swinging",
+      "Squeeze the biceps tight",
+      "Return slowly 1...2...3...",
+      "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
-    muscle: "หน้าแขน",
+    muscle: "Biceps",
     weight: "20 KG",
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
   },
@@ -214,18 +213,18 @@ const fridayExercises: Exercise[] = [
     name: "Chest Press",
     machine: "Chest Press Machine",
     altMachine: "Pec Fly Machine",
-    setup: "ปรับเบาะลงต่ำให้มือจับอยู่ระดับหัวนมพอดีเป๊ะ เชิดอกและบีบสะบักหลังกดจมติดเบาะแน่น",
-    sets: 2,
-    reps: 8,
-    tempo: "ล็อกสะบักจมเบาะ ดันคม ๆ ผ่อนกลับช้า 3 วิ",
-    rest: "90 วินาที",
+    setup: "Lower the seat so the handles align exactly at nipple level. Puff your chest and pin your shoulder blades firmly into the pad",
+    sets: 4,
+    reps: "8–10",
+    tempo: "Pin shoulder blades into the pad, press sharply, return slowly over 3s",
+    rest: "90 sec",
     cues: [
-      "ล็อกสะบักจมเบาะแน่น",
-      "ดันคม ๆ เน้น ๆ",
-      "ผ่อนกลับช้า 1...2...3...",
-      "สร้างฐานอกหนาตัดขอบชัด"
+      "Pin shoulder blades firmly into the pad",
+      "Press sharp and focused",
+      "Return slowly 1...2...3...",
+      "Full chest emphasis – 4 sets"
     ],
-    muscle: "อก",
+    muscle: "Chest",
     weight: "56 KG",
     video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
   },
@@ -233,38 +232,58 @@ const fridayExercises: Exercise[] = [
     name: "Seated Row",
     machine: "Seated Row Machine",
     altMachine: "Reverse Delt Fly",
-    setup: "นั่งตัวตรง ยืดอก ดึงบาร์เข้าหาชายโครงล่าง และล็อกหน้าท้องคุมลำตัวไว้ตลอด",
-    sets: 2,
-    reps: 8,
-    tempo: "คุมฟอร์มแน่น ๆ ไม่ใช้แรงเหวี่ยง ผ่อนกลับช้า 3 วิ",
-    rest: "90 วินาที",
+    setup: "Sit upright, chest out, pull the bar into your lower rib cage, keep your core braced throughout",
+    sets: 3,
+    reps: "8–10",
+    tempo: "Keep form tight, no momentum, return slowly over 3s",
+    rest: "90 sec",
     cues: [
-      "นั่งตัวตรง ยืดอก",
-      "ดึงคุมฟอร์มแน่น ๆ",
-      "บีบสะบักที่ปลายจังหวะ",
-      "ไม่ใช้แรงเหวี่ยงลำตัว",
-      "ผ่อนกลับช้า 1...2...3..."
+      "Sit upright, chest out",
+      "Pull with tight, controlled form",
+      "Squeeze shoulder blades at the end range",
+      "No torso momentum",
+      "Return slowly 1...2...3..."
     ],
-    muscle: "หลัง",
+    muscle: "Back",
     weight: "45–50 KG",
     video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
+  },
+  {
+    name: "Shoulder Press",
+    machine: "Shoulder Press Machine",
+    altMachine: "Dumbbell Shoulder Press",
+    setup: "Hips glued to the seat, press straight up without arching your back. If the weight shakes, prioritize form first",
+    sets: 2,
+    reps: "8–10",
+    tempo: "Stay pressed into the backrest, lower slowly over 3s to protect the joints",
+    rest: "90 sec",
+    cues: [
+      "Stay pressed into the backrest",
+      "Press straight up, no back arch",
+      "Lower slowly 1...2...3...",
+      "Protect the shoulder joints",
+      "If it shakes, strip weight immediately"
+    ],
+    muscle: "Shoulders",
+    weight: "20–25 KG",
+    video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
   {
     name: "Triceps Pushdown",
     machine: "Cable Triceps Pushdown",
     altMachine: "Dumbbell Overhead Extension",
-    setup: "ตั้งรอกต่ำ ใช้เชือกหรือบาร์ ศอกแนบลำตัว กดไหล่ลง เลือกน้ำหนักหนักจนครั้งที่ 8–10 ตึงมือ",
+    setup: "Set the pulley low, use a rope or bar, elbows glued to your sides, depress your shoulders. Pick a weight where reps 8–10 feel hard",
     sets: 3,
     reps: "8–10",
-    tempo: "บีบเค้นหลังแขนให้แสบร้อน ตอนผ่อนกลับนับ 1...2...3...",
-    rest: "2–3 นาที",
+    tempo: "Squeeze the triceps until they burn, count 1...2...3... on the return",
+    rest: "2–3 min",
     cues: [
-      "ล็อคศอกข้างลำตัว",
-      "กดบีบหลังแขน",
-      "ผ่อนกลับช้า 1...2...3...",
-      "เซ็ตที่ 3: Partials ครึ่งล่าง 4–5 ครั้ง"
+      "Lock elbows at your sides",
+      "Press and squeeze the triceps",
+      "Return slowly 1...2...3...",
+      "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
-    muscle: "หลังแขน",
+    muscle: "Triceps",
     weight: "32 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
@@ -272,17 +291,17 @@ const fridayExercises: Exercise[] = [
     name: "Biceps Curl",
     machine: "Cable Biceps Curl",
     altMachine: "Dumbbell Hammer Curl",
-    setup: "ตั้งรอกต่ำ จับบาร์หรือเชือก ตรึงข้อศอกข้างลำตัวให้แน่นและล็อกข้อมือให้มั่นคง",
+    setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
     sets: 3,
     reps: "8–10",
-    tempo: "ม้วนบีบเนื้อหน้าแขนแน่น ผ่อนกลับนับ 1...2...3...",
-    rest: "2–3 นาที",
+    tempo: "Curl and squeeze the biceps tight, count 1...2...3... on the return",
+    rest: "2–3 min",
     cues: [
-      "ตรึงศอก ม้วนบีบแน่น",
-      "ผ่อนกลับช้า 1...2...3...",
-      "เซ็ตที่ 3: Partials ครึ่งล่าง 4–5 ครั้ง"
+      "Pin elbows, curl and squeeze tight",
+      "Return slowly 1...2...3...",
+      "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
-    muscle: "หน้าแขน",
+    muscle: "Biceps",
     weight: "20–25 KG",
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
   },
@@ -291,148 +310,113 @@ const fridayExercises: Exercise[] = [
 
 
 const globalRules = [
-  { topic: "ความหนัก", rule: "เซ็ตตรงคุณภาพ 100% ครั้งที่ 8–10 ต้องยังคุมฟอร์มได้และเหลือแรงสำรองแค่ RIR 1–2" },
-  { topic: "เวลาพัก", rule: "ห้ามเร่ง พักเต็ม 2–3 นาทีในท่าแขน และพักตามที่กำหนดในท่าหลักทุกเซ็ต" },
-  { topic: "ก่อนเข้ายิม", rule: "ก่อนซ้อม 1.5–2 ชั่วโมง ซัดข้าวสวย 1 ทัพพีเล็ก หรือขนมปังขาว 1 แผ่นเพื่อเติมไกลโคเจน ห้ามคาร์บระหว่างยา" },
-  { topic: "ระหว่างซ้อม", rule: "พกเครื่องดื่มที่มีน้ำตาลไว้จิบเล็ก ๆ ระหว่างพักยาวเพื่อเลี้ยงพลังงานให้ระบบประสาทไม่ตก" },
-  { topic: "หลังซ้อม (จุดเปลี่ยน)", rule: "นั่งพัก 15–20 นาทีให้ร่างกายเย็นลง ค่อยดื่มเวย์ BAAM 1.5 ช้อน + น้ำเปล่าเย็นจัด (ตัดนมโอ๊ตทิ้ง 100%) หรือนมอัลมอนด์/นมพิสตาชิโอ Unsweetened เพื่อป้องกันอินซูลินพุ่ง" },
-  { topic: "ครีเอทีน", rule: "กิน 3–5g ทุกวันสม่ำเสมอ ตอนไหนก็ได้ (ไม่ต้องซิ้งกับมื้อออกกำลังกาย) ผสมรวมในเวย์ BAAM หรือน้ำเปล่าได้เลย ความสม่ำเสมอคือกุญแจ" },
-  { topic: "โปรตีน", rule: "เป้าหมายโปรตีนทั้งวัน: 1.6–2.0g ต่อ kg น้ำหนักตัว กินให้ครบทุกวัน เพื่อซ่อมแซมและสร้างกล้ามเนื้อ" },
-  { topic: "น้ำดื่ม", rule: "ดันขึ้นไปให้ได้ 3.5–4.5 ลิตรต่อวัน ทุกวัน เพื่อใช้เป็นพาหนะหลักในการขนส่งไขมันพุง" },
-  { topic: "ความถี่การฝึก", rule: "ฝึก 3 วันต่อสัปดาห์ วันพักระหว่างเซสชันคือเวลาฟื้นตัวจริงของกล้าม" },
-  { topic: "คาร์ดิโอ", rule: "เดินลู่ปรับชัน 5–8% หลังเวท ความเร็ว 3.5–3.8 กม./ชม. ไม่จับบาร์ เพื่อบังคับแกนกลาง" },
+  { topic: "Intensity", rule: "Working sets at 100% quality. Reps 8–10 must still be controlled with good form, leaving only RIR 1–2 in reserve" },
+  { topic: "Rest Periods", rule: "Don't rush. Rest a full 2–3 min on arm exercises and follow the prescribed rest on all main lifts every set" },
+  { topic: "Pre-Gym", rule: "1.5–2 hours before training, eat 1 small scoop of jasmine rice or 1 slice of white bread to top off glycogen. No carbs during the session" },
+  { topic: "Intra-Workout", rule: "Bring a sugary drink to sip slowly during longer rest periods to keep your nervous system fueled" },
+  { topic: "Post-Workout (Critical)", rule: "Sit and cool down 15–20 min before consuming 1.5 scoops BAAM whey + ice-cold water (cut oat milk 100%), or unsweetened almond/pistachio milk to prevent an insulin spike" },
+  { topic: "Creatine", rule: "Take 3–5g every single day, any time (no need to sync with training). Mix it into your BAAM whey or plain water. Consistency is key" },
+  { topic: "Protein", rule: "Daily protein target: 1.6–2.0g per kg of bodyweight. Hit it every day to repair and build muscle" },
+  { topic: "Water Intake", rule: "Push it up to 3.5–4.5 liters per day, every day. Water is the main vehicle for mobilizing belly fat" },
+  { topic: "Training Frequency", rule: "Train 3 days per week. Rest days between sessions are when real muscle recovery happens" },
+  { topic: "Cardio", rule: "Training days: incline treadmill walk 5–8% after lifting, speed 3.5–3.8 km/h, no holding the rails. Rest days: Zone 2 steady-state cardio, heart rate 120–125 bpm" },
 ]
 
 const weekOverview = [
-  { label: "จันทร์", tag: "ฝึก", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "อังคาร", tag: "พัก", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
-  { label: "พุธ", tag: "ฝึก", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "พฤหัส", tag: "พัก", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
-  { label: "ศุกร์", tag: "ฝึก", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "เสาร์", tag: "พัก", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
-  { label: "อาทิตย์", tag: "⚡เครื่อง", style: "bg-rose-500/15 text-rose-300 border-rose-500/30" },
+  { label: "Mon", tag: "Train", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Tue", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
+  { label: "Wed", tag: "Train", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Thu", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
+  { label: "Fri", tag: "Train", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Sat", tag: "Optional", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
+  { label: "Sun", tag: "Rest", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
 ]
 
 // ─── Components ──────────────────────────────────────────────────────────────
 
 function ExerciseRow({
   ex,
-  status,
-  isActive,
-  onTap,
   completedSets,
   onToggleSet,
 }: {
   ex: Exercise
-  status: "completed" | "active" | "remaining"
-  isActive: boolean
-  onTap: () => void
   completedSets: boolean[]
   onToggleSet: (setIndex: number) => void
 }) {
-  const [showMore, setShowMore] = React.useState(false)
-
-  const StatusIcon = status === "completed" ? Check : status === "active" ? ArrowRight : Circle
-  const statusColor =
-    status === "completed"
-      ? "text-emerald-500"
-      : status === "active"
-        ? "text-blue-400"
-        : "text-gray-700"
+  const allDone = completedSets.every((s) => s)
 
   return (
-    <div className="border-b border-gray-800/50 last:border-0">
-      {/* Compact list item - always visible */}
-      <button
-        onClick={onTap}
-        className={`w-full px-4 py-2.5 flex items-center gap-3 text-left transition-colors ${
-          isActive ? "bg-blue-950/30" : "hover:bg-gray-800/30"
-        }`}
-      >
-        <StatusIcon className={`h-4 w-4 shrink-0 ${statusColor}`} />
-        <div className="flex-1 min-w-0 flex items-baseline justify-between gap-2">
-          <span className="text-sm font-medium text-white">{ex.name}</span>
-          {!isActive && ex.weight && (
-            <span className="text-xs text-gray-600 tabular-nums">{ex.weight}</span>
-          )}
+    <div className={`border-b border-gray-800/50 last:border-0 px-4 py-4 space-y-3 ${allDone ? "opacity-60" : ""}`}>
+      {/* Name + weight */}
+      <div className="flex items-baseline justify-between gap-2">
+        <h3 className="text-base font-semibold text-white">{ex.name}</h3>
+        {ex.weight && (
+          <span className="text-2xl font-bold text-blue-400 tabular-nums">{ex.weight}</span>
+        )}
+      </div>
+
+      {/* Sets × Reps + Rest + Tempo */}
+      <div className="space-y-0.5">
+        <div className="text-sm text-white">
+          {ex.sets}×{ex.reps} <span className="text-gray-500">• Rest {ex.rest}</span>
         </div>
-      </button>
+        <div className="text-xs text-gray-500">
+          Tempo: {ex.tempo}
+        </div>
+      </div>
 
-      {/* Expanded card - only for active exercise */}
-      {isActive && (
-        <div className="px-4 pb-4 space-y-3">
-          {/* Big numbers - what you need NOW */}
-          <div className="space-y-0.5">
-            {ex.weight && (
-              <div className="text-3xl font-bold text-blue-400 tabular-nums">{ex.weight}</div>
-            )}
-            <div className="text-base text-white">
-              {ex.sets}×{ex.reps} <span className="text-gray-500">• Rest {ex.rest}</span>
-            </div>
-          </div>
-
-          {/* Set tracking checkboxes */}
-          <div className="flex gap-2">
-            {Array.from({ length: ex.sets }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => onToggleSet(i)}
-                className={`flex-1 py-2 text-xs font-medium border rounded transition-all ${
-                  completedSets[i]
-                    ? "bg-emerald-500 border-emerald-500 text-white"
-                    : "border-gray-700 text-gray-500 hover:border-emerald-500/50"
-                }`}
-              >
-                {completedSets[i] ? "✓" : ""} Set {i + 1}
-              </button>
-            ))}
-          </div>
-
-          {/* Technique - compact bullets */}
-          <div className="space-y-1">
-            <div className="text-xs text-gray-600">Tips</div>
-            {ex.cues.slice(0, 3).map((cue, i) => (
-              <div key={i} className="text-xs text-gray-500 flex items-start gap-1.5">
-                <span className="text-emerald-500 shrink-0 mt-0.5">•</span>
-                <span>{cue}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* More section - collapsed by default */}
+      {/* Set tracking checkboxes */}
+      <div className="flex gap-2">
+        {Array.from({ length: ex.sets }).map((_, i) => (
           <button
-            onClick={() => setShowMore(!showMore)}
-            className="text-xs text-gray-600 hover:text-gray-400 flex items-center gap-1 pt-1"
+            key={i}
+            onClick={() => onToggleSet(i)}
+            className={`flex-1 py-2 text-xs font-medium border rounded transition-all ${completedSets[i]
+              ? "bg-emerald-500 border-emerald-500 text-white"
+              : "border-gray-700 text-gray-500 hover:border-emerald-500/50"
+              }`}
           >
-            More
-            <ChevronDown className={`h-3 w-3 transition-transform ${showMore ? "rotate-180" : ""}`} />
+            {completedSets[i] ? "✓" : ""} Set {i + 1}
           </button>
+        ))}
+      </div>
 
-          {showMore && (
-            <div className="space-y-2 text-xs text-gray-500 pt-1">
-              <div>
-                <span className="text-gray-600">Machine:</span> {ex.machine}
-              </div>
-              {ex.altMachine && (
-                <div>
-                  <span className="text-gray-600">Alternative:</span> {ex.altMachine}
-                </div>
-              )}
-              {ex.video && (
-                <a
-                  href={ex.video}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline inline-flex items-center gap-1"
-                >
-                  <Play className="h-3 w-3" />
-                  Video
-                </a>
-              )}
-            </div>
-          )}
+      {/* Machine info */}
+      <div className="text-xs text-gray-500 space-y-0.5">
+        <div>
+          <span className="text-gray-600">Machine:</span> {ex.machine}
         </div>
-      )}
+        {ex.altMachine && (
+          <div>
+            <span className="text-gray-600">Alt:</span> {ex.altMachine}
+          </div>
+        )}
+        <div>
+          <span className="text-gray-600">Setup:</span> {ex.setup}
+        </div>
+        {ex.video && (
+          <a
+            href={ex.video}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline inline-flex items-center gap-1 mt-1"
+          >
+            <Play className="h-3 w-3" />
+            Video
+          </a>
+        )}
+      </div>
+
+      {/* All cues */}
+      <div className="space-y-1">
+        <div className="text-xs text-gray-600">Tips</div>
+        {ex.cues.map((cue, i) => (
+          <div key={i} className="text-xs text-gray-500 flex items-start gap-1.5">
+            <span className="text-emerald-500 shrink-0 mt-0.5">•</span>
+            <span>{cue}</span>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
@@ -440,11 +424,6 @@ function ExerciseRow({
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function PersonalTrainingPage() {
-  // Track active exercise for each day
-  const [activeMonday, setActiveMonday] = React.useState(0)
-  const [activeWednesday, setActiveWednesday] = React.useState(0)
-  const [activeFriday, setActiveFriday] = React.useState(0)
-
   // Track completed sets [exerciseIndex][setIndex]
   const [mondaySets, setMondaySets] = React.useState<boolean[][]>(
     mondayExercises.map((ex) => Array(ex.sets).fill(false))
@@ -485,19 +464,6 @@ export default function PersonalTrainingPage() {
     }
   }
 
-  const getStatus = (
-    exerciseIndex: number,
-    activeIndex: number,
-    completedSets: boolean[]
-  ): "completed" | "active" | "remaining" => {
-    if (exerciseIndex < activeIndex) return "completed"
-    if (exerciseIndex === activeIndex) {
-      if (completedSets.every((s) => s)) return "completed"
-      return "active"
-    }
-    return "remaining"
-  }
-
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <header className="container mx-auto max-w-2xl px-4 pt-6 pb-4 flex items-center justify-between">
@@ -507,11 +473,11 @@ export default function PersonalTrainingPage() {
         <div className="flex items-center gap-4">
           <Link href="/diet" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-white transition-colors">
             <Utensils className="h-3.5 w-3.5" />
-            แผนอาหาร
+            Diet Plan
           </Link>
           <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-white transition-colors">
             <ArrowLeft className="h-4 w-4" />
-            กลับ
+            Back
           </Link>
         </div>
       </header>
@@ -522,9 +488,9 @@ export default function PersonalTrainingPage() {
         <div className="pt-2">
           <div className="flex items-center gap-2 mb-1">
             <Dumbbell className="h-4 w-4 text-emerald-400 shrink-0" />
-            <h1 className="text-xl font-semibold text-white">แผนฝึก — Recomp Edition (Flexible Machine Version)</h1>
+            <h1 className="text-xl font-semibold text-white">Training Plan — Recomp Edition (Flexible Machine Version)</h1>
           </div>
-          <p className="text-sm text-gray-500 pl-6">ฝึก 3×/สัปดาห์ · No-Squat Edition · Plan B ทุกท่า · เดินลู่ไม่จับบาร์</p>
+          <p className="text-sm text-gray-500 pl-6">Train 3×/week · No-Squat Edition · Plan B on all lifts · Treadmill walk, no holding rails</p>
         </div>
 
         {/* Week strip */}
@@ -540,17 +506,14 @@ export default function PersonalTrainingPage() {
         {/* ── Monday ── */}
         <section>
           <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">จันทร์</span>
-            <h2 className="text-base font-semibold text-white">Workout A · อก + หลัง + ไหล่</h2>
+            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">Monday</span>
+            <h2 className="text-base font-semibold text-white">Workout A · Chest + Back + Shoulders</h2>
           </div>
           <div className="rounded-xl border border-gray-800 bg-gray-900/20">
             {mondayExercises.map((ex, i) => (
               <ExerciseRow
                 key={ex.name}
                 ex={ex}
-                status={getStatus(i, activeMonday, mondaySets[i])}
-                isActive={i === activeMonday}
-                onTap={() => setActiveMonday(i)}
                 completedSets={mondaySets[i]}
                 onToggleSet={(setIndex) => toggleSet("monday", i, setIndex)}
               />
@@ -558,31 +521,31 @@ export default function PersonalTrainingPage() {
           </div>
           <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
             <Footprints className="h-3 w-3 shrink-0" />
-            <span>เดินลู่ชัน 6–8% · 15–20 นาที · 3.8 กม./ชม. · ไม่จับบาร์</span>
+            <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
           </div>
         </section>
 
         {/* ── Tue divider ── */}
         <div className="flex items-center gap-3">
-          <span className="text-[10px] font-semibold text-gray-700 uppercase tracking-widest shrink-0">อังคาร</span>
-          <div className="flex-1 h-px bg-gray-800" />
-          <span className="text-xs text-gray-600 shrink-0">พักแอคทีฟ · ยืดเหยียด 20 นาที</span>
+          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-widest shrink-0">Tuesday</span>
+          <div className="flex-1 h-px bg-blue-900/50" />
+          <div className="flex items-center gap-1.5 text-xs text-blue-300 shrink-0">
+            <Heart className="h-3 w-3" />
+            <span>Zone 2 · 60 min · HR 120–125</span>
+          </div>
         </div>
 
         {/* ── Wednesday ── */}
         <section>
           <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">พุธ</span>
-            <h2 className="text-base font-semibold text-white">Workout B · ขา + แขน</h2>
+            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">Wednesday</span>
+            <h2 className="text-base font-semibold text-white">Workout B · Legs + Arms + Extra Chest</h2>
           </div>
           <div className="rounded-xl border border-gray-800 bg-gray-900/20">
             {wednesdayExercises.map((ex, i) => (
               <ExerciseRow
                 key={ex.name}
                 ex={ex}
-                status={getStatus(i, activeWednesday, wednesdaySets[i])}
-                isActive={i === activeWednesday}
-                onTap={() => setActiveWednesday(i)}
                 completedSets={wednesdaySets[i]}
                 onToggleSet={(setIndex) => toggleSet("wednesday", i, setIndex)}
               />
@@ -590,31 +553,31 @@ export default function PersonalTrainingPage() {
           </div>
           <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
             <Footprints className="h-3 w-3 shrink-0" />
-            <span>เดินลู่ชัน 6–8% · 15–20 นาที · 3.8 กม./ชม. · ไม่จับบาร์ (ปรับเวลาเพิ่มขึ้นตามสูตรเร่งรีดไขมันช่องท้อง)</span>
+            <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
           </div>
         </section>
 
         {/* ── Thu divider ── */}
         <div className="flex items-center gap-3">
-          <span className="text-[10px] font-semibold text-gray-700 uppercase tracking-widest shrink-0">พฤหัส</span>
-          <div className="flex-1 h-px bg-gray-800" />
-          <span className="text-xs text-gray-600 shrink-0">พักเต็มที่ · เวย์ BAAM + นมอัลมอนด์</span>
+          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-widest shrink-0">Thursday</span>
+          <div className="flex-1 h-px bg-blue-900/50" />
+          <div className="flex items-center gap-1.5 text-xs text-blue-300 shrink-0">
+            <Heart className="h-3 w-3" />
+            <span>Zone 2 · 60 min · HR 120–125</span>
+          </div>
         </div>
 
         {/* ── Friday ── */}
         <section>
           <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">ศุกร์</span>
-            <h2 className="text-base font-semibold text-white">Workout C · บนกระชับ + แขน</h2>
+            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">Friday</span>
+            <h2 className="text-base font-semibold text-white">Workout C · Chest Focus + Back + Arms</h2>
           </div>
           <div className="rounded-xl border border-gray-800 bg-gray-900/20">
             {fridayExercises.map((ex, i) => (
               <ExerciseRow
                 key={ex.name}
                 ex={ex}
-                status={getStatus(i, activeFriday, fridaySets[i])}
-                isActive={i === activeFriday}
-                onTap={() => setActiveFriday(i)}
                 completedSets={fridaySets[i]}
                 onToggleSet={(setIndex) => toggleSet("friday", i, setIndex)}
               />
@@ -622,38 +585,45 @@ export default function PersonalTrainingPage() {
           </div>
           <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
             <Footprints className="h-3 w-3 shrink-0" />
-            <span>เดินลู่ชัน 6–8% · 15–20 นาที · 3.8 กม./ชม. · ไม่จับบาร์</span>
+            <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
           </div>
         </section>
 
         {/* ── Sat/Sun divider ── */}
-        <div className="flex items-center gap-3">
-          <span className="text-[10px] font-semibold text-gray-700 uppercase tracking-widest shrink-0">เสาร์–อาทิตย์</span>
-          <div className="flex-1 h-px bg-gray-800" />
-          <span className="text-xs text-gray-600 shrink-0">เสาร์: พักเต็มที่ · อาทิตย์: ⚡ EMSculpt Neo + พักเวทเต็มระบบ</span>
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest shrink-0">Saturday</span>
+            <div className="flex-1 h-px bg-gray-800" />
+            <span className="text-xs text-gray-500 shrink-0">Choose: Walk 45–60 min / Zone 2 45–60 min / Rest</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-semibold text-gray-700 uppercase tracking-widest shrink-0">Sunday</span>
+            <div className="flex-1 h-px bg-gray-800" />
+            <span className="text-xs text-gray-600 shrink-0">Full rest</span>
+          </div>
         </div>
 
         {/* ── Ab & Back Machine Bonus ── */}
         <section className="border-2 border-dashed border-violet-500/30 rounded-xl p-4 bg-violet-500/5">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-bold text-violet-400 uppercase tracking-widest">🛠️ อาวุธเสริมพิเศษ</span>
+            <span className="text-xs font-bold text-violet-400 uppercase tracking-widest">🛠️ Bonus Weapon</span>
             <h2 className="text-base font-semibold text-white">Ab & Back Machine</h2>
           </div>
           <div className="space-y-2.5 text-sm text-gray-400 leading-relaxed">
             <p>
-              <span className="font-semibold text-violet-300">💡 วิธีใช้โบนัส:</span>{" "}
-              วันไหนที่พี่กูรู้สึกว่ายังมีแรงเหลือเฟือหลังเวทเสร็จ หรือใน{" "}
-              <span className="font-semibold text-sky-300">&ldquo;วันอังคารที่เป็นวันพักแอคทีฟ&rdquo;</span>{" "}
-              พี่สามารถเดินไปเล่นเครื่องนี้เพิ่มได้ครับ
+              <span className="font-semibold text-violet-300">💡 How to use:</span>{" "}
+              Any day you still feel you have gas left in the tank after lifting, or on{" "}
+              <span className="font-semibold text-sky-300">&ldquo;Tuesday (active recovery day)&rdquo;</span>{" "}
+              you can go hit this machine as a bonus.
             </p>
             <div className="flex items-start gap-2 bg-gray-900/40 rounded-lg p-3 border border-gray-800">
-              <span className="text-[10px] text-amber-400 font-semibold shrink-0 mt-0.5">ท่า:</span>
+              <span className="text-[10px] text-amber-400 font-semibold shrink-0 mt-0.5">Exercise:</span>
               <div className="flex-1 space-y-1">
                 <p className="text-xs text-gray-300">
-                  <span className="font-semibold">Ab Crunch</span> (พับตัวไปข้างหน้า)
+                  <span className="font-semibold">Ab Crunch</span> (forward trunk flexion)
                 </p>
                 <p className="text-xs text-gray-500">
-                  2 เซ็ต × 15 ครั้ง · โฟกัสเกร็งหน้าท้องลึก · เพิ่มแรงดันกล้ามเนื้อแกนกลางลำตัวหน้าท้อง
+                  2 sets × 15 reps · Focus on deep core contraction · Increase intra-abdominal pressure
                 </p>
               </div>
             </div>
@@ -662,7 +632,7 @@ export default function PersonalTrainingPage() {
 
         {/* ── Nutrition ── */}
         <section>
-          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-4">โภชนาการ + ฟื้นตัว</h2>
+          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-4">Nutrition + Recovery</h2>
           <div className="space-y-3">
             {globalRules.map(({ topic, rule }) => (
               <div key={topic} className="flex gap-3">
@@ -675,19 +645,19 @@ export default function PersonalTrainingPage() {
 
         {/* ── Techniques ── */}
         <section>
-          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-4">3 เทคนิคหลัก</h2>
+          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-4">3 Key Techniques</h2>
           <div className="space-y-3">
             <div className="flex gap-3">
               <span className="text-xs font-bold text-emerald-400 shrink-0 w-28 pt-0.5">Eccentric 3s</span>
-              <p className="text-sm text-gray-400 leading-relaxed">ผ่อนน้ำหนักลงช้า 1...2...3... ทุกครั้ง เพิ่ม Time Under Tension และ Metabolic Stress</p>
+              <p className="text-sm text-gray-400 leading-relaxed">Lower the weight slowly 1...2...3... every single rep. Increases Time Under Tension and Metabolic Stress</p>
             </div>
             <div className="flex gap-3">
               <span className="text-xs font-bold text-amber-400 shrink-0 w-28 pt-0.5">Double Prog.</span>
-              <p className="text-sm text-gray-400 leading-relaxed">ตรึง 32 KG จนทำได้ 10 ครั้งเต็มทุกเซ็ต แล้วค่อยขึ้น 1–2 แผ่น</p>
+              <p className="text-sm text-gray-400 leading-relaxed">Hold the weight until you can complete every rep of every set cleanly, then add 1–2 plates</p>
             </div>
             <div className="flex gap-3">
               <span className="text-xs font-bold text-pink-400 shrink-0 w-28 pt-0.5">Leng. Partials</span>
-              <p className="text-sm text-gray-400 leading-relaxed">เซ็ตสุดท้ายท่าแขน: ยกเต็มไม่ไหวแล้วปั๊มต่ออีก 4–5 ครั้งในช่วงครึ่งล่าง</p>
+              <p className="text-sm text-gray-400 leading-relaxed">Last set of arm exercises: when you can&apos;t complete full reps anymore, pump out 4–5 more in the bottom half range</p>
             </div>
           </div>
         </section>
