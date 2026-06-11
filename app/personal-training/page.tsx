@@ -103,7 +103,7 @@ const exercises = {
       "If it shakes, strip weight immediately"
     ],
     muscle: "Shoulders" as Muscle,
-    weight: "20–25 KG",
+    weight: "25 KG",
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
   legPress: {
@@ -179,7 +179,7 @@ const exercises = {
       "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
     muscle: "Triceps" as Muscle,
-    weight: "32–36 KG",
+    weight: "36 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
   bicepsCurl: {
@@ -199,14 +199,82 @@ const exercises = {
       "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
     muscle: "Biceps" as Muscle,
-    weight: "20–25 KG",
+    weight: "25 KG",
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
+  },
+  gluteBridge: {
+    name: "Glute Bridge",
+    machine: "Bodyweight / Mat",
+    setup: "Lie on your back, knees bent, feet flat on the floor hip-width apart. Arms at your sides, palms down",
+    sets: 3,
+    reps: 15,
+    tempo: "Drive hips up, squeeze glutes at the top for 1s, lower slowly",
+    rest: "30 sec",
+    cues: [
+      "Drive through your heels",
+      "Squeeze glutes hard at the top",
+      "Don&apos;t hyperextend your back",
+      "Keep your core braced"
+    ],
+    muscle: "Glutes" as Muscle,
+  },
+  deadBug: {
+    name: "Dead Bug",
+    machine: "Bodyweight / Mat",
+    setup: "Lie on your back, arms extended toward the ceiling, hips and knees bent at 90°. Press your lower back into the floor",
+    sets: 3,
+    reps: "10–12 per side",
+    tempo: "Slow and controlled — extend opposite arm and leg, return, repeat",
+    rest: "30 sec",
+    cues: [
+      "Press lower back flat into the floor",
+      "Move slowly, no rushing",
+      "Keep your core braced throughout",
+      "Don&apos;t let your back arch"
+    ],
+    muscle: "Core" as Muscle,
+  },
+  hipFlexorStretch: {
+    name: "Hip Flexor Stretch (Couch Stretch)",
+    machine: "Wall / Couch / Mat",
+    setup: "Kneel in front of a wall or couch. Place one foot flat on the floor in front, the other shin vertical against the wall behind you. Keep your torso upright",
+    sets: 1,
+    reps: "1–2 min per side",
+    tempo: "Hold the stretch, breathe deeply, relax into it",
+    rest: "—",
+    cues: [
+      "Keep your torso upright",
+      "Squeeze the glute on the stretched side",
+      "Breathe deeply and relax",
+      "Don&apos;t arch your lower back"
+    ],
+    muscle: "Core" as Muscle,
+  },
+  lowerBackStretch: {
+    name: "Lower Back Stretch (Child&apos;s Pose)",
+    machine: "Mat",
+    setup: "Kneel on the mat, sit back on your heels, fold forward and extend your arms in front. Rest your forehead on the mat",
+    sets: 1,
+    reps: "1–2 min",
+    tempo: "Hold the stretch, breathe deeply, let your lower back release",
+    rest: "—",
+    cues: [
+      "Sit your hips back toward your heels",
+      "Extend your arms forward",
+      "Breathe deeply into your lower back",
+      "Let gravity do the work"
+    ],
+    muscle: "Core" as Muscle,
   },
 } as const
 
 // ─── Workout Programs ────────────────────────────────────────────────────────
 
 const mondayExercises = [
+  exercises.hipFlexorStretch,
+  exercises.lowerBackStretch,
+  exercises.gluteBridge,
+  exercises.deadBug,
   exercises.latPulldown,
   exercises.inclineChestPress,
   exercises.seatedCableRow,
@@ -214,6 +282,10 @@ const mondayExercises = [
 ] as const
 
 const wednesdayExercises = [
+  exercises.hipFlexorStretch,
+  exercises.lowerBackStretch,
+  exercises.gluteBridge,
+  exercises.deadBug,
   exercises.legPress,
   exercises.hipThrust,
   exercises.chestPress,
@@ -222,6 +294,10 @@ const wednesdayExercises = [
 ] as const
 
 const fridayExercises = [
+  exercises.hipFlexorStretch,
+  exercises.lowerBackStretch,
+  exercises.gluteBridge,
+  exercises.deadBug,
   exercises.chestPress,
   exercises.seatedCableRow,
   exercises.shoulderPress,
