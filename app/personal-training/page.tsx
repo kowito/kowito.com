@@ -63,7 +63,7 @@ const exercises = {
       "Lower slowly 1...2...3..."
     ],
     muscle: "Chest" as Muscle,
-    weight: "35–45 KG",
+    weight: "36 KG",
     video: "https://www.youtube.com/shorts/98HWfiRonkE",
   },
   seatedCableRow: {
@@ -83,7 +83,7 @@ const exercises = {
       "Open up the chest, shoulders back"
     ],
     muscle: "Back" as Muscle,
-    weight: "45–55 KG",
+    weight: "41 KG",
     video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
   },
   shoulderPress: {
