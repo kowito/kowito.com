@@ -223,7 +223,7 @@ const exercises = {
     machine: "Bodyweight / Mat",
     setup: "Lie on your back, arms extended toward the ceiling, hips and knees bent at 90°. Press your lower back into the floor",
     sets: 3,
-    reps: "10–12 per side",
+    reps: 10,
     tempo: "Slow and controlled — extend opposite arm and leg, return, repeat",
     rest: "30 sec",
     cues: [
@@ -266,6 +266,23 @@ const exercises = {
     ],
     muscle: "Core" as Muscle,
   },
+  halfKneelingHipFlexorStretch: {
+    name: "Half-Kneeling Hip Flexor Stretch",
+    machine: "Mat / Floor",
+    setup: "Kneel on one knee, step the other leg forward, keep your torso upright, tighten your core and glutes",
+    sets: 1,
+    reps: "1 min per side",
+    tempo: "Hold the stretch, shift your hips forward until you feel a stretch in the front of your hip",
+    rest: "—",
+    cues: [
+      "Keep your torso upright",
+      "Tighten your core and glutes",
+      "Shift your hips forward",
+      "Feel the stretch in the front of your hip",
+      "Breathe deeply and relax"
+    ],
+    muscle: "Core" as Muscle,
+  },
 } as const
 
 // ─── Workout Programs ────────────────────────────────────────────────────────
@@ -304,6 +321,13 @@ const fridayExercises = [
   exercises.tricepsPushdown,
   exercises.bicepsCurl,
 ] as const
+
+const everydayExercises = [
+  exercises.halfKneelingHipFlexorStretch,
+  exercises.gluteBridge,
+  exercises.deadBug,
+] as const
+
 
 
 
@@ -431,9 +455,12 @@ export default function PersonalTrainingPage() {
   const [fridaySets, setFridaySets] = React.useState<boolean[][]>(
     fridayExercises.map((ex) => Array(ex.sets).fill(false))
   )
+  const [everydaySets, setEverydaySets] = React.useState<boolean[][]>(
+    everydayExercises.map((ex) => Array(ex.sets).fill(false))
+  )
 
   const toggleSet = (
-    day: "monday" | "wednesday" | "friday",
+    day: "monday" | "wednesday" | "friday" | "everyday",
     exerciseIndex: number,
     setIndex: number
   ) => {
@@ -451,8 +478,15 @@ export default function PersonalTrainingPage() {
         newSets[exerciseIndex][setIndex] = !newSets[exerciseIndex][setIndex]
         return newSets
       })
-    } else {
+    } else if (day === "friday") {
       setFridaySets((prev) => {
+        const newSets = [...prev]
+        newSets[exerciseIndex] = [...newSets[exerciseIndex]]
+        newSets[exerciseIndex][setIndex] = !newSets[exerciseIndex][setIndex]
+        return newSets
+      })
+    } else {
+      setEverydaySets((prev) => {
         const newSets = [...prev]
         newSets[exerciseIndex] = [...newSets[exerciseIndex]]
         newSets[exerciseIndex][setIndex] = !newSets[exerciseIndex][setIndex]
@@ -499,6 +533,25 @@ export default function PersonalTrainingPage() {
             </div>
           ))}
         </div>
+
+        {/* ── Everyday (Daily) ── */}
+        <section className="border-2 border-dashed border-pink-500/30 rounded-xl p-4 bg-pink-500/5">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xs font-bold text-pink-400 uppercase tracking-widest">⭐ Daily</span>
+            <h2 className="text-base font-semibold text-white">Everyday Mobility & Core</h2>
+          </div>
+          <div className="rounded-xl border border-gray-800 bg-gray-900/20">
+            {everydayExercises.map((ex, i) => (
+              <ExerciseRow
+                key={ex.name + i}
+                ex={ex}
+                completedSets={everydaySets[i]}
+                onToggleSet={(setIndex) => toggleSet("everyday", i, setIndex)}
+              />
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-pink-300 text-center">Perform daily to improve mobility, core stability, and recovery</p>
+        </section>
 
         {/* ── Monday ── */}
         <section>
