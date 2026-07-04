@@ -2,6 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, Dumbbell, Footprints, Utensils, Play, Heart } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -19,8 +20,12 @@ type Exercise = {
   rest: string
   cues: readonly string[]
   muscle: Muscle
+  target?: string
+  secondaryMuscles?: readonly string[]
   weight?: string
   video?: string
+  /** Folder under /public/exercises containing 0.jpg (start) and 1.jpg (end). */
+  img?: string
 }
 
 // ─── Exercise Library (single source of truth) ───────────────────────────────
@@ -28,6 +33,9 @@ type Exercise = {
 const exercises = {
   latPulldown: {
     name: "Lat Pulldown",
+    img: "latPulldown",
+    target: "Lats",
+    secondaryMuscles: ["Biceps", "Rhomboids", "Rear Delts"],
     machine: "Lat Pulldown Machine",
     altMachine: "Iso-Lateral High Row",
     setup: "Sit upright, lock the thigh pad firmly, grip slightly wider than shoulders, and puff your chest up before pulling down",
@@ -38,19 +46,22 @@ const exercises = {
     cues: [
       "Puff chest up",
       "Drive elbows down to your waist",
-      "Don&apos;t cheat with arm strength",
+      "Don't cheat with arm strength",
       "Return slowly over 3 seconds",
       "Fully stretch the lats"
     ],
     muscle: "Back" as Muscle,
-    weight: "36 KG",
+    weight: "52 KG",
     video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
   },
   inclineChestPress: {
     name: "Incline Chest Press",
+    img: "inclineChestPress",
+    target: "Upper Chest",
+    secondaryMuscles: ["Shoulders", "Triceps"],
     machine: "Incline Chest Press Machine",
     altMachine: "Pec Fly Machine (lower the seat)",
-    setup: "Set the seat to an incline (30–45°), tuck elbows in to form an arrow shape at 45–60°, grip narrower so forearms are vertical, pin shoulder blades into the pad, don&apos;t let shoulders lift",
+    setup: "Set the seat to an incline (30–45°), tuck elbows in to form an arrow shape at 45–60°, grip narrower so forearms are vertical, pin shoulder blades into the pad, don't let shoulders lift",
     sets: 4,
     reps: "8–10",
     tempo: "Tuck elbows at 45°, lower slowly over 3s",
@@ -68,6 +79,9 @@ const exercises = {
   },
   seatedCableRow: {
     name: "Seated Cable Row",
+    img: "seatedCableRow",
+    target: "Upper Back",
+    secondaryMuscles: ["Biceps", "Forearms"],
     machine: "Seated Cable Row",
     altMachine: "Chest-Supported Row Machine",
     setup: "Sit upright, chest out, pull the bar into your lower rib cage, keep your core braced throughout",
@@ -88,6 +102,9 @@ const exercises = {
   },
   shoulderPress: {
     name: "Shoulder Press",
+    img: "shoulderPress",
+    target: "Shoulders",
+    secondaryMuscles: ["Triceps", "Upper Back"],
     machine: "Shoulder Press Machine",
     altMachine: "Dumbbell Shoulder Press",
     setup: "Hips glued to the seat, press straight up without arching your back. If the weight shakes, prioritize form first",
@@ -103,14 +120,17 @@ const exercises = {
       "If it shakes, strip weight immediately"
     ],
     muscle: "Shoulders" as Muscle,
-    weight: "25 KG",
+    weight: "32 KG",
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
   legPress: {
     name: "Leg Press",
+    img: "legPress",
+    target: "Quads",
+    secondaryMuscles: ["Hamstrings", "Glutes"],
     machine: "Leg Press & Calf Raise",
     altMachine: "Lying/Seated Leg Curl",
-    setup: "Place feet high and wide on the platform, brace your core and stabilize your torso before pressing. Don&apos;t let knees cave inward",
+    setup: "Place feet high and wide on the platform, brace your core and stabilize your torso before pressing. Don't let knees cave inward",
     sets: 5,
     reps: "10–12",
     tempo: "Press out 1s / return slowly counting 1...2...3...",
@@ -128,9 +148,12 @@ const exercises = {
   },
   hipThrust: {
     name: "Hip Thrust",
+    img: "hipThrust",
+    target: "Glutes",
+    secondaryMuscles: ["Hamstrings", "Quads"],
     machine: "Smith Machine Hip Thrust",
     altMachine: "Cable Pull-Through",
-    setup: "Pull a bench under your shoulder blades, pad the bar at your hip crease and make sure it&apos;s secure before starting",
+    setup: "Pull a bench under your shoulder blades, pad the bar at your hip crease and make sure it's secure before starting",
     sets: 3,
     reps: "12–15",
     tempo: "Drive hips up to full extension, squeeze glutes hard at the top for a full 2 seconds",
@@ -141,11 +164,14 @@ const exercises = {
       "Build firm, shapely glutes"
     ],
     muscle: "Glutes" as Muscle,
-    weight: "40 KG",
+    weight: "60 KG",
     video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
   },
   chestPress: {
     name: "Chest Press",
+    img: "chestPress",
+    target: "Chest",
+    secondaryMuscles: ["Shoulders", "Triceps"],
     machine: "Chest Press Machine",
     altMachine: "Pec Fly Machine",
     setup: "Lower the seat so the handles align exactly at nipple level. Puff your chest and pin your shoulder blades firmly into the pad",
@@ -165,6 +191,9 @@ const exercises = {
   },
   tricepsPushdown: {
     name: "Triceps Pushdown",
+    img: "tricepsPushdown",
+    target: "Triceps",
+    secondaryMuscles: ["Forearms"],
     machine: "Cable Triceps Pushdown",
     altMachine: "Machine Triceps Dip",
     setup: "Set the pulley low, use a rope or straight bar, elbows glued to your sides, depress your shoulders before starting. Pick a weight where reps 8–10 feel hard",
@@ -179,11 +208,14 @@ const exercises = {
       "Set 3: Lengthened Partials bottom half 4–5 reps"
     ],
     muscle: "Triceps" as Muscle,
-    weight: "36 KG",
+    weight: "42 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
   bicepsCurl: {
     name: "Biceps Curl",
+    img: "bicepsCurl",
+    target: "Biceps",
+    secondaryMuscles: ["Forearms"],
     machine: "Cable Biceps Curl",
     altMachine: "Dumbbell Biceps Curl",
     setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
@@ -204,6 +236,9 @@ const exercises = {
   },
   gluteBridge: {
     name: "Glute Bridge",
+    img: "gluteBridge",
+    target: "Glutes",
+    secondaryMuscles: ["Hamstrings", "Core"],
     machine: "Bodyweight / Mat",
     setup: "Lie on your back, knees bent, feet flat on the floor hip-width apart. Arms at your sides, palms down",
     sets: 3,
@@ -213,13 +248,16 @@ const exercises = {
     cues: [
       "Drive through your heels",
       "Squeeze glutes hard at the top",
-      "Don&apos;t hyperextend your back",
+      "Don't hyperextend your back",
       "Keep your core braced"
     ],
     muscle: "Glutes" as Muscle,
   },
   deadBug: {
     name: "Dead Bug",
+    img: "deadBug",
+    target: "Core",
+    secondaryMuscles: ["Hip Flexors", "Lower Back"],
     machine: "Bodyweight / Mat",
     setup: "Lie on your back, arms extended toward the ceiling, hips and knees bent at 90°. Press your lower back into the floor",
     sets: 3,
@@ -230,12 +268,15 @@ const exercises = {
       "Press lower back flat into the floor",
       "Move slowly, no rushing",
       "Keep your core braced throughout",
-      "Don&apos;t let your back arch"
+      "Don't let your back arch"
     ],
     muscle: "Core" as Muscle,
   },
   hipFlexorStretch: {
     name: "Hip Flexor Stretch (Couch Stretch)",
+    img: "hipFlexorStretch",
+    target: "Hip Flexors",
+    secondaryMuscles: ["Quads"],
     machine: "Wall / Couch / Mat",
     setup: "Kneel in front of a wall or couch. Place one foot flat on the floor in front, the other shin vertical against the wall behind you. Keep your torso upright",
     sets: 1,
@@ -246,12 +287,15 @@ const exercises = {
       "Keep your torso upright",
       "Squeeze the glute on the stretched side",
       "Breathe deeply and relax",
-      "Don&apos;t arch your lower back"
+      "Don't arch your lower back"
     ],
     muscle: "Core" as Muscle,
   },
   lowerBackStretch: {
-    name: "Lower Back Stretch (Child&apos;s Pose)",
+    name: "Lower Back Stretch (Child's Pose)",
+    img: "lowerBackStretch",
+    target: "Lower Back",
+    secondaryMuscles: ["Lats"],
     machine: "Mat",
     setup: "Kneel on the mat, sit back on your heels, fold forward and extend your arms in front. Rest your forehead on the mat",
     sets: 1,
@@ -268,6 +312,8 @@ const exercises = {
   },
   halfKneelingHipFlexorStretch: {
     name: "Half-Kneeling Hip Flexor Stretch",
+    target: "Hip Flexors",
+    secondaryMuscles: ["Quads", "Glutes"],
     machine: "Mat / Floor",
     setup: "Kneel on one knee, step the other leg forward, keep your torso upright, tighten your core and glutes",
     sets: 1,
@@ -322,18 +368,11 @@ const fridayExercises = [
   exercises.bicepsCurl,
 ] as const
 
-const everydayExercises = [
-  exercises.halfKneelingHipFlexorStretch,
-  exercises.gluteBridge,
-  exercises.deadBug,
-] as const
-
-
-
+type DayKey = "monday" | "wednesday" | "friday"
 
 const globalRules = [
   { topic: "Intensity", rule: "Working sets at 100% quality. Reps 8–10 must still be controlled with good form, leaving only RIR 1–2 in reserve" },
-  { topic: "Rest Periods", rule: "Don&apos;t rush. Rest a full 2–3 min on arm exercises and follow the prescribed rest on all main lifts every set" },
+  { topic: "Rest Periods", rule: "Don't rush. Rest a full 2–3 min on arm exercises and follow the prescribed rest on all main lifts every set" },
   { topic: "Pre-Gym", rule: "1.5–2 hours before training, eat 1 small scoop of jasmine rice or 1 slice of white bread to top off glycogen. No carbs during the session" },
   { topic: "Intra-Workout", rule: "Bring a sugary drink to sip slowly during longer rest periods to keep your nervous system fueled" },
   { topic: "Post-Workout (Critical)", rule: "Sit and cool down 15–20 min before consuming 1.5 scoops BAAM whey + ice-cold water (cut oat milk 100%), or unsweetened almond/pistachio milk to prevent an insulin spike" },
@@ -354,7 +393,101 @@ const weekOverview = [
   { label: "Sun", tag: "Rest", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
 ]
 
+// ─── Progress persistence ────────────────────────────────────────────────────
+
+type Progress = Record<DayKey, boolean[][]>
+
+const STORAGE_KEY = "pt-progress-v3"
+
+function blankProgress(): Progress {
+  return {
+    monday: mondayExercises.map((e) => Array(e.sets).fill(false)),
+    wednesday: wednesdayExercises.map((e) => Array(e.sets).fill(false)),
+    friday: fridayExercises.map((e) => Array(e.sets).fill(false)),
+  }
+}
+
+// Reshape whatever was saved into the current program shape, dropping stale data.
+function parseProgress(raw: string | null): Progress {
+  const base = blankProgress()
+  if (!raw) return base
+  try {
+    const saved = JSON.parse(raw)
+      ; (Object.keys(base) as DayKey[]).forEach((day) => {
+        const savedDay = saved?.[day]
+        if (Array.isArray(savedDay) && savedDay.length === base[day].length) {
+          base[day] = base[day].map((arr, i) =>
+            Array.isArray(savedDay[i]) && savedDay[i].length === arr.length
+              ? savedDay[i].map(Boolean)
+              : arr
+          )
+        }
+      })
+  } catch {
+    /* ignore corrupt storage */
+  }
+  return base
+}
+
+// ── localStorage-backed store (read via useSyncExternalStore, so it's
+//    hydration-safe and doesn't need a setState-in-effect on load) ──
+const serverSnapshot: Progress = blankProgress()
+let cache: Progress | null = null
+let cacheRaw: string | null = null
+const listeners = new Set<() => void>()
+
+function readRaw(): string | null {
+  try {
+    return localStorage.getItem(STORAGE_KEY)
+  } catch {
+    return null
+  }
+}
+
+function getSnapshot(): Progress {
+  const raw = readRaw()
+  if (cache && raw === cacheRaw) return cache // stable reference while unchanged
+  cacheRaw = raw
+  cache = parseProgress(raw)
+  return cache
+}
+
+function subscribe(onChange: () => void): () => void {
+  listeners.add(onChange)
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === STORAGE_KEY) {
+      cache = null // force re-parse from the other tab's write
+      onChange()
+    }
+  }
+  window.addEventListener("storage", onStorage)
+  return () => {
+    listeners.delete(onChange)
+    window.removeEventListener("storage", onStorage)
+  }
+}
+
+function writeProgress(next: Progress) {
+  cache = next
+  try {
+    cacheRaw = JSON.stringify(next)
+    localStorage.setItem(STORAGE_KEY, cacheRaw)
+  } catch {
+    /* storage full or unavailable — keep the in-memory value */
+  }
+  listeners.forEach((l) => l())
+}
+
 // ─── Components ──────────────────────────────────────────────────────────────
+
+function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="text-[10px] uppercase tracking-wider text-gray-600 mb-0.5">{label}</div>
+      <p className="text-[13px] text-gray-400 leading-relaxed">{children}</p>
+    </div>
+  )
+}
 
 function ExerciseRow({
   ex,
@@ -365,79 +498,205 @@ function ExerciseRow({
   completedSets: boolean[]
   onToggleSet: (setIndex: number) => void
 }) {
-  const allDone = completedSets.every((s) => s)
+  const doneCount = completedSets.filter(Boolean).length
+  const allDone = doneCount === ex.sets && ex.sets > 0
 
   return (
-    <div className={`border-b border-gray-800/50 last:border-0 px-4 py-4 space-y-3 ${allDone ? "opacity-60" : ""}`}>
-      {/* Name + weight */}
-      <div className="flex items-baseline justify-between gap-2">
-        <h3 className="text-base font-semibold text-white">{ex.name}</h3>
+    <div className={`px-4 py-5 border-b border-gray-800/60 last:border-0 transition-colors ${allDone ? "bg-emerald-500/[0.04]" : ""}`}>
+      {/* Demo photos: start & end position */}
+      {ex.img && (
+        <div className="mb-4 grid grid-cols-2 gap-2">
+          {[0, 1].map((n) => (
+            <div key={n} className="relative aspect-[3/2] overflow-hidden rounded-lg border border-gray-800 bg-gray-900">
+              <Image
+                src={`/exercises/${ex.img}/${n}.jpg`}
+                alt={`${ex.name} — ${n === 0 ? "start" : "end"} position`}
+                fill
+                sizes="(max-width: 640px) 45vw, 320px"
+                className="object-cover"
+                loading="eager"
+              />
+              <span className="absolute bottom-1 left-1 rounded bg-black/60 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-200">
+                {n === 0 ? "Start" : "End"}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Header: name + weight */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <h3 className={`text-[15px] font-semibold leading-tight ${allDone ? "text-emerald-300" : "text-white"}`}>
+              {ex.name}
+            </h3>
+            {ex.target && (
+              <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                {ex.target}
+              </span>
+            )}
+          </div>
+          <p className="mt-1 text-[13px] text-gray-400">
+            {ex.sets} {ex.sets === 1 ? "set" : "sets"} × {ex.reps}
+            <span className="text-gray-600"> · rest {ex.rest}</span>
+          </p>
+        </div>
         {ex.weight && (
-          <span className="text-2xl font-bold text-blue-400 tabular-nums">{ex.weight}</span>
-        )}
-      </div>
-
-      {/* Sets × Reps + Rest + Tempo */}
-      <div className="space-y-0.5">
-        <div className="text-sm text-white">
-          {ex.sets}×{ex.reps} <span className="text-gray-500">• Rest {ex.rest}</span>
-        </div>
-        <div className="text-xs text-gray-500">
-          Tempo: {ex.tempo}
-        </div>
-      </div>
-
-      {/* Set tracking checkboxes */}
-      <div className="flex gap-2">
-        {Array.from({ length: ex.sets }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => onToggleSet(i)}
-            className={`flex-1 py-2 text-xs font-medium border rounded transition-all ${completedSets[i]
-              ? "bg-emerald-500 border-emerald-500 text-white"
-              : "border-gray-700 text-gray-500 hover:border-emerald-500/50"
-              }`}
-          >
-            {completedSets[i] ? "✓" : ""} Set {i + 1}
-          </button>
-        ))}
-      </div>
-
-      {/* Machine info */}
-      <div className="text-xs text-gray-500 space-y-0.5">
-        <div>
-          <span className="text-gray-600">Machine:</span> {ex.machine}
-        </div>
-        {ex.altMachine && (
-          <div>
-            <span className="text-gray-600">Alt:</span> {ex.altMachine}
+          <div className="shrink-0 text-xl font-bold text-blue-400 tabular-nums leading-none">
+            {ex.weight}
           </div>
         )}
+      </div>
+
+      {/* Set tracking */}
+      <div className="mt-3 flex gap-2">
+        {Array.from({ length: ex.sets }).map((_, i) => {
+          const active = completedSets[i]
+          return (
+            <button
+              key={i}
+              onClick={() => onToggleSet(i)}
+              aria-label={`Set ${i + 1}${active ? " done" : ""}`}
+              className={`flex-1 h-10 rounded-lg border text-sm font-semibold transition-all active:scale-95 ${active
+                ? "bg-emerald-500 border-emerald-500 text-white shadow-sm shadow-emerald-500/20"
+                : "border-gray-700 bg-gray-900/40 text-gray-500 hover:border-emerald-500/50 hover:text-gray-300"
+                }`}
+            >
+              {active ? "✓" : i + 1}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Muscles worked */}
+      {ex.target && (
+        <div className="mt-4">
+          <div className="mb-1.5 text-[10px] uppercase tracking-wider text-gray-600">Muscles worked</div>
+          <div className="flex flex-wrap gap-1.5">
+            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 text-[11px] font-medium text-emerald-300">
+              {ex.target}
+            </span>
+            {ex.secondaryMuscles?.map((m) => (
+              <span key={m} className="rounded-full border border-gray-700 bg-gray-800/50 px-2 py-0.5 text-[11px] text-gray-400">
+                {m}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* How to — always visible */}
+      <div className="mt-4 space-y-3 rounded-lg border border-gray-800 bg-gray-900/40 p-3">
+        <DetailBlock label="Machine">
+          {ex.machine}
+          {ex.altMachine && <span className="text-gray-600"> · alt: {ex.altMachine}</span>}
+        </DetailBlock>
+        <DetailBlock label="Setup">{ex.setup}</DetailBlock>
+        <DetailBlock label="Tempo">{ex.tempo}</DetailBlock>
         <div>
-          <span className="text-gray-600">Setup:</span> {ex.setup}
+          <div className="text-[10px] uppercase tracking-wider text-gray-600 mb-1.5">Tips</div>
+          <ul className="space-y-1.5">
+            {ex.cues.map((cue, i) => (
+              <li key={i} className="flex items-start gap-2 text-[13px] text-gray-400">
+                <span className="mt-1.5 h-1 w-1 rounded-full bg-emerald-500 shrink-0" />
+                <span>{cue}</span>
+              </li>
+            ))}
+          </ul>
         </div>
         {ex.video && (
           <a
             href={ex.video}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-400 hover:underline inline-flex items-center gap-1 mt-1"
+            className="inline-flex items-center gap-1.5 text-[13px] text-blue-400 hover:underline"
           >
-            <Play className="h-3 w-3" />
-            Video
+            <Play className="h-3.5 w-3.5" />
+            Watch demo video
           </a>
         )}
       </div>
+    </div>
+  )
+}
 
-      {/* All cues */}
-      <div className="space-y-1">
-        <div className="text-xs text-gray-600">Tips</div>
-        {ex.cues.map((cue, i) => (
-          <div key={i} className="text-xs text-gray-500 flex items-start gap-1.5">
-            <span className="text-emerald-500 shrink-0 mt-0.5">•</span>
-            <span>{cue}</span>
-          </div>
+function DaySection({
+  eyebrow,
+  eyebrowColor,
+  title,
+  exercises,
+  sets,
+  onToggle,
+  onReset,
+  footer,
+}: {
+  eyebrow: string
+  eyebrowColor: string
+  title: string
+  exercises: readonly Exercise[]
+  sets: boolean[][]
+  onToggle: (exerciseIndex: number, setIndex: number) => void
+  onReset: () => void
+  footer?: React.ReactNode
+}) {
+  const total = sets.reduce((a, s) => a + s.length, 0)
+  const done = sets.reduce((a, s) => a + s.filter(Boolean).length, 0)
+  const pct = total ? Math.round((done / total) * 100) : 0
+
+  return (
+    <section>
+      <div className="flex items-end justify-between gap-3 mb-2">
+        <div>
+          <div className={`text-[10px] font-semibold uppercase tracking-widest ${eyebrowColor}`}>{eyebrow}</div>
+          <h2 className="mt-0.5 text-[17px] font-semibold text-white">{title}</h2>
+        </div>
+        {done > 0 && (
+          <button onClick={onReset} className="shrink-0 text-[11px] text-gray-600 hover:text-gray-400 transition-colors">
+            Reset
+          </button>
+        )}
+      </div>
+
+      {/* Progress bar */}
+      <div className="mb-3 flex items-center gap-2">
+        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800">
+          <div className="h-full rounded-full bg-emerald-500 transition-all duration-300" style={{ width: `${pct}%` }} />
+        </div>
+        <span className="shrink-0 text-[11px] text-gray-500 tabular-nums">{done}/{total} sets</span>
+      </div>
+
+      <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+        {exercises.map((ex, i) => (
+          <ExerciseRow
+            key={ex.name + i}
+            ex={ex}
+            completedSets={sets[i]}
+            onToggleSet={(setIndex) => onToggle(i, setIndex)}
+          />
         ))}
+      </div>
+
+      {footer}
+    </section>
+  )
+}
+
+const cardioFooter = (
+  <div className="mt-2 flex items-center gap-2 px-1 text-[12px] text-gray-600">
+    <Footprints className="h-3.5 w-3.5 shrink-0" />
+    <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
+  </div>
+)
+
+function ZoneDivider({ day }: { day: string }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-blue-400">{day}</span>
+      <div className="h-px flex-1 bg-blue-900/50" />
+      <div className="flex shrink-0 items-center gap-1.5 text-xs text-blue-300">
+        <Heart className="h-3 w-3" />
+        <span>Zone 2 · 60 min · HR 120–125</span>
       </div>
     </div>
   )
@@ -446,228 +705,133 @@ function ExerciseRow({
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function PersonalTrainingPage() {
-  const [mondaySets, setMondaySets] = React.useState<boolean[][]>(
-    mondayExercises.map((ex) => Array(ex.sets).fill(false))
-  )
-  const [wednesdaySets, setWednesdaySets] = React.useState<boolean[][]>(
-    wednesdayExercises.map((ex) => Array(ex.sets).fill(false))
-  )
-  const [fridaySets, setFridaySets] = React.useState<boolean[][]>(
-    fridayExercises.map((ex) => Array(ex.sets).fill(false))
-  )
-  const [everydaySets, setEverydaySets] = React.useState<boolean[][]>(
-    everydayExercises.map((ex) => Array(ex.sets).fill(false))
-  )
+  const progress = React.useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot)
 
-  const toggleSet = (
-    day: "monday" | "wednesday" | "friday" | "everyday",
-    exerciseIndex: number,
-    setIndex: number
-  ) => {
-    if (day === "monday") {
-      setMondaySets((prev) => {
-        const newSets = [...prev]
-        newSets[exerciseIndex] = [...newSets[exerciseIndex]]
-        newSets[exerciseIndex][setIndex] = !newSets[exerciseIndex][setIndex]
-        return newSets
-      })
-    } else if (day === "wednesday") {
-      setWednesdaySets((prev) => {
-        const newSets = [...prev]
-        newSets[exerciseIndex] = [...newSets[exerciseIndex]]
-        newSets[exerciseIndex][setIndex] = !newSets[exerciseIndex][setIndex]
-        return newSets
-      })
-    } else if (day === "friday") {
-      setFridaySets((prev) => {
-        const newSets = [...prev]
-        newSets[exerciseIndex] = [...newSets[exerciseIndex]]
-        newSets[exerciseIndex][setIndex] = !newSets[exerciseIndex][setIndex]
-        return newSets
-      })
-    } else {
-      setEverydaySets((prev) => {
-        const newSets = [...prev]
-        newSets[exerciseIndex] = [...newSets[exerciseIndex]]
-        newSets[exerciseIndex][setIndex] = !newSets[exerciseIndex][setIndex]
-        return newSets
-      })
-    }
+  const toggleSet = (day: DayKey, exerciseIndex: number, setIndex: number) => {
+    writeProgress({
+      ...progress,
+      [day]: progress[day].map((arr, i) =>
+        i === exerciseIndex ? arr.map((v, j) => (j === setIndex ? !v : v)) : arr
+      ),
+    })
+  }
+
+  const resetDay = (day: DayKey) => {
+    writeProgress({
+      ...progress,
+      [day]: progress[day].map((arr) => arr.map(() => false)),
+    })
   }
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
-      <header className="container mx-auto max-w-2xl px-4 pt-6 pb-4 flex items-center justify-between">
-        <Link href="/" className="text-sm text-gray-500 hover:text-white transition-colors">
+      <header className="container mx-auto flex max-w-2xl items-center justify-between px-4 pb-4 pt-6">
+        <Link href="/" className="text-sm text-gray-500 transition-colors hover:text-white">
           Kowit C.
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/diet" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-white transition-colors">
+          <Link href="/diet" className="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-white">
             <Utensils className="h-3.5 w-3.5" />
             Diet Plan
           </Link>
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-white transition-colors">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-white">
             <ArrowLeft className="h-4 w-4" />
             Back
           </Link>
         </div>
       </header>
 
-      <main className="container mx-auto max-w-2xl px-4 pb-24 space-y-10">
+      <main className="container mx-auto max-w-2xl space-y-10 px-4 pb-24">
 
         {/* Heading */}
         <div className="pt-2">
-          <div className="flex items-center gap-2 mb-1">
-            <Dumbbell className="h-4 w-4 text-emerald-400 shrink-0" />
-            <h1 className="text-xl font-semibold text-white">Training Plan — Recomp Edition (Flexible Machine Version)</h1>
+          <div className="mb-1 flex items-center gap-2">
+            <Dumbbell className="h-4 w-4 shrink-0 text-emerald-400" />
+            <h1 className="text-xl font-semibold text-white">Recomp Training Plan</h1>
           </div>
-          <p className="text-sm text-gray-500 pl-6">Train 3×/week · No-Squat Edition · Plan B on all lifts · Treadmill walk, no holding rails</p>
+          <p className="pl-6 text-sm text-gray-500">
+            Week 7–20 · 3× strength + 2× Zone 2 · Machine-based. Tap a set to check it off — progress is saved on this device.
+          </p>
         </div>
 
         {/* Week strip */}
         <div className="flex gap-1.5">
           {weekOverview.map(({ label, tag, style }) => (
-            <div key={label} className={`flex flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 flex-1 ${style}`}>
+            <div key={label} className={`flex flex-1 flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 ${style}`}>
               <span className="text-[11px] font-semibold">{label}</span>
               <span className="text-[9px] opacity-50">{tag}</span>
             </div>
           ))}
         </div>
 
-        {/* ── Everyday (Daily) ── */}
-        <section className="border-2 border-dashed border-pink-500/30 rounded-xl p-4 bg-pink-500/5">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-bold text-pink-400 uppercase tracking-widest">⭐ Daily</span>
-            <h2 className="text-base font-semibold text-white">Everyday Mobility & Core</h2>
-          </div>
-          <div className="rounded-xl border border-gray-800 bg-gray-900/20">
-            {everydayExercises.map((ex, i) => (
-              <ExerciseRow
-                key={ex.name + i}
-                ex={ex}
-                completedSets={everydaySets[i]}
-                onToggleSet={(setIndex) => toggleSet("everyday", i, setIndex)}
-              />
-            ))}
-          </div>
-          <p className="mt-3 text-xs text-pink-300 text-center">Perform daily to improve mobility, core stability, and recovery</p>
-        </section>
+        {/* Monday */}
+        <DaySection
+          eyebrow="Monday · Workout A"
+          eyebrowColor="text-emerald-400"
+          title="Chest + Back + Shoulders"
+          exercises={mondayExercises}
+          sets={progress.monday}
+          onToggle={(exIdx, setIdx) => toggleSet("monday", exIdx, setIdx)}
+          onReset={() => resetDay("monday")}
+          footer={cardioFooter}
+        />
 
-        {/* ── Monday ── */}
-        <section>
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">Monday</span>
-            <h2 className="text-base font-semibold text-white">Workout A · Chest + Back + Shoulders</h2>
-          </div>
-          <div className="rounded-xl border border-gray-800 bg-gray-900/20">
-            {mondayExercises.map((ex, i) => (
-              <ExerciseRow
-                key={ex.name + i}
-                ex={ex}
-                completedSets={mondaySets[i]}
-                onToggleSet={(setIndex) => toggleSet("monday", i, setIndex)}
-              />
-            ))}
-          </div>
-          <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
-            <Footprints className="h-3 w-3 shrink-0" />
-            <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
-          </div>
-        </section>
+        <ZoneDivider day="Tuesday" />
 
-        {/* ── Tue divider ── */}
-        <div className="flex items-center gap-3">
-          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-widest shrink-0">Tuesday</span>
-          <div className="flex-1 h-px bg-blue-900/50" />
-          <div className="flex items-center gap-1.5 text-xs text-blue-300 shrink-0">
-            <Heart className="h-3 w-3" />
-            <span>Zone 2 · 60 min · HR 120–125</span>
-          </div>
-        </div>
+        {/* Wednesday */}
+        <DaySection
+          eyebrow="Wednesday · Workout B"
+          eyebrowColor="text-emerald-400"
+          title="Legs + Arms + Extra Chest"
+          exercises={wednesdayExercises}
+          sets={progress.wednesday}
+          onToggle={(exIdx, setIdx) => toggleSet("wednesday", exIdx, setIdx)}
+          onReset={() => resetDay("wednesday")}
+          footer={cardioFooter}
+        />
 
-        {/* ── Wednesday ── */}
-        <section>
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">Wednesday</span>
-            <h2 className="text-base font-semibold text-white">Workout B · Legs + Arms + Extra Chest</h2>
-          </div>
-          <div className="rounded-xl border border-gray-800 bg-gray-900/20">
-            {wednesdayExercises.map((ex, i) => (
-              <ExerciseRow
-                key={ex.name + i}
-                ex={ex}
-                completedSets={wednesdaySets[i]}
-                onToggleSet={(setIndex) => toggleSet("wednesday", i, setIndex)}
-              />
-            ))}
-          </div>
-          <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
-            <Footprints className="h-3 w-3 shrink-0" />
-            <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
-          </div>
-        </section>
+        <ZoneDivider day="Thursday" />
 
-        {/* ── Thu divider ── */}
-        <div className="flex items-center gap-3">
-          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-widest shrink-0">Thursday</span>
-          <div className="flex-1 h-px bg-blue-900/50" />
-          <div className="flex items-center gap-1.5 text-xs text-blue-300 shrink-0">
-            <Heart className="h-3 w-3" />
-            <span>Zone 2 · 60 min · HR 120–125</span>
-          </div>
-        </div>
+        {/* Friday */}
+        <DaySection
+          eyebrow="Friday · Workout C"
+          eyebrowColor="text-emerald-400"
+          title="Chest Focus + Back + Arms"
+          exercises={fridayExercises}
+          sets={progress.friday}
+          onToggle={(exIdx, setIdx) => toggleSet("friday", exIdx, setIdx)}
+          onReset={() => resetDay("friday")}
+          footer={cardioFooter}
+        />
 
-        {/* ── Friday ── */}
-        <section>
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-widest">Friday</span>
-            <h2 className="text-base font-semibold text-white">Workout C · Chest Focus + Back + Arms</h2>
-          </div>
-          <div className="rounded-xl border border-gray-800 bg-gray-900/20">
-            {fridayExercises.map((ex, i) => (
-              <ExerciseRow
-                key={ex.name + i}
-                ex={ex}
-                completedSets={fridaySets[i]}
-                onToggleSet={(setIndex) => toggleSet("friday", i, setIndex)}
-              />
-            ))}
-          </div>
-          <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 px-1">
-            <Footprints className="h-3 w-3 shrink-0" />
-            <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
-          </div>
-        </section>
-
-        {/* ── Sat/Sun divider ── */}
+        {/* Sat/Sun divider */}
         <div className="space-y-2">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest shrink-0">Saturday</span>
-            <div className="flex-1 h-px bg-gray-800" />
-            <span className="text-xs text-gray-500 shrink-0">Choose: Walk 45–60 min / Zone 2 45–60 min / Rest</span>
+            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-amber-400">Saturday</span>
+            <div className="h-px flex-1 bg-gray-800" />
+            <span className="shrink-0 text-xs text-gray-500">Choose: Walk 45–60 min / Zone 2 45–60 min / Rest</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-semibold text-gray-700 uppercase tracking-widest shrink-0">Sunday</span>
-            <div className="flex-1 h-px bg-gray-800" />
-            <span className="text-xs text-gray-600 shrink-0">Full rest</span>
+            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-gray-700">Sunday</span>
+            <div className="h-px flex-1 bg-gray-800" />
+            <span className="shrink-0 text-xs text-gray-600">Full rest</span>
           </div>
         </div>
 
-        {/* ── Ab & Back Machine Bonus ── */}
-        <section className="border-2 border-dashed border-violet-500/30 rounded-xl p-4 bg-violet-500/5">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-bold text-violet-400 uppercase tracking-widest">🛠️ Bonus Weapon</span>
-            <h2 className="text-base font-semibold text-white">Ab & Back Machine</h2>
+        {/* Ab & Back Machine Bonus */}
+        <section className="rounded-xl border-2 border-dashed border-violet-500/30 bg-violet-500/5 p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-violet-400">🛠️ Bonus</span>
+            <h2 className="text-base font-semibold text-white">Ab &amp; Back Machine</h2>
           </div>
-          <div className="space-y-2.5 text-sm text-gray-400 leading-relaxed">
+          <div className="space-y-2.5 text-sm leading-relaxed text-gray-400">
             <p>
-              <span className="font-semibold text-violet-300">💡 How to use:</span>{" "}
-              Any day you still feel you have gas left in the tank after lifting, or on{" "}
-              <span className="font-semibold text-sky-300">&ldquo;Tuesday (active recovery day)&rdquo;</span>{" "}
-              you can go hit this machine as a bonus.
+              <span className="font-semibold text-violet-300">When:</span>{" "}
+              Any day you still have gas left after lifting, or on{" "}
+              <span className="font-semibold text-sky-300">Tuesday (active recovery)</span>, hit this as a bonus.
             </p>
-            <div className="flex items-start gap-2 bg-gray-900/40 rounded-lg p-3 border border-gray-800">
-              <span className="text-[10px] text-amber-400 font-semibold shrink-0 mt-0.5">Exercise:</span>
+            <div className="flex items-start gap-2 rounded-lg border border-gray-800 bg-gray-900/40 p-3">
+              <span className="mt-0.5 shrink-0 text-[10px] font-semibold text-amber-400">Exercise</span>
               <div className="flex-1 space-y-1">
                 <p className="text-xs text-gray-300">
                   <span className="font-semibold">Ab Crunch</span> (forward trunk flexion)
@@ -680,37 +844,61 @@ export default function PersonalTrainingPage() {
           </div>
         </section>
 
-        {/* ── Nutrition ── */}
+        {/* Nutrition */}
         <section>
-          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-4">Nutrition + Recovery</h2>
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Nutrition + Recovery</h2>
           <div className="space-y-3">
             {globalRules.map(({ topic, rule }) => (
               <div key={topic} className="flex gap-3">
-                <span className="text-xs text-violet-400 font-medium shrink-0 w-28 pt-0.5">{topic}</span>
-                <p className="text-sm text-gray-400 leading-relaxed">{rule}</p>
+                <span className="w-28 shrink-0 pt-0.5 text-xs font-medium text-violet-400">{topic}</span>
+                <p className="text-sm leading-relaxed text-gray-400">{rule}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── Techniques ── */}
+        {/* Techniques */}
         <section>
-          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-4">3 Key Techniques</h2>
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">3 Key Techniques</h2>
           <div className="space-y-3">
             <div className="flex gap-3">
-              <span className="text-xs font-bold text-emerald-400 shrink-0 w-28 pt-0.5">Eccentric 3s</span>
-              <p className="text-sm text-gray-400 leading-relaxed">Lower the weight slowly 1...2...3... every single rep. Increases Time Under Tension and Metabolic Stress</p>
+              <span className="w-28 shrink-0 pt-0.5 text-xs font-bold text-emerald-400">Eccentric 3s</span>
+              <p className="text-sm leading-relaxed text-gray-400">Lower the weight slowly 1...2...3... every single rep. Increases Time Under Tension and Metabolic Stress</p>
             </div>
             <div className="flex gap-3">
-              <span className="text-xs font-bold text-amber-400 shrink-0 w-28 pt-0.5">Double Prog.</span>
-              <p className="text-sm text-gray-400 leading-relaxed">Hold the weight until you can complete every rep of every set cleanly, then add 1–2 plates</p>
+              <span className="w-28 shrink-0 pt-0.5 text-xs font-bold text-amber-400">Double Prog.</span>
+              <p className="text-sm leading-relaxed text-gray-400">Hold the weight until you can complete every rep of every set cleanly, then add 1–2 plates</p>
             </div>
             <div className="flex gap-3">
-              <span className="text-xs font-bold text-pink-400 shrink-0 w-28 pt-0.5">Leng. Partials</span>
-              <p className="text-sm text-gray-400 leading-relaxed">Last set of arm exercises: when you can&apos;t complete full reps anymore, pump out 4–5 more in the bottom half range</p>
+              <span className="w-28 shrink-0 pt-0.5 text-xs font-bold text-pink-400">Leng. Partials</span>
+              <p className="text-sm leading-relaxed text-gray-400">Last set of arm exercises: when you can&apos;t complete full reps anymore, pump out 4–5 more in the bottom half range</p>
             </div>
           </div>
         </section>
+
+        {/* Credit */}
+        <p className="border-t border-gray-900 pt-4 text-center text-[11px] leading-relaxed text-gray-700">
+          Muscle data from{" "}
+          <a
+            href="https://github.com/hasaneyldrm/exercises-dataset"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-400"
+          >
+            ExerciseDB
+          </a>
+          {" · "}
+          Exercise photos from{" "}
+          <a
+            href="https://github.com/yuhonas/free-exercise-db"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-400"
+          >
+            free-exercise-db
+          </a>{" "}
+          (public domain)
+        </p>
 
       </main>
     </div>
