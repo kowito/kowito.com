@@ -41,7 +41,7 @@ const exercises = {
     machine: "Lat Pulldown Machine",
     altMachine: "Iso-Lateral High Row",
     setup: "Sit upright, lock the thigh pad firmly, grip slightly wider than shoulders, and puff your chest up before pulling down",
-    sets: 3,
+    sets: 4,
     reps: "8–10",
     tempo: "Drive elbows straight down to your waist (1s), then return slowly over 3s to fully stretch the lats",
     rest: "90 sec",
@@ -88,7 +88,7 @@ const exercises = {
     machine: "Incline Chest Press Machine",
     altMachine: "Pec Fly Machine (lower the seat)",
     setup: "Same incline setup as Monday — 30–45° seat, elbows tucked 45–60°, shoulder blades pinned into the pad",
-    sets: 3,
+    sets: 4,
     reps: "8–10",
     intensity: "Volume",
     tempo: "Controlled press up, then a slow 3-second negative",
@@ -150,6 +150,45 @@ const exercises = {
     weight: "32 KG",
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
+  legExtension: {
+    name: "Leg Extension",
+    img: "legExtension",
+    target: "Quads",
+    secondaryMuscles: [],
+    machine: "Machine Leg Extension",
+    setup: "Sit back firmly, locking your hips into the seat. Adjust the shin pad so it sits right above your ankles",
+    sets: 3,
+    reps: "12–15",
+    intensity: "Quad Focus",
+    tempo: "Extend up smoothly (1s), squeeze quads at the top for 1s, then lower slowly over 3 full seconds (Eccentric 3s)",
+    rest: "90 sec",
+    cues: [
+      "Patellar-safe isolation — no crushing spinal load",
+      "Knee-friendly: don't let your feet pull too far back under the seat at the bottom (limit extreme knee flexion)",
+      "Focus on the slow 3-second negative to rebuild tendon collagen",
+      "Squeeze the quads hard at the top for 1s"
+    ],
+    muscle: "Legs" as Muscle,
+  },
+  legCurl: {
+    name: "Leg Curl",
+    img: "legCurl",
+    target: "Hamstrings",
+    secondaryMuscles: [],
+    machine: "Lying or Seated Leg Curl Machine",
+    setup: "Align your knee joints perfectly with the machine's pivot point. Secure the thigh pad tightly if seated",
+    sets: 3,
+    reps: "10–12",
+    intensity: "Moderate",
+    tempo: "Curl down/in powerfully (1s), squeeze the hamstrings at full contraction, then return slowly over 3s",
+    rest: "90 sec",
+    cues: [
+      "Keep your feet flexed toward your shins",
+      "Don't let your lower back arch or lift off the pad",
+      "Balances quad dominance and stabilizes the knee joint"
+    ],
+    muscle: "Legs" as Muscle,
+  },
   legPress: {
     name: "Leg Press",
     img: "legPress",
@@ -158,7 +197,7 @@ const exercises = {
     machine: "Leg Press & Calf Raise",
     altMachine: "Lying/Seated Leg Curl",
     setup: "Place feet high and wide on the platform to maximize glute/hamstring engagement and protect the patellar tendon. Brace your core tightly and don't let your knees cave inward",
-    sets: 4,
+    sets: 5,
     reps: "8–10",
     tempo: "Press out smoothly (1s), then lower slowly over 3 full seconds (Eccentric 3s)",
     rest: "90 sec",
@@ -181,7 +220,7 @@ const exercises = {
     machine: "Smith Machine Hip Thrust",
     altMachine: "Cable Pull-Through",
     setup: "Position the bench securely under your shoulder blades and pad the bar at your hip crease",
-    sets: 3,
+    sets: 4,
     reps: "8–10",
     intensity: "80% RM",
     tempo: "Explode up powerfully (1s for power), squeeze glutes at full lockout for 2s, then lower slowly over 3s (Eccentric 3s)",
@@ -240,6 +279,27 @@ const exercises = {
     weight: "42 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
+  tricepsPushdownVolume: {
+    name: "Triceps Pushdown",
+    img: "tricepsPushdown",
+    target: "Triceps",
+    secondaryMuscles: ["Forearms"],
+    machine: "Cable Triceps Pushdown",
+    altMachine: "Machine Triceps Dip",
+    setup: "Same setup — lock elbows at sides, depress shoulders. Volume load for metabolic pump",
+    sets: 3,
+    reps: "10–12",
+    intensity: "Volume",
+    tempo: "Lock elbows, press and squeeze down completely, return over 3s",
+    rest: "60–90 sec",
+    cues: [
+      "Lock elbows firmly at your sides",
+      "Press and squeeze down completely",
+      "Return slowly over 3 seconds",
+      "Volume pump — squeeze hard at peak"
+    ],
+    muscle: "Triceps" as Muscle,
+  },
   bicepsCurl: {
     name: "Biceps Curl",
     img: "bicepsCurl",
@@ -263,24 +323,45 @@ const exercises = {
     weight: "25 KG",
     video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
   },
-  rearDeltFly: {
-    name: "Rear Delt Fly",
-    img: "rearDeltFly",
-    target: "Rear Delts",
-    secondaryMuscles: ["Upper Back"],
-    machine: "Rear Delt Fly Machine (Reverse Pec Deck)",
-    altMachine: "Cable Rope Rear-Delt Row",
-    setup: "Sit facing the pad. Adjust the handles so your arms move parallel to the floor, and keep a slight bend in your elbows",
+  bicepsCurlVolume: {
+    name: "Biceps Curl",
+    img: "bicepsCurl",
+    target: "Biceps",
+    secondaryMuscles: ["Forearms"],
+    machine: "Cable Biceps Curl",
+    altMachine: "Dumbbell Biceps Curl",
+    setup: "Same setup — pin elbows at sides. Volume load for metabolic pump",
     sets: 3,
     reps: "10–12",
-    tempo: "Fly outward smoothly, squeeze the back of your shoulders, then return slowly over 3s",
+    intensity: "Volume",
+    tempo: "Strict arm isolation, squeeze hard at peak, return over 3s",
     rest: "60–90 sec",
     cues: [
-      "Arms move parallel to the floor",
-      "Keep a slight bend in the elbows",
-      "Squeeze the rear delts at the back",
-      "Return slowly 1...2...3...",
-      "No momentum — control the weight"
+      "Pin elbows at your sides",
+      "Strict isolation — eliminate torso swing",
+      "Squeeze hard at the peak",
+      "Return slowly over 3 seconds"
+    ],
+    muscle: "Biceps" as Muscle,
+  },
+  rearDeltFly: {
+    name: "Cable Rear Delt Fly",
+    img: "rearDeltFly",
+    target: "Rear Delts",
+    secondaryMuscles: ["Upper Back", "Rhomboids"],
+    machine: "Cable Crossover Station (grip the bare cable lines, no handles)",
+    altMachine: "Reverse Pec Deck Machine",
+    setup: "Set the pulleys at upper-chest height. Cross your arms to grab the left cable with your right hand and the right cable with your left hand. Stand dead center",
+    sets: 4,
+    reps: "10–12",
+    intensity: "Low–Mod",
+    tempo: "Fly your arms out and back in a smooth arc (1s), squeeze the back of your shoulders, then return slowly over 3s",
+    rest: "60–90 sec",
+    cues: [
+      "Keep your elbows high and parallel to the floor",
+      "Sweep your hands wide to the walls — don't just pull them back",
+      "Squeeze the back of your shoulders at the peak",
+      "Zero momentum — let the constant cable tension build the delts"
     ],
     muscle: "Shoulders" as Muscle,
   },
@@ -294,16 +375,39 @@ const exercises = {
     setup: "Adjust the seat so the pads rest against your outer arms. Keep your shoulders depressed — do not engage your traps",
     sets: 4,
     reps: "10–12",
-    tempo: "Raise outward smoothly, hold a split second at the peak, then lower slowly over 2–3s",
+    intensity: "Heavy",
+    tempo: "Raise outward smoothly, hold a split second at the peak, then lower slowly over 3s",
     rest: "60–90 sec",
     cues: [
-      "Choose a load allowing strict form — no shrugging",
+      "Heavy strict set — no shrugging",
       "Keep shoulders depressed (no traps)",
-      "Hold a split second at the top",
-      "Lower slowly over 2–3 seconds",
+      "Raise smoothly, lower over 3 seconds",
       "Builds V-shape shoulder width"
     ],
     muscle: "Shoulders" as Muscle,
+    weight: "9 KG",
+  },
+  lateralRaiseVolume: {
+    name: "Lateral Raise",
+    img: "lateralRaise",
+    target: "Side Delts",
+    secondaryMuscles: [],
+    machine: "Lateral Raise Machine",
+    altMachine: "Dumbbell Lateral Raise",
+    setup: "Same setup — keep shoulders depressed. Drop to 7–8 KG if form breaks",
+    sets: 4,
+    reps: "12–15",
+    intensity: "Volume",
+    tempo: "High-volume metabolic pump — hold a split second at peak width, control down",
+    rest: "60 sec",
+    cues: [
+      "High-volume metabolic pump set",
+      "Hold a split second at peak width",
+      "Control the descent, no swinging",
+      "Drop weight if form breaks"
+    ],
+    muscle: "Shoulders" as Muscle,
+    weight: "9 KG",
   },
   gluteBridge: {
     name: "Glute Bridge",
@@ -404,73 +508,92 @@ const exercises = {
 
 // ─── Workout Programs ────────────────────────────────────────────────────────
 
-const warmup = [
+// Warm-up & Activation blocks (differ per day)
+const warmupFull = [
   exercises.hipFlexorStretch,
   exercises.lowerBackStretch,
   exercises.gluteBridge,
   exercises.deadBug,
 ] as const
 
-// Monday · Workout A — Legs + Upper Chest
-const mondayExercises = [
-  ...warmup,
-  exercises.legPress,
-  exercises.hipThrust,
-  exercises.inclineChestPress,
+const warmupChildsPose = [
+  exercises.lowerBackStretch,
 ] as const
 
-// Wednesday · Workout B — Back + Rear Delts + Biceps
+const warmupCouchChildsPose = [
+  exercises.hipFlexorStretch,
+  exercises.lowerBackStretch,
+] as const
+
+// Monday · Workout A — Push Focus
+const mondayExercises = [
+  ...warmupFull,
+  exercises.inclineChestPress,
+  exercises.chestPress,
+  exercises.lateralRaise,
+  exercises.tricepsPushdown,
+] as const
+
+// Wednesday · Workout B — Pull Focus
 const wednesdayExercises = [
-  ...warmup,
+  ...warmupFull,
   exercises.latPulldown,
   exercises.seatedCableRow,
   exercises.rearDeltFly,
   exercises.bicepsCurl,
 ] as const
 
-// Friday · Workout C — Chest + Shoulders + Triceps
+// Friday · Workout C — Shoulders & Arms Specialization
 const fridayExercises = [
-  ...warmup,
-  exercises.chestPress,
-  exercises.inclineChestPressVolume,
+  ...warmupChildsPose,
   exercises.shoulderPress,
-  exercises.lateralRaise,
-  exercises.tricepsPushdown,
+  exercises.lateralRaiseVolume,
+  exercises.inclineChestPressVolume,
+  exercises.tricepsPushdownVolume,
+  exercises.bicepsCurlVolume,
 ] as const
 
-type DayKey = "monday" | "wednesday" | "friday"
+// Saturday · Workout D — Legs + Core Heavy Destruction
+const saturdayExercises = [
+  ...warmupCouchChildsPose,
+  exercises.legPress,
+  exercises.hipThrust,
+  exercises.legExtension,
+  exercises.gluteBridge,
+  exercises.deadBug,
+] as const
+
+type DayKey = "monday" | "wednesday" | "friday" | "saturday"
 
 const globalRules = [
-  { topic: "Volume", rule: "Weekly direct chest sets = 11, direct shoulder sets = 10. Both clear the ≥10 sets/week threshold shown to trigger maximum hypertrophy in your priority areas." },
-  { topic: "Intensity", rule: "Main pressing lifts stay at 6–8 reps (~80% RM). This maximizes recruitment of high-growth Type 2 (fast-twitch) fibers while preventing the CNS burnout of ultra-high-volume training." },
-  { topic: "Eccentric 3s", rule: "Every rep of every lift uses a strict 3-second lowering phase to generate maximal mechanical tension and metabolic stress." },
-  { topic: "Double Prog.", rule: "Hold the designated weight until you can hit the top of the rep range on all sets with perfect form and tempo — only then add the smallest possible increment." },
-  { topic: "Leng. Partials", rule: "On the last set of arm isolations, once you reach full-range failure, pump out 4–5 partial reps in the stretched bottom half to fully exhaust the fibers." },
-  { topic: "Nutrition", rule: "Target 1.6–2.0g protein per kg bodyweight daily. Meal frequency is secondary to the daily total — large protein-dense meals (post-workout shabu, heavy servings) work fine as long as the daily budget is met." },
-  { topic: "Hydration", rule: "Drink 3.5–4.5 L water daily to clear metabolic waste and mobilize fat. Take 3–5g creatine monohydrate daily at any consistent time for full muscle phosphagen saturation." },
+  { topic: "Double Progression", rule: "Keep your target weights locked. Do not increase the weight until you can hit the maximum rep ceiling across all prescribed sets with perfect form." },
+  { topic: "3-Second Negative", rule: "Never let the weight drop. Control the lowering phase of every single rep for a full 3 seconds to force maximum muscle growth." },
+  { topic: "Carb Placement", rule: "Eat your Riceberry strategically around your workout windows to drive glycogen straight into the muscles, making them full while pulling your skin tight." },
+  { topic: "Maximize Sleep", rule: "Sleep is your ultimate weapon. Getting as much sleep as possible drops cortisol levels, which is the exact trigger your body needs to release trapped water weight around your midsection." },
 ]
 
 const weekOverview = [
-  { label: "Mon", tag: "Train", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Mon", tag: "Push", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
   { label: "Tue", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
-  { label: "Wed", tag: "Train", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Thu", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
-  { label: "Fri", tag: "Train", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Sat", tag: "Optional", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
-  { label: "Sun", tag: "Rest", style: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
+  { label: "Wed", tag: "Pull", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Thu", tag: "Rest", style: "bg-gray-500/15 text-gray-400 border-gray-600/30" },
+  { label: "Fri", tag: "Arms", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Sat", tag: "Legs", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Sun", tag: "Rest", style: "bg-gray-500/15 text-gray-400 border-gray-600/30" },
 ]
 
 // ─── Progress persistence ────────────────────────────────────────────────────
 
 type Progress = Record<DayKey, boolean[][]>
 
-const STORAGE_KEY = "pt-progress-v4"
+const STORAGE_KEY = "pt-progress-v6"
 
 function blankProgress(): Progress {
   return {
     monday: mondayExercises.map((e) => Array(e.sets).fill(false)),
     wednesday: wednesdayExercises.map((e) => Array(e.sets).fill(false)),
     friday: fridayExercises.map((e) => Array(e.sets).fill(false)),
+    saturday: saturdayExercises.map((e) => Array(e.sets).fill(false)),
   }
 }
 
@@ -757,20 +880,42 @@ function DaySection({
 const cardioFooter = (
   <div className="mt-2 flex items-center gap-2 px-1 text-[12px] text-gray-600">
     <Footprints className="h-3.5 w-3.5 shrink-0" />
-    <span>Incline treadmill 6–8% · 15–20 min · 3.8 km/h · no holding rails</span>
+    <span>Treadmill · 40 min · 2.8 km/h · 9% incline · no holding rails</span>
   </div>
 )
 
-function ZoneDivider({ day }: { day: string }) {
+function CardioDay({ day, label, duration }: { day: string; label: string; duration: string }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-blue-400">{day}</span>
-      <div className="h-px flex-1 bg-blue-900/50" />
-      <div className="flex shrink-0 items-center gap-1.5 text-xs text-blue-300">
-        <Heart className="h-3 w-3" />
-        <span>Zone 2 · 30–45 min · HR 120–125 (or rest)</span>
+    <section>
+      <div className="mb-2">
+        <div className="text-[10px] font-semibold uppercase tracking-widest text-blue-400">{day}</div>
+        <h2 className="mt-0.5 text-[17px] font-semibold text-white">{label}</h2>
       </div>
-    </div>
+      <div className="rounded-xl border border-blue-900/40 bg-blue-950/20 p-4">
+        <div className="flex items-start gap-3">
+          <Heart className="h-5 w-5 shrink-0 text-blue-400 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-blue-200">Zone 2 Cardio · {duration}</p>
+            <p className="mt-1 text-[13px] text-gray-400">Treadmill walk · 2.8 km/h · 9% incline</p>
+            <p className="mt-1 text-[12px] text-gray-600">No weight training today. Focus on sleep, hydration, and active recovery.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function RestDay({ day, description }: { day: string; description: string }) {
+  return (
+    <section>
+      <div className="mb-2">
+        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-500">{day}</div>
+        <h2 className="mt-0.5 text-[17px] font-semibold text-white">Full Rest Day</h2>
+      </div>
+      <div className="rounded-xl border border-gray-800 bg-gray-900/20 p-4">
+        <p className="text-[13px] leading-relaxed text-gray-500">{description}</p>
+      </div>
+    </section>
   )
 }
 
@@ -822,7 +967,7 @@ export default function PersonalTrainingPage() {
             <h1 className="text-xl font-semibold text-white">Recomp Hypertrophy Plan</h1>
           </div>
           <p className="pl-6 text-sm text-gray-500">
-            Week 7–20 · 3× strength + 2× Zone 2 · Machine-based · High intensity, low volume. Tap a set to check it off — progress is saved on this device.
+            4-day strength split + Zone 2 cardio · Machine-based · High intensity, low volume. Tap a set to check it off — progress is saved on this device.
           </p>
         </div>
 
@@ -840,7 +985,7 @@ export default function PersonalTrainingPage() {
         <DaySection
           eyebrow="Monday · Workout A"
           eyebrowColor="text-emerald-400"
-          title="Legs + Upper Chest"
+          title="Push Focus"
           exercises={mondayExercises}
           sets={progress.monday}
           onToggle={(exIdx, setIdx) => toggleSet("monday", exIdx, setIdx)}
@@ -848,13 +993,14 @@ export default function PersonalTrainingPage() {
           footer={cardioFooter}
         />
 
-        <ZoneDivider day="Tuesday" />
+        {/* Tuesday */}
+        <CardioDay day="Tuesday" label="Zone 2 Cardio (Active Recovery)" duration="45 min" />
 
         {/* Wednesday */}
         <DaySection
           eyebrow="Wednesday · Workout B"
           eyebrowColor="text-emerald-400"
-          title="Back + Rear Delts + Biceps"
+          title="Pull Focus"
           exercises={wednesdayExercises}
           sets={progress.wednesday}
           onToggle={(exIdx, setIdx) => toggleSet("wednesday", exIdx, setIdx)}
@@ -862,13 +1008,17 @@ export default function PersonalTrainingPage() {
           footer={cardioFooter}
         />
 
-        <ZoneDivider day="Thursday" />
+        {/* Thursday */}
+        <RestDay
+          day="Thursday"
+          description="Zero training. Prioritize maximum sleep, keep cortisol low, and let your body drop accumulated water retention."
+        />
 
         {/* Friday */}
         <DaySection
           eyebrow="Friday · Workout C"
           eyebrowColor="text-emerald-400"
-          title="Chest + Shoulders + Triceps"
+          title="Shoulders & Arms Specialization"
           exercises={fridayExercises}
           sets={progress.friday}
           onToggle={(exIdx, setIdx) => toggleSet("friday", exIdx, setIdx)}
@@ -876,27 +1026,31 @@ export default function PersonalTrainingPage() {
           footer={cardioFooter}
         />
 
-        {/* Sat/Sun divider */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-3">
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-amber-400">Saturday</span>
-            <div className="h-px flex-1 bg-gray-800" />
-            <span className="shrink-0 text-xs text-gray-500">Optional 45–60 min walk, or full rest</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-gray-700">Sunday</span>
-            <div className="h-px flex-1 bg-gray-800" />
-            <span className="shrink-0 text-xs text-gray-600">Full rest — CNS reset</span>
-          </div>
-        </div>
+        {/* Saturday */}
+        <DaySection
+          eyebrow="Saturday · Workout D"
+          eyebrowColor="text-emerald-400"
+          title="Legs + Core Heavy Destruction"
+          exercises={saturdayExercises}
+          sets={progress.saturday}
+          onToggle={(exIdx, setIdx) => toggleSet("saturday", exIdx, setIdx)}
+          onReset={() => resetDay("saturday")}
+          footer={cardioFooter}
+        />
 
-        {/* Core Scientific Protocols */}
+        {/* Sunday */}
+        <RestDay
+          day="Sunday"
+          description="Complete metabolic reset. Sleep as much as humanly possible, keep hydration high, and let your body grow."
+        />
+
+        {/* 4 Rules for Perfect Execution */}
         <section>
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Core Scientific Protocols</h2>
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">4 Rules for Perfect Execution</h2>
           <div className="space-y-3">
             {globalRules.map(({ topic, rule }) => (
               <div key={topic} className="flex gap-3">
-                <span className="w-28 shrink-0 pt-0.5 text-xs font-medium text-violet-400">{topic}</span>
+                <span className="w-32 shrink-0 pt-0.5 text-xs font-medium text-violet-400">{topic}</span>
                 <p className="text-sm leading-relaxed text-gray-400">{rule}</p>
               </div>
             ))}
