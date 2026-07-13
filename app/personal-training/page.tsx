@@ -57,51 +57,45 @@ const exercises = {
     video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
   },
   inclineChestPress: {
-    name: "Incline Chest Press",
-    img: "inclineChestPress",
+    name: "Low-Incline Dumbbell Press",
     target: "Upper Chest",
     secondaryMuscles: ["Front Delts", "Triceps"],
-    machine: "Incline Chest Press Machine",
-    altMachine: "Pec Fly Machine (lower the seat)",
-    setup: "Set the seat to a 30–45° incline. Tuck elbows in at a 45–60° angle (arrow shape, no T-flare). Pin shoulder blades firmly into the back pad",
+    machine: "Dumbbell + Adjustable Bench",
+    setup: "Set the bench to a low 15–30° incline (1–2 notches up). Pin shoulder blades firmly into the pad, chest puffed out. Tuck elbows at 45–60° (arrow shape, no T-flare) to maximize chest recruitment and insulate the shoulder joints",
     sets: 4,
     reps: "6–8",
     intensity: "80% RM",
-    tempo: "Press sharply, then lower slowly counting 1...2...3... (Eccentric Overload)",
+    tempo: "Press powerfully, driving elbows inward toward each other at the top. Lower slowly counting 1...2...3... (Eccentric Overload)",
     rest: "90–120 sec",
     cues: [
-      "True heavy set — recruit Type 2 fibers",
-      "Tuck elbows 45–60° (no T-flare)",
-      "Pin shoulder blades into the pad",
-      "Press sharp, lower slow 1...2...3...",
-      "Stop at RIR 1–2 with clean form"
+      "Blast upper chest with heavy mechanical tension",
+      "Low 15–30° incline — 1–2 notches up",
+      "Tuck elbows 45–60° (arrow shape, no T-flare)",
+      "Press powerfully, lower slow 1...2...3...",
+      "Deeply stretch the clavicular fibers at the bottom"
     ],
     muscle: "Chest" as Muscle,
-    weight: "40 KG",
-    video: "https://www.youtube.com/shorts/98HWfiRonkE",
+    weight: "20–22 KG / dumbbell",
   },
   inclineChestPressVolume: {
-    name: "Incline Chest Press",
-    img: "inclineChestPress",
+    name: "Low-Incline Dumbbell Press",
     target: "Upper Chest",
     secondaryMuscles: ["Front Delts"],
-    machine: "Incline Chest Press Machine",
-    altMachine: "Pec Fly Machine (lower the seat)",
-    setup: "Same incline setup as Monday — 30–45° seat, elbows tucked 45–60°, shoulder blades pinned into the pad",
+    machine: "Dumbbell + Adjustable Bench",
+    setup: "Same low 15–30° incline setup — shoulder blades locked back into the pad, chest puffed out",
     sets: 4,
     reps: "8–10",
     intensity: "Volume",
-    tempo: "Controlled press up, then a slow 3-second negative",
+    tempo: "Controlled press up, squeeze hard at peak for 1 full second, then strict 3-second negative descent. Do not bounce at the bottom",
     rest: "90 sec",
     cues: [
-      "Volume builder after the heavy flat press",
-      "Controlled press, no bouncing",
-      "Slow 3-second negative every rep",
+      "Volume builder to square off upper chest shape",
+      "Squeeze hard at peak contraction for 1s",
+      "Strict 3-second negative — no bouncing",
       "Keep shoulder blades pinned"
     ],
     muscle: "Chest" as Muscle,
-    weight: "36–40 KG",
-    video: "https://www.youtube.com/shorts/98HWfiRonkE",
+    weight: "16–18 KG / dumbbell",
   },
   seatedCableRow: {
     name: "Seated Cable Row",
@@ -566,10 +560,10 @@ const saturdayExercises = [
 type DayKey = "monday" | "wednesday" | "friday" | "saturday"
 
 const globalRules = [
-  { topic: "Double Progression", rule: "Keep your target weights locked. Do not increase the weight until you can hit the maximum rep ceiling across all prescribed sets with perfect form." },
-  { topic: "3-Second Negative", rule: "Never let the weight drop. Control the lowering phase of every single rep for a full 3 seconds to force maximum muscle growth." },
-  { topic: "Carb Placement", rule: "Eat your Riceberry strategically around your workout windows to drive glycogen straight into the muscles, making them full while pulling your skin tight." },
-  { topic: "Maximize Sleep", rule: "Sleep is your ultimate weapon. Getting as much sleep as possible drops cortisol levels, which is the exact trigger your body needs to release trapped water weight around your midsection." },
+  { topic: "Double Progression", rule: "Lock these weights down. Only increase dumbbell weights once you can hit the maximum rep ceiling across all sets with seamless form." },
+  { topic: "3-Second Negative", rule: "Never drop the weight. The slow lowering phase is where the mechanical micro-tears happen, driving upper chest hypertrophy." },
+  { topic: "Riceberry Timing", rule: "Consume your complex carbs strictly around your training windows to shove glycogen directly into the muscle bellies." },
+  { topic: "Maximize Sleep", rule: "Deep sleep suppresses systemic cortisol. Dropping cortisol is the primary hormonal trigger your body needs to drop stubborn subcutaneous water retention around your midsection." },
 ]
 
 const weekOverview = [
@@ -1046,7 +1040,7 @@ export default function PersonalTrainingPage() {
 
         {/* 4 Rules for Perfect Execution */}
         <section>
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">4 Rules for Perfect Execution</h2>
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">4 Pillars of Perfect Recomp Execution</h2>
           <div className="space-y-3">
             {globalRules.map(({ topic, rule }) => (
               <div key={topic} className="flex gap-3">
