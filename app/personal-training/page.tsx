@@ -917,6 +917,7 @@ function RestDay({ day, description }: { day: string; description: string }) {
 
 export default function PersonalTrainingPage() {
   const progress = React.useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot)
+  const [activeDay, setActiveDay] = React.useState<number | null>(null) // null = show all
 
   const toggleSet = (day: DayKey, exerciseIndex: number, setIndex: number) => {
     writeProgress({
@@ -965,78 +966,102 @@ export default function PersonalTrainingPage() {
           </p>
         </div>
 
-        {/* Week strip */}
+        {/* Day filter */}
         <div className="flex gap-1.5">
-          {weekOverview.map(({ label, tag, style }) => (
-            <div key={label} className={`flex flex-1 flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 ${style}`}>
-              <span className="text-[11px] font-semibold">{label}</span>
-              <span className="text-[9px] opacity-50">{tag}</span>
-            </div>
+          <button
+            onClick={() => setActiveDay(null)}
+            className={`flex flex-col items-center justify-center gap-0.5 rounded-lg border px-2.5 py-1.5 transition-all active:scale-95 ${activeDay === null ? "border-white/30 bg-white/10 text-white" : "border-gray-800 bg-gray-900/40 text-gray-500 hover:text-gray-300"}`}
+          >
+            <span className="text-[11px] font-semibold">All</span>
+          </button>
+          {weekOverview.map((d, i) => (
+            <button
+              key={d.label}
+              onClick={() => setActiveDay(activeDay === i ? null : i)}
+              className={`flex flex-1 flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 transition-all active:scale-95 ${activeDay === i ? `${d.style} ring-1 ring-white/20` : "border-gray-800 bg-gray-900/40 opacity-50 hover:opacity-80"}`}
+            >
+              <span className="text-[11px] font-semibold">{d.label}</span>
+              <span className="text-[9px] opacity-60">{d.tag}</span>
+            </button>
           ))}
         </div>
 
         {/* Monday */}
-        <DaySection
-          eyebrow="Monday · Workout A"
-          eyebrowColor="text-emerald-400"
-          title="Push Focus"
-          exercises={mondayExercises}
-          sets={progress.monday}
-          onToggle={(exIdx, setIdx) => toggleSet("monday", exIdx, setIdx)}
-          onReset={() => resetDay("monday")}
-          footer={cardioFooter}
-        />
+        {(activeDay === null || activeDay === 0) && (
+          <DaySection
+            eyebrow="Monday · Workout A"
+            eyebrowColor="text-emerald-400"
+            title="Push Focus"
+            exercises={mondayExercises}
+            sets={progress.monday}
+            onToggle={(exIdx, setIdx) => toggleSet("monday", exIdx, setIdx)}
+            onReset={() => resetDay("monday")}
+            footer={cardioFooter}
+          />
+        )}
 
         {/* Tuesday */}
-        <CardioDay day="Tuesday" label="Zone 2 Cardio (Active Recovery)" duration="45 min" />
+        {(activeDay === null || activeDay === 1) && (
+          <CardioDay day="Tuesday" label="Zone 2 Cardio (Active Recovery)" duration="45 min" />
+        )}
 
         {/* Wednesday */}
-        <DaySection
-          eyebrow="Wednesday · Workout B"
-          eyebrowColor="text-emerald-400"
-          title="Pull Focus"
-          exercises={wednesdayExercises}
-          sets={progress.wednesday}
-          onToggle={(exIdx, setIdx) => toggleSet("wednesday", exIdx, setIdx)}
-          onReset={() => resetDay("wednesday")}
-          footer={cardioFooter}
-        />
+        {(activeDay === null || activeDay === 2) && (
+          <DaySection
+            eyebrow="Wednesday · Workout B"
+            eyebrowColor="text-emerald-400"
+            title="Pull Focus"
+            exercises={wednesdayExercises}
+            sets={progress.wednesday}
+            onToggle={(exIdx, setIdx) => toggleSet("wednesday", exIdx, setIdx)}
+            onReset={() => resetDay("wednesday")}
+            footer={cardioFooter}
+          />
+        )}
 
         {/* Thursday */}
-        <RestDay
-          day="Thursday"
-          description="Zero training. Prioritize maximum sleep, keep cortisol low, and let your body drop accumulated water retention."
-        />
+        {(activeDay === null || activeDay === 3) && (
+          <RestDay
+            day="Thursday"
+            description="Zero training. Prioritize maximum sleep, keep cortisol low, and let your body drop accumulated water retention."
+          />
+        )}
 
         {/* Friday */}
-        <DaySection
-          eyebrow="Friday · Workout C"
-          eyebrowColor="text-emerald-400"
-          title="Shoulders & Arms Specialization"
-          exercises={fridayExercises}
-          sets={progress.friday}
-          onToggle={(exIdx, setIdx) => toggleSet("friday", exIdx, setIdx)}
-          onReset={() => resetDay("friday")}
-          footer={cardioFooter}
-        />
+        {(activeDay === null || activeDay === 4) && (
+          <DaySection
+            eyebrow="Friday · Workout C"
+            eyebrowColor="text-emerald-400"
+            title="Shoulders & Arms Specialization"
+            exercises={fridayExercises}
+            sets={progress.friday}
+            onToggle={(exIdx, setIdx) => toggleSet("friday", exIdx, setIdx)}
+            onReset={() => resetDay("friday")}
+            footer={cardioFooter}
+          />
+        )}
 
         {/* Saturday */}
-        <DaySection
-          eyebrow="Saturday · Workout D"
-          eyebrowColor="text-emerald-400"
-          title="Legs + Core Heavy Destruction"
-          exercises={saturdayExercises}
-          sets={progress.saturday}
-          onToggle={(exIdx, setIdx) => toggleSet("saturday", exIdx, setIdx)}
-          onReset={() => resetDay("saturday")}
-          footer={cardioFooter}
-        />
+        {(activeDay === null || activeDay === 5) && (
+          <DaySection
+            eyebrow="Saturday · Workout D"
+            eyebrowColor="text-emerald-400"
+            title="Legs + Core Heavy Destruction"
+            exercises={saturdayExercises}
+            sets={progress.saturday}
+            onToggle={(exIdx, setIdx) => toggleSet("saturday", exIdx, setIdx)}
+            onReset={() => resetDay("saturday")}
+            footer={cardioFooter}
+          />
+        )}
 
         {/* Sunday */}
-        <RestDay
-          day="Sunday"
-          description="Complete metabolic reset. Sleep as much as humanly possible, keep hydration high, and let your body grow."
-        />
+        {(activeDay === null || activeDay === 6) && (
+          <RestDay
+            day="Sunday"
+            description="Complete metabolic reset. Sleep as much as humanly possible, keep hydration high, and let your body grow."
+          />
+        )}
 
         {/* 4 Rules for Perfect Execution */}
         <section>
