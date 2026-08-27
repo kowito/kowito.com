@@ -294,6 +294,27 @@ const exercises = {
     muscle: "Chest" as Muscle,
     video: "https://www.youtube.com/watch?v=ze4JaQCcGLg",
   },
+  cableFly: {
+    name: "Cable Fly",
+    target: "Chest",
+    secondaryMuscles: ["Front Delts"],
+    machine: "Cable Crossover (both pulleys set mid-chest height)",
+    altMachine: "Machine Pec Fly",
+    setup: "Set both pulleys at mid-chest height. Stand in a split stance dead center, arms out wide with a fixed slight elbow bend. Allow a natural stretch in the chest",
+    sets: 3,
+    reps: "10–15",
+    intensity: "RIR 0–1",
+    tempo: "Squeeze the handles together in a smooth arc (1s), hold the peak 1s, then open slowly over 3s into a deep stretch",
+    rest: "60–90 sec",
+    cues: [
+      "Horizontal arc at mid-chest height — builds the middle chest",
+      "Elbows stay at a fixed angle, arms don't bend or straighten",
+      "Constant cable tension: never let the stack rest",
+      "Deep stretch on the opening — that's where growth happens"
+    ],
+    muscle: "Chest" as Muscle,
+    video: "https://www.youtube.com/watch?v=JUDTGZh4rhg",
+  },
   inclineCableFly: {
     name: "Incline Cable Fly",
     img: "inclineCableFly",
@@ -315,6 +336,27 @@ const exercises = {
     ],
     muscle: "Chest" as Muscle,
     video: "https://www.youtube.com/watch?v=eQ_NBB6OBH4",
+  },
+  reversePecDeck: {
+    name: "Reverse Pec Deck",
+    target: "Rear Delts",
+    secondaryMuscles: ["Upper Back", "Rhomboids"],
+    machine: "Reverse Pec Deck Machine",
+    altMachine: "Cable Rear Delt Fly",
+    setup: "Sit upright with chest against the pad. Grip the handles with a neutral grip at shoulder height. Elbows stay high and outside of the handles",
+    sets: 2,
+    reps: "12–15",
+    intensity: "RIR 0–1",
+    tempo: "Squeeze the handles back in a wide arc (1s), hold the peak contraction 1s, then return slowly over 3s",
+    rest: "60–90 sec",
+    cues: [
+      "Chest stays glued to the pad — no torso rotation",
+      "Sweep your elbows wide, not back toward the hips",
+      "Squeeze the rear delts hard at the peak",
+      "This hits rear delts and upper back without lower-back involvement"
+    ],
+    muscle: "Shoulders" as Muscle,
+    weight: "30–35 KG",
   },
 
   // ── Shoulders ──
@@ -484,6 +526,50 @@ const exercises = {
     weight: "52 KG",
     video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
   },
+  neutralGripLatPulldown: {
+    name: "Neutral-Grip Lat Pulldown",
+    target: "Lats",
+    secondaryMuscles: ["Biceps", "Upper Back"],
+    machine: "Lat Pulldown Machine (neutral grip attachment)",
+    altMachine: "Wide-Grip Lat Pulldown",
+    setup: "Sit upright, lock the thigh pad firmly. Grip the attachment with a neutral grip (palms facing each other, hands shoulder-width or slightly wider)",
+    sets: 4,
+    reps: "6–8",
+    intensity: "RIR 1–2",
+    tempo: "Drive elbows straight down, leading with the elbows (1s), then return slowly over 3s to a full stretch",
+    rest: "90–120 sec",
+    cues: [
+      "Neutral grip is a hybrid between wide and close grip — targets the whole lat",
+      "Elbows stay wide, not tucked in",
+      "Drive elbows down and back",
+      "Powerful rep with a strong stretch at the top",
+      "Heavy heavy sets — this is a primary movement on Friday"
+    ],
+    muscle: "Back" as Muscle,
+    weight: "55–60 KG",
+  },
+  singleArmLatPulldown: {
+    name: "Single-Arm Lat Pulldown",
+    target: "Lats",
+    secondaryMuscles: ["Biceps"],
+    machine: "Lat Pulldown Machine (single-handle attachment)",
+    altMachine: "Single-Arm Cable Pulldown",
+    setup: "Sit upright, lock the thigh pad. Use a single handle (or one side of a split attachment). Grab with one hand and let your arm straighten fully at the top",
+    sets: 3,
+    reps: "10–12",
+    intensity: "RIR 0–1",
+    tempo: "Pull down and across your body in a smooth arc (1s), squeeze 1s, return slowly over 3s",
+    rest: "60–90 sec",
+    cues: [
+      "Single-arm work allows unilateral lat recruitment and core engagement",
+      "Pull down and slightly across — don't just straight down",
+      "Full stretch at the top of every rep",
+      "Squeeze the lat hard at the peak",
+      "Light weight: quality beats quantity"
+    ],
+    muscle: "Back" as Muscle,
+    weight: "25–30 KG per side",
+  },
   chestSupportedRow: {
     name: "Chest-Supported Row",
     img: "chestSupportedRow",
@@ -555,6 +641,48 @@ const exercises = {
   },
 
   // ── Arms ──
+  preacherCurl: {
+    name: "Preacher / Machine Curl",
+    target: "Biceps",
+    secondaryMuscles: ["Forearms"],
+    machine: "Preacher Bench + Barbell / Machine Curl",
+    altMachine: "Machine Biceps Curl",
+    setup: "Sit upright with the back of your arms against the pad. Grip at shoulder width and establish an initial stretch",
+    sets: 3,
+    reps: "8–12",
+    intensity: "RIR 1–2",
+    tempo: "Curl up with constant tension, squeeze at the top 1s, lower slowly over 3s",
+    rest: "90 sec",
+    cues: [
+      "Back of arms glued to the pad — no momentum",
+      "Full range: stretch at the bottom, squeeze at the top",
+      "Slow eccentric is the hypertrophy driver",
+      "Stop 1–2 reps short of failure"
+    ],
+    muscle: "Biceps" as Muscle,
+    weight: "25–30 KG",
+  },
+  cableHammerCurl: {
+    name: "Cable Hammer Curl",
+    target: "Biceps",
+    secondaryMuscles: ["Forearms", "Brachialis"],
+    machine: "Cable Crossover (low pulley, rope attachment)",
+    altMachine: "Dumbbell Hammer Curl",
+    setup: "Set the pulley low. Stand facing the stack with feet shoulder-width apart. Grip the rope with a hammer curl position (palms facing each other)",
+    sets: 3,
+    reps: "10–12",
+    intensity: "RIR 0–1",
+    tempo: "Curl the rope up to chest height, squeeze 1s, lower slowly over 3s",
+    rest: "60–90 sec",
+    cues: [
+      "Hammer curl angle targets the brachialis and outer biceps",
+      "Constant cable tension: never let the stack relax",
+      "Keep elbows fixed at your sides — no swinging",
+      "Squeeze hard at the top"
+    ],
+    muscle: "Biceps" as Muscle,
+    weight: "15–20 KG",
+  },
   tricepsPushdown: {
     name: "Cable Pushdown",
     img: "tricepsPushdown",
@@ -804,6 +932,28 @@ const exercises = {
     muscle: "Legs" as Muscle,
     video: "https://www.youtube.com/watch?v=SVtg-1loH4c",
   },
+  bulgarianSplitSquat: {
+    name: "Bulgarian Split Squat",
+    target: "Quads",
+    secondaryMuscles: ["Glutes", "Hamstrings"],
+    machine: "Dumbbell + Bench / Box",
+    altMachine: "Smith Machine Split Squat",
+    setup: "Hold a dumbbell in each hand (or two dumbbells) at your sides. Stand facing away from a bench with one foot elevated behind you on the bench, the other foot forward. Keep your torso upright",
+    sets: 3,
+    reps: "8–10",
+    intensity: "RIR 1–2",
+    tempo: "Lower down until the back knee almost touches the floor (2s), then drive up powerfully (1s) to a strong lockout",
+    rest: "90 sec per leg",
+    cues: [
+      "Front knee tracks over the toes — don't let it cave inward",
+      "Front knee should reach about 90° at the bottom",
+      "Torso stays upright; drive from the front leg, not the back",
+      "Single-leg loading = quad-focused and stabilizer demanding",
+      "Dumbbells at your sides balance the load naturally"
+    ],
+    muscle: "Legs" as Muscle,
+    weight: "16–20 KG per hand",
+  },
 
   // ── Core ──
   cableCrunch: {
@@ -877,7 +1027,7 @@ const warmupMobility = [
   exercises.shoulderMobility,
 ] as const
 
-type DayKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday"
+type DayKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"
 
 type DayProgram = {
   eyebrow: string
@@ -891,74 +1041,80 @@ type DayProgram = {
 
 const dayPrograms: Record<DayKey, DayProgram> = {
   monday: {
-    eyebrow: "Monday · Jetts PARQ Silom",
-    title: "Heavy Chest",
+    eyebrow: "Monday",
+    title: "Chest + Shoulders",
     color: "text-emerald-400",
     warmup: warmupFull,
     work: [
       exercises.inclineChestPress,
       exercises.chestPress,
-      exercises.pecDeck,
-      exercises.lateralRaiseMonday,
-      exercises.tricepsPushdown,
+      exercises.cableLateralRaise,
+      exercises.shoulderPress,
     ],
   },
   tuesday: {
-    eyebrow: "Tuesday · Recovery",
-    title: "Cardio + Mobility + Core",
+    eyebrow: "Tuesday",
+    title: "Biceps + Zone 2",
     color: "text-blue-400",
-    warmupLabel: "Mobility · 15 min",
-    warmup: warmupMobility,
-    work: [exercises.cableCrunchLight],
+    warmupLabel: "Warm-up",
+    warmup: warmupChildsPose,
+    work: [
+      exercises.preacherCurl,
+      exercises.cableHammerCurl,
+    ],
   },
   wednesday: {
-    eyebrow: "Wednesday · Jetts PARQ Silom",
-    title: "Heavy Back",
+    eyebrow: "Wednesday",
+    title: "Chest + Shoulders + Triceps",
     color: "text-emerald-400",
     warmup: warmupFull,
     work: [
-      exercises.latPulldown,
-      exercises.chestSupportedRow,
-      exercises.rearDeltFly,
-      exercises.bicepsCurl,
+      exercises.inclineChestPressCondo,
+      exercises.cableFly,
+      exercises.cableLateralRaise,
+      exercises.reversePecDeck,
+      exercises.tricepsPushdown,
     ],
   },
   thursday: {
-    eyebrow: "Thursday · Jetts PARQ Silom",
-    title: "Delts + Upper Chest",
-    color: "text-emerald-400",
-    warmup: warmupChildsPose,
-    work: [
-      exercises.shoulderPress,
-      exercises.lateralRaise,
-      exercises.inclineCableFly,
-      exercises.machinePullover,
-    ],
+    eyebrow: "Thursday",
+    title: "Zone 2 / Recovery",
+    color: "text-blue-400",
+    warmup: [],
+    work: [],
   },
   friday: {
-    eyebrow: "Friday · Condo Gym",
-    title: "Chest + Arms",
-    color: "text-violet-400",
-    warmup: warmupChildsPose,
+    eyebrow: "Friday · Trainer Day",
+    title: "Heavy Back + Delts",
+    color: "text-amber-400",
+    warmup: warmupFull,
     work: [
-      exercises.inclineChestPressFriday,
-      exercises.lateralRaiseFriday,
-      exercises.tricepsPushdownFriday,
-      exercises.bicepsCurlFriday,
+      exercises.neutralGripLatPulldown,
+      exercises.chestSupportedRow,
+      exercises.machineHighRow,
+      exercises.singleArmLatPulldown,
+      exercises.cableLateralRaise,
+      exercises.reversePecDeck,
     ],
   },
   saturday: {
-    eyebrow: "Saturday · Condo Gym",
-    title: "Legs",
-    color: "text-violet-400",
+    eyebrow: "Saturday · Trainer Day",
+    title: "Heavy Legs",
+    color: "text-amber-400",
     warmup: warmupCouchChildsPose,
     work: [
       exercises.legPress,
-      exercises.hipThrust,
-      exercises.legExtension,
       exercises.legCurl,
-      exercises.calfRaise,
+      exercises.hipThrust,
+      exercises.bulgarianSplitSquat,
     ],
+  },
+  sunday: {
+    eyebrow: "Sunday",
+    title: "Zone 2 / Recovery",
+    color: "text-blue-400",
+    warmup: [],
+    work: [],
   },
 }
 
@@ -987,27 +1143,25 @@ const intensityRules = [
 ]
 
 const weeklyVolume = [
-  { muscle: "Upper Chest", sets: 9, hero: true },
-  { muscle: "Total Chest", sets: 13, hero: true },
-  { muscle: "Side Delts", sets: 7, hero: true },
-  { muscle: "Front Delts", sets: 3 },
-  { muscle: "Rear Delts", sets: 2 },
-  { muscle: "Lats", sets: 5 },
-  { muscle: "Upper Back", sets: 3 },
-  { muscle: "Triceps", sets: 4 },
-  { muscle: "Biceps", sets: 4 },
-  { muscle: "Legs", sets: 12 },
-  { muscle: "Core", sets: 2 },
+  { muscle: "Chest", sets: 12, hero: true },
+  { muscle: "Lateral Delts", sets: 8, hero: true },
+  { muscle: "Back", sets: 14, hero: true },
+  { muscle: "Rear Delts", sets: 4 },
+  { muscle: "Front Delts", sets: 2 },
+  { muscle: "Biceps", sets: 6 },
+  { muscle: "Triceps", sets: 2 },
+  { muscle: "Legs", sets: 14 },
+  { muscle: "Zone 2 Cardio", sets: 90, hero: false },
 ]
 
 const weekOverview = [
   { label: "Mon", tag: "Chest", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Tue", tag: "Recovery", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
-  { label: "Wed", tag: "Back", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Thu", tag: "Delts", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Fri", tag: "Chest", style: "bg-violet-500/15 text-violet-300 border-violet-500/30" },
-  { label: "Sat", tag: "Legs", style: "bg-violet-500/15 text-violet-300 border-violet-500/30" },
-  { label: "Sun", tag: "Rest", style: "bg-gray-500/15 text-gray-400 border-gray-600/30" },
+  { label: "Tue", tag: "Biceps", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
+  { label: "Wed", tag: "Chest", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Thu", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
+  { label: "Fri", tag: "Back", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
+  { label: "Sat", tag: "Legs", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
+  { label: "Sun", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
 ]
 
 // ─── Progress persistence ────────────────────────────────────────────────────
@@ -1410,10 +1564,10 @@ export default function PersonalTrainingPage() {
         <div className="pt-2">
           <div className="mb-1 flex items-center gap-2">
             <Dumbbell className="h-4 w-4 shrink-0 text-emerald-400" />
-            <h1 className="text-xl font-semibold text-white">Powerbuilder Cut</h1>
+            <h1 className="text-xl font-semibold text-white">Weekly Hypertrophy + Zone 2</h1>
           </div>
           <p className="pl-6 text-sm text-gray-500">
-            6 training days + 60 min Zone 2 daily · Heavy weights, low volume · Upper chest &amp; side delts prioritized. Tap a set to check it off — progress is saved on this device.
+            7 days: 4 lifting days + 3 Zone 2 / Recovery days · Heavy Back (Friday) and Heavy Legs (Saturday) with trainer · 90–125 min/week Zone 2. Tap a set to check it off — progress is saved on this device.
           </p>
           <blockquote className="ml-6 mt-4 border-l-2 border-emerald-500/40 pl-3 text-[13px] italic leading-relaxed text-gray-400">
             Train like a powerbuilder, recover like a bodybuilder, diet like a physique athlete.
@@ -1425,13 +1579,12 @@ export default function PersonalTrainingPage() {
           <div className="flex items-start gap-3">
             <Target className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
             <div>
-              <p className="text-sm font-medium text-emerald-200">Goal · Visible abs, lean and muscular</p>
+              <p className="text-sm font-medium text-emerald-200">Goal · Maximum hypertrophy</p>
               <p className="mt-1 text-[13px] leading-relaxed text-gray-400">
-                Preserve every gram of muscle while cutting fat. Heavy compounds hold the muscle, the deficit and 60 min of daily
-                Zone 2 strip the fat, and upper chest + side delts get the priority because they change the silhouette fastest.
+                Build muscle with a focus on chest, shoulders, and back thickness. Heavy compounds on Monday–Wednesday, Friday, and Saturday. Zone 2 cardio (90–125 min/week) supports recovery and cardiovascular health.
               </p>
               <p className="mt-2 text-[12px] text-gray-600">
-                Mon–Thu Jetts PARQ Silom · Fri–Sun condo gym (trainer Fri &amp; Sat)
+                Monday–Thursday and Sunday: gym + Zone 2 · Friday–Saturday: trainer-led heavy sessions
               </p>
             </div>
           </div>
@@ -1459,23 +1612,25 @@ export default function PersonalTrainingPage() {
 
         {dayKeys.map((key, i) =>
           activeDay === null || activeDay === i ? (
-            <DaySection
-              key={key}
-              program={dayPrograms[key]}
-              sets={progress[key]}
-              onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
-              onReset={() => resetDay(key)}
-              footer={key === "tuesday" ? recoveryFooter : cardioFooter}
-            />
+            <div key={key}>
+              {dayPrograms[key].work.length === 0 ? (
+                <RestDay
+                  day={dayPrograms[key].eyebrow}
+                  description={key === "thursday"
+                    ? "No resistance training. Zone 2 only. Treadmill: 4.5 km/h, 9% incline, ~135 bpm, 30–40 min. This is a low-fatigue buffer before Friday's Heavy Back session."
+                    : "No resistance training. Zone 2 only. Treadmill: 4.5 km/h, 9% incline, ~135 bpm, 30–45 min. Active recovery and cardiovascular maintenance."}
+                />
+              ) : (
+                <DaySection
+                  program={dayPrograms[key]}
+                  sets={progress[key]}
+                  onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
+                  onReset={() => resetDay(key)}
+                  footer={cardioFooter}
+                />
+              )}
+            </div>
           ) : null
-        )}
-
-        {/* Sunday */}
-        {(activeDay === null || activeDay === 6) && (
-          <RestDay
-            day="Sunday · Condo Gym"
-            description="No lifting. Walk 45–60 min at an easy pace and run through a full stretch session. Sleep as much as humanly possible — this is the day the six training days actually get absorbed."
-          />
         )}
 
         {/* Progression */}
