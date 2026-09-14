@@ -3,11 +3,11 @@
 import React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, Dumbbell, Footprints, Utensils, Play, Target, ChevronRight } from "lucide-react"
+import { ArrowLeft, Dumbbell, Utensils, Play, Target, ChevronRight, Heart, Moon } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type Muscle = "Chest" | "Back" | "Shoulders" | "Triceps" | "Biceps" | "Legs" | "Glutes" | "Core" | "Arms"
+type Muscle = "Chest" | "Back" | "Shoulders" | "Triceps" | "Biceps" | "Legs" | "Glutes" | "Core"
 
 type Exercise = {
   name: string
@@ -16,7 +16,7 @@ type Exercise = {
   setup: string
   sets: number
   reps: number | string
-  /** Optional intensity tag, e.g. "RIR 1–2", "Volume", "Heavy". */
+  /** Optional intensity tag, e.g. "RIR 1–2". */
   intensity?: string
   tempo: string
   rest: string
@@ -30,92 +30,14 @@ type Exercise = {
   img?: string
   /** Shown under the photos when the stock demo is a close variant, not this exact machine. */
   imgNote?: string
+  /** Highlighted caveat — e.g. a set that is optional when fatigue is high. */
+  note?: string
 }
 
 // ─── Exercise Library (single source of truth) ───────────────────────────────
 
 const exercises = {
   // ── Warm-up & mobility ──
-  hipFlexorStretch: {
-    name: "Hip Flexor Stretch (Couch Stretch)",
-    img: "hipFlexorStretch",
-    target: "Hip Flexors",
-    secondaryMuscles: ["Quads"],
-    machine: "Wall / Couch / Mat",
-    setup: "Kneel in front of a wall or couch. Place one foot flat on the floor in front, the other shin vertical against the wall behind you. Keep your torso upright",
-    sets: 1,
-    reps: "90 sec per side",
-    tempo: "Hold the stretch, breathe deeply, relax into it",
-    rest: "—",
-    cues: [
-      "Keep your torso upright",
-      "Squeeze the glute on the stretched side",
-      "Breathe deeply and relax",
-      "Don't arch your lower back"
-    ],
-    muscle: "Core" as Muscle,
-    video: "https://www.youtube.com/watch?v=QiKl5UoiG5c",
-  },
-  lowerBackStretch: {
-    name: "Lower Back Stretch (Child's Pose)",
-    img: "lowerBackStretch",
-    target: "Lower Back",
-    secondaryMuscles: ["Lats"],
-    machine: "Mat",
-    setup: "Kneel on the mat, sit back on your heels, fold forward and extend your arms in front. Rest your forehead on the mat",
-    sets: 1,
-    reps: "90 sec",
-    tempo: "Hold the stretch, breathe deeply, let your lower back release",
-    rest: "—",
-    cues: [
-      "Sit your hips back toward your heels",
-      "Extend your arms forward",
-      "Breathe deeply into your lower back",
-      "Let gravity do the work"
-    ],
-    muscle: "Core" as Muscle,
-    video: "https://www.youtube.com/watch?v=_ZX_zTOBgp8",
-  },
-  gluteBridge: {
-    name: "Glute Bridge",
-    img: "gluteBridge",
-    target: "Glutes",
-    secondaryMuscles: ["Hamstrings", "Core"],
-    machine: "Bodyweight / Mat",
-    setup: "Lie on your back, knees bent, feet flat on the floor hip-width apart. Arms at your sides, palms down",
-    sets: 1,
-    reps: 15,
-    tempo: "Drive hips up, squeeze glutes at the top for 1s, lower slowly",
-    rest: "30 sec",
-    cues: [
-      "Drive through your heels",
-      "Squeeze glutes hard at the top",
-      "Don't hyperextend your back",
-      "Keep your core braced"
-    ],
-    muscle: "Glutes" as Muscle,
-    video: "https://www.youtube.com/watch?v=XLXGydU5DdU",
-  },
-  deadBug: {
-    name: "Dead Bug",
-    img: "deadBug",
-    target: "Core",
-    secondaryMuscles: ["Hip Flexors", "Lower Back"],
-    machine: "Bodyweight / Mat",
-    setup: "Lie on your back, arms extended toward the ceiling, hips and knees bent at 90°. Press your lower back into the floor",
-    sets: 1,
-    reps: 10,
-    tempo: "Slow and controlled — extend opposite arm and leg, return, repeat",
-    rest: "30 sec",
-    cues: [
-      "Press lower back flat into the floor",
-      "Move slowly, no rushing",
-      "Keep your core braced throughout",
-      "Don't let your back arch"
-    ],
-    muscle: "Core" as Muscle,
-    video: "https://www.youtube.com/watch?v=GbSC02oU3To",
-  },
   thoracicOpener: {
     name: "Thoracic Rotation (Open Book)",
     img: "thoracicOpener",
@@ -151,215 +73,164 @@ const exercises = {
     cues: [
       "Keep your ribs down — don't arch to fake range",
       "Widen your grip if the shoulders pinch",
-      "Joint insurance for pressing 3× a week",
+      "Cheap insurance for the pressing and pulling that follows",
       "Never force through a sharp pain"
     ],
     muscle: "Shoulders" as Muscle,
     video: "https://www.youtube.com/watch?v=riVxa9By-pM",
   },
+  lowerBackStretch: {
+    name: "Lower Back Stretch (Child's Pose)",
+    img: "lowerBackStretch",
+    target: "Lower Back",
+    secondaryMuscles: ["Lats"],
+    machine: "Mat",
+    setup: "Kneel on the mat, sit back on your heels, fold forward and extend your arms in front. Rest your forehead on the mat",
+    sets: 1,
+    reps: "90 sec",
+    tempo: "Hold the stretch, breathe deeply, let your lower back release",
+    rest: "—",
+    cues: [
+      "Sit your hips back toward your heels",
+      "Extend your arms forward",
+      "Breathe deeply into your lower back",
+      "Let gravity do the work"
+    ],
+    muscle: "Core" as Muscle,
+    video: "https://www.youtube.com/watch?v=_ZX_zTOBgp8",
+  },
+  hipFlexorStretch: {
+    name: "Hip Flexor Stretch (Couch Stretch)",
+    img: "hipFlexorStretch",
+    target: "Hip Flexors",
+    secondaryMuscles: ["Quads"],
+    machine: "Wall / Couch / Mat",
+    setup: "Kneel in front of a wall or couch. Place one foot flat on the floor in front, the other shin vertical against the wall behind you. Keep your torso upright",
+    sets: 1,
+    reps: "90 sec per side",
+    tempo: "Hold the stretch, breathe deeply, relax into it",
+    rest: "—",
+    cues: [
+      "Keep your torso upright",
+      "Squeeze the glute on the stretched side",
+      "Breathe deeply and relax",
+      "Don't arch your lower back"
+    ],
+    muscle: "Core" as Muscle,
+    video: "https://www.youtube.com/watch?v=QiKl5UoiG5c",
+  },
+  gluteBridge: {
+    name: "Glute Bridge",
+    img: "gluteBridge",
+    target: "Glutes",
+    secondaryMuscles: ["Hamstrings", "Core"],
+    machine: "Bodyweight / Mat",
+    setup: "Lie on your back, knees bent, feet flat on the floor hip-width apart. Arms at your sides, palms down",
+    sets: 1,
+    reps: 15,
+    tempo: "Drive hips up, squeeze glutes at the top for 1s, lower under control",
+    rest: "30 sec",
+    cues: [
+      "Drive through your heels",
+      "Squeeze glutes hard at the top",
+      "Don't hyperextend your back",
+      "Wakes the glutes up before heavy pressing with the legs"
+    ],
+    muscle: "Glutes" as Muscle,
+    video: "https://www.youtube.com/watch?v=XLXGydU5DdU",
+  },
+  deadBug: {
+    name: "Dead Bug",
+    img: "deadBug",
+    target: "Core",
+    secondaryMuscles: ["Hip Flexors", "Lower Back"],
+    machine: "Bodyweight / Mat",
+    setup: "Lie on your back, arms extended toward the ceiling, hips and knees bent at 90°. Press your lower back into the floor",
+    sets: 1,
+    reps: 10,
+    tempo: "Slow and controlled — extend opposite arm and leg, return, repeat",
+    rest: "30 sec",
+    cues: [
+      "Press lower back flat into the floor",
+      "Move slowly, no rushing",
+      "Keep your core braced throughout",
+      "Don't let your back arch"
+    ],
+    muscle: "Core" as Muscle,
+    video: "https://www.youtube.com/watch?v=GbSC02oU3To",
+  },
 
-  // ── Chest ──
+  // ── Monday · Chest + Shoulders ──
   inclineChestPress: {
     name: "Low-Incline Dumbbell Press",
     img: "inclineChestPress",
     target: "Upper Chest",
     secondaryMuscles: ["Front Delts", "Triceps"],
     machine: "Dumbbell + Adjustable Bench",
-    setup: "Set the bench to a low 15–30° incline (1–2 notches up). Pin shoulder blades firmly into the pad, chest puffed out. Tuck elbows at 45–60° (arrow shape, no T-flare) to maximize chest recruitment and insulate the shoulder joints",
+    setup: "Set the bench to a low 15–30° incline (1–2 notches up). Pin the shoulder blades into the pad, chest puffed. Tuck the elbows to about 45–60° rather than flaring them into a T",
     sets: 3,
     reps: "6–8",
     intensity: "RIR 1–2",
-    tempo: "Press powerfully, driving elbows inward toward each other at the top. Lower slowly counting 1...2...3... (Eccentric Overload)",
-    rest: "90–120 sec",
+    tempo: "Lower under control for about 2–3 seconds into a deep stretch, then drive up strongly. Controlled, not slow-motion",
+    rest: "2–3 min",
     cues: [
-      "The #1 lift of this program — heaviest mechanical tension on the upper chest",
-      "Low 15–30° incline — 1–2 notches up",
-      "Tuck elbows 45–60° (arrow shape, no T-flare)",
-      "Press powerfully, lower slow 1...2...3...",
-      "Deeply stretch the clavicular fibers at the bottom"
+      "This is the primary chest movement of the week — give it your best effort",
+      "Low 15–30° incline, 1–2 notches up",
+      "Deep controlled stretch at the bottom, strong drive out of it",
+      "Leave 1–2 reps in the tank — no grinding to failure",
+      "Full rest here: 2–3 minutes buys you better sets"
     ],
     muscle: "Chest" as Muscle,
     weight: "20–22 KG / dumbbell",
     video: "https://www.youtube.com/watch?v=U_N0Pjohh9I",
   },
-  inclineChestPressCondo: {
-    name: "Low-Incline Dumbbell Press",
-    img: "inclineChestPress",
-    target: "Upper Chest",
-    secondaryMuscles: ["Front Delts"],
-    machine: "Dumbbell + Adjustable Bench (condo gym)",
-    setup: "Same low 15–30° incline setup — shoulder blades locked back into the pad, chest puffed out. Condo dumbbells cap out lighter, so buy the extra stimulus with tempo, not weight",
-    sets: 3,
-    reps: "8",
-    intensity: "Volume",
-    tempo: "Controlled press up, squeeze hard at peak for 1 full second, then strict 3-second negative descent. Do not bounce at the bottom",
-    rest: "90 sec",
-    cues: [
-      "Third upper-chest exposure of the week — this is the frequency that changes a T-shirt",
-      "Squeeze hard at peak contraction for 1s",
-      "Strict 3-second negative — no bouncing",
-      "If the top dumbbell feels easy, slow the eccentric to 4s"
-    ],
-    muscle: "Chest" as Muscle,
-    weight: "16–18 KG / dumbbell",
-    video: "https://www.youtube.com/watch?v=U_N0Pjohh9I",
-  },
-  inclineChestPressFriday: {
-    name: "Low-Incline Dumbbell Press",
-    img: "inclineChestPress",
-    target: "Upper Chest",
-    secondaryMuscles: ["Front Delts"],
-    machine: "Dumbbell + Adjustable Bench",
-    setup: "Set the bench to a low 15–30° incline (1–2 notches up). Pin shoulder blades firmly into the pad, chest puffed out. Tuck elbows at 45–60° (arrow shape, no T-flare) to maximize chest recruitment and insulate the shoulder joints",
-    sets: 2,
-    reps: "8–10",
-    intensity: "Volume",
-    tempo: "Controlled press up, squeeze hard at peak for 1 full second, then strict 3-second negative descent. Do not bounce at the bottom",
-    rest: "90 sec",
-    cues: [
-      "Friday upper-chest hit — light enough for volume, heavy enough to build",
-      "Low 15–30° incline — 1–2 notches up",
-      "Tuck elbows 45–60° (arrow shape, no T-flare)",
-      "Squeeze hard at peak, lower strict 3s"
-    ],
-    muscle: "Chest" as Muscle,
-    weight: "18–20 KG / dumbbell",
-    video: "https://www.youtube.com/watch?v=U_N0Pjohh9I",
-  },
   chestPress: {
-    name: "Chest Press",
+    name: "Machine Chest Press",
     img: "chestPress",
     target: "Chest",
     secondaryMuscles: ["Front Delts", "Triceps"],
     machine: "Chest Press Machine",
     altMachine: "Pec Fly Machine",
-    setup: "Lower the seat so the handles align exactly at nipple level. Puff your chest and pin your shoulder blades firmly into the pad",
+    setup: "Lower the seat so the handles line up at nipple level. Puff the chest and pin the shoulder blades into the pad",
     sets: 2,
-    reps: "6–8",
+    reps: "6–10",
     intensity: "RIR 1–2",
-    tempo: "Press sharp and focused, then lower slowly over 3 full seconds (Eccentric 3s)",
-    rest: "90–120 sec",
+    tempo: "Press strongly, lower under control for 2–3 seconds",
+    rest: "2 min",
     cues: [
-      "True heavy set — recruit Type 2 fibers",
-      "Pin shoulder blades firmly into the pad",
-      "Press sharp, lower slow 1...2...3...",
-      "Full mid/lower chest emphasis"
+      "Heavy, stable pressing — the machine lets you push hard with no balance tax",
+      "Pin the shoulder blades into the pad",
+      "No need to take either set to failure",
+      "Full range on every rep"
     ],
     muscle: "Chest" as Muscle,
-    weight: "56 KG",
+    weight: "56–60 KG",
     video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
   },
-  lateralRaiseMonday: {
-    name: "Machine Lateral Raise",
-    img: "lateralRaise",
+  cableLateralRaiseMon: {
+    name: "Cable Lateral Raise",
+    img: "cableLateralRaise",
+    imgNote: "Photo shows the seated two-cable version — stand for the single-arm version described below",
     target: "Side Delts",
     secondaryMuscles: [],
-    machine: "Lateral Raise Machine",
-    altMachine: "Dumbbell Lateral Raise",
-    setup: "Adjust the seat so the pads rest against your outer arms. Keep your shoulders depressed — do not engage your traps",
+    machine: "Cable Crossover (single low pulley)",
+    altMachine: "Machine Lateral Raise",
+    setup: "Set one pulley at the lowest notch. Stand side-on, reach across your body with the far hand and grab the cable behind your thigh",
     sets: 2,
-    reps: "10–12",
-    intensity: "Heavy",
-    tempo: "Raise outward smoothly, hold a split second at the peak, then lower slowly over 3s",
+    reps: "10–15",
+    intensity: "RIR 0–1",
+    tempo: "Raise to shoulder height (1s), pause at the top, then resist all the way down for 2–3s",
     rest: "60–90 sec",
     cues: [
-      "Heavy strict set — no shrugging",
-      "Keep shoulders depressed (no traps)",
-      "Raise smoothly, lower over 3 seconds",
-      "Side delts are hit 3× a week — this is the width driver"
+      "Direct lateral-delt work with almost no systemic fatigue cost",
+      "Cables load the delt in the stretched position — the machine can't",
+      "Lead with the elbow, pinky slightly high",
+      "Take these close to failure; they're cheap to recover from"
     ],
     muscle: "Shoulders" as Muscle,
     weight: "9 KG",
-    video: "https://www.youtube.com/watch?v=0o07iGKUarI",
+    video: "https://www.youtube.com/watch?v=Z5FA9aq3L6A",
   },
-  pecDeck: {
-    name: "Pec Deck",
-    img: "pecDeck",
-    target: "Chest",
-    secondaryMuscles: ["Front Delts"],
-    machine: "Pec Deck / Chest Fly Machine",
-    altMachine: "Cable Crossover",
-    setup: "Set the seat so the handles sit at nipple height. Pin your shoulder blades back and down, keep a fixed slight bend in the elbows the whole set",
-    sets: 2,
-    reps: "10–12",
-    intensity: "RIR 0–1",
-    tempo: "Squeeze the handles together (1s), hold the peak contraction 1s, then open slowly over 3s into a deep stretch",
-    rest: "60–90 sec",
-    cues: [
-      "Finisher — chase the stretch and the burn, not the weight",
-      "Elbow angle stays fixed — this is a fly, not a press",
-      "Hold the squeeze 1 second every rep",
-      "Last set to RIR 0–1"
-    ],
-    muscle: "Chest" as Muscle,
-    video: "https://www.youtube.com/watch?v=ze4JaQCcGLg",
-  },
-  cableFly: {
-    name: "Cable Fly",
-    target: "Chest",
-    secondaryMuscles: ["Front Delts"],
-    machine: "Cable Crossover (both pulleys set mid-chest height)",
-    altMachine: "Machine Pec Fly",
-    setup: "Set both pulleys at mid-chest height. Stand in a split stance dead center, arms out wide with a fixed slight elbow bend. Allow a natural stretch in the chest",
-    sets: 3,
-    reps: "10–15",
-    intensity: "RIR 0–1",
-    tempo: "Squeeze the handles together in a smooth arc (1s), hold the peak 1s, then open slowly over 3s into a deep stretch",
-    rest: "60–90 sec",
-    cues: [
-      "Horizontal arc at mid-chest height — builds the middle chest",
-      "Elbows stay at a fixed angle, arms don't bend or straighten",
-      "Constant cable tension: never let the stack rest",
-      "Deep stretch on the opening — that's where growth happens"
-    ],
-    muscle: "Chest" as Muscle,
-    video: "https://www.youtube.com/watch?v=JUDTGZh4rhg",
-  },
-  inclineCableFly: {
-    name: "Incline Cable Fly",
-    img: "inclineCableFly",
-    target: "Upper Chest",
-    secondaryMuscles: ["Front Delts"],
-    machine: "Cable Crossover (both pulleys set low)",
-    altMachine: "Incline Dumbbell Fly",
-    setup: "Set both pulleys at the lowest notch. Stand in a split stance dead center, arms out wide and low with a soft fixed elbow bend",
-    sets: 2,
-    reps: "12",
-    intensity: "RIR 0–1",
-    tempo: "Sweep both hands up and inward toward chin height (1s), cross-squeeze 1s, then lower slowly over 3s",
-    rest: "60–90 sec",
-    cues: [
-      "Low-to-high arc — this is what fills the shelf under the collarbone",
-      "Finish with the hands together at chin height, not hip height",
-      "Constant cable tension: never let the stack rest",
-      "Light weight, ruthless form"
-    ],
-    muscle: "Chest" as Muscle,
-    video: "https://www.youtube.com/watch?v=eQ_NBB6OBH4",
-  },
-  reversePecDeck: {
-    name: "Reverse Pec Deck",
-    target: "Rear Delts",
-    secondaryMuscles: ["Upper Back", "Rhomboids"],
-    machine: "Reverse Pec Deck Machine",
-    altMachine: "Cable Rear Delt Fly",
-    setup: "Sit upright with chest against the pad. Grip the handles with a neutral grip at shoulder height. Elbows stay high and outside of the handles",
-    sets: 2,
-    reps: "12–15",
-    intensity: "RIR 0–1",
-    tempo: "Squeeze the handles back in a wide arc (1s), hold the peak contraction 1s, then return slowly over 3s",
-    rest: "60–90 sec",
-    cues: [
-      "Chest stays glued to the pad — no torso rotation",
-      "Sweep your elbows wide, not back toward the hips",
-      "Squeeze the rear delts hard at the peak",
-      "This hits rear delts and upper back without lower-back involvement"
-    ],
-    muscle: "Shoulders" as Muscle,
-    weight: "30–35 KG",
-  },
-
-  // ── Shoulders ──
   shoulderPress: {
     name: "Machine Shoulder Press",
     img: "shoulderPress",
@@ -367,208 +238,167 @@ const exercises = {
     secondaryMuscles: ["Side Delts", "Triceps"],
     machine: "Shoulder Press Machine",
     altMachine: "Dumbbell Shoulder Press",
-    setup: "Hips glued to the seat backrest. Press straight up without arching your lower back. If the weight shakes, prioritize form first",
-    sets: 3,
-    reps: "6–8",
+    setup: "Hips glued to the backrest. Press straight up without arching the lower back",
+    sets: 2,
+    reps: "6–10",
     intensity: "RIR 1–2",
-    tempo: "Press up cleanly, then lower slowly 1...2...3... to insulate the shoulder joints from injury",
-    rest: "90–120 sec",
+    tempo: "Press up cleanly, lower under control for 2–3 seconds",
+    rest: "2 min",
     cues: [
-      "Stay pressed into the backrest",
-      "Press straight up, no back arch",
-      "Lower slowly 1...2...3...",
-      "Protect the shoulder joints",
-      "If it shakes, strip weight immediately"
+      "Stay pressed into the backrest, no back arch",
+      "Stop at 1–2 reps in reserve",
+      "Do not add load if the shoulder or tendon is the limiting factor",
+      "Then you're done — four exercises is the whole session"
     ],
     muscle: "Shoulders" as Muscle,
-    weight: "32 KG",
+    weight: "25–30 KG",
+    note: "Second set is optional. Skip it if the shoulder feels cranky or the session already took a lot out of you.",
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
   },
-  lateralRaise: {
-    name: "Machine Lateral Raise",
-    img: "lateralRaise",
-    target: "Side Delts",
-    secondaryMuscles: [],
-    machine: "Lateral Raise Machine",
-    altMachine: "Dumbbell Lateral Raise",
-    setup: "Adjust the seat so the pads rest against your outer arms. Keep your shoulders depressed — do not engage your traps",
-    sets: 3,
-    reps: "10–12",
-    intensity: "Heavy",
-    tempo: "Raise outward smoothly, hold a split second at the peak, then lower slowly over 3s",
-    rest: "60–90 sec",
-    cues: [
-      "Heavy strict set — no shrugging",
-      "Keep shoulders depressed (no traps)",
-      "Raise smoothly, lower over 3 seconds",
-      "Side delts are hit 3× a week — this is the width driver"
-    ],
-    muscle: "Shoulders" as Muscle,
-    weight: "9 KG",
-    video: "https://www.youtube.com/watch?v=0o07iGKUarI",
-  },
-  lateralRaiseCondo: {
-    name: "Machine Lateral Raise",
-    img: "lateralRaise",
-    target: "Side Delts",
-    secondaryMuscles: [],
-    machine: "Lateral Raise Machine",
-    altMachine: "Dumbbell Lateral Raise",
-    setup: "Same setup — keep shoulders depressed. Drop to 7–8 KG if form breaks",
-    sets: 3,
-    reps: "12",
-    intensity: "Volume",
-    tempo: "High-volume metabolic pump — hold a split second at peak width, control down over 3s",
-    rest: "60 sec",
-    cues: [
-      "High-volume metabolic pump set",
-      "Hold a split second at peak width",
-      "Control the descent, no swinging",
-      "Drop weight if form breaks"
-    ],
-    muscle: "Shoulders" as Muscle,
-    weight: "9 KG",
-    video: "https://www.youtube.com/watch?v=0o07iGKUarI",
-  },
-  lateralRaiseFriday: {
-    name: "Machine Lateral Raise",
-    img: "lateralRaise",
-    target: "Side Delts",
-    secondaryMuscles: [],
-    machine: "Lateral Raise Machine",
-    altMachine: "Dumbbell Lateral Raise",
-    setup: "Adjust the seat so the pads rest against your outer arms. Keep your shoulders depressed — do not engage your traps",
+
+  // ── Wednesday · Upper Body + Arms ──
+  inclineChestPressWed: {
+    name: "Low-Incline Dumbbell Press",
+    img: "inclineChestPress",
+    target: "Upper Chest",
+    secondaryMuscles: ["Front Delts", "Triceps"],
+    machine: "Dumbbell + Adjustable Bench",
+    setup: "Same low 15–30° incline as Monday. Shoulder blades locked into the pad, chest puffed out",
     sets: 2,
-    reps: "10–12",
-    intensity: "Volume",
-    tempo: "Raise outward smoothly, hold a split second at the peak, then lower slowly over 3s",
-    rest: "60–90 sec",
+    reps: "8–10",
+    intensity: "RIR 1–2",
+    tempo: "Controlled 2–3 second lowering, strong press up",
+    rest: "2 min",
     cues: [
-      "Friday delt hit — second exposure of the week",
-      "Keep shoulders depressed (no traps)",
-      "Raise smoothly, lower over 3 seconds",
-      "Control the descent, no swinging"
+      "Second chest exposure of the week — a quality stimulus, not a second heavy day",
+      "Slightly lighter than Monday to hit the 8–10 range cleanly",
+      "Same depth and same elbow path as Monday",
+      "Stop at 1–2 reps in reserve"
     ],
-    muscle: "Shoulders" as Muscle,
-    weight: "8–9 KG",
-    video: "https://www.youtube.com/watch?v=0o07iGKUarI",
+    muscle: "Chest" as Muscle,
+    weight: "18–20 KG / dumbbell",
+    video: "https://www.youtube.com/watch?v=U_N0Pjohh9I",
   },
-  cableLateralRaise: {
+  chestSupportedRowWed: {
+    name: "Chest-Supported Row",
+    img: "chestSupportedRow",
+    imgNote: "Photo shows the T-bar version — any chest-supported row machine works the same way",
+    target: "Upper Back",
+    secondaryMuscles: ["Lats", "Rhomboids"],
+    machine: "Chest-Supported Row Machine",
+    altMachine: "Seated Cable Row",
+    setup: "Set the chest pad so the arms hang free at full stretch. Ribs stay on the pad for the whole set",
+    sets: 2,
+    reps: "8–10",
+    intensity: "RIR 1–2",
+    tempo: "Row to the lower ribs, squeeze the shoulder blades for a beat, return under control for 2–3s to a full stretch",
+    rest: "2 min",
+    cues: [
+      "Light back exposure only — Friday is the real back day",
+      "Chest never leaves the pad, so the lower back stays out of it",
+      "Pull with the elbows, not the hands",
+      "Keep it comfortably short of failure"
+    ],
+    muscle: "Back" as Muscle,
+    weight: "45–50 KG",
+    video: "https://www.youtube.com/watch?v=FU6YQawma2Q",
+  },
+  cableLateralRaiseWed: {
     name: "Cable Lateral Raise",
     img: "cableLateralRaise",
     imgNote: "Photo shows the seated two-cable version — stand for the single-arm version described below",
     target: "Side Delts",
     secondaryMuscles: [],
     machine: "Cable Crossover (single low pulley)",
-    altMachine: "Dumbbell Lateral Raise",
-    setup: "Set one pulley at the lowest notch. Stand side-on, reach across your body with the far hand and grab the cable behind your thigh",
+    altMachine: "Machine Lateral Raise",
+    setup: "Same setup as Monday — one low pulley, stand side-on, cable crossing behind the thigh",
     sets: 2,
-    reps: "12",
-    intensity: "Stretch",
-    tempo: "Raise out to shoulder height (1s), pause at the top, then resist all the way down over 3s",
-    rest: "60 sec",
-    cues: [
-      "Cables load the delt in the stretched position — the machine can't",
-      "Lead with the elbow, pinky slightly high",
-      "No torso swing — brace and stay still",
-      "Last set to RIR 0–1"
-    ],
-    muscle: "Shoulders" as Muscle,
-    video: "https://www.youtube.com/watch?v=Z5FA9aq3L6A",
-  },
-  rearDeltFly: {
-    name: "Incline Bench Rear Delt Fly",
-    img: "inclineRearDeltFly",
-    imgNote: "Photo shows the flat-bench version — set the bench to a low 30–45° incline and lie chest-down on it",
-    target: "Rear Delts",
-    secondaryMuscles: ["Upper Back", "Rhomboids"],
-    machine: "Incline Bench + Dumbbells",
-    altMachine: "Reverse Pec Deck Machine",
-    setup: "Set the bench to 30–45° and lie chest-down on it, feet braced on the floor. Let the dumbbells hang straight down with a soft elbow bend you hold fixed for the whole set",
-    sets: 3,
-    reps: "12",
+    reps: "12–15",
     intensity: "RIR 0–1",
-    tempo: "Sweep the dumbbells out and slightly back in a wide arc (1s), squeeze the back of your shoulders 1s, then lower slowly over 3s",
+    tempo: "Raise to shoulder height, pause, resist down for 2–3s",
     rest: "60–90 sec",
     cues: [
-      "Chest never leaves the pad — the bench is what kills the body english",
-      "Keep your elbows high, lead with the pinkies",
-      "Sweep wide to the walls — don't row the weight to your hips",
-      "Go light: the rear delt loses every argument with momentum"
+      "Second of three weekly lateral-delt exposures",
+      "Higher reps here than Monday — chase the burn, not the load",
+      "No torso swing; if you're heaving it, drop the weight",
+      "Stay at 9 kg until 15 clean reps are routine"
     ],
     muscle: "Shoulders" as Muscle,
-    weight: "6–8 KG / dumbbell",
-    video: "https://www.youtube.com/watch?v=X5kmqWnprvI",
+    weight: "9 KG",
+    video: "https://www.youtube.com/watch?v=Z5FA9aq3L6A",
+  },
+  preacherCurl: {
+    name: "Preacher / Machine Curl",
+    img: "preacherCurl",
+    target: "Biceps",
+    secondaryMuscles: ["Forearms"],
+    machine: "Machine Preacher Curl",
+    altMachine: "Preacher Bench + EZ Bar",
+    setup: "Sit upright with the backs of the arms flat on the pad, armpits into the top of the pad. Grip at shoulder width and start from a full stretch",
+    sets: 2,
+    reps: "8–12",
+    intensity: "RIR 1",
+    tempo: "Curl up with constant tension, squeeze at the top, lower for 2–3s to a full stretch",
+    rest: "90 sec",
+    cues: [
+      "Arms glued to the pad — the pad is what removes the cheating",
+      "Full range: complete stretch at the bottom, hard squeeze at the top",
+      "The stretched position is where the biceps grow",
+      "One exercise is enough direct biceps work on this day"
+    ],
+    muscle: "Biceps" as Muscle,
+    weight: "25–30 KG",
+    video: "https://www.youtube.com/watch?v=Ja6ZlIDONac",
+  },
+  tricepsPushdown: {
+    name: "Cable Pushdown",
+    img: "tricepsPushdown",
+    target: "Triceps",
+    secondaryMuscles: ["Forearms"],
+    machine: "Cable Triceps Pushdown",
+    altMachine: "Machine Triceps Dip",
+    setup: "Pulley high, rope or straight bar, elbows glued to the sides, shoulders depressed before the first rep",
+    sets: 2,
+    reps: "8–12",
+    intensity: "RIR 1",
+    tempo: "Lock the elbows in place, press down hard, return for 2–3s",
+    rest: "90 sec",
+    cues: [
+      "Elbows pinned at your sides for every rep",
+      "Press down and squeeze until the triceps burn",
+      "Your pressing already gives the triceps plenty — this is the top-up",
+      "Then leave. The session is done"
+    ],
+    muscle: "Triceps" as Muscle,
+    weight: "42–45 KG",
+    video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
   },
 
-  // ── Back ──
-  latPulldown: {
-    name: "Wide-Grip Lat Pulldown",
-    img: "latPulldown",
-    target: "Lats",
-    secondaryMuscles: ["Biceps", "Rhomboids"],
-    machine: "Lat Pulldown Machine",
-    altMachine: "Iso-Lateral High Row",
-    setup: "Sit upright, lock the thigh pad firmly, grip well outside shoulder width, and puff your chest up before pulling down",
-    sets: 3,
-    reps: "8",
-    intensity: "RIR 1–2",
-    tempo: "Drive elbows straight down to your waist (1s), then return slowly over 3s to fully stretch the lats",
-    rest: "90–120 sec",
-    cues: [
-      "Puff chest up",
-      "Drive elbows down to your waist",
-      "Don't cheat with arm strength",
-      "Return slowly over 3 seconds",
-      "Wide grip = wide V-taper, which makes the waist read smaller"
-    ],
-    muscle: "Back" as Muscle,
-    weight: "52 KG",
-    video: "https://www.youtube.com/watch?v=bNmvKpJSWKM",
-  },
+  // ── Friday · Heavy Back + Delts (trainer) ──
   neutralGripLatPulldown: {
     name: "Neutral-Grip Lat Pulldown",
+    img: "neutralGripLatPulldown",
+    imgNote: "Photo shows the close V-bar version — use a shoulder-width neutral handle and keep the torso closer to upright",
     target: "Lats",
     secondaryMuscles: ["Biceps", "Upper Back"],
-    machine: "Lat Pulldown Machine (neutral grip attachment)",
+    machine: "Lat Pulldown Machine (neutral-grip handle)",
     altMachine: "Wide-Grip Lat Pulldown",
-    setup: "Sit upright, lock the thigh pad firmly. Grip the attachment with a neutral grip (palms facing each other, hands shoulder-width or slightly wider)",
-    sets: 4,
+    setup: "Sit upright, thigh pad locked down. Neutral grip (palms facing each other) at roughly shoulder width. Chest up before the first rep",
+    sets: 3,
     reps: "6–8",
     intensity: "RIR 1–2",
-    tempo: "Drive elbows straight down, leading with the elbows (1s), then return slowly over 3s to a full stretch",
-    rest: "90–120 sec",
+    tempo: "Drive the elbows down and back, then return for 2–3s until the lats are fully stretched overhead",
+    rest: "2–3 min",
     cues: [
-      "Neutral grip is a hybrid between wide and close grip — targets the whole lat",
-      "Elbows stay wide, not tucked in",
-      "Drive elbows down and back",
-      "Powerful rep with a strong stretch at the top",
-      "Heavy heavy sets — this is a primary movement on Friday"
+      "Heaviest pulling of the week — this and the row are the whole point of Friday",
+      "Lead with the elbows, don't pull with the hands",
+      "Full stretch at the top of every rep",
+      "Stop at 1–2 reps in reserve; the trainer will push, you set the ceiling",
+      "Take the full 2–3 minutes between sets"
     ],
     muscle: "Back" as Muscle,
     weight: "55–60 KG",
-  },
-  singleArmLatPulldown: {
-    name: "Single-Arm Lat Pulldown",
-    target: "Lats",
-    secondaryMuscles: ["Biceps"],
-    machine: "Lat Pulldown Machine (single-handle attachment)",
-    altMachine: "Single-Arm Cable Pulldown",
-    setup: "Sit upright, lock the thigh pad. Use a single handle (or one side of a split attachment). Grab with one hand and let your arm straighten fully at the top",
-    sets: 3,
-    reps: "10–12",
-    intensity: "RIR 0–1",
-    tempo: "Pull down and across your body in a smooth arc (1s), squeeze 1s, return slowly over 3s",
-    rest: "60–90 sec",
-    cues: [
-      "Single-arm work allows unilateral lat recruitment and core engagement",
-      "Pull down and slightly across — don't just straight down",
-      "Full stretch at the top of every rep",
-      "Squeeze the lat hard at the peak",
-      "Light weight: quality beats quantity"
-    ],
-    muscle: "Back" as Muscle,
-    weight: "25–30 KG per side",
+    video: "https://www.youtube.com/watch?v=KgZqDuNx7rI",
   },
   chestSupportedRow: {
     name: "Chest-Supported Row",
@@ -578,20 +408,21 @@ const exercises = {
     secondaryMuscles: ["Lats", "Rhomboids"],
     machine: "Chest-Supported Row Machine",
     altMachine: "Seated Cable Row",
-    setup: "Set the chest pad so your arms hang free at full stretch. Ribs stay glued to the pad for the whole set — that's what removes the lower back from the equation",
+    setup: "Chest pad set so the arms hang free at full stretch. Ribs glued to the pad — that is what keeps the lower back out of it",
     sets: 3,
-    reps: "8",
+    reps: "6–10",
     intensity: "RIR 1–2",
-    tempo: "Row to your lower ribs (1s), squeeze the shoulder blades together 1s, then return slowly over 3s to a full stretch",
-    rest: "90–120 sec",
+    tempo: "Row to the lower ribs, squeeze the shoulder blades for a beat, return for 2–3s into a full stretch",
+    rest: "2–3 min",
     cues: [
-      "Chest never leaves the pad — no torso english",
-      "Pull with the elbows, not the hands",
-      "Squeeze the shoulder blades 1 second",
-      "Let the arms fully straighten at the bottom"
+      "Second heavy movement of the day — treat it like a main lift",
+      "Chest never leaves the pad, no torso english",
+      "Squeeze the shoulder blades together at the top",
+      "Let the arms fully straighten at the bottom",
+      "Chest support means zero lower-back cost before Saturday's legs"
     ],
     muscle: "Back" as Muscle,
-    weight: "41 KG",
+    weight: "50–55 KG",
     video: "https://www.youtube.com/watch?v=FU6YQawma2Q",
   },
   machineHighRow: {
@@ -601,294 +432,93 @@ const exercises = {
     secondaryMuscles: ["Upper Back", "Rear Delts"],
     machine: "Iso-Lateral High Row",
     altMachine: "Wide-Grip Lat Pulldown",
-    setup: "Chest into the pad, grip the high handles with straight arms overhead. Depress the shoulder blades before the first rep",
+    setup: "Chest into the pad, high handles with arms straight overhead. Depress the shoulder blades before the first rep",
     sets: 2,
-    reps: "10",
-    intensity: "Volume",
-    tempo: "Pull down and back toward your hips (1s), hold 1s, then return slowly over 3s letting the shoulders travel up into a stretch",
+    reps: "8–12",
+    intensity: "RIR 1",
+    tempo: "Pull down and back toward the hips, hold a beat, return for 2–3s letting the shoulder blades rise",
     rest: "90 sec",
     cues: [
-      "Hits the lats from a different angle than the pulldown",
-      "Let the shoulder blade rise at the top for a full stretch",
-      "Run it single-arm if the machine allows — better contraction",
-      "Volume work, not a max-out"
+      "Third and final back movement — a different angle, not another max-out",
+      "Let the shoulder blade travel up at the top for a full stretch",
+      "Run it single-arm if the machine allows",
+      "If Friday ever starts degrading, this is the first set to cut"
     ],
     muscle: "Back" as Muscle,
+    weight: "45–50 KG",
     video: "https://www.youtube.com/watch?v=gg5hwJuv6KI",
   },
-  machinePullover: {
-    name: "Machine Pullover",
-    img: "machinePullover",
-    imgNote: "Photo shows the cable straight-arm version — the same movement if the pullover machine is taken",
-    target: "Lats",
-    secondaryMuscles: ["Chest", "Serratus"],
-    machine: "Pullover Machine",
-    altMachine: "Cable Straight-Arm Pulldown",
-    setup: "Sit tall with the seat set so your elbows sit on the pads with the shoulders in a deep overhead stretch. Belt in if the machine has one",
+  cableLateralRaiseFri: {
+    name: "Cable Lateral Raise",
+    img: "cableLateralRaise",
+    imgNote: "Photo shows the seated two-cable version — stand for the single-arm version described below",
+    target: "Side Delts",
+    secondaryMuscles: [],
+    machine: "Cable Crossover (single low pulley)",
+    altMachine: "Machine Lateral Raise",
+    setup: "One low pulley, stand side-on, far hand reaching across to the cable behind the thigh",
     sets: 2,
-    reps: "10",
-    intensity: "Stretch",
-    tempo: "Pull the pads down to your abdomen (1s), squeeze 1s, then let the arms travel back overhead over 3s under full control",
+    reps: "12–15",
+    intensity: "RIR 0–1",
+    tempo: "Raise to shoulder height, pause, resist down for 2–3s",
     rest: "60–90 sec",
     cues: [
-      "Straight-arm movement — no elbow bending",
-      "The overhead stretch is the whole point",
-      "Also loads the serratus and expands the rib cage",
-      "Move slow, this joint position doesn't like momentum"
+      "Third weekly lateral exposure — six quality sets a week builds width",
+      "These can go close to failure; heavy back work cannot",
+      "Strict form even when the back work has drained you",
+      "Drop the weight rather than swinging"
     ],
-    muscle: "Back" as Muscle,
-    video: "https://www.youtube.com/watch?v=oxpAl14EYyc",
+    muscle: "Shoulders" as Muscle,
+    weight: "9 KG",
+    video: "https://www.youtube.com/watch?v=Z5FA9aq3L6A",
+  },
+  reversePecDeck: {
+    name: "Reverse Pec Deck",
+    img: "reversePecDeck",
+    target: "Rear Delts",
+    secondaryMuscles: ["Upper Back", "Rhomboids"],
+    machine: "Reverse Pec Deck Machine",
+    altMachine: "Cable Rear Delt Fly",
+    setup: "Chest against the pad, handles at shoulder height, elbows high and slightly bent",
+    sets: 2,
+    reps: "12–15",
+    intensity: "RIR 0–1",
+    tempo: "Sweep the elbows wide and back, squeeze for a beat, return for 2–3s",
+    rest: "60–90 sec",
+    cues: [
+      "The week's only direct rear-delt work — two sets is enough alongside heavy rowing",
+      "Chest stays on the pad, no torso rotation",
+      "Sweep wide to the walls, don't row toward the hips",
+      "Light load, hard squeeze"
+    ],
+    muscle: "Shoulders" as Muscle,
+    weight: "30–35 KG",
+    video: "https://www.youtube.com/watch?v=dC7jhEk-29A",
   },
 
-  // ── Arms ──
-  preacherCurl: {
-    name: "Preacher / Machine Curl",
-    target: "Biceps",
-    secondaryMuscles: ["Forearms"],
-    machine: "Preacher Bench + Barbell / Machine Curl",
-    altMachine: "Machine Biceps Curl",
-    setup: "Sit upright with the back of your arms against the pad. Grip at shoulder width and establish an initial stretch",
-    sets: 3,
-    reps: "8–12",
-    intensity: "RIR 1–2",
-    tempo: "Curl up with constant tension, squeeze at the top 1s, lower slowly over 3s",
-    rest: "90 sec",
-    cues: [
-      "Back of arms glued to the pad — no momentum",
-      "Full range: stretch at the bottom, squeeze at the top",
-      "Slow eccentric is the hypertrophy driver",
-      "Stop 1–2 reps short of failure"
-    ],
-    muscle: "Biceps" as Muscle,
-    weight: "25–30 KG",
-  },
-  cableHammerCurl: {
-    name: "Cable Hammer Curl",
-    target: "Biceps",
-    secondaryMuscles: ["Forearms", "Brachialis"],
-    machine: "Cable Crossover (low pulley, rope attachment)",
-    altMachine: "Dumbbell Hammer Curl",
-    setup: "Set the pulley low. Stand facing the stack with feet shoulder-width apart. Grip the rope with a hammer curl position (palms facing each other)",
-    sets: 3,
-    reps: "10–12",
-    intensity: "RIR 0–1",
-    tempo: "Curl the rope up to chest height, squeeze 1s, lower slowly over 3s",
-    rest: "60–90 sec",
-    cues: [
-      "Hammer curl angle targets the brachialis and outer biceps",
-      "Constant cable tension: never let the stack relax",
-      "Keep elbows fixed at your sides — no swinging",
-      "Squeeze hard at the top"
-    ],
-    muscle: "Biceps" as Muscle,
-    weight: "15–20 KG",
-  },
-  tricepsPushdown: {
-    name: "Cable Pushdown",
-    img: "tricepsPushdown",
-    target: "Triceps",
-    secondaryMuscles: ["Forearms"],
-    machine: "Cable Triceps Pushdown",
-    altMachine: "Machine Triceps Dip",
-    setup: "Set the pulley high, use a rope or straight bar, elbows glued to your sides, depress your shoulders before starting. Pick a weight where reps 8–10 feel hard",
-    sets: 2,
-    reps: "8–10",
-    intensity: "RIR 0–1",
-    tempo: "Lock elbows in place, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
-    rest: "90 sec",
-    cues: [
-      "Lock elbows firmly at your sides",
-      "Press and squeeze triceps till they burn",
-      "Return slowly 1...2...3...",
-      "Last set: Lengthened Partials, bottom half, 4–5 reps"
-    ],
-    muscle: "Triceps" as Muscle,
-    weight: "42 KG",
-    video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
-  },
-  tricepsPushdownCondo: {
-    name: "Triceps Pushdown",
-    img: "tricepsPushdown",
-    target: "Triceps",
-    secondaryMuscles: ["Forearms"],
-    machine: "Cable Triceps Pushdown",
-    altMachine: "Machine Triceps Dip",
-    setup: "Same setup — lock elbows at sides, depress shoulders. Volume load for a metabolic pump",
-    sets: 2,
-    reps: "10",
-    intensity: "Volume",
-    tempo: "Lock elbows, press and squeeze down completely, return over 3s",
-    rest: "60–90 sec",
-    cues: [
-      "Lock elbows firmly at your sides",
-      "Press and squeeze down completely",
-      "Return slowly over 3 seconds",
-      "Volume pump — squeeze hard at peak"
-    ],
-    muscle: "Triceps" as Muscle,
-    video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
-  },
-  tricepsPushdownFriday: {
-    name: "Cable Pushdown",
-    img: "tricepsPushdown",
-    target: "Triceps",
-    secondaryMuscles: ["Forearms"],
-    machine: "Cable Triceps Pushdown",
-    altMachine: "Machine Triceps Dip",
-    setup: "Set the pulley high, use a rope or straight bar, elbows glued to your sides, depress your shoulders before starting. Pick a weight where reps 8–10 feel hard",
-    sets: 2,
-    reps: "8–10",
-    intensity: "RIR 0–1",
-    tempo: "Lock elbows in place, return slowly over 3s",
-    rest: "90 sec",
-    cues: [
-      "Lock elbows firmly at your sides",
-      "Press and squeeze triceps till they burn",
-      "Return slowly 1...2...3...",
-      "Friday arm hit — keep it strict"
-    ],
-    muscle: "Triceps" as Muscle,
-    weight: "40 KG",
-    video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
-  },
-  bicepsCurl: {
-    name: "Cable Curl",
-    img: "bicepsCurl",
-    target: "Biceps",
-    secondaryMuscles: ["Forearms"],
-    machine: "Cable Biceps Curl",
-    altMachine: "Dumbbell Biceps Curl",
-    setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
-    sets: 2,
-    reps: "8–10",
-    intensity: "RIR 0–1",
-    tempo: "Pin elbows, no swinging, return slowly over 3s (last set: do Lengthened Partials for 4–5 reps in the bottom half)",
-    rest: "90 sec",
-    cues: [
-      "Pin elbows at your sides",
-      "No momentum, no swinging",
-      "Squeeze the biceps tight",
-      "Return slowly 1...2...3...",
-      "Last set: Lengthened Partials, bottom half, 4–5 reps"
-    ],
-    muscle: "Biceps" as Muscle,
-    weight: "25 KG",
-    video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
-  },
-  bicepsCurlCondo: {
-    name: "Cable Curl",
-    img: "bicepsCurl",
-    target: "Biceps",
-    secondaryMuscles: ["Forearms"],
-    machine: "Cable Biceps Curl",
-    altMachine: "Dumbbell Biceps Curl",
-    setup: "Same setup — pin elbows at sides. Volume load for a metabolic pump",
-    sets: 2,
-    reps: "10",
-    intensity: "Volume",
-    tempo: "Strict arm isolation, squeeze hard at peak, return over 3s",
-    rest: "60–90 sec",
-    cues: [
-      "Pin elbows at your sides",
-      "Strict isolation — eliminate torso swing",
-      "Squeeze hard at the peak",
-      "Return slowly over 3 seconds"
-    ],
-    muscle: "Biceps" as Muscle,
-    video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
-  },
-  bicepsCurlFriday: {
-    name: "Cable Curl",
-    img: "bicepsCurl",
-    target: "Biceps",
-    secondaryMuscles: ["Forearms"],
-    machine: "Cable Biceps Curl",
-    altMachine: "Dumbbell Biceps Curl",
-    setup: "Set the pulley low, grip the bar or rope, pin your elbows firmly at your sides and lock your wrists stable",
-    sets: 2,
-    reps: "8–10",
-    intensity: "RIR 0–1",
-    tempo: "Pin elbows, no swinging, return slowly over 3s",
-    rest: "90 sec",
-    cues: [
-      "Pin elbows at your sides",
-      "No momentum, no swinging",
-      "Squeeze the biceps tight",
-      "Return slowly 1...2...3...",
-      "Friday arm hit — keep it strict"
-    ],
-    muscle: "Biceps" as Muscle,
-    weight: "24 KG",
-    video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
-  },
-
-  // ── Legs ──
+  // ── Saturday · Heavy Legs (trainer) ──
   legPress: {
     name: "Leg Press",
     img: "legPress",
     target: "Quads",
-    secondaryMuscles: ["Hamstrings", "Glutes"],
-    machine: "Leg Press & Calf Raise",
+    secondaryMuscles: ["Glutes", "Hamstrings"],
+    machine: "Leg Press",
     altMachine: "Hack Squat",
-    setup: "Place feet high and wide on the platform to maximize glute/hamstring engagement and protect the patellar tendon. Brace your core tightly and don't let your knees cave inward",
+    setup: "Feet high and wide on the platform to share the load with the glutes and hamstrings and spare the patellar tendon. Brace the core, knees tracking out",
     sets: 3,
-    reps: "8",
+    reps: "6–10",
     intensity: "RIR 1–2",
-    tempo: "Press out smoothly (1s), then lower slowly over 3 full seconds (Eccentric 3s)",
-    rest: "90–120 sec",
+    tempo: "Press out smoothly, lower for 2–3s to a deep but controlled bottom position",
+    rest: "2–3 min",
     cues: [
-      "Place feet high and wide",
-      "Brace core, torso stable",
-      "Press out with controlled rhythm",
-      "Return slowly 1...2...3...",
-      "No-Squat Edition – knee-friendly"
+      "Primary leg movement — heavy and full range",
+      "Feet high and wide, knees never caving in",
+      "Stop before your lower back rounds off the pad",
+      "1–2 reps in reserve; no ego sets on the stack"
     ],
     muscle: "Legs" as Muscle,
-    weight: "50 KG",
+    weight: "120–140 KG",
     video: "https://www.youtube.com/watch?v=K5n2vg3oZa4",
-  },
-  hipThrust: {
-    name: "Hip Thrust",
-    img: "hipThrust",
-    target: "Glutes",
-    secondaryMuscles: ["Hamstrings"],
-    machine: "Smith Machine Hip Thrust",
-    altMachine: "Cable Pull-Through",
-    setup: "Position the bench securely under your shoulder blades and pad the bar at your hip crease",
-    sets: 3,
-    reps: "8",
-    intensity: "RIR 1–2",
-    tempo: "Explode up powerfully (1s for power), squeeze glutes at full lockout for 2s, then lower slowly over 3s (Eccentric 3s)",
-    rest: "90–120 sec",
-    cues: [
-      "Drive hips to full lockout",
-      "Squeeze glutes for 2 seconds",
-      "Chin tucked, ribs down — don't hyperextend the lower back"
-    ],
-    muscle: "Glutes" as Muscle,
-    weight: "60 KG",
-    video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
-  },
-  legExtension: {
-    name: "Leg Extension",
-    img: "legExtension",
-    target: "Quads",
-    secondaryMuscles: [],
-    machine: "Machine Leg Extension",
-    setup: "Sit back firmly, locking your hips into the seat. Adjust the shin pad so it sits right above your ankles",
-    sets: 2,
-    reps: "12",
-    intensity: "RIR 0–1",
-    tempo: "Extend up smoothly (1s), squeeze quads at the top for 1s, then lower slowly over 3 full seconds (Eccentric 3s)",
-    rest: "60–90 sec",
-    cues: [
-      "Patellar-safe isolation — no crushing spinal load",
-      "Knee-friendly: don't let your feet pull too far back under the seat at the bottom (limit extreme knee flexion)",
-      "Focus on the slow 3-second negative to rebuild tendon collagen",
-      "Squeeze the quads hard at the top for 1s"
-    ],
-    muscle: "Legs" as Muscle,
-    video: "https://www.youtube.com/watch?v=4ZDm5EbiFI8",
   },
   legCurl: {
     name: "Hamstring Curl",
@@ -896,135 +526,84 @@ const exercises = {
     target: "Hamstrings",
     secondaryMuscles: [],
     machine: "Lying or Seated Leg Curl Machine",
-    setup: "Align your knee joints perfectly with the machine's pivot point. Secure the thigh pad tightly if seated",
-    sets: 2,
-    reps: "12",
-    intensity: "RIR 0–1",
-    tempo: "Curl down/in powerfully (1s), squeeze the hamstrings at full contraction, then return slowly over 3s",
-    rest: "60–90 sec",
+    setup: "Line the knee joints up with the machine's pivot. Thigh pad tight if seated",
+    sets: 3,
+    reps: "8–12",
+    intensity: "RIR 1",
+    tempo: "Curl hard, squeeze at full contraction, return for 2–3s",
+    rest: "90 sec",
     cues: [
-      "Keep your feet flexed toward your shins",
-      "Don't let your lower back arch or lift off the pad",
-      "Balances quad dominance and stabilizes the knee joint"
+      "The only direct hamstring work of the week — make all three sets count",
+      "Feet flexed toward the shins",
+      "Hips stay down; don't let the lower back lift off the pad",
+      "Balances the quad-dominant pressing and protects the knees"
     ],
     muscle: "Legs" as Muscle,
+    weight: "40–45 KG",
     video: "https://www.youtube.com/watch?v=Orxowest56U",
   },
-  calfRaise: {
-    name: "Standing Calf Raise",
-    img: "calfRaise",
-    target: "Calves",
-    secondaryMuscles: [],
-    machine: "Standing Calf Raise Machine",
-    altMachine: "Leg Press Calf Press",
-    setup: "Balls of the feet on the edge of the platform, heels hanging free. Keep the knees straight but not locked hard",
+  hipThrust: {
+    name: "Hip Thrust",
+    img: "hipThrust",
+    target: "Glutes",
+    secondaryMuscles: ["Hamstrings"],
+    machine: "Smith Machine Hip Thrust",
+    altMachine: "Glute Drive Machine",
+    setup: "Bench under the shoulder blades, bar padded at the hip crease, chin tucked",
     sets: 2,
-    reps: "12",
-    intensity: "RIR 0–1",
-    tempo: "Rise to the top (1s), hold the peak 1s, then sink into a deep heel-down stretch over 3s and pause 1s at the bottom",
-    rest: "60 sec",
+    reps: "6–10",
+    intensity: "RIR 1–2",
+    tempo: "Drive the hips up powerfully, squeeze the glutes at lockout for 1–2s, lower for 2–3s",
+    rest: "2 min",
     cues: [
-      "Full range: deep stretch at the bottom, full squeeze at the top",
-      "Pause 1 second at the bottom — no bouncing off the tendon",
-      "Knees straight, no bending to cheat height",
-      "Calves need the stretch more than they need the load"
+      "Drive to full hip lockout, then squeeze",
+      "Ribs down and chin tucked — don't hyperextend the lower back",
+      "Use the glute machine instead if the Smith setup is a hassle",
+      "Two hard sets beat four sloppy ones"
     ],
-    muscle: "Legs" as Muscle,
-    video: "https://www.youtube.com/watch?v=SVtg-1loH4c",
+    muscle: "Glutes" as Muscle,
+    weight: "60–80 KG",
+    video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
   },
   bulgarianSplitSquat: {
     name: "Bulgarian Split Squat",
+    img: "bulgarianSplitSquat",
     target: "Quads",
     secondaryMuscles: ["Glutes", "Hamstrings"],
-    machine: "Dumbbell + Bench / Box",
+    machine: "Dumbbells + Bench",
     altMachine: "Smith Machine Split Squat",
-    setup: "Hold a dumbbell in each hand (or two dumbbells) at your sides. Stand facing away from a bench with one foot elevated behind you on the bench, the other foot forward. Keep your torso upright",
-    sets: 3,
-    reps: "8–10",
+    setup: "Dumbbell in each hand at your sides. Rear foot up on the bench, front foot far enough forward that the front knee reaches about 90° at the bottom. Torso upright",
+    sets: 2,
+    reps: "8–10 per leg",
     intensity: "RIR 1–2",
-    tempo: "Lower down until the back knee almost touches the floor (2s), then drive up powerfully (1s) to a strong lockout",
+    tempo: "Lower for 2–3s until the front knee is around 90°, then drive up strongly through the front leg",
     rest: "90 sec per leg",
     cues: [
-      "Front knee tracks over the toes — don't let it cave inward",
-      "Front knee should reach about 90° at the bottom",
-      "Torso stays upright; drive from the front leg, not the back",
-      "Single-leg loading = quad-focused and stabilizer demanding",
-      "Dumbbells at your sides balance the load naturally"
+      "Front knee tracks over the toes, never caves inward",
+      "Drive from the front leg — the back leg is a kickstand, not a pusher",
+      "Single-leg loading gets a lot of stimulus from very little weight",
+      "Quality reps only; stop the set when technique goes"
     ],
     muscle: "Legs" as Muscle,
-    weight: "16–20 KG per hand",
-  },
-
-  // ── Core ──
-  cableCrunch: {
-    name: "Cable Crunch",
-    img: "cableCrunch",
-    target: "Abs",
-    secondaryMuscles: ["Obliques"],
-    machine: "Cable Crossover (rope, high pulley)",
-    altMachine: "Machine Ab Crunch",
-    setup: "Kneel facing the stack, rope at your temples, hips fixed in place. Set the weight so 15 reps burn without you pulling with the arms",
-    sets: 3,
-    reps: 15,
-    intensity: "RIR 0–1",
-    tempo: "Crunch by rounding your spine down toward your knees (1s), hold the crunch 1s, return slowly over 3s",
-    rest: "60 sec",
-    cues: [
-      "Round the spine — this is a crunch, not a hip hinge",
-      "Hips stay locked, only the ribs move toward the pelvis",
-      "Elbows stay glued to the sides of your head",
-      "Loaded abs thicken the blocks — the deficit reveals them"
-    ],
-    muscle: "Core" as Muscle,
-    video: "https://www.youtube.com/watch?v=AV5PmZJIrrw",
-  },
-  cableCrunchLight: {
-    name: "Cable Crunch",
-    img: "cableCrunch",
-    target: "Abs",
-    secondaryMuscles: ["Obliques"],
-    machine: "Cable Crossover (rope, high pulley)",
-    altMachine: "Machine Ab Crunch",
-    setup: "Same setup, lighter load — this is a recovery-day touch, not a session",
-    sets: 2,
-    reps: 15,
-    intensity: "Volume",
-    tempo: "Crunch down (1s), hold 1s, return slowly over 3s",
-    rest: "60 sec",
-    cues: [
-      "Round the spine, hips locked",
-      "Keep it strict — you're not fresh from a heavy day",
-      "Stop 2 reps short of failure",
-      "In and out in 5 minutes"
-    ],
-    muscle: "Core" as Muscle,
-    video: "https://www.youtube.com/watch?v=AV5PmZJIrrw",
+    weight: "16–20 KG / hand",
+    note: "First thing to cut. If the other three exercises already emptied the tank, do one set or skip it — it is not worth the recovery debt.",
+    video: "https://www.youtube.com/watch?v=hPlKPjohFS0",
   },
 } as const
 
 // ─── Workout Programs ────────────────────────────────────────────────────────
 // The first `warmup` exercises of each day render inside a collapsed warm-up block.
 
-const warmupFull = [
-  exercises.hipFlexorStretch,
+const warmupUpper = [
+  exercises.thoracicOpener,
+  exercises.shoulderMobility,
   exercises.lowerBackStretch,
+] as const
+
+const warmupLower = [
+  exercises.hipFlexorStretch,
   exercises.gluteBridge,
   exercises.deadBug,
-] as const
-
-const warmupChildsPose = [
-  exercises.lowerBackStretch,
-] as const
-
-const warmupCouchChildsPose = [
-  exercises.hipFlexorStretch,
-  exercises.lowerBackStretch,
-] as const
-
-const warmupMobility = [
-  exercises.thoracicOpener,
-  exercises.hipFlexorStretch,
-  exercises.shoulderMobility,
 ] as const
 
 type DayKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"
@@ -1037,6 +616,12 @@ type DayProgram = {
   warmup: readonly Exercise[]
   work: readonly Exercise[]
   warmupLabel?: string
+  /** Set on non-lifting days; rendered instead of an exercise list. */
+  recovery?: {
+    /** Zone 2 duration — omit for a full rest day. */
+    duration?: string
+    note: string
+  }
 }
 
 const dayPrograms: Record<DayKey, DayProgram> = {
@@ -1044,64 +629,66 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     eyebrow: "Monday",
     title: "Chest + Shoulders",
     color: "text-emerald-400",
-    warmup: warmupFull,
+    warmup: warmupUpper,
     work: [
       exercises.inclineChestPress,
       exercises.chestPress,
-      exercises.cableLateralRaise,
+      exercises.cableLateralRaiseMon,
       exercises.shoulderPress,
     ],
   },
   tuesday: {
     eyebrow: "Tuesday",
-    title: "Biceps + Zone 2",
+    title: "Zone 2 / Recovery",
     color: "text-blue-400",
-    warmupLabel: "Warm-up",
-    warmup: warmupChildsPose,
-    work: [
-      exercises.preacherCurl,
-      exercises.cableHammerCurl,
-    ],
+    warmup: [],
+    work: [],
+    recovery: {
+      duration: "35–45 min",
+      note: "No resistance training. Don't treat Zone 2 as another hard workout — if you slept badly or your legs are unusually fatigued, cut the duration. The job here is cardiovascular fitness and energy expenditure without compromising Friday's heavy back session.",
+    },
   },
   wednesday: {
     eyebrow: "Wednesday",
-    title: "Chest + Shoulders + Triceps",
+    title: "Upper Body + Arms",
     color: "text-emerald-400",
-    warmup: warmupFull,
+    warmup: warmupUpper,
     work: [
-      exercises.inclineChestPressCondo,
-      exercises.cableFly,
-      exercises.cableLateralRaise,
-      exercises.reversePecDeck,
+      exercises.inclineChestPressWed,
+      exercises.chestSupportedRowWed,
+      exercises.cableLateralRaiseWed,
+      exercises.preacherCurl,
       exercises.tricepsPushdown,
     ],
   },
   thursday: {
     eyebrow: "Thursday",
-    title: "Zone 2 / Recovery",
-    color: "text-blue-400",
+    title: "Rest",
+    color: "text-gray-500",
     warmup: [],
     work: [],
+    recovery: {
+      note: "No training at all. This day is deliberately empty: it is the low-fatigue buffer that makes Friday's heavy back session possible. Sleep is the work today.",
+    },
   },
   friday: {
-    eyebrow: "Friday · Trainer Day",
+    eyebrow: "Friday · Trainer",
     title: "Heavy Back + Delts",
     color: "text-amber-400",
-    warmup: warmupFull,
+    warmup: warmupUpper,
     work: [
       exercises.neutralGripLatPulldown,
       exercises.chestSupportedRow,
       exercises.machineHighRow,
-      exercises.singleArmLatPulldown,
-      exercises.cableLateralRaise,
+      exercises.cableLateralRaiseFri,
       exercises.reversePecDeck,
     ],
   },
   saturday: {
-    eyebrow: "Saturday · Trainer Day",
+    eyebrow: "Saturday · Trainer",
     title: "Heavy Legs",
     color: "text-amber-400",
-    warmup: warmupCouchChildsPose,
+    warmup: warmupLower,
     work: [
       exercises.legPress,
       exercises.legCurl,
@@ -1115,60 +702,90 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     color: "text-blue-400",
     warmup: [],
     work: [],
+    recovery: {
+      duration: "30–45 min",
+      note: "Comfortably aerobic — this is not another hard workout. If your sleep was particularly poor during the week, make it a recovery walk instead and leave it there.",
+    },
   },
 }
 
 const dayKeys = Object.keys(dayPrograms) as DayKey[]
 
-const globalRules = [
-  { topic: "Double Progression", rule: "Never add weight before you hit the top of the rep range on every set with clean form. Add reps first, weight second." },
-  { topic: "3-Second Eccentric", rule: "Every lowering phase takes 3 full seconds. In a calorie deficit the eccentric is what tells your body to keep the muscle it already has." },
-  { topic: "Protein & Carb Timing", rule: "Protein high and constant; put your complex carbs around the training window so glycogen lands in the muscle, not around the waist." },
-  { topic: "Maximize Sleep", rule: "Deep sleep suppresses cortisol. Low cortisol is what finally lets the stubborn subcutaneous water around the midsection go — abs are revealed in bed as much as in the gym." },
+/** Constant treadmill settings for every Zone 2 session. */
+const zone2Settings = [
+  { label: "Speed", value: "4.5 km/h" },
+  { label: "Incline", value: "9%" },
+  { label: "Heart rate", value: "~135 bpm" },
+]
+
+const priorities = [
+  { topic: "Calorie deficit", rule: "Enough to keep losing fat consistently — not an extreme crash diet you can't hold." },
+  { topic: "High protein", rule: "Protects lean mass and feeds hypertrophy while you're in a deficit." },
+  { topic: "Progressive lifting", rule: "Gives the body a reason to keep the muscle. Strength and rep progress is the signal that it's working." },
+  { topic: "Sleep & recovery", rule: "Your binding constraint. Short sleep is exactly why this program is four days and low volume — not a reason to train more." },
+  { topic: "Zone 2", rule: "Cardiovascular fitness and extra expenditure. It supports the lifting; it never competes with it." },
 ]
 
 const progressionExample = [
-  { week: "Week 1", weight: "22 kg", reps: "6 / 6 / 6" },
-  { week: "Week 2", weight: "22 kg", reps: "7 / 6 / 6" },
-  { week: "Week 3", weight: "22 kg", reps: "8 / 7 / 6" },
-  { week: "Week 4", weight: "22 kg", reps: "8 / 8 / 8" },
-  { week: "Week 5", weight: "24 kg", reps: "6 / 6 / 6", bump: true },
+  { week: "Week 1", weight: "22 kg", reps: "8 / 7 / 6" },
+  { week: "Week 2", weight: "22 kg", reps: "8 / 8 / 7" },
+  { week: "Week 3", weight: "22 kg", reps: "8 / 8 / 8" },
+  { week: "Week 4", weight: "24 kg", reps: "6 / 6 / 6", bump: true },
 ]
 
 const intensityRules = [
-  { label: "Heavy compounds", value: "RIR 1–2" },
-  { label: "Isolation, last set", value: "RIR 0–1" },
-  { label: "Every eccentric", value: "3 seconds" },
-  { label: "Cheating", value: "None" },
+  { label: "Main compounds", value: "RIR 1–2" },
+  { label: "Isolation work", value: "RIR 0–2" },
+  { label: "Eccentric", value: "Controlled 2–3s" },
+  { label: "Sets to failure", value: "Rarely" },
 ]
 
+/** `bar` drives the chart width; `range` is the target as prescribed. */
 const weeklyVolume = [
-  { muscle: "Chest", sets: 12, hero: true },
-  { muscle: "Lateral Delts", sets: 8, hero: true },
-  { muscle: "Back", sets: 14, hero: true },
-  { muscle: "Rear Delts", sets: 4 },
-  { muscle: "Front Delts", sets: 2 },
-  { muscle: "Biceps", sets: 6 },
-  { muscle: "Triceps", sets: 2 },
-  { muscle: "Legs", sets: 14 },
-  { muscle: "Zone 2 Cardio", sets: 90, hero: false },
+  { muscle: "Chest", range: "7–9", bar: 9, hero: true },
+  { muscle: "Back", range: "10–12", bar: 12, hero: true },
+  { muscle: "Lateral Delts", range: "~6", bar: 6, hero: true },
+  { muscle: "Glutes", range: "5–7", bar: 7 },
+  { muscle: "Quads", range: "4–6", bar: 6 },
+  { muscle: "Hamstrings", range: "3–5", bar: 5 },
+  { muscle: "Biceps", range: "~4 + pulling", bar: 4 },
+  { muscle: "Triceps", range: "~4 + pressing", bar: 4 },
+  { muscle: "Rear Delts", range: "~2", bar: 2 },
 ]
+
+const bodyComp = {
+  weight: "102 kg",
+  bodyFat: "31.6%",
+  leanMass: "69.8 kg",
+  targets: [
+    { bf: "25%", weight: "93.1 kg" },
+    { bf: "20%", weight: "87.3 kg" },
+    { bf: "18%", weight: "85.1 kg" },
+    { bf: "16%", weight: "83.1 kg", hero: true },
+  ],
+}
 
 const weekOverview = [
   { label: "Mon", tag: "Chest", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Tue", tag: "Biceps", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
-  { label: "Wed", tag: "Chest", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Thu", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
+  { label: "Tue", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
+  { label: "Wed", tag: "Upper", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+  { label: "Thu", tag: "Rest", style: "bg-gray-500/15 text-gray-400 border-gray-600/30" },
   { label: "Fri", tag: "Back", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
   { label: "Sat", tag: "Legs", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
   { label: "Sun", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
 ]
 
+/** Working sets per lifting day, for the volume section summary. */
+const weeklyWorkingSets = dayKeys.reduce(
+  (total, day) => total + dayPrograms[day].work.reduce((a, e) => a + e.sets, 0),
+  0
+)
+
 // ─── Progress persistence ────────────────────────────────────────────────────
 
 type Progress = Record<DayKey, boolean[][]>
 
-const STORAGE_KEY = "pt-progress-v7"
+const STORAGE_KEY = "pt-progress-v8"
 
 /** Warm-up drills occupy the first slots of each day's progress array. */
 function allExercises(day: DayKey): readonly Exercise[] {
@@ -1328,7 +945,7 @@ function ExerciseRow({
           </p>
         </div>
         {ex.weight && (
-          <div className="shrink-0 text-xl font-bold text-blue-400 tabular-nums leading-none">
+          <div className="shrink-0 text-lg font-bold text-blue-400 tabular-nums leading-tight text-right">
             {ex.weight}
           </div>
         )}
@@ -1353,6 +970,13 @@ function ExerciseRow({
           )
         })}
       </div>
+
+      {/* Fatigue caveat */}
+      {ex.note && (
+        <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-3 py-2 text-[12px] leading-relaxed text-amber-300/90">
+          {ex.note}
+        </p>
+      )}
 
       {/* Muscles worked */}
       {ex.target && !compact && (
@@ -1411,13 +1035,11 @@ function DaySection({
   sets,
   onToggle,
   onReset,
-  footer,
 }: {
   program: DayProgram
   sets: boolean[][]
   onToggle: (exerciseIndex: number, setIndex: number) => void
   onReset: () => void
-  footer?: React.ReactNode
 }) {
   const { warmup, work } = program
   const offset = warmup.length
@@ -1457,7 +1079,7 @@ function DaySection({
           <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-[13px] text-gray-400 transition-colors hover:text-gray-200">
             <ChevronRight className="h-3.5 w-3.5 shrink-0 text-gray-600 transition-transform group-open:rotate-90" />
             <span className="font-medium text-gray-300">{program.warmupLabel ?? "Warm-up"}</span>
-            <span className="text-gray-600">· {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}</span>
+            <span className="hidden text-gray-600 sm:inline">· {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}</span>
             {warmupDone && <span className="ml-auto shrink-0 text-[11px] text-emerald-400">done</span>}
           </summary>
           <div className="border-t border-gray-800">
@@ -1484,35 +1106,43 @@ function DaySection({
           />
         ))}
       </div>
-
-      {footer}
     </section>
   )
 }
 
-const cardioFooter = (
-  <div className="mt-2 flex items-center gap-2 px-1 text-[12px] text-gray-600">
-    <Footprints className="h-3.5 w-3.5 shrink-0" />
-    <span>Zone 2 · 60 min · treadmill 2.8 km/h · 9% incline · no holding rails</span>
-  </div>
-)
+function RecoveryDay({ program }: { program: DayProgram }) {
+  const rec = program.recovery
+  const isZone2 = Boolean(rec?.duration)
 
-const recoveryFooter = (
-  <div className="mt-2 flex items-center gap-2 px-1 text-[12px] text-gray-600">
-    <Footprints className="h-3.5 w-3.5 shrink-0" />
-    <span>Zone 2 · 60 min + 15 min mobility · no lifting today — this day exists so the other six work</span>
-  </div>
-)
-
-function RestDay({ day, description }: { day: string; description: string }) {
   return (
     <section>
       <div className="mb-2">
-        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-500">{day}</div>
-        <h2 className="mt-0.5 text-[17px] font-semibold text-white">Rest Day</h2>
+        <div className={`text-[10px] font-semibold uppercase tracking-widest ${program.color}`}>{program.eyebrow}</div>
+        <h2 className="mt-0.5 text-[17px] font-semibold text-white">{program.title}</h2>
       </div>
-      <div className="rounded-xl border border-gray-800 bg-gray-900/20 p-4">
-        <p className="text-[13px] leading-relaxed text-gray-500">{description}</p>
+      <div className={`rounded-xl border p-4 ${isZone2 ? "border-blue-900/40 bg-blue-950/20" : "border-gray-800 bg-gray-900/20"}`}>
+        <div className="flex items-start gap-3">
+          {isZone2
+            ? <Heart className="mt-0.5 h-5 w-5 shrink-0 text-blue-400" />
+            : <Moon className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" />}
+          <div>
+            {isZone2 && (
+              <p className="text-sm font-medium text-blue-200">Zone 2 · {rec?.duration}</p>
+            )}
+            <p className={`text-[13px] leading-relaxed text-gray-400 ${isZone2 ? "mt-1" : ""}`}>{rec?.note}</p>
+          </div>
+        </div>
+
+        {isZone2 && (
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {[...zone2Settings, { label: "Duration", value: rec!.duration! }].map(({ label, value }) => (
+              <div key={label} className="rounded-lg border border-blue-900/40 bg-blue-950/30 p-2.5">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500">{label}</div>
+                <div className="mt-0.5 text-[13px] font-semibold text-blue-200 tabular-nums">{value}</div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )
@@ -1564,13 +1194,13 @@ export default function PersonalTrainingPage() {
         <div className="pt-2">
           <div className="mb-1 flex items-center gap-2">
             <Dumbbell className="h-4 w-4 shrink-0 text-emerald-400" />
-            <h1 className="text-xl font-semibold text-white">Weekly Hypertrophy + Zone 2</h1>
+            <h1 className="text-xl font-semibold text-white">4-Day Hypertrophy Cut</h1>
           </div>
           <p className="pl-6 text-sm text-gray-500">
-            7 days: 4 lifting days + 3 Zone 2 / Recovery days · Heavy Back (Friday) and Heavy Legs (Saturday) with trainer · 90–125 min/week Zone 2. Tap a set to check it off — progress is saved on this device.
+            {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day · Friday Heavy Back and Saturday Heavy Legs are the fixed anchors. Tap a set to check it off — progress is saved on this device.
           </p>
           <blockquote className="ml-6 mt-4 border-l-2 border-emerald-500/40 pl-3 text-[13px] italic leading-relaxed text-gray-400">
-            Train like a powerbuilder, recover like a bodybuilder, diet like a physique athlete.
+            Train hard enough to demand muscle growth, but not so much that recovery becomes the limiting factor.
           </blockquote>
         </div>
 
@@ -1579,12 +1209,13 @@ export default function PersonalTrainingPage() {
           <div className="flex items-start gap-3">
             <Target className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
             <div>
-              <p className="text-sm font-medium text-emerald-200">Goal · Maximum hypertrophy</p>
+              <p className="text-sm font-medium text-emerald-200">Goal · Maximum muscle growth per unit of fatigue</p>
               <p className="mt-1 text-[13px] leading-relaxed text-gray-400">
-                Build muscle with a focus on chest, shoulders, and back thickness. Heavy compounds on Monday–Wednesday, Friday, and Saturday. Zone 2 cardio (90–125 min/week) supports recovery and cardiovascular health.
+                Not &ldquo;as many sets as possible&rdquo; — as much growth as can be recovered from while body fat comes down.
+                You can train hard, but sleep is short, so volume stays low and every working set has to earn its place.
               </p>
               <p className="mt-2 text-[12px] text-gray-600">
-                Monday–Thursday and Sunday: gym + Zone 2 · Friday–Saturday: trainer-led heavy sessions
+                Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
               </p>
             </div>
           </div>
@@ -1610,34 +1241,29 @@ export default function PersonalTrainingPage() {
           ))}
         </div>
 
+        {/* Days */}
         {dayKeys.map((key, i) =>
           activeDay === null || activeDay === i ? (
-            <div key={key}>
-              {dayPrograms[key].work.length === 0 ? (
-                <RestDay
-                  day={dayPrograms[key].eyebrow}
-                  description={key === "thursday"
-                    ? "No resistance training. Zone 2 only. Treadmill: 4.5 km/h, 9% incline, ~135 bpm, 30–40 min. This is a low-fatigue buffer before Friday's Heavy Back session."
-                    : "No resistance training. Zone 2 only. Treadmill: 4.5 km/h, 9% incline, ~135 bpm, 30–45 min. Active recovery and cardiovascular maintenance."}
-                />
-              ) : (
-                <DaySection
-                  program={dayPrograms[key]}
-                  sets={progress[key]}
-                  onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
-                  onReset={() => resetDay(key)}
-                  footer={cardioFooter}
-                />
-              )}
-            </div>
+            dayPrograms[key].work.length === 0 ? (
+              <RecoveryDay key={key} program={dayPrograms[key]} />
+            ) : (
+              <DaySection
+                key={key}
+                program={dayPrograms[key]}
+                sets={progress[key]}
+                onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
+                onReset={() => resetDay(key)}
+              />
+            )
           ) : null
         )}
 
         {/* Progression */}
         <section>
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Progression · Double Progression</h2>
+          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Progressive Overload</h2>
           <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-            Every compound lift follows double progression: add reps until you hit the top of the range on <em>all</em> sets, then add weight and start again.
+            Double progression, kept practical: add reps until you hit the top of the range on <em>all</em> sets, then take the smallest
+            practical jump in weight and build it back up.
           </p>
           <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
             <div className="border-b border-gray-800 px-4 py-2 text-[11px] font-medium uppercase tracking-wide text-gray-500">
@@ -1656,14 +1282,20 @@ export default function PersonalTrainingPage() {
               </div>
             ))}
           </div>
-          <p className="mt-3 text-[13px] leading-relaxed text-amber-300/80">
-            Never increase the weight before reaching the top of the rep range with clean form.
+          <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-3 py-2.5 text-[13px] leading-relaxed text-amber-300/90">
+            <strong className="font-semibold">Bad sleep = don&rsquo;t force progression.</strong> If you slept five hours and the working
+            weight feels terrible, you have nothing to prove. Keep the load, hit good reps at roughly the intended RIR, and move on.
+            Consistency over months beats one heroic workout.
           </p>
         </section>
 
         {/* Intensity */}
         <section>
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">Intensity</h2>
+          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Intensity &amp; Tempo</h2>
+          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+            No mandatory 3-second eccentrics. Lower under control — roughly 2–3 seconds — but never so slowly that it costs you
+            productive load. Priority order: <em>full range of motion → stable technique → sufficient effort → progressive overload → recovery.</em>
+          </p>
           <div className="grid grid-cols-2 gap-2">
             {intensityRules.map(({ label, value }) => (
               <div key={label} className="rounded-lg border border-gray-800 bg-gray-900/20 p-3">
@@ -1676,39 +1308,80 @@ export default function PersonalTrainingPage() {
 
         {/* Weekly volume */}
         <section>
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Weekly Volume</h2>
+          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Weekly Volume Targets</h2>
           <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-            Hard sets per muscle per week. The three highlighted rows are where the priority sits — everything else is held at a maintenance dose.
+            Direct sets per muscle per week — {weeklyWorkingSets} in total. This is deliberately less than a high-volume program:
+            while performance keeps progressing, there is no reason to add sets.
           </p>
           <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-            {weeklyVolume.map(({ muscle, sets, hero }) => (
+            {weeklyVolume.map(({ muscle, range, bar, hero }) => (
               <div
                 key={muscle}
                 className={`flex items-center gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.05]" : ""}`}
               >
-                <span className={`w-28 shrink-0 text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
+                <span className={`w-24 shrink-0 text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
                   {muscle}
                 </span>
                 <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800">
                   <div
                     className={`h-full rounded-full ${hero ? "bg-emerald-500" : "bg-gray-600"}`}
-                    style={{ width: `${(sets / 16) * 100}%` }}
+                    style={{ width: `${(bar / 12) * 100}%` }}
                   />
                 </div>
-                <span className="w-10 shrink-0 text-right text-[13px] tabular-nums text-gray-300">{sets}</span>
+                <span className="w-24 shrink-0 text-right text-[12px] tabular-nums text-gray-300">{range}</span>
               </div>
             ))}
           </div>
+          <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
+            Front delts get substantial indirect work from incline and overhead pressing, so the real shoulder stimulus is larger than
+            the direct lateral and rear-delt numbers suggest.
+          </p>
         </section>
 
-        {/* 4 Pillars */}
+        {/* Body composition */}
         <section>
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600">4 Pillars of Perfect Execution</h2>
+          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Where This Is Going</h2>
+          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+            At {bodyComp.weight} and {bodyComp.bodyFat} body fat, lean mass is roughly <strong className="font-medium text-gray-300">{bodyComp.leanMass}</strong>.
+            Hold on to most of that and the scale lands here:
+          </p>
+          <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+            {bodyComp.targets.map(({ bf, weight, hero }) => (
+              <div
+                key={bf}
+                className={`flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.06]" : ""}`}
+              >
+                <span className={`text-[13px] tabular-nums ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
+                  {bf} body fat
+                </span>
+                <span className={`text-[13px] font-medium tabular-nums ${hero ? "text-emerald-300" : "text-gray-300"}`}>
+                  {weight}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
+            You can&rsquo;t selectively burn abdominal fat. The waist and visceral fat come down as total body fat comes down — which is
+            exactly why the lifting matters: it decides how much of that {bodyComp.leanMass} you keep on the way there.
+          </p>
+        </section>
+
+        {/* Priority hierarchy */}
+        <section>
+          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Priority Hierarchy</h2>
+          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+            When something has to give, give it up from the bottom of this list.
+          </p>
           <div className="space-y-3">
-            {globalRules.map(({ topic, rule }) => (
+            {priorities.map(({ topic, rule }, i) => (
               <div key={topic} className="flex gap-3">
-                <span className="w-32 shrink-0 pt-0.5 text-xs font-medium text-violet-400">{topic}</span>
-                <p className="text-sm leading-relaxed text-gray-400">{rule}</p>
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 text-[11px] font-semibold text-violet-300 tabular-nums">
+                  {i + 1}
+                </span>
+                <div className="min-w-0">
+                  <span className="text-xs font-medium text-violet-400">{topic}</span>
+                  <p className="mt-0.5 text-sm leading-relaxed text-gray-400">{rule}</p>
+                </div>
               </div>
             ))}
           </div>
