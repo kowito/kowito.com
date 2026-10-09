@@ -3,7 +3,7 @@
 import React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, Dumbbell, Utensils, Play, Target, ChevronRight, Heart, Moon } from "lucide-react"
+import { ArrowLeft, Dumbbell, Utensils, Play, Target, ChevronRight, Heart, Moon, AlertTriangle } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -279,29 +279,27 @@ const exercises = {
     weight: "18–20 KG / dumbbell",
     video: "https://www.youtube.com/watch?v=U_N0Pjohh9I",
   },
-  chestSupportedRowWed: {
-    name: "Chest-Supported Row",
-    img: "chestSupportedRow",
-    imgNote: "Photo shows the T-bar version — any chest-supported row machine works the same way",
+  seatedCableRowWed: {
+    name: "Seated Cable Row",
+    img: "seatedCableRow",
     target: "Upper Back",
     secondaryMuscles: ["Lats", "Rhomboids"],
-    machine: "Chest-Supported Row Machine",
-    altMachine: "Seated Cable Row",
-    setup: "Set the chest pad so the arms hang free at full stretch. Ribs stay on the pad for the whole set",
+    machine: "Seated Cable Row",
+    altMachine: "Chest-Supported Row Machine",
+    setup: "Sit upright with a slight knee bend, chest tall. Let the arms straighten fully at the front of each rep without rounding the lower back",
     sets: 2,
-    reps: "8–10",
+    reps: "8–12",
     intensity: "RIR 1–2",
-    tempo: "Row to the lower ribs, squeeze the shoulder blades for a beat, return under control for 2–3s to a full stretch",
-    rest: "2 min",
+    tempo: "Pull to the lower ribs, squeeze the shoulder blades for a beat, return under control for 2–3s into a full stretch",
+    rest: "60–120 sec",
     cues: [
       "Light back exposure only — Friday is the real back day",
-      "Chest never leaves the pad, so the lower back stays out of it",
+      "Torso stays still; don't rock back and forth for extra reps",
       "Pull with the elbows, not the hands",
-      "Keep it comfortably short of failure"
+      "Start conservative on the stack and log what you use"
     ],
     muscle: "Back" as Muscle,
-    weight: "45–50 KG",
-    video: "https://www.youtube.com/watch?v=FU6YQawma2Q",
+    video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
   },
   cableLateralRaiseWed: {
     name: "Cable Lateral Raise",
@@ -400,53 +398,51 @@ const exercises = {
     weight: "55–60 KG",
     video: "https://www.youtube.com/watch?v=KgZqDuNx7rI",
   },
-  chestSupportedRow: {
-    name: "Chest-Supported Row",
-    img: "chestSupportedRow",
-    imgNote: "Photo shows the T-bar version — any chest-supported row machine works the same way",
+  seatedCableRow: {
+    name: "Seated Cable Row",
+    img: "seatedCableRow",
     target: "Upper Back",
     secondaryMuscles: ["Lats", "Rhomboids"],
-    machine: "Chest-Supported Row Machine",
-    altMachine: "Seated Cable Row",
-    setup: "Chest pad set so the arms hang free at full stretch. Ribs glued to the pad — that is what keeps the lower back out of it",
+    machine: "Seated Cable Row",
+    altMachine: "Chest-Supported Row Machine",
+    setup: "Sit upright with a slight knee bend, chest tall, feet braced. Arms straighten fully at the front of each rep — stretch from the shoulder blades, not by rounding the lower back",
     sets: 3,
-    reps: "6–10",
+    reps: "8–10",
     intensity: "RIR 1–2",
-    tempo: "Row to the lower ribs, squeeze the shoulder blades for a beat, return for 2–3s into a full stretch",
+    tempo: "Pull to the lower ribs, squeeze the shoulder blades for a beat, return for 2–3s into a full stretch",
     rest: "2–3 min",
     cues: [
       "Second heavy movement of the day — treat it like a main lift",
-      "Chest never leaves the pad, no torso english",
-      "Squeeze the shoulder blades together at the top",
-      "Let the arms fully straighten at the bottom",
-      "Chest support means zero lower-back cost before Saturday's legs"
+      "Torso stays upright and still; no rocking for extra reps",
+      "Squeeze the shoulder blades together at the top of every rep",
+      "Keep the lower back neutral — this should cost you nothing before Saturday",
+      "Take the full 2–3 minutes between sets"
     ],
     muscle: "Back" as Muscle,
-    weight: "50–55 KG",
-    video: "https://www.youtube.com/watch?v=FU6YQawma2Q",
+    video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
   },
-  machineHighRow: {
-    name: "Machine High Row",
-    img: "machineHighRow",
+  oneArmDumbbellRow: {
+    name: "One-Arm Dumbbell Row",
+    img: "oneArmDumbbellRow",
     target: "Lats",
-    secondaryMuscles: ["Upper Back", "Rear Delts"],
-    machine: "Iso-Lateral High Row",
-    altMachine: "Wide-Grip Lat Pulldown",
-    setup: "Chest into the pad, high handles with arms straight overhead. Depress the shoulder blades before the first rep",
+    secondaryMuscles: ["Upper Back", "Biceps"],
+    machine: "Dumbbell + Bench",
+    altMachine: "Single-Arm Cable Row",
+    setup: "One knee and the same-side hand on the bench, back flat and roughly parallel to the floor. Dumbbell hanging at full stretch from the free arm",
     sets: 2,
-    reps: "8–12",
+    reps: "8–12 per side",
     intensity: "RIR 1",
-    tempo: "Pull down and back toward the hips, hold a beat, return for 2–3s letting the shoulder blades rise",
-    rest: "90 sec",
+    tempo: "Row the dumbbell to the hip, hold a beat, lower for 2–3s to a full stretch",
+    rest: "60–120 sec",
     cues: [
       "Third and final back movement — a different angle, not another max-out",
-      "Let the shoulder blade travel up at the top for a full stretch",
-      "Run it single-arm if the machine allows",
-      "If Friday ever starts degrading, this is the first set to cut"
+      "Pull toward the hip, not straight up to the shoulder",
+      "Let the shoulder blade travel forward at the bottom for a real stretch",
+      "Keep the back flat; no twisting the torso to finish the rep"
     ],
     muscle: "Back" as Muscle,
-    weight: "45–50 KG",
-    video: "https://www.youtube.com/watch?v=gg5hwJuv6KI",
+    note: "First thing to cut. If Friday or Saturday performance starts slipping, drop these two sets before touching the pulldown or cable row.",
+    video: "https://www.youtube.com/watch?v=dFzUjzfih7k",
   },
   cableLateralRaiseFri: {
     name: "Cable Lateral Raise",
@@ -517,7 +513,7 @@ const exercises = {
       "1–2 reps in reserve; no ego sets on the stack"
     ],
     muscle: "Legs" as Muscle,
-    weight: "120–140 KG",
+    weight: "120–140 KG, if tolerated safely",
     video: "https://www.youtube.com/watch?v=K5n2vg3oZa4",
   },
   legCurl: {
@@ -586,7 +582,7 @@ const exercises = {
     ],
     muscle: "Legs" as Muscle,
     weight: "16–20 KG / hand",
-    note: "First thing to cut. If the other three exercises already emptied the tank, do one set or skip it — it is not worth the recovery debt.",
+    note: "Only if medically cleared. With the left ankle/foot restriction and the vascular history, do not force this or progress the load without clearance from your doctor or physio — ask your trainer for an alternative instead. Even when cleared, it is the first thing to cut on a flat day.",
     video: "https://www.youtube.com/watch?v=hPlKPjohFS0",
   },
 } as const
@@ -597,11 +593,16 @@ const exercises = {
 const warmupUpper = [
   exercises.thoracicOpener,
   exercises.shoulderMobility,
-  exercises.lowerBackStretch,
+] as const
+
+/** Friday is shoulder/scapular mobility only — the ramp-up sets do the rest. */
+const warmupFriday = [
+  exercises.shoulderMobility,
 ] as const
 
 const warmupLower = [
   exercises.hipFlexorStretch,
+  exercises.lowerBackStretch,
   exercises.gluteBridge,
   exercises.deadBug,
 ] as const
@@ -616,6 +617,10 @@ type DayProgram = {
   warmup: readonly Exercise[]
   work: readonly Exercise[]
   warmupLabel?: string
+  /** Progressive warm-up sets to run after the mobility work, before set 1. */
+  rampUp?: string
+  /** Safety constraint shown prominently in both views. */
+  safety?: string
   /** Set on non-lifting days; rendered instead of an exercise list. */
   recovery?: {
     /** Zone 2 duration — omit for a full rest day. */
@@ -632,6 +637,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     title: "Chest + Shoulders",
     color: "text-emerald-400",
     warmup: warmupUpper,
+    rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
     work: [
       exercises.inclineChestPress,
       exercises.chestPress,
@@ -647,7 +653,8 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     work: [],
     recovery: {
       duration: "35–45 min",
-      note: "No resistance training. Don't treat Zone 2 as another hard workout — if you slept badly or your legs are unusually fatigued, cut the duration. The job here is cardiovascular fitness and energy expenditure without compromising Friday's heavy back session.",
+      short: "35–45 min · 4.5 km/h · 9% to tolerance · conversational pace",
+      note: "No resistance training. Treadmill at 4.5 km/h with the incline set as tolerated — aim for a conversational pace. ~135 bpm is a reference, not a mandatory target. If you slept badly or your legs are unusually fatigued, cut the duration rather than pushing through.",
     },
   },
   wednesday: {
@@ -655,9 +662,10 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     title: "Upper Body + Arms",
     color: "text-emerald-400",
     warmup: warmupUpper,
+    rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
     work: [
       exercises.inclineChestPressWed,
-      exercises.chestSupportedRowWed,
+      exercises.seatedCableRowWed,
       exercises.cableLateralRaiseWed,
       exercises.preacherCurl,
       exercises.tricepsPushdown,
@@ -670,28 +678,31 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     warmup: [],
     work: [],
     recovery: {
-      note: "No training at all. This day is deliberately empty: it is the low-fatigue buffer that makes Friday's heavy back session possible. Sleep is the work today.",
-      short: "No training. Sleep is the work.",
+      note: "No training at all. Prioritise sleep, hydration and nutrition — there is no need to compensate with extra cardio. This day is the low-fatigue buffer that makes Friday's heavy back session possible.",
+      short: "No training. Sleep, hydration, nutrition — no make-up cardio.",
     },
   },
   friday: {
     eyebrow: "Friday · Trainer",
     title: "Heavy Back + Delts",
     color: "text-amber-400",
-    warmup: warmupUpper,
+    warmup: warmupFriday,
+    rampUp: "Then light warm-up sets of Lat Pulldown and Seated Cable Row before the working sets.",
     work: [
       exercises.neutralGripLatPulldown,
-      exercises.chestSupportedRow,
-      exercises.machineHighRow,
+      exercises.seatedCableRow,
+      exercises.oneArmDumbbellRow,
       exercises.cableLateralRaiseFri,
       exercises.reversePecDeck,
     ],
   },
   saturday: {
     eyebrow: "Saturday · Trainer",
-    title: "Heavy Legs",
+    title: "Legs",
     color: "text-amber-400",
     warmup: warmupLower,
+    warmupLabel: "Warm-up · symptom-free only",
+    safety: "10 planned sets, subject to leg safety. Given the left ankle/foot restriction and the history of venous obstruction, swelling and vascular surgery: do not force Bulgarian Split Squats or progress unilateral leg loading without clearance from your doctor or physiotherapist. If unilateral loading is not safe, have your trainer or physio pick an alternative. Keep warm-up and activation work comfortable and symptom-free.",
     work: [
       exercises.legPress,
       exercises.legCurl,
@@ -707,8 +718,10 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     work: [],
     recovery: {
       duration: "30–45 min",
-      note: "Comfortably aerobic — this is not another hard workout. If your sleep was particularly poor during the week, make it a recovery walk instead and leave it there.",
+      short: "30–45 min · start 4.5 km/h · incline to tolerance",
+      note: "Comfortably aerobic — this is not another hard workout. Start at 4.5 km/h and adjust the incline to tolerance. If your sleep was particularly poor during the week, make it a recovery walk instead and leave it there.",
     },
+    safety: "Stop if leg swelling, pain or vascular symptoms worsen.",
   },
 }
 
@@ -740,7 +753,16 @@ const intensityRules = [
   { label: "Main compounds", value: "RIR 1–2" },
   { label: "Isolation work", value: "RIR 0–2" },
   { label: "Eccentric", value: "Controlled 2–3s" },
-  { label: "Sets to failure", value: "Rarely" },
+  { label: "Failure", value: "Selective, not every set" },
+  { label: "Rest · compounds", value: "2–3 min" },
+  { label: "Rest · isolation", value: "60–120 sec" },
+]
+
+const nutrition = [
+  { label: "Calories", value: "2,300–2,500 kcal/day" },
+  { label: "Protein", value: "190–210 g/day" },
+  { label: "Cardio", value: "2 sessions/week" },
+  { label: "Weight tracking", value: "Daily weigh-ins, 7-day averages" },
 ]
 
 /** `bar` drives the chart width; `range` is the target as prescribed. */
@@ -911,6 +933,15 @@ function setView(next: View) {
 }
 
 // ─── Components ──────────────────────────────────────────────────────────────
+
+function SafetyNote({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mt-2 flex items-start gap-2 rounded-lg border border-amber-500/25 bg-amber-500/[0.07] px-3 py-2">
+      <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
+      <p className="text-[12px] leading-relaxed text-amber-200/90">{children}</p>
+    </div>
+  )
+}
 
 function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -1114,6 +1145,8 @@ function DaySection({
         <span className="shrink-0 text-[11px] text-gray-500 tabular-nums">{done}/{total} working sets</span>
       </div>
 
+      {program.safety && <div className="mb-3"><SafetyNote>{program.safety}</SafetyNote></div>}
+
       {/* Warm-up — collapsed into one block */}
       {offset > 0 && (
         <details className="group mb-3 overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
@@ -1133,6 +1166,11 @@ function DaySection({
                 onToggleSet={(setIndex) => onToggle(i, setIndex)}
               />
             ))}
+            {program.rampUp && (
+              <p className="border-t border-gray-800/60 px-4 py-3 text-[12px] leading-relaxed text-gray-500">
+                {program.rampUp}
+              </p>
+            )}
           </div>
         </details>
       )}
@@ -1173,6 +1211,8 @@ function RecoveryDay({ program }: { program: DayProgram }) {
             <p className={`text-[13px] leading-relaxed text-gray-400 ${isZone2 ? "mt-1" : ""}`}>{rec?.note}</p>
           </div>
         </div>
+
+        {program.safety && <SafetyNote>{program.safety}</SafetyNote>}
 
         {isZone2 && (
           <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -1228,16 +1268,15 @@ function TextDay({
       </div>
 
       {recovery && (
-        <p className="pt-2 text-[13px] text-gray-400">
-          {recovery.duration
-            ? [recovery.duration, ...zone2Settings.map((z) => z.value)].join(" · ")
-            : recovery.short}
-        </p>
+        <p className="pt-2 text-[13px] text-gray-400">{recovery.short}</p>
       )}
+
+      {program.safety && <SafetyNote>{program.safety}</SafetyNote>}
 
       {warmup.length > 0 && (
         <p className="pt-2 text-[12px] text-gray-600">
           Warm-up · {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}
+          {program.rampUp && <span className="block">{program.rampUp}</span>}
         </p>
       )}
 
@@ -1275,6 +1314,7 @@ function TextDay({
                   <span className="text-right text-[12px] tabular-nums text-blue-400">{ex.weight}</span>
                 )}
               </div>
+              {ex.note && <SafetyNote>{ex.note}</SafetyNote>}
             </div>
           )
         })}
@@ -1403,10 +1443,11 @@ export default function PersonalTrainingPage() {
             <div className="flex items-start gap-3">
               <Target className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
               <div>
-                <p className="text-sm font-medium text-emerald-200">Goal · Maximum muscle growth per unit of fatigue</p>
+                <p className="text-sm font-medium text-emerald-200">Goal · Lose fat, keep muscle</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-gray-400">
-                  Not &ldquo;as many sets as possible&rdquo; — as much growth as can be recovered from while body fat comes down.
-                  You can train hard, but sleep is short, so volume stays low and every working set has to earn its place.
+                  Reduce body fat while preserving muscle, with the emphasis on chest development, shoulder width and back
+                  thickness. Not &ldquo;as many sets as possible&rdquo; — high-quality working sets, progressive overload and
+                  recovery during a deficit. Sleep is short, so volume stays low and every set has to earn its place.
                 </p>
                 <p className="mt-2 text-[12px] text-gray-600">
                   Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
@@ -1498,6 +1539,11 @@ export default function PersonalTrainingPage() {
                 </div>
               ))}
             </div>
+            <p className="mt-4 text-[13px] leading-relaxed text-gray-500">
+              <strong className="font-medium text-gray-300">Friday and Saturday run back to back.</strong> Keep both productive
+              without stacking fatigue: if recovery or performance deteriorates, drop the 2 sets of One-Arm Dumbbell Row first,
+              then reduce Saturday volume in consultation with your trainer. Extend rest periods before you cut load.
+            </p>
           </section>
 
           {/* Weekly volume */}
@@ -1558,6 +1604,27 @@ export default function PersonalTrainingPage() {
               You can&rsquo;t selectively burn abdominal fat. The waist and visceral fat come down as total body fat comes down — which is
               exactly why the lifting matters: it decides how much of that {bodyComp.leanMass} you keep on the way there.
             </p>
+          </section>
+
+          {/* Nutrition */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Nutrition During the Cut</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              A starting estimate, not a fixed prescription — the weekly trend decides the next move.
+            </p>
+            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+              {nutrition.map(({ label, value }) => (
+                <div key={label} className="flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0">
+                  <span className="shrink-0 text-[13px] text-gray-400">{label}</span>
+                  <span className="text-right text-[13px] font-medium text-gray-200">{value}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 space-y-1.5 text-[12px] leading-relaxed text-gray-600">
+              <p>Losing under ~0.5 kg/week for two weeks running → drop 150–200 kcal/day.</p>
+              <p>Losing over ~1 kg/week with strength or recovery sliding → add 150–250 kcal/day.</p>
+              <p>Track waist circumference, 7-day average weight and gym performance alongside body-composition scans.</p>
+            </div>
           </section>
 
           {/* Priority hierarchy */}
