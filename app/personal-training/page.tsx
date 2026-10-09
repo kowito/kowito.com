@@ -621,6 +621,8 @@ type DayProgram = {
     /** Zone 2 duration — omit for a full rest day. */
     duration?: string
     note: string
+    /** One-line summary for the text view. Zone 2 days derive theirs from `duration`. */
+    short?: string
   }
 }
 
@@ -669,6 +671,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     work: [],
     recovery: {
       note: "No training at all. This day is deliberately empty: it is the low-fatigue buffer that makes Friday's heavy back session possible. Sleep is the work today.",
+      short: "No training. Sleep is the work.",
     },
   },
   friday: {
@@ -867,6 +870,44 @@ function writeProgress(next: Progress) {
     /* storage full or unavailable — keep the in-memory value */
   }
   listeners.forEach((l) => l())
+}
+
+// ─── View preference ────────────────────────────────────────────────────────
+// "text" is the default: the whole week as plain lines. "full" adds photos,
+// videos, cues and the reference sections.
+
+type View = "text" | "full"
+
+const VIEW_KEY = "pt-view"
+const viewListeners = new Set<() => void>()
+
+function getView(): View {
+  try {
+    return localStorage.getItem(VIEW_KEY) === "full" ? "full" : "text"
+  } catch {
+    return "text"
+  }
+}
+
+function subscribeView(onChange: () => void): () => void {
+  viewListeners.add(onChange)
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === VIEW_KEY) onChange()
+  }
+  window.addEventListener("storage", onStorage)
+  return () => {
+    viewListeners.delete(onChange)
+    window.removeEventListener("storage", onStorage)
+  }
+}
+
+function setView(next: View) {
+  try {
+    localStorage.setItem(VIEW_KEY, next)
+  } catch {
+    /* storage unavailable — the toggle still works for this render */
+  }
+  viewListeners.forEach((l) => l())
 }
 
 // ─── Components ──────────────────────────────────────────────────────────────
@@ -1148,10 +1189,135 @@ function RecoveryDay({ program }: { program: DayProgram }) {
   )
 }
 
+function TextDay({
+  program,
+  sets,
+  onToggle,
+  onReset,
+}: {
+  program: DayProgram
+  sets: boolean[][]
+  onToggle: (exerciseIndex: number, setIndex: number) => void
+  onReset: () => void
+}) {
+  const { warmup, work, recovery } = program
+  const offset = warmup.length
+  const workSets = sets.slice(offset)
+  const total = workSets.reduce((a, s) => a + s.length, 0)
+  const done = workSets.reduce((a, s) => a + s.filter(Boolean).length, 0)
+  const dayName = program.eyebrow.split(" · ")[0]
+  const isTrainer = program.eyebrow.includes("Trainer")
+
+  return (
+    <section>
+      <div className="flex items-baseline justify-between gap-2 border-b border-gray-800 pb-1.5">
+        <h2 className="text-[12px] font-semibold uppercase tracking-wider text-white">
+          {dayName} <span className="text-gray-600">—</span> {program.title}
+          {isTrainer && (
+            <span className="ml-2 text-[10px] font-medium normal-case tracking-normal text-amber-400">trainer</span>
+          )}
+        </h2>
+        {total > 0 && (
+          <button
+            onClick={onReset}
+            className="shrink-0 text-[11px] tabular-nums text-gray-600 transition-colors hover:text-gray-400"
+          >
+            {done}/{total}
+          </button>
+        )}
+      </div>
+
+      {recovery && (
+        <p className="pt-2 text-[13px] text-gray-400">
+          {recovery.duration
+            ? [recovery.duration, ...zone2Settings.map((z) => z.value)].join(" · ")
+            : recovery.short}
+        </p>
+      )}
+
+      {warmup.length > 0 && (
+        <p className="pt-2 text-[12px] text-gray-600">
+          Warm-up · {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}
+        </p>
+      )}
+
+      <div className="divide-y divide-gray-900">
+        {work.map((ex, i) => {
+          const completed = sets[offset + i]
+          const allDone = completed.every(Boolean)
+          return (
+            <div key={ex.name + i} className="py-2.5">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className={`text-[13px] ${allDone ? "text-gray-600 line-through" : "text-gray-200"}`}>
+                  {ex.name}
+                </span>
+                <span className="shrink-0 text-[13px] tabular-nums text-gray-400">
+                  {ex.sets} × {ex.reps}
+                </span>
+              </div>
+              <div className="mt-1.5 flex items-center justify-between gap-3">
+                <div className="flex gap-1">
+                  {completed.map((active, j) => (
+                    <button
+                      key={j}
+                      onClick={() => onToggle(offset + i, j)}
+                      aria-label={`${ex.name} set ${j + 1}${active ? " done" : ""}`}
+                      className={`h-7 w-7 rounded border text-[11px] font-semibold transition-all active:scale-95 ${active
+                        ? "border-emerald-500 bg-emerald-500 text-white"
+                        : "border-gray-700 bg-gray-900/40 text-gray-500 hover:border-emerald-500/50 hover:text-gray-300"
+                        }`}
+                    >
+                      {active ? "✓" : j + 1}
+                    </button>
+                  ))}
+                </div>
+                {ex.weight && (
+                  <span className="text-right text-[12px] tabular-nums text-blue-400">{ex.weight}</span>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+function TextWeek({
+  progress,
+  onToggle,
+  onReset,
+}: {
+  progress: Progress
+  onToggle: (day: DayKey, exerciseIndex: number, setIndex: number) => void
+  onReset: (day: DayKey) => void
+}) {
+  return (
+    <div className="space-y-7">
+      {dayKeys.map((key) => (
+        <TextDay
+          key={key}
+          program={dayPrograms[key]}
+          sets={progress[key]}
+          onToggle={(exIdx, setIdx) => onToggle(key, exIdx, setIdx)}
+          onReset={() => onReset(key)}
+        />
+      ))}
+
+      <div className="space-y-1.5 border-t border-gray-800 pt-4 text-[12px] leading-relaxed text-gray-500">
+        <p>RIR 1–2 on compounds · RIR 0–2 on isolation · controlled 2–3s eccentric.</p>
+        <p>Double progression: top of the rep range on every set, then the smallest jump in weight.</p>
+        <p className="text-amber-300/80">Bad sleep? Keep the weight, hit good reps, move on.</p>
+      </div>
+    </div>
+  )
+}
+
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function PersonalTrainingPage() {
   const progress = React.useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot)
+  const view = React.useSyncExternalStore(subscribeView, getView, (): View => "text")
   const [activeDay, setActiveDay] = React.useState<number | null>(null) // null = show all
 
   const toggleSet = (day: DayKey, exerciseIndex: number, setIndex: number) => {
@@ -1196,196 +1362,226 @@ export default function PersonalTrainingPage() {
             <Dumbbell className="h-4 w-4 shrink-0 text-emerald-400" />
             <h1 className="text-xl font-semibold text-white">4-Day Hypertrophy Cut</h1>
           </div>
-          <p className="pl-6 text-sm text-gray-500">
-            {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day · Friday Heavy Back and Saturday Heavy Legs are the fixed anchors. Tap a set to check it off — progress is saved on this device.
-          </p>
-          <blockquote className="ml-6 mt-4 border-l-2 border-emerald-500/40 pl-3 text-[13px] italic leading-relaxed text-gray-400">
-            Train hard enough to demand muscle growth, but not so much that recovery becomes the limiting factor.
-          </blockquote>
-        </div>
+          {view === "full" ? (
+            <>
+              <p className="pl-6 text-sm text-gray-500">
+                {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day · Friday Heavy Back and Saturday Heavy Legs are the fixed anchors. Tap a set to check it off — progress is saved on this device.
+              </p>
+              <blockquote className="ml-6 mt-4 border-l-2 border-emerald-500/40 pl-3 text-[13px] italic leading-relaxed text-gray-400">
+                Train hard enough to demand muscle growth, but not so much that recovery becomes the limiting factor.
+              </blockquote>
+            </>
+          ) : (
+            <p className="pl-6 text-sm text-gray-500">
+              {weeklyWorkingSets} working sets · 4 lifting days · Fri &amp; Sat trainer
+            </p>
+          )}
 
-        {/* Goal */}
-        <section className="rounded-xl border border-emerald-900/40 bg-emerald-950/20 p-4">
-          <div className="flex items-start gap-3">
-            <Target className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
-            <div>
-              <p className="text-sm font-medium text-emerald-200">Goal · Maximum muscle growth per unit of fatigue</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-gray-400">
-                Not &ldquo;as many sets as possible&rdquo; — as much growth as can be recovered from while body fat comes down.
-                You can train hard, but sleep is short, so volume stays low and every working set has to earn its place.
-              </p>
-              <p className="mt-2 text-[12px] text-gray-600">
-                Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
-              </p>
-            </div>
+          {/* View toggle */}
+          <div className="mt-4 ml-6 inline-flex rounded-lg border border-gray-800 bg-gray-900/40 p-0.5">
+            {(["text", "full"] as View[]).map((v) => (
+              <button
+                key={v}
+                onClick={() => setView(v)}
+                className={`rounded-md px-3 py-1 text-[11px] font-semibold capitalize transition-colors ${view === v ? "bg-white/10 text-white" : "text-gray-500 hover:text-gray-300"
+                  }`}
+              >
+                {v}
+              </button>
+            ))}
           </div>
-        </section>
-
-        {/* Day filter */}
-        <div className="flex gap-1.5">
-          <button
-            onClick={() => setActiveDay(null)}
-            className={`flex flex-col items-center justify-center gap-0.5 rounded-lg border px-2.5 py-1.5 transition-all active:scale-95 ${activeDay === null ? "border-white/30 bg-white/10 text-white" : "border-gray-800 bg-gray-900/40 text-gray-500 hover:text-gray-300"}`}
-          >
-            <span className="text-[11px] font-semibold">All</span>
-          </button>
-          {weekOverview.map((d, i) => (
-            <button
-              key={d.label}
-              onClick={() => setActiveDay(activeDay === i ? null : i)}
-              className={`flex flex-1 flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 transition-all active:scale-95 ${activeDay === i ? `${d.style} ring-1 ring-white/20` : "border-gray-800 bg-gray-900/40 opacity-50 hover:opacity-80"}`}
-            >
-              <span className="text-[11px] font-semibold">{d.label}</span>
-              <span className="text-[9px] opacity-60">{d.tag}</span>
-            </button>
-          ))}
         </div>
 
-        {/* Days */}
-        {dayKeys.map((key, i) =>
-          activeDay === null || activeDay === i ? (
-            dayPrograms[key].work.length === 0 ? (
-              <RecoveryDay key={key} program={dayPrograms[key]} />
-            ) : (
-              <DaySection
-                key={key}
-                program={dayPrograms[key]}
-                sets={progress[key]}
-                onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
-                onReset={() => resetDay(key)}
-              />
-            )
-          ) : null
+        {view === "text" && (
+          <TextWeek progress={progress} onToggle={toggleSet} onReset={resetDay} />
         )}
 
-        {/* Progression */}
-        <section>
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Progressive Overload</h2>
-          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-            Double progression, kept practical: add reps until you hit the top of the range on <em>all</em> sets, then take the smallest
-            practical jump in weight and build it back up.
-          </p>
-          <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-            <div className="border-b border-gray-800 px-4 py-2 text-[11px] font-medium uppercase tracking-wide text-gray-500">
-              Example · Low-Incline DB Press, 3 × 6–8
+        {view === "full" && (
+          <>
+          {/* Goal */}
+          <section className="rounded-xl border border-emerald-900/40 bg-emerald-950/20 p-4">
+            <div className="flex items-start gap-3">
+              <Target className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+              <div>
+                <p className="text-sm font-medium text-emerald-200">Goal · Maximum muscle growth per unit of fatigue</p>
+                <p className="mt-1 text-[13px] leading-relaxed text-gray-400">
+                  Not &ldquo;as many sets as possible&rdquo; — as much growth as can be recovered from while body fat comes down.
+                  You can train hard, but sleep is short, so volume stays low and every working set has to earn its place.
+                </p>
+                <p className="mt-2 text-[12px] text-gray-600">
+                  Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
+                </p>
+              </div>
             </div>
-            {progressionExample.map((row) => (
-              <div
-                key={row.week}
-                className={`flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${row.bump ? "bg-emerald-500/[0.06]" : ""}`}
+          </section>
+
+          {/* Day filter */}
+          <div className="flex gap-1.5">
+            <button
+              onClick={() => setActiveDay(null)}
+              className={`flex flex-col items-center justify-center gap-0.5 rounded-lg border px-2.5 py-1.5 transition-all active:scale-95 ${activeDay === null ? "border-white/30 bg-white/10 text-white" : "border-gray-800 bg-gray-900/40 text-gray-500 hover:text-gray-300"}`}
+            >
+              <span className="text-[11px] font-semibold">All</span>
+            </button>
+            {weekOverview.map((d, i) => (
+              <button
+                key={d.label}
+                onClick={() => setActiveDay(activeDay === i ? null : i)}
+                className={`flex flex-1 flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 transition-all active:scale-95 ${activeDay === i ? `${d.style} ring-1 ring-white/20` : "border-gray-800 bg-gray-900/40 opacity-50 hover:opacity-80"}`}
               >
-                <span className="w-20 shrink-0 text-[13px] text-gray-500">{row.week}</span>
-                <span className={`w-20 shrink-0 text-[13px] font-medium tabular-nums ${row.bump ? "text-emerald-300" : "text-blue-400"}`}>
-                  {row.weight}
-                </span>
-                <span className="flex-1 text-right text-[13px] tabular-nums text-gray-300">{row.reps}</span>
-              </div>
+                <span className="text-[11px] font-semibold">{d.label}</span>
+                <span className="text-[9px] opacity-60">{d.tag}</span>
+              </button>
             ))}
           </div>
-          <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-3 py-2.5 text-[13px] leading-relaxed text-amber-300/90">
-            <strong className="font-semibold">Bad sleep = don&rsquo;t force progression.</strong> If you slept five hours and the working
-            weight feels terrible, you have nothing to prove. Keep the load, hit good reps at roughly the intended RIR, and move on.
-            Consistency over months beats one heroic workout.
-          </p>
-        </section>
 
-        {/* Intensity */}
-        <section>
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Intensity &amp; Tempo</h2>
-          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-            No mandatory 3-second eccentrics. Lower under control — roughly 2–3 seconds — but never so slowly that it costs you
-            productive load. Priority order: <em>full range of motion → stable technique → sufficient effort → progressive overload → recovery.</em>
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            {intensityRules.map(({ label, value }) => (
-              <div key={label} className="rounded-lg border border-gray-800 bg-gray-900/20 p-3">
-                <div className="text-[11px] text-gray-500">{label}</div>
-                <div className="mt-0.5 text-sm font-semibold text-white">{value}</div>
+          {/* Days */}
+          {dayKeys.map((key, i) =>
+            activeDay === null || activeDay === i ? (
+              dayPrograms[key].work.length === 0 ? (
+                <RecoveryDay key={key} program={dayPrograms[key]} />
+              ) : (
+                <DaySection
+                  key={key}
+                  program={dayPrograms[key]}
+                  sets={progress[key]}
+                  onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
+                  onReset={() => resetDay(key)}
+                />
+              )
+            ) : null
+          )}
+
+          {/* Progression */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Progressive Overload</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              Double progression, kept practical: add reps until you hit the top of the range on <em>all</em> sets, then take the smallest
+              practical jump in weight and build it back up.
+            </p>
+            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+              <div className="border-b border-gray-800 px-4 py-2 text-[11px] font-medium uppercase tracking-wide text-gray-500">
+                Example · Low-Incline DB Press, 3 × 6–8
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Weekly volume */}
-        <section>
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Weekly Volume Targets</h2>
-          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-            Direct sets per muscle per week — {weeklyWorkingSets} in total. This is deliberately less than a high-volume program:
-            while performance keeps progressing, there is no reason to add sets.
-          </p>
-          <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-            {weeklyVolume.map(({ muscle, range, bar, hero }) => (
-              <div
-                key={muscle}
-                className={`flex items-center gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.05]" : ""}`}
-              >
-                <span className={`w-24 shrink-0 text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
-                  {muscle}
-                </span>
-                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800">
-                  <div
-                    className={`h-full rounded-full ${hero ? "bg-emerald-500" : "bg-gray-600"}`}
-                    style={{ width: `${(bar / 12) * 100}%` }}
-                  />
+              {progressionExample.map((row) => (
+                <div
+                  key={row.week}
+                  className={`flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${row.bump ? "bg-emerald-500/[0.06]" : ""}`}
+                >
+                  <span className="w-20 shrink-0 text-[13px] text-gray-500">{row.week}</span>
+                  <span className={`w-20 shrink-0 text-[13px] font-medium tabular-nums ${row.bump ? "text-emerald-300" : "text-blue-400"}`}>
+                    {row.weight}
+                  </span>
+                  <span className="flex-1 text-right text-[13px] tabular-nums text-gray-300">{row.reps}</span>
                 </div>
-                <span className="w-24 shrink-0 text-right text-[12px] tabular-nums text-gray-300">{range}</span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
-            Front delts get substantial indirect work from incline and overhead pressing, so the real shoulder stimulus is larger than
-            the direct lateral and rear-delt numbers suggest.
-          </p>
-        </section>
+              ))}
+            </div>
+            <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-3 py-2.5 text-[13px] leading-relaxed text-amber-300/90">
+              <strong className="font-semibold">Bad sleep = don&rsquo;t force progression.</strong> If you slept five hours and the working
+              weight feels terrible, you have nothing to prove. Keep the load, hit good reps at roughly the intended RIR, and move on.
+              Consistency over months beats one heroic workout.
+            </p>
+          </section>
 
-        {/* Body composition */}
-        <section>
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Where This Is Going</h2>
-          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-            At {bodyComp.weight} and {bodyComp.bodyFat} body fat, lean mass is roughly <strong className="font-medium text-gray-300">{bodyComp.leanMass}</strong>.
-            Hold on to most of that and the scale lands here:
-          </p>
-          <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-            {bodyComp.targets.map(({ bf, weight, hero }) => (
-              <div
-                key={bf}
-                className={`flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.06]" : ""}`}
-              >
-                <span className={`text-[13px] tabular-nums ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
-                  {bf} body fat
-                </span>
-                <span className={`text-[13px] font-medium tabular-nums ${hero ? "text-emerald-300" : "text-gray-300"}`}>
-                  {weight}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
-            You can&rsquo;t selectively burn abdominal fat. The waist and visceral fat come down as total body fat comes down — which is
-            exactly why the lifting matters: it decides how much of that {bodyComp.leanMass} you keep on the way there.
-          </p>
-        </section>
-
-        {/* Priority hierarchy */}
-        <section>
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Priority Hierarchy</h2>
-          <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-            When something has to give, give it up from the bottom of this list.
-          </p>
-          <div className="space-y-3">
-            {priorities.map(({ topic, rule }, i) => (
-              <div key={topic} className="flex gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 text-[11px] font-semibold text-violet-300 tabular-nums">
-                  {i + 1}
-                </span>
-                <div className="min-w-0">
-                  <span className="text-xs font-medium text-violet-400">{topic}</span>
-                  <p className="mt-0.5 text-sm leading-relaxed text-gray-400">{rule}</p>
+          {/* Intensity */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Intensity &amp; Tempo</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              No mandatory 3-second eccentrics. Lower under control — roughly 2–3 seconds — but never so slowly that it costs you
+              productive load. Priority order: <em>full range of motion → stable technique → sufficient effort → progressive overload → recovery.</em>
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {intensityRules.map(({ label, value }) => (
+                <div key={label} className="rounded-lg border border-gray-800 bg-gray-900/20 p-3">
+                  <div className="text-[11px] text-gray-500">{label}</div>
+                  <div className="mt-0.5 text-sm font-semibold text-white">{value}</div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+
+          {/* Weekly volume */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Weekly Volume Targets</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              Direct sets per muscle per week — {weeklyWorkingSets} in total. This is deliberately less than a high-volume program:
+              while performance keeps progressing, there is no reason to add sets.
+            </p>
+            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+              {weeklyVolume.map(({ muscle, range, bar, hero }) => (
+                <div
+                  key={muscle}
+                  className={`flex items-center gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.05]" : ""}`}
+                >
+                  <span className={`w-24 shrink-0 text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
+                    {muscle}
+                  </span>
+                  <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800">
+                    <div
+                      className={`h-full rounded-full ${hero ? "bg-emerald-500" : "bg-gray-600"}`}
+                      style={{ width: `${(bar / 12) * 100}%` }}
+                    />
+                  </div>
+                  <span className="w-24 shrink-0 text-right text-[12px] tabular-nums text-gray-300">{range}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
+              Front delts get substantial indirect work from incline and overhead pressing, so the real shoulder stimulus is larger than
+              the direct lateral and rear-delt numbers suggest.
+            </p>
+          </section>
+
+          {/* Body composition */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Where This Is Going</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              At {bodyComp.weight} and {bodyComp.bodyFat} body fat, lean mass is roughly <strong className="font-medium text-gray-300">{bodyComp.leanMass}</strong>.
+              Hold on to most of that and the scale lands here:
+            </p>
+            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+              {bodyComp.targets.map(({ bf, weight, hero }) => (
+                <div
+                  key={bf}
+                  className={`flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.06]" : ""}`}
+                >
+                  <span className={`text-[13px] tabular-nums ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
+                    {bf} body fat
+                  </span>
+                  <span className={`text-[13px] font-medium tabular-nums ${hero ? "text-emerald-300" : "text-gray-300"}`}>
+                    {weight}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
+              You can&rsquo;t selectively burn abdominal fat. The waist and visceral fat come down as total body fat comes down — which is
+              exactly why the lifting matters: it decides how much of that {bodyComp.leanMass} you keep on the way there.
+            </p>
+          </section>
+
+          {/* Priority hierarchy */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Priority Hierarchy</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              When something has to give, give it up from the bottom of this list.
+            </p>
+            <div className="space-y-3">
+              {priorities.map(({ topic, rule }, i) => (
+                <div key={topic} className="flex gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 text-[11px] font-semibold text-violet-300 tabular-nums">
+                    {i + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <span className="text-xs font-medium text-violet-400">{topic}</span>
+                    <p className="mt-0.5 text-sm leading-relaxed text-gray-400">{rule}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+          </>
+        )}
 
         {/* Credit */}
         <p className="border-t border-gray-900 pt-4 text-center text-[11px] leading-relaxed text-gray-700">
