@@ -281,6 +281,74 @@ const exercises = {
     video: "https://www.youtube.com/watch?v=KgZqDuNx7rI",
   },
 
+  bicepsCurlMon: {
+    name: "Cable Curl",
+    img: "bicepsCurl",
+    target: "Biceps",
+    secondaryMuscles: ["Forearms"],
+    machine: "Cable Biceps Curl",
+    altMachine: "Dumbbell Biceps Curl",
+    setup: "Pulley low, elbows pinned at your sides, wrists locked stable",
+    sets: 2,
+    reps: "8–12",
+    intensity: "RIR 1–2",
+    tempo: "Curl with no swing, squeeze at the top, lower for 2–3s to a full stretch",
+    rest: "60–120 sec",
+    cues: [
+      "Biceps' first of two weekly exposures — the preacher curl covers Wednesday",
+      "Pin the elbows; no momentum, no torso swing",
+      "Full range beats heavy — straighten the arms completely at the bottom",
+      "Starting load below; adjust once you have logged a few sessions"
+    ],
+    muscle: "Biceps" as Muscle,
+    weight: "25 KG",
+    video: "https://www.youtube.com/watch?v=CrbTqNOlFgE",
+  },
+  legExtensionMon: {
+    name: "Leg Extension",
+    img: "legExtension",
+    target: "Quads",
+    secondaryMuscles: [],
+    machine: "Machine Leg Extension",
+    setup: "Sit back firmly with the hips locked into the seat. Shin pad sits just above the ankles",
+    sets: 2,
+    reps: "10–15",
+    intensity: "RIR 1–2",
+    tempo: "Extend smoothly, squeeze the quads at the top for a beat, lower for 2–3s",
+    rest: "60–120 sec",
+    cues: [
+      "Quads' second weekly exposure — Saturday's leg press and split squats are the first",
+      "Isolation, so no spinal load and almost no systemic fatigue",
+      "Squeeze hard at the top rather than chasing the stack",
+      "Start conservative and log the load you settle on"
+    ],
+    muscle: "Legs" as Muscle,
+    video: "https://www.youtube.com/watch?v=4ZDm5EbiFI8",
+  },
+  hipThrustMon: {
+    name: "Hip Thrust",
+    img: "hipThrust",
+    target: "Glutes",
+    secondaryMuscles: ["Hamstrings"],
+    machine: "Smith Machine Hip Thrust",
+    altMachine: "Glute Drive Machine",
+    setup: "Bench under the shoulder blades, bar padded at the hip crease, chin tucked. Lighter than Saturday — this is the higher-rep exposure",
+    sets: 2,
+    reps: "10–15",
+    intensity: "RIR 1–2",
+    tempo: "Drive the hips up, squeeze at lockout for a beat, lower for 2–3s",
+    rest: "60–120 sec",
+    cues: [
+      "Glutes' second direct session — Saturday's thrusts and split squats are the first",
+      "Deliberately placed on Monday, furthest from the Friday and Saturday trainer days",
+      "Ribs down and chin tucked; drive to full lockout without arching the lower back",
+      "Lighter than Saturday — chase the squeeze, not the load"
+    ],
+    muscle: "Glutes" as Muscle,
+    weight: "Lighter than Saturday",
+    video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
+  },
+
   // ── Wednesday · Upper Body + Arms ──
   inclineChestPressWed: {
     name: "Low-Incline Dumbbell Press",
@@ -371,6 +439,52 @@ const exercises = {
     muscle: "Triceps" as Muscle,
     weight: "42–45 KG",
     video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
+  },
+
+  tricepsPushdownWed: {
+    name: "Cable Triceps Pushdown",
+    img: "tricepsPushdown",
+    target: "Triceps",
+    secondaryMuscles: ["Forearms"],
+    machine: "Cable Triceps Pushdown",
+    altMachine: "Machine Triceps Dip",
+    setup: "Pulley high, rope or straight bar, elbows glued to the sides, shoulders depressed before the first rep",
+    sets: 2,
+    reps: "8–12",
+    intensity: "RIR 1–2",
+    tempo: "Lock the elbows in place, press down hard, return for 2–3s",
+    rest: "60–120 sec",
+    cues: [
+      "Triceps' second weekly exposure — same movement and load as Monday",
+      "Elbows pinned at your sides for every rep",
+      "Pressing already gives the triceps plenty; this is the direct top-up",
+      "Same logged load as Monday unless it feels different"
+    ],
+    muscle: "Triceps" as Muscle,
+    weight: "42–45 KG",
+    video: "https://www.youtube.com/watch?v=1FjkhpZsaxc",
+  },
+  legCurlWed: {
+    name: "Hamstring Curl",
+    img: "legCurl",
+    target: "Hamstrings",
+    secondaryMuscles: [],
+    machine: "Seated or Lying Leg Curl Machine",
+    setup: "Line the knee joints up with the machine's pivot. Thigh pad tight if seated",
+    sets: 2,
+    reps: "10–15",
+    intensity: "RIR 1–2",
+    tempo: "Curl hard, squeeze at full contraction, return for 2–3s",
+    rest: "60–120 sec",
+    cues: [
+      "Hamstrings' second weekly exposure — Saturday carries the heavier three sets",
+      "Feet flexed toward the shins",
+      "Hips stay down; don't let the lower back lift off the pad",
+      "Lighter than Saturday to suit the higher rep range"
+    ],
+    muscle: "Legs" as Muscle,
+    weight: "Lighter than Saturday",
+    video: "https://www.youtube.com/watch?v=Orxowest56U",
   },
 
   // ── Friday · Heavy Back + Delts (trainer) ──
@@ -607,7 +721,7 @@ const exercises = {
     ],
     muscle: "Legs" as Muscle,
     weight: "16–20 KG / hand",
-    note: "If the previously recorded left ankle/foot restriction or vascular symptoms are still an issue, get clearance before forcing or progressing this — ask your trainer for an alternative instead. On a fatiguing Saturday, this or the chest accessory comes out first.",
+    note: "On a fatiguing Saturday, this or the chest accessory is the first thing to drop.",
     video: "https://www.youtube.com/watch?v=hPlKPjohFS0",
   },
 } as const
@@ -659,7 +773,7 @@ type DayProgram = {
 const dayPrograms: Record<DayKey, DayProgram> = {
   monday: {
     eyebrow: "Monday · Upper A",
-    title: "Chest Priority",
+    title: "Chest Priority + Quads & Glutes",
     color: "text-emerald-400",
     warmup: warmupUpper,
     rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
@@ -669,6 +783,9 @@ const dayPrograms: Record<DayKey, DayProgram> = {
       exercises.latPulldownMon,
       exercises.cableLateralRaiseMon,
       exercises.tricepsPushdown,
+      exercises.bicepsCurlMon,
+      exercises.legExtensionMon,
+      exercises.hipThrustMon,
     ],
   },
   tuesday: {
@@ -685,7 +802,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   },
   wednesday: {
     eyebrow: "Wednesday · Upper B",
-    title: "Balanced Upper Body",
+    title: "Balanced Upper Body + Hamstrings",
     color: "text-emerald-400",
     warmup: warmupUpper,
     rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
@@ -695,6 +812,8 @@ const dayPrograms: Record<DayKey, DayProgram> = {
       exercises.shoulderPress,
       exercises.preacherCurl,
       exercises.reversePecDeck,
+      exercises.tricepsPushdownWed,
+      exercises.legCurlWed,
     ],
   },
   thursday: {
@@ -727,8 +846,6 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     title: "Legs + Chest Accessory",
     color: "text-amber-400",
     warmup: warmupLower,
-    warmupLabel: "Warm-up · symptom-free only",
-    safety: "Carried over from your earlier notes and not repeated in the current plan: the left ankle/foot restriction and the history of venous obstruction, swelling and vascular surgery. If those are still live, get clearance before forcing or progressing unilateral leg loading, and keep warm-up and activation work symptom-free. Delete this banner once it no longer applies.",
     work: [
       exercises.legPress,
       exercises.legCurl,
@@ -748,7 +865,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
       short: "30–45 min · 4.5 km/h · 9% to tolerance · conversational pace",
       note: "Comfortably aerobic — this is not another hard workout. Reference pace 4.5 km/h at 9% incline as tolerated. Reduce the duration or the incline if Saturday's leg session left you unusually fatigued, or make it a recovery walk and leave it there.",
     },
-    safety: "Stop or ease off if pain, leg swelling or vascular symptoms worsen.",
+    safety: "Ease off or cut it short if anything hurts — this is recovery work, not a session to push through.",
   },
 }
 
@@ -810,18 +927,21 @@ const nutrition = [
   { label: "Full rest", value: "1 day/week" },
 ]
 
-/** `bar` drives the chart width; `range` is the direct-set count as prescribed. */
+/**
+ * Direct working sets only, counted from the day programs above.
+ * `indirect` is listed separately and never counted as a direct session.
+ */
 const weeklyVolume = [
-  { muscle: "Back", range: "13", freq: "3 sessions", bar: 13, hero: true },
-  { muscle: "Chest", range: "9", freq: "3 sessions", bar: 9, hero: true },
-  { muscle: "Lateral Delts", range: "4", freq: "2 sessions", bar: 4, hero: true },
-  { muscle: "Rear Delts", range: "4", freq: "2 sessions", bar: 4 },
-  { muscle: "Quadriceps", range: "5", freq: "1 session", bar: 5 },
-  { muscle: "Glutes", range: "4–7", freq: "1 session", bar: 7 },
-  { muscle: "Hamstrings", range: "3", freq: "1 session", bar: 3 },
-  { muscle: "Front Delts", range: "2 + pressing", freq: "1 session", bar: 2 },
-  { muscle: "Biceps", range: "2 + pulling", freq: "1 session", bar: 2 },
-  { muscle: "Triceps", range: "2 + pressing", freq: "1 session", bar: 2 },
+  { muscle: "Back", direct: 13, days: "Mon · Wed · Fri", bar: 13, hero: true },
+  { muscle: "Chest", direct: 9, days: "Mon · Wed · Sat", bar: 9, hero: true },
+  { muscle: "Quadriceps", direct: 7, days: "Mon · Sat", bar: 7 },
+  { muscle: "Glutes", direct: 6, days: "Mon · Sat", bar: 6 },
+  { muscle: "Hamstrings", direct: 5, days: "Wed · Sat", bar: 5 },
+  { muscle: "Lateral Delts", direct: 4, days: "Mon · Fri", bar: 4, hero: true },
+  { muscle: "Rear Delts", direct: 4, days: "Wed · Fri", bar: 4 },
+  { muscle: "Biceps", direct: 4, days: "Mon · Wed", bar: 4 },
+  { muscle: "Triceps", direct: 4, days: "Mon · Wed", bar: 4 },
+  { muscle: "Front Delts", direct: 2, days: "Wed", bar: 2, indirect: "plus every incline and overhead press" },
 ]
 
 const bodyComp = {
@@ -1451,7 +1571,9 @@ export default function PersonalTrainingPage() {
           {view === "full" ? (
             <>
               <p className="pl-6 text-sm text-gray-500">
-                {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day. Chest is trained three times a week, back three times, shoulders spread across the week — with Friday and Saturday fixed as the trainer-led anchors. Tap a set to check it off — progress is saved on this device.
+                {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day. Every major muscle group is
+                trained directly at least twice a week, with Friday and Saturday fixed as the trainer-led anchors. Tap a set to check it
+                off — progress is saved on this device.
               </p>
               <blockquote className="ml-6 mt-4 border-l-2 border-emerald-500/40 pl-3 text-[13px] italic leading-relaxed text-gray-400">
                 Train hard enough to demand muscle growth, but not so much that recovery becomes the limiting factor.
@@ -1459,7 +1581,7 @@ export default function PersonalTrainingPage() {
             </>
           ) : (
             <p className="pl-6 text-sm text-gray-500">
-              {weeklyWorkingSets} working sets · 4 lifting days · twice-weekly frequency · Fri &amp; Sat trainer
+              {weeklyWorkingSets} working sets · 4 lifting days · every muscle direct 2×/week · Fri &amp; Sat trainer
             </p>
           )}
 
@@ -1497,8 +1619,9 @@ export default function PersonalTrainingPage() {
                 </p>
                 <p className="mt-2 text-[12px] text-gray-600">
                   Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
-                  Powerlifting performance is a secondary benefit here, not the organising principle; if competition numbers ever become
-                  the goal, that wants a dedicated strength block rather than sacrificing hypertrophy year-round.
+                  Strength is a secondary goal, not the organising principle: powerlifting-specific work is optional here and must not
+                  come at the cost of muscle growth or recovery. If competition numbers ever become the goal, that wants a dedicated
+                  strength block rather than sacrificing hypertrophy year-round.
                 </p>
               </div>
             </div>
@@ -1620,7 +1743,7 @@ export default function PersonalTrainingPage() {
               while performance keeps progressing, there is no reason to add sets.
             </p>
             <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-              {weeklyVolume.map(({ muscle, range, freq, bar, hero }) => (
+              {weeklyVolume.map(({ muscle, direct, days, bar, hero, indirect }) => (
                 <div
                   key={muscle}
                   className={`border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.05]" : ""}`}
@@ -1629,8 +1752,8 @@ export default function PersonalTrainingPage() {
                     <span className={`text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
                       {muscle}
                     </span>
-                    <span className="shrink-0 text-right text-[12px] tabular-nums text-gray-300">
-                      {range} <span className="text-gray-600">· {freq}</span>
+                    <span className="shrink-0 text-right text-[12px] text-gray-300">
+                      <span className="tabular-nums">{direct}</span> direct <span className="text-gray-600">· {days}</span>
                     </span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-gray-800">
@@ -1639,16 +1762,20 @@ export default function PersonalTrainingPage() {
                       style={{ width: `${(bar / 13) * 100}%` }}
                     />
                   </div>
+                  {indirect && (
+                    <p className="mt-1 text-[11px] text-gray-600">Indirect: {indirect} — not counted as a direct session.</p>
+                  )}
                 </div>
               ))}
             </div>
             <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
-              Direct working sets only. Compounds also stimulate secondary muscles, but indirect work is not equivalent to a full direct set.
+              Direct working sets only, counted from the sessions above. Compounds also stimulate secondary muscles, but indirect work is
+              never counted as a direct session. A single exercise can be direct for two muscles — Bulgarian split squats count for quads
+              and glutes — so these rows deliberately sum to more than the {weeklyWorkingSets} working sets in the week.
             </p>
             <p className="mt-2 text-[12px] leading-relaxed text-gray-500">
-              <strong className="font-medium text-gray-300">Worth knowing:</strong> chest, back and shoulders get multiple weekly exposures,
-              but quads, hamstrings and arms do not each get two dedicated sessions — they lean on indirect work from the compounds. If strict
-              twice-weekly direct training for every muscle becomes the requirement, the week needs redistributing again.
+              <strong className="font-medium text-gray-300">Every muscle here is trained directly twice a week</strong> except front delts,
+              which get one direct session plus heavy indirect work from all the pressing.
             </p>
           </section>
 
