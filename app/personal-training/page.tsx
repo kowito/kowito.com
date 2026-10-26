@@ -193,7 +193,7 @@ const exercises = {
     altMachine: "Pec Fly Machine",
     setup: "Lower the seat so the handles line up at nipple level. Puff the chest and pin the shoulder blades into the pad",
     sets: 2,
-    reps: "6–10",
+    reps: "8–10",
     intensity: "RIR 1–2",
     tempo: "Press strongly, lower under control for 2–3 seconds",
     rest: "2 min",
@@ -217,7 +217,7 @@ const exercises = {
     altMachine: "Machine Lateral Raise",
     setup: "Set one pulley at the lowest notch. Stand side-on, reach across your body with the far hand and grab the cable behind your thigh",
     sets: 2,
-    reps: "10–15",
+    reps: "12–15",
     intensity: "RIR 0–1",
     tempo: "Raise to shoulder height (1s), pause at the top, then resist all the way down for 2–3s",
     rest: "60–90 sec",
@@ -248,12 +248,37 @@ const exercises = {
       "Stay pressed into the backrest, no back arch",
       "Stop at 1–2 reps in reserve",
       "Do not add load if the shoulder or tendon is the limiting factor",
-      "Then you're done — four exercises is the whole session"
+      "The week's only direct front-delt work — pressing covers the rest"
     ],
     muscle: "Shoulders" as Muscle,
     weight: "25–30 KG",
-    note: "Second set is optional. Skip it if the shoulder feels cranky or the session already took a lot out of you.",
+    note: "Stop if you get joint pain — modify the movement rather than forcing the planned load.",
     video: "https://www.youtube.com/watch?v=6v4nrRVySj0",
+  },
+
+  latPulldownMon: {
+    name: "Neutral-Grip Lat Pulldown",
+    img: "neutralGripLatPulldown",
+    imgNote: "Photo shows the close V-bar version — use a shoulder-width neutral handle and keep the torso closer to upright",
+    target: "Lats",
+    secondaryMuscles: ["Biceps", "Upper Back"],
+    machine: "Lat Pulldown Machine (neutral-grip handle)",
+    altMachine: "Wide-Grip Lat Pulldown",
+    setup: "Sit upright, thigh pad locked down. Neutral grip at roughly shoulder width, chest up before the first rep",
+    sets: 2,
+    reps: "8–12",
+    intensity: "RIR 1–2",
+    tempo: "Drive the elbows down and back, return for 2–3s to a full overhead stretch",
+    rest: "2 min",
+    cues: [
+      "Back's second weekly exposure — lighter than Friday, same technique",
+      "No swinging the torso to move the load",
+      "Lead with the elbows, don't pull with the hands",
+      "Adjust the load as needed — this is not a max-out"
+    ],
+    muscle: "Back" as Muscle,
+    weight: "50–55 KG",
+    video: "https://www.youtube.com/watch?v=KgZqDuNx7rI",
   },
 
   // ── Wednesday · Upper Body + Arms ──
@@ -287,43 +312,19 @@ const exercises = {
     machine: "Seated Cable Row",
     altMachine: "Chest-Supported Row Machine",
     setup: "Sit upright with a slight knee bend, chest tall. Let the arms straighten fully at the front of each rep without rounding the lower back",
-    sets: 2,
+    sets: 3,
     reps: "8–12",
     intensity: "RIR 1–2",
     tempo: "Pull to the lower ribs, squeeze the shoulder blades for a beat, return under control for 2–3s into a full stretch",
     rest: "60–120 sec",
     cues: [
-      "Light back exposure only — Friday is the real back day",
+      "Use your logged working load — don't re-guess it each week",
       "Torso stays still; don't rock back and forth for extra reps",
       "Pull with the elbows, not the hands",
-      "Start conservative on the stack and log what you use"
+      "Don't add heavy back work here — Friday is the primary back session"
     ],
     muscle: "Back" as Muscle,
     video: "https://www.youtube.com/watch?v=LyZH4UGdDTc",
-  },
-  cableLateralRaiseWed: {
-    name: "Cable Lateral Raise",
-    img: "cableLateralRaise",
-    imgNote: "Photo shows the seated two-cable version — stand for the single-arm version described below",
-    target: "Side Delts",
-    secondaryMuscles: [],
-    machine: "Cable Crossover (single low pulley)",
-    altMachine: "Machine Lateral Raise",
-    setup: "Same setup as Monday — one low pulley, stand side-on, cable crossing behind the thigh",
-    sets: 2,
-    reps: "12–15",
-    intensity: "RIR 0–1",
-    tempo: "Raise to shoulder height, pause, resist down for 2–3s",
-    rest: "60–90 sec",
-    cues: [
-      "Second of three weekly lateral-delt exposures",
-      "Higher reps here than Monday — chase the burn, not the load",
-      "No torso swing; if you're heaving it, drop the weight",
-      "Stay at 9 kg until 15 clean reps are routine"
-    ],
-    muscle: "Shoulders" as Muscle,
-    weight: "9 KG",
-    video: "https://www.youtube.com/watch?v=Z5FA9aq3L6A",
   },
   preacherCurl: {
     name: "Preacher / Machine Curl",
@@ -349,7 +350,7 @@ const exercises = {
     video: "https://www.youtube.com/watch?v=Ja6ZlIDONac",
   },
   tricepsPushdown: {
-    name: "Cable Pushdown",
+    name: "Cable Triceps Pushdown",
     img: "tricepsPushdown",
     target: "Triceps",
     secondaryMuscles: ["Forearms"],
@@ -482,7 +483,7 @@ const exercises = {
     tempo: "Sweep the elbows wide and back, squeeze for a beat, return for 2–3s",
     rest: "60–90 sec",
     cues: [
-      "The week's only direct rear-delt work — two sets is enough alongside heavy rowing",
+      "Twice a week now, Wednesday and Friday — four sets total balances the pressing volume",
       "Chest stays on the pad, no torso rotation",
       "Sweep wide to the walls, don't row toward the hips",
       "Light load, hard squeeze"
@@ -513,7 +514,7 @@ const exercises = {
       "1–2 reps in reserve; no ego sets on the stack"
     ],
     muscle: "Legs" as Muscle,
-    weight: "120–140 KG, if tolerated safely",
+    weight: "120–140 KG",
     video: "https://www.youtube.com/watch?v=K5n2vg3oZa4",
   },
   legCurl: {
@@ -561,6 +562,30 @@ const exercises = {
     weight: "60–80 KG",
     video: "https://www.youtube.com/watch?v=CvuVYMFd11g",
   },
+  chestPressSat: {
+    name: "Machine Chest Press",
+    img: "chestPress",
+    target: "Chest",
+    secondaryMuscles: ["Front Delts", "Triceps"],
+    machine: "Chest Press Machine",
+    altMachine: "Pec Fly Machine",
+    setup: "Same setup as Monday — handles at nipple level, shoulder blades pinned. Pick a load you can own for 15 reps, lighter than Monday",
+    sets: 2,
+    reps: "10–15",
+    intensity: "RIR 2",
+    tempo: "Press strongly, lower under control for 2–3 seconds",
+    rest: "60–120 sec",
+    cues: [
+      "Chest's third weekly exposure — quality volume, not another maximal session",
+      "Run it after the leg work so it never compromises the main lower-body lifts",
+      "Lighter than Monday by design; stop with 2 reps in reserve",
+      "Select a manageable load and keep every rep clean"
+    ],
+    muscle: "Chest" as Muscle,
+    weight: "Lighter than Monday",
+    note: "Optional. If Saturday is already exceptionally fatiguing, omit this rather than forcing it.",
+    video: "https://www.youtube.com/shorts/Qu7-ceCvq7w",
+  },
   bulgarianSplitSquat: {
     name: "Bulgarian Split Squat",
     img: "bulgarianSplitSquat",
@@ -582,7 +607,7 @@ const exercises = {
     ],
     muscle: "Legs" as Muscle,
     weight: "16–20 KG / hand",
-    note: "Only if medically cleared. With the left ankle/foot restriction and the vascular history, do not force this or progress the load without clearance from your doctor or physio — ask your trainer for an alternative instead. Even when cleared, it is the first thing to cut on a flat day.",
+    note: "If the previously recorded left ankle/foot restriction or vascular symptoms are still an issue, get clearance before forcing or progressing this — ask your trainer for an alternative instead. On a fatiguing Saturday, this or the chest accessory comes out first.",
     video: "https://www.youtube.com/watch?v=hPlKPjohFS0",
   },
 } as const
@@ -633,16 +658,17 @@ type DayProgram = {
 
 const dayPrograms: Record<DayKey, DayProgram> = {
   monday: {
-    eyebrow: "Monday",
-    title: "Chest + Shoulders",
+    eyebrow: "Monday · Upper A",
+    title: "Chest Priority",
     color: "text-emerald-400",
     warmup: warmupUpper,
     rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
     work: [
       exercises.inclineChestPress,
       exercises.chestPress,
+      exercises.latPulldownMon,
       exercises.cableLateralRaiseMon,
-      exercises.shoulderPress,
+      exercises.tricepsPushdown,
     ],
   },
   tuesday: {
@@ -658,17 +684,17 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     },
   },
   wednesday: {
-    eyebrow: "Wednesday",
-    title: "Upper Body + Arms",
+    eyebrow: "Wednesday · Upper B",
+    title: "Balanced Upper Body",
     color: "text-emerald-400",
     warmup: warmupUpper,
     rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
     work: [
       exercises.inclineChestPressWed,
       exercises.seatedCableRowWed,
-      exercises.cableLateralRaiseWed,
+      exercises.shoulderPress,
       exercises.preacherCurl,
-      exercises.tricepsPushdown,
+      exercises.reversePecDeck,
     ],
   },
   thursday: {
@@ -678,8 +704,8 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     warmup: [],
     work: [],
     recovery: {
-      note: "No training at all. Prioritise sleep, hydration and nutrition — there is no need to compensate with extra cardio. This day is the low-fatigue buffer that makes Friday's heavy back session possible.",
-      short: "No training. Sleep, hydration, nutrition — no make-up cardio.",
+      note: "No resistance training required. Easy walking, light mobility and normal daily activity are fine — do not turn this into another demanding training day. Prioritise sleep, nutrition and hydration. This is the low-fatigue buffer that makes Friday's heavy back session possible.",
+      short: "No training. Easy walking or light mobility at most.",
     },
   },
   friday: {
@@ -698,16 +724,17 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   },
   saturday: {
     eyebrow: "Saturday · Trainer",
-    title: "Legs",
+    title: "Legs + Chest Accessory",
     color: "text-amber-400",
     warmup: warmupLower,
     warmupLabel: "Warm-up · symptom-free only",
-    safety: "10 planned sets, subject to leg safety. Given the left ankle/foot restriction and the history of venous obstruction, swelling and vascular surgery: do not force Bulgarian Split Squats or progress unilateral leg loading without clearance from your doctor or physiotherapist. If unilateral loading is not safe, have your trainer or physio pick an alternative. Keep warm-up and activation work comfortable and symptom-free.",
+    safety: "Carried over from your earlier notes and not repeated in the current plan: the left ankle/foot restriction and the history of venous obstruction, swelling and vascular surgery. If those are still live, get clearance before forcing or progressing unilateral leg loading, and keep warm-up and activation work symptom-free. Delete this banner once it no longer applies.",
     work: [
       exercises.legPress,
       exercises.legCurl,
       exercises.hipThrust,
       exercises.bulgarianSplitSquat,
+      exercises.chestPressSat,
     ],
   },
   sunday: {
@@ -718,10 +745,10 @@ const dayPrograms: Record<DayKey, DayProgram> = {
     work: [],
     recovery: {
       duration: "30–45 min",
-      short: "30–45 min · start 4.5 km/h · incline to tolerance",
-      note: "Comfortably aerobic — this is not another hard workout. Start at 4.5 km/h and adjust the incline to tolerance. If your sleep was particularly poor during the week, make it a recovery walk instead and leave it there.",
+      short: "30–45 min · 4.5 km/h · 9% to tolerance · conversational pace",
+      note: "Comfortably aerobic — this is not another hard workout. Reference pace 4.5 km/h at 9% incline as tolerated. Reduce the duration or the incline if Saturday's leg session left you unusually fatigued, or make it a recovery walk and leave it there.",
     },
-    safety: "Stop if leg swelling, pain or vascular symptoms worsen.",
+    safety: "Stop or ease off if pain, leg swelling or vascular symptoms worsen.",
   },
 }
 
@@ -743,10 +770,27 @@ const priorities = [
 ]
 
 const progressionExample = [
-  { week: "Week 1", weight: "22 kg", reps: "8 / 7 / 6" },
-  { week: "Week 2", weight: "22 kg", reps: "8 / 8 / 7" },
-  { week: "Week 3", weight: "22 kg", reps: "8 / 8 / 8" },
-  { week: "Week 4", weight: "24 kg", reps: "6 / 6 / 6", bump: true },
+  { session: "1", performance: "22 kg × 8, 7, 6", action: "Maintain load" },
+  { session: "2", performance: "22 kg × 8, 8, 7", action: "Maintain load" },
+  { session: "3", performance: "22 kg × 8, 8, 8", action: "Increase when ready" },
+  { session: "4", performance: "24 kg × 6, 6, 6", action: "Build reps again", bump: true },
+]
+
+const fatigueRules = [
+  { when: "Normal recovery", then: "Complete the prescribed session." },
+  { when: "Poor sleep", then: "Keep the load stable and avoid taking compound lifts to failure." },
+  { when: "Friday performance declines", then: "Reduce or remove the One-Arm Dumbbell Rows first." },
+  { when: "Saturday fatigue", then: "Remove the Bulgarian Split Squats or the chest accessory first, depending on where the fatigue is coming from." },
+  { when: "Decline over several sessions", then: "Cut weekly working sets by roughly 20–30% temporarily, then reassess recovery." },
+  { when: "Pain", then: "Stop or modify the aggravating movement rather than forcing the planned load." },
+]
+
+const weeklyReview = [
+  "Seven-day average body weight",
+  "Waist circumference",
+  "Working weights and repetitions",
+  "Sleep quality and recovery",
+  "Completion of planned sessions",
 ]
 
 const intensityRules = [
@@ -761,21 +805,23 @@ const intensityRules = [
 const nutrition = [
   { label: "Calories", value: "2,300–2,500 kcal/day" },
   { label: "Protein", value: "190–210 g/day" },
-  { label: "Cardio", value: "2 sessions/week" },
-  { label: "Weight tracking", value: "Daily weigh-ins, 7-day averages" },
+  { label: "Resistance training", value: "4 days/week" },
+  { label: "Zone 2", value: "2 days/week" },
+  { label: "Full rest", value: "1 day/week" },
 ]
 
-/** `bar` drives the chart width; `range` is the target as prescribed. */
+/** `bar` drives the chart width; `range` is the direct-set count as prescribed. */
 const weeklyVolume = [
-  { muscle: "Chest", range: "7–9", bar: 9, hero: true },
-  { muscle: "Back", range: "10–12", bar: 12, hero: true },
-  { muscle: "Lateral Delts", range: "~6", bar: 6, hero: true },
-  { muscle: "Glutes", range: "5–7", bar: 7 },
-  { muscle: "Quads", range: "4–6", bar: 6 },
-  { muscle: "Hamstrings", range: "3–5", bar: 5 },
-  { muscle: "Biceps", range: "~4 + pulling", bar: 4 },
-  { muscle: "Triceps", range: "~4 + pressing", bar: 4 },
-  { muscle: "Rear Delts", range: "~2", bar: 2 },
+  { muscle: "Back", range: "13", freq: "3 sessions", bar: 13, hero: true },
+  { muscle: "Chest", range: "9", freq: "3 sessions", bar: 9, hero: true },
+  { muscle: "Lateral Delts", range: "4", freq: "2 sessions", bar: 4, hero: true },
+  { muscle: "Rear Delts", range: "4", freq: "2 sessions", bar: 4 },
+  { muscle: "Quadriceps", range: "5", freq: "1 session", bar: 5 },
+  { muscle: "Glutes", range: "4–7", freq: "1 session", bar: 7 },
+  { muscle: "Hamstrings", range: "3", freq: "1 session", bar: 3 },
+  { muscle: "Front Delts", range: "2 + pressing", freq: "1 session", bar: 2 },
+  { muscle: "Biceps", range: "2 + pulling", freq: "1 session", bar: 2 },
+  { muscle: "Triceps", range: "2 + pressing", freq: "1 session", bar: 2 },
 ]
 
 const bodyComp = {
@@ -1405,7 +1451,7 @@ export default function PersonalTrainingPage() {
           {view === "full" ? (
             <>
               <p className="pl-6 text-sm text-gray-500">
-                {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day · Friday Heavy Back and Saturday Heavy Legs are the fixed anchors. Tap a set to check it off — progress is saved on this device.
+                {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day. Chest is trained three times a week, back three times, shoulders spread across the week — with Friday and Saturday fixed as the trainer-led anchors. Tap a set to check it off — progress is saved on this device.
               </p>
               <blockquote className="ml-6 mt-4 border-l-2 border-emerald-500/40 pl-3 text-[13px] italic leading-relaxed text-gray-400">
                 Train hard enough to demand muscle growth, but not so much that recovery becomes the limiting factor.
@@ -1413,7 +1459,7 @@ export default function PersonalTrainingPage() {
             </>
           ) : (
             <p className="pl-6 text-sm text-gray-500">
-              {weeklyWorkingSets} working sets · 4 lifting days · Fri &amp; Sat trainer
+              {weeklyWorkingSets} working sets · 4 lifting days · twice-weekly frequency · Fri &amp; Sat trainer
             </p>
           )}
 
@@ -1443,14 +1489,16 @@ export default function PersonalTrainingPage() {
             <div className="flex items-start gap-3">
               <Target className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
               <div>
-                <p className="text-sm font-medium text-emerald-200">Goal · Lose fat, keep muscle</p>
+                <p className="text-sm font-medium text-emerald-200">Goal · Build muscle, lose fat</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-gray-400">
-                  Reduce body fat while preserving muscle, with the emphasis on chest development, shoulder width and back
-                  thickness. Not &ldquo;as many sets as possible&rdquo; — high-quality working sets, progressive overload and
-                  recovery during a deficit. Sleep is short, so volume stays low and every set has to earn its place.
+                  Maximise practical muscle growth while reducing body fat, with strength maintained and improved along the way.
+                  Priority muscles: chest, lateral delts, back thickness and overall upper-body development. Not &ldquo;as many sets
+                  as possible&rdquo; — the constraint is holding performance while dieting on limited sleep.
                 </p>
                 <p className="mt-2 text-[12px] text-gray-600">
                   Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
+                  Powerlifting performance is a secondary benefit here, not the organising principle; if competition numbers ever become
+                  the goal, that wants a dedicated strength block rather than sacrificing hypertrophy year-round.
                 </p>
               </div>
             </div>
@@ -1506,20 +1554,23 @@ export default function PersonalTrainingPage() {
               </div>
               {progressionExample.map((row) => (
                 <div
-                  key={row.week}
-                  className={`flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${row.bump ? "bg-emerald-500/[0.06]" : ""}`}
+                  key={row.session}
+                  className={`flex items-center gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${row.bump ? "bg-emerald-500/[0.06]" : ""}`}
                 >
-                  <span className="w-20 shrink-0 text-[13px] text-gray-500">{row.week}</span>
-                  <span className={`w-20 shrink-0 text-[13px] font-medium tabular-nums ${row.bump ? "text-emerald-300" : "text-blue-400"}`}>
-                    {row.weight}
+                  <span className="w-5 shrink-0 text-[13px] tabular-nums text-gray-600">{row.session}</span>
+                  <span className={`flex-1 text-[13px] tabular-nums ${row.bump ? "text-emerald-300" : "text-blue-400"}`}>
+                    {row.performance}
                   </span>
-                  <span className="flex-1 text-right text-[13px] tabular-nums text-gray-300">{row.reps}</span>
+                  <span className="shrink-0 text-right text-[12px] text-gray-400">{row.action}</span>
                 </div>
               ))}
             </div>
+            <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
+              On machines, compare performance on the <em>same</em> machine — stack numbers differ between models.
+            </p>
             <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-3 py-2.5 text-[13px] leading-relaxed text-amber-300/90">
               <strong className="font-semibold">Bad sleep = don&rsquo;t force progression.</strong> If you slept five hours and the working
-              weight feels terrible, you have nothing to prove. Keep the load, hit good reps at roughly the intended RIR, and move on.
+              weight feels terrible, you have nothing to prove. Keep the load and the target RIR, hit good reps, and move on.
               Consistency over months beats one heroic workout.
             </p>
           </section>
@@ -1539,10 +1590,25 @@ export default function PersonalTrainingPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-[13px] leading-relaxed text-gray-500">
-              <strong className="font-medium text-gray-300">Friday and Saturday run back to back.</strong> Keep both productive
-              without stacking fatigue: if recovery or performance deteriorates, drop the 2 sets of One-Arm Dumbbell Row first,
-              then reduce Saturday volume in consultation with your trainer. Extend rest periods before you cut load.
+          </section>
+
+          {/* Fatigue management */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Fatigue Management</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              Friday and Saturday run back to back, so what gets cut matters more than what gets added.
+            </p>
+            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+              {fatigueRules.map(({ when, then }) => (
+                <div key={when} className="border-b border-gray-800/60 px-4 py-2.5 last:border-0">
+                  <div className="text-[12px] font-medium text-gray-300">{when}</div>
+                  <p className="mt-0.5 text-[13px] leading-relaxed text-gray-500">{then}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
+              Don&rsquo;t add sets just to make a session feel harder. Add volume only when recovery is good <em>and</em> the target
+              muscle has stopped progressing.
             </p>
           </section>
 
@@ -1554,27 +1620,35 @@ export default function PersonalTrainingPage() {
               while performance keeps progressing, there is no reason to add sets.
             </p>
             <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-              {weeklyVolume.map(({ muscle, range, bar, hero }) => (
+              {weeklyVolume.map(({ muscle, range, freq, bar, hero }) => (
                 <div
                   key={muscle}
-                  className={`flex items-center gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.05]" : ""}`}
+                  className={`border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.05]" : ""}`}
                 >
-                  <span className={`w-24 shrink-0 text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
-                    {muscle}
-                  </span>
-                  <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className={`text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
+                      {muscle}
+                    </span>
+                    <span className="shrink-0 text-right text-[12px] tabular-nums text-gray-300">
+                      {range} <span className="text-gray-600">· {freq}</span>
+                    </span>
+                  </div>
+                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-gray-800">
                     <div
                       className={`h-full rounded-full ${hero ? "bg-emerald-500" : "bg-gray-600"}`}
-                      style={{ width: `${(bar / 12) * 100}%` }}
+                      style={{ width: `${(bar / 13) * 100}%` }}
                     />
                   </div>
-                  <span className="w-24 shrink-0 text-right text-[12px] tabular-nums text-gray-300">{range}</span>
                 </div>
               ))}
             </div>
             <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
-              Front delts get substantial indirect work from incline and overhead pressing, so the real shoulder stimulus is larger than
-              the direct lateral and rear-delt numbers suggest.
+              Direct working sets only. Compounds also stimulate secondary muscles, but indirect work is not equivalent to a full direct set.
+            </p>
+            <p className="mt-2 text-[12px] leading-relaxed text-gray-500">
+              <strong className="font-medium text-gray-300">Worth knowing:</strong> chest, back and shoulders get multiple weekly exposures,
+              but quads, hamstrings and arms do not each get two dedicated sessions — they lean on indirect work from the compounds. If strict
+              twice-weekly direct training for every muscle becomes the requirement, the week needs redistributing again.
             </p>
           </section>
 
@@ -1621,9 +1695,27 @@ export default function PersonalTrainingPage() {
               ))}
             </div>
             <div className="mt-3 space-y-1.5 text-[12px] leading-relaxed text-gray-600">
-              <p>Losing under ~0.5 kg/week for two weeks running → drop 150–200 kcal/day.</p>
+              <p>Weigh in under the same conditions each morning and work from the 7-day average.</p>
+              <p>Average weight flat for two weeks running → check tracking accuracy first, then consider dropping 150–200 kcal/day.</p>
               <p>Losing over ~1 kg/week with strength or recovery sliding → add 150–250 kcal/day.</p>
-              <p>Track waist circumference, 7-day average weight and gym performance alongside body-composition scans.</p>
+              <p>Keep protein consistent; avoid aggressive cuts that undermine training performance.</p>
+              <p>Read waist circumference, progress photos, average weight and gym performance together — consumer body-fat devices vary substantially.</p>
+            </div>
+          </section>
+
+          {/* Weekly review */}
+          <section>
+            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Weekly Review</h2>
+            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              Record these every week. Review the trend every two weeks before changing calories, cardio or volume — not sooner.
+            </p>
+            <div className="space-y-2">
+              {weeklyReview.map((item, i) => (
+                <div key={item} className="flex items-baseline gap-3">
+                  <span className="w-4 shrink-0 text-[12px] tabular-nums text-gray-600">{i + 1}</span>
+                  <span className="text-[13px] text-gray-400">{item}</span>
+                </div>
+              ))}
             </div>
           </section>
 
