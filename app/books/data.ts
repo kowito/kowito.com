@@ -5,7 +5,7 @@ export type Shelf =
   | "Money & Markets"
   | "History & Fiction";
 
-export type Store = "Naiin" | "Chulabook" | "WeLearn" | "Amarin Books";
+export type Store = "Naiin" | "Chulabook" | "WeLearn" | "Amarin Books" | "Butterfly" | "Goodreads";
 
 export interface Book {
   id: number;
@@ -31,7 +31,7 @@ export const books: Book[] = [
     genre: "Self-Improvement / Psychology",
     shelf: "Life & Mind",
     link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/105286" },
-    cover: "/covers/01.jpg",
+    cover: "/covers/atomic-habits.jpg",
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ export const books: Book[] = [
     genre: "Economics",
     shelf: "Economics & Behavior",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/186835" },
-    cover: "/covers/02.jpg",
+    cover: "/covers/economics-101.jpg",
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ export const books: Book[] = [
       store: "WeLearn",
       url: "https://www.welearnbook.com/product/31493-25136/%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B9%80%E0%B8%AA%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%87%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B3%E0%B8%98%E0%B8%B8%E0%B8%A3%E0%B8%81%E0%B8%B4%E0%B8%88-the-hard-thing-about-hard-things",
     },
-    cover: "/covers/03.jpg",
+    cover: "/covers/hard-thing-about-hard-things.jpg",
   },
   {
     id: 4,
@@ -64,7 +64,7 @@ export const books: Book[] = [
     genre: "Business Management / Leadership",
     shelf: "Business & Work",
     link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/160114" },
-    cover: "/covers/04.jpg",
+    cover: "/covers/start-with-why.jpg",
   },
   {
     id: 5,
@@ -74,7 +74,7 @@ export const books: Book[] = [
     genre: "History / Anthropology",
     shelf: "History & Fiction",
     link: { store: "Chulabook", url: "https://www.chulabook.com/history-religion-culture-politics-government/147171" },
-    cover: "/covers/05.jpg",
+    cover: "/covers/sapiens.jpg",
   },
   {
     id: 6,
@@ -84,7 +84,7 @@ export const books: Book[] = [
     genre: "Psychology / Self-Improvement",
     shelf: "Life & Mind",
     link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/146542" },
-    cover: "/covers/06.jpg",
+    cover: "/covers/think-again.jpg",
   },
   {
     id: 7,
@@ -97,7 +97,7 @@ export const books: Book[] = [
       store: "Amarin Books",
       url: "https://amarinbooks.com/product/%e0%b8%a8%e0%b8%b4%e0%b8%a5%e0%b8%9b%e0%b8%b0%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%ad%e0%b8%a2%e0%b8%b9%e0%b9%88%e0%b8%a3%e0%b9%88%e0%b8%a7%e0%b8%a1%e0%b8%81%e0%b8%b1%e0%b8%9a%e0%b8%84%e0%b8%99%e0%b9%80/",
     },
-    cover: "/covers/07.jpg",
+    cover: "/covers/asshole-survival-guide.jpg",
   },
   {
     id: 8,
@@ -110,7 +110,7 @@ export const books: Book[] = [
       store: "WeLearn",
       url: "https://www.welearnbook.com/product/27782-21719/%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%AA%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%88%E0%B8%B9%E0%B8%87%E0%B9%83%E0%B8%88%E0%B8%84%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%83%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%84%E0%B8%B4%E0%B8%94-drive",
     },
-    cover: "/covers/08.jpg",
+    cover: "/covers/drive.jpg",
   },
   {
     id: 9,
@@ -120,7 +120,7 @@ export const books: Book[] = [
     genre: "Personal Finance / Investing",
     shelf: "Money & Markets",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/147976" },
-    cover: "/covers/09.jpg",
+    cover: "/covers/psychology-of-money.jpg",
   },
   {
     id: 10,
@@ -130,7 +130,7 @@ export const books: Book[] = [
     genre: "Business / Tech Strategy",
     shelf: "Business & Work",
     link: { store: "Naiin", url: "https://www.naiin.com/product/detail/239073" },
-    cover: "/covers/10.jpg",
+    cover: "/covers/the-four.jpg",
   },
   {
     id: 11,
@@ -140,7 +140,7 @@ export const books: Book[] = [
     genre: "Business / Entrepreneurship",
     shelf: "Business & Work",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/14912" },
-    cover: "/covers/11.jpg",
+    cover: "/covers/rework.jpg",
   },
   {
     id: 12,
@@ -149,7 +149,9 @@ export const books: Book[] = [
     author: "Richard H. Thaler & Cass R. Sunstein",
     genre: "Behavioral Economics",
     shelf: "Economics & Behavior",
-    link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/14957" },
+    // Original WeLearn edition (orange cover); it's out of print, so no store carries it.
+    link: { store: "Goodreads", url: "https://www.goodreads.com/book/show/31939911" },
+    cover: "/covers/nudge.jpg",
   },
   {
     id: 13,
@@ -159,7 +161,7 @@ export const books: Book[] = [
     genre: "Business / Customer Service",
     shelf: "Business & Work",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/159256" },
-    cover: "/covers/13.jpg",
+    cover: "/covers/delivering-happiness.jpg",
   },
   {
     id: 14,
@@ -169,7 +171,7 @@ export const books: Book[] = [
     genre: "Marketing / Business",
     shelf: "Business & Work",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/10824" },
-    cover: "/covers/14.jpg",
+    cover: "/covers/this-is-marketing.jpg",
   },
   {
     id: 15,
@@ -179,7 +181,7 @@ export const books: Book[] = [
     genre: "Psychology / Self-Improvement",
     shelf: "Life & Mind",
     link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/105215" },
-    cover: "/covers/15.jpg",
+    cover: "/covers/subtle-art.jpg",
   },
   {
     // Unverified: no store or publisher lists this title or author.
@@ -196,7 +198,7 @@ export const books: Book[] = [
     genre: "Stock Technical Analysis",
     shelf: "Money & Markets",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/110913" },
-    cover: "/covers/17.jpg",
+    cover: "/covers/daddy-trader-3-tools.jpg",
   },
   {
     id: 18,
@@ -205,7 +207,7 @@ export const books: Book[] = [
     genre: "Stock Technical Analysis",
     shelf: "Money & Markets",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/73185" },
-    cover: "/covers/18.jpg",
+    cover: "/covers/daddy-trader-3-indicators.jpg",
   },
   {
     id: 19,
@@ -218,7 +220,7 @@ export const books: Book[] = [
       store: "WeLearn",
       url: "https://www.welearnbook.com/product/44933-40461/%E0%B9%80%E0%B8%A8%E0%B8%A3%E0%B8%A9%E0%B8%90%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%9E%E0%B8%A4%E0%B8%95%E0%B8%B4%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B9%88%E0%B8%A7%E0%B8%A2%E0%B8%8A%E0%B8%B5%E0%B8%A7%E0%B8%B4%E0%B8%95%E0%B8%89%E0%B8%B1%E0%B8%99%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%9B%E0%B9%89%E0%B8%B2%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99-irrationally-yours",
     },
-    cover: "/covers/19.jpg",
+    cover: "/covers/irrationally-yours.jpg",
   },
   {
     id: 20,
@@ -231,38 +233,48 @@ export const books: Book[] = [
       store: "WeLearn",
       url: "https://www.welearnbook.com/product/44661-40142/%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B9%80%E0%B8%AD%E0%B8%B2%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B8%AD%E0%B8%94%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B9%8C%E0%B8%89%E0%B8%B4%E0%B8%9A%E0%B8%AB%E0%B8%B2%E0%B8%A2%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B8%94-the-worst-case-scenario-survival-handbook-",
     },
-    cover: "/covers/20.jpg",
+    cover: "/covers/worst-case-scenario.jpg",
   },
   {
-    // Unverified: no such boxed set turned up; only คำพิพากษา (Chart Korbjitti) is a confirmed book.
     id: 21,
-    title: "ชุดวรรณกรรมยอดเยี่ยม (ชาลี • กองทัพกวาง • คำพิพากษา)",
-    author: "Chalee / Wanich / Chart Korbjitti",
+    title: "ซอยเดียวกัน",
+    author: "Wanich Charungkij-anant",
+    genre: "Thai Literature / Short Stories",
+    shelf: "History & Fiction",
+    link: { store: "Chulabook", url: "https://www.chulabook.com/literature/64786" },
+    cover: "/covers/soi-diaw-kan.jpg",
+  },
+  {
+    id: 22,
+    title: "คำพิพากษา",
+    author: "Chart Korbjitti",
     genre: "Thai Classic Literature",
     shelf: "History & Fiction",
-  },
-  {
-    // Several Thai translations exist; this listing matches the table's title, not necessarily the copy on the shelf.
-    id: 22,
-    title: "Animal Farm",
-    thaiTitle: "แอนิมอล ฟาร์ม",
-    author: "George Orwell",
-    genre: "Political Satire / Fiction",
-    shelf: "History & Fiction",
-    link: { store: "Naiin", url: "https://www.naiin.com/product/detail/214819" },
+    link: { store: "Chulabook", url: "https://www.chulabook.com/literature/226300" },
+    cover: "/covers/kham-phiphaksa.jpg",
   },
   {
     id: 23,
+    title: "Animal Farm",
+    thaiTitle: "แอนิมอล ฟาร์ม การเมืองเรื่องสรรพสัตว์",
+    author: "George Orwell",
+    genre: "Political Satire / Fiction",
+    shelf: "History & Fiction",
+    link: { store: "Chulabook", url: "https://www.chulabook.com/literature/18313" },
+    cover: "/covers/animal-farm.jpg",
+  },
+  {
+    id: 24,
     title: "Predictably Irrational",
     thaiTitle: "พฤติกรรมพยากรณ์",
     author: "Dan Ariely",
     genre: "Behavioral Economics",
     shelf: "Economics & Behavior",
     link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/171032" },
-    cover: "/covers/23.jpg",
+    cover: "/covers/predictably-irrational.jpg",
   },
   {
-    id: 24,
+    id: 25,
     title: "Remote: Office Not Required",
     thaiTitle: "สร้างธุรกิจให้ได้ดี ไม่ต้องมีออฟฟิศ",
     author: "Jason Fried & David Heinemeier Hansson",
@@ -272,63 +284,76 @@ export const books: Book[] = [
       store: "WeLearn",
       url: "https://www.welearnbook.com/product/17698-14587/%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%98%E0%B8%B8%E0%B8%A3%E0%B8%81%E0%B8%B4%E0%B8%88%E0%B9%83%E0%B8%AB%E0%B9%89%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%94%E0%B8%B5%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A1%E0%B8%B5%E0%B8%AD%E0%B8%AD%E0%B8%9F%E0%B8%9F%E0%B8%B4%E0%B8%A8-remote",
     },
-    cover: "/covers/24.jpg",
+    cover: "/covers/remote.jpg",
   },
   {
-    id: 25,
+    id: 26,
     title: "Four Thousand Weeks: Time Management for Mortals",
     thaiTitle: "ชีวิตเรามีแค่สี่พันสัปดาห์",
     author: "Oliver Burkeman",
     genre: "Time Management / Self-Improvement",
     shelf: "Life & Mind",
     link: { store: "Chulabook", url: "https://www.chulabook.com/en/psychology-development/166687" },
-    cover: "/covers/25.jpg",
-  },
-  {
-    // Unverified: no store or publisher lists this title or author.
-    id: 26,
-    title: "ความสำเร็จรอยกเว้นคนขี้เกียจ (เศรษฐศาสตร์พฤติกรรมฉบับใช้งาน)",
-    author: "Kazuhisa Chintani",
-    genre: "Behavioral Economics",
-    shelf: "Economics & Behavior",
+    cover: "/covers/four-thousand-weeks.jpg",
   },
   {
     id: 27,
+    title: "สำเร็จได้สไตล์คนขี้เกียจ",
+    author: "Naoyuki Honda",
+    genre: "Productivity / Self-Improvement",
+    shelf: "Life & Mind",
+    link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/178791" },
+    cover: "/covers/success-the-lazy-way.jpg",
+  },
+  {
+    id: 28,
+    title: "เศรษฐศาสตร์พฤติกรรมฉบับย่อยง่าย",
+    author: "Akira Ikegami",
+    genre: "Behavioral Economics",
+    shelf: "Economics & Behavior",
+    link: { store: "Chulabook", url: "https://www.chulabook.com/psychology-development/225340" },
+    cover: "/covers/behavioral-economics-made-easy.jpg",
+  },
+  {
+    id: 29,
     title: "Company of One",
     thaiTitle: "บริษัทตัวคนเดียว",
     author: "Paul Jarvis",
     genre: "Business / Entrepreneurship",
     shelf: "Business & Work",
     link: { store: "Naiin", url: "https://www.naiin.com/product/detail/600065" },
-    cover: "/covers/27.jpg",
+    cover: "/covers/company-of-one.jpg",
   },
   {
-    id: 28,
+    id: 30,
     title: "Principles: Life and Work",
     author: "Ray Dalio",
     genre: "Business Management / Investing",
     shelf: "Business & Work",
     link: { store: "Chulabook", url: "https://www.chulabook.com/business-economics/24930" },
-    cover: "/covers/28.jpg",
+    cover: "/covers/principles.jpg",
   },
   {
-    id: 29,
+    id: 31,
     title: "Pour la plus grande gloire de Dieu",
     thaiTitle: "รุกสยาม ในพระนามของพระเจ้า",
     author: "Morgan Sportès",
     genre: "History / Historical Fiction",
     shelf: "History & Fiction",
     link: { store: "Chulabook", url: "https://www.chulabook.com/literature/224784" },
-    cover: "/covers/29.jpg",
+    cover: "/covers/pour-la-plus-grande-gloire-de-dieu.jpg",
   },
   {
-    // Part 1 of the Butterfly (ผีเสื้อ) translation; Part 2 is a separate volume.
-    id: 30,
-    title: "Don Quixote de la Mancha",
-    thaiTitle: "ดอนกิโฆเต้ แห่งลามันซ่า",
+    id: 32,
+    title: "Don Quixote, Part Two",
+    thaiTitle: "ภาคสอง ของ อัศวินนักฝัน ดอนกิโฆเต้ แห่งลามันช่า",
     author: "Miguel de Cervantes Saavedra",
     genre: "Classic Literature",
     shelf: "History & Fiction",
-    link: { store: "Naiin", url: "https://www.naiin.com/product/detail/65304" },
+    link: {
+      store: "Butterfly",
+      url: "https://www.bflybook.com/product/%e0%b8%a0%e0%b8%b2%e0%b8%84%e0%b8%aa%e0%b8%ad%e0%b8%87-%e0%b8%ad%e0%b8%b1%e0%b8%a8%e0%b8%a7%e0%b8%b4%e0%b8%99%e0%b8%99%e0%b8%b1%e0%b8%81%e0%b8%9d%e0%b8%b1%e0%b8%99-%e0%b8%94%e0%b8%ad%e0%b8%99/",
+    },
+    cover: "/covers/don-quixote-part-2.jpg",
   },
 ];
