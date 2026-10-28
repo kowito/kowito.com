@@ -1,8 +1,13 @@
 import Link from "next/link"
 import { readdirSync } from "fs"
 import { join } from "path"
+import { INK, PageTitle, Panel, Sticker, buttonClass, display, halftone } from "@/components/comic"
 
 const CONTENT_DIR = join(process.cwd(), "app/anutta/content")
+
+/** Bangers has no Thai glyphs, so anything with Thai in it is set in the bold body font instead. */
+const THAI = /[฀-๿]/
+const titleFont = (text: string) => (THAI.test(text) ? "font-sans font-bold text-lg leading-snug" : `${display} text-2xl leading-none`)
 
 function slugToTitle(slug: string) {
   return slug
@@ -31,6 +36,8 @@ const staticSections = [
   },
 ]
 
+const typeInk: Record<string, string> = { post: INK.cyan, page: INK.green }
+
 export default function AnuttaPage() {
   const contentSlugs = getContentSlugs()
 
@@ -44,42 +51,41 @@ export default function AnuttaPage() {
   const allSections = [...staticSections, ...contentSections]
 
   return (
-    <main className="min-h-[100dvh] bg-[#FAF8F5] px-6 py-10 md:px-10">
+    <main className="min-h-[100dvh] overflow-x-clip px-4 py-10 md:px-10 md:py-16">
       <div className="mx-auto w-full max-w-4xl">
-        <h1 className="font-display text-3xl font-bold text-[#1E1A17] md:text-5xl">Anutta</h1>
-        <p className="mt-3 text-base text-[#6B5F55] md:text-lg">A personal blog by Anutta Parse Code on travel, tech, and smart lifestyle stories.</p>
+        <PageTitle kicker="Travel · Tech · Smart lifestyle" title="Anutta">
+          <p className="max-w-xl text-base font-bold leading-relaxed md:text-lg">
+            A personal blog by Anutta Parse Code on travel, tech, and smart lifestyle stories.
+          </p>
+        </PageTitle>
 
-        <div className="mt-8 overflow-hidden rounded-2xl border border-[#E8E2DA] bg-white shadow-sm">
+        <Panel className="mt-10 animate-in fade-in zoom-in-95 fill-mode-both delay-150 duration-500 [animation-timing-function:cubic-bezier(.2,.9,.3,1.4)] motion-reduce:animate-none">
           <table className="w-full table-auto text-left">
-            <thead className="bg-[#F7F2EC]">
+            <thead className="border-b-[3px] border-black" style={{ backgroundColor: INK.yellow, ...halftone("rgba(0,0,0,0.12)", 6) }}>
               <tr>
-                <th className="px-5 py-4 text-sm font-semibold text-[#6B5F55]">Title</th>
-                <th className="px-5 py-4 text-sm font-semibold text-[#6B5F55] hidden sm:table-cell">Type</th>
-                <th className="px-5 py-4 text-sm font-semibold text-[#6B5F55]">Link</th>
+                <th className={`px-4 py-3 ${display} text-xl font-normal md:px-5`}>Title</th>
+                <th className={`hidden px-4 py-3 ${display} text-xl font-normal sm:table-cell md:px-5`}>Type</th>
+                <th className={`px-4 py-3 ${display} text-xl font-normal md:px-5`}>Link</th>
               </tr>
             </thead>
             <tbody>
-              {allSections.map((section) => (
-                <tr key={section.href} className="border-t border-[#EFEAE3] hover:bg-[#FDFBF8] transition-colors">
-                  <td className="px-5 py-4 font-medium text-[#1E1A17]">
-                    <Link href={section.href} className="hover:text-[#D4715A] transition-colors">
+              {allSections.map((section, i) => (
+                <tr key={section.href} className="border-t-2 border-black transition-colors hover:bg-[#FFF4DC] motion-reduce:transition-none">
+                  <td className="px-4 py-4 md:px-5">
+                    <Link
+                      href={section.href}
+                      className={`${titleFont(section.title)} underline decoration-transparent decoration-[3px] underline-offset-4 transition-colors hover:decoration-[#A855F7]`}
+                    >
                       {section.title}
                     </Link>
                   </td>
-                  <td className="px-5 py-4 hidden sm:table-cell">
-                    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                      section.type === "post"
-                        ? "bg-[#F0F8F9] text-[#2A7A87] border border-[#B8DDE3]"
-                        : "bg-[#F2F3FC] text-[#4A57B0] border border-[#C5CAF0]"
-                    }`}>
+                  <td className="hidden px-4 py-4 sm:table-cell md:px-5">
+                    <Sticker color={typeInk[section.type]} className={`px-2.5 text-xs uppercase tracking-wider ${i % 2 ? "rotate-2" : "-rotate-2"}`}>
                       {section.type}
-                    </span>
+                    </Sticker>
                   </td>
-                  <td className="px-5 py-4">
-                    <Link
-                      href={section.href}
-                      className="inline-flex rounded-full border border-[#D7B882] bg-[#FFF4DF] px-3 py-1 text-sm font-semibold text-[#7A5A1E] hover:bg-[#FEECC9] transition-colors"
-                    >
+                  <td className="px-4 py-4 md:px-5">
+                    <Link href={section.href} className={buttonClass("sm", "whitespace-nowrap bg-[#FFD400]")}>
                       Open →
                     </Link>
                   </td>
@@ -87,7 +93,7 @@ export default function AnuttaPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </Panel>
       </div>
     </main>
   )
