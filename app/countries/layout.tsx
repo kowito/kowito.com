@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Countries — Kowito",
-  description: "30 countries I want to visit. Each one is a story waiting to be lived.",
+  title: "Countries",
+  description: "A spinning globe of the countries I've visited and the ones still on the list, with every route from Bangkok.",
+  alternates: {
+    canonical: "/countries",
+  },
 };
 
 export default function CountriesLayout({
