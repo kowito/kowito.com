@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { SiteFooter } from "@/components/site-footer"
 import type { ElementType } from "react"
 import {
   ArrowLeft,
@@ -115,7 +116,7 @@ const statusLabel: Record<Product["status"], { label: string; cls: string }> = {
 
 export default function OpenSourcePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-1/4 right-0 h-[700px] w-[700px] rounded-full bg-gradient-to-b from-violet-900/20 to-indigo-900/20 blur-3xl translate-x-1/3 opacity-50" />
         <div className="absolute bottom-0 left-0 h-[600px] w-[600px] rounded-full bg-gradient-to-t from-cyan-900/20 to-emerald-900/20 blur-3xl -translate-x-1/3 translate-y-1/3 opacity-40" />
@@ -131,7 +132,7 @@ export default function OpenSourcePage() {
         </Link>
       </header>
 
-      <main className="container mx-auto max-w-4xl px-4 pb-24">
+      <main className="container mx-auto flex-1 max-w-4xl px-4 pb-24">
 
         {/* ── Page header ── */}
         <div className="mb-14 space-y-4">
@@ -238,6 +239,8 @@ export default function OpenSourcePage() {
           })}
         </div>
       </main>
+
+      <SiteFooter className="max-w-4xl px-4" />
     </div>
   )
 }

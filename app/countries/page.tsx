@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { SiteFooter } from "@/components/site-footer";
 import dynamic from "next/dynamic";
 import { ArrowLeft, Globe, MapPin, CheckCircle2 } from "lucide-react";
 import { countries, type Country } from "./data";
@@ -22,7 +23,7 @@ export default function CountriesPage() {
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
       {/* Ambient blobs */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-1/4 right-0 h-[700px] w-[700px] rounded-full bg-gradient-to-b from-blue-900/20 to-cyan-900/20 blur-3xl translate-x-1/3 opacity-50" />
@@ -40,7 +41,7 @@ export default function CountriesPage() {
         </Link>
       </header>
 
-      <main className="container mx-auto max-w-5xl px-4 pb-12">
+      <main className="container mx-auto flex-1 max-w-5xl px-4 pb-12">
 
         {/* Page header */}
         <div className="mb-10 space-y-4">
@@ -135,6 +136,8 @@ export default function CountriesPage() {
         </div>
 
       </main>
+
+      <SiteFooter className="max-w-5xl px-4" />
     </div>
   );
 }

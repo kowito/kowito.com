@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { SiteFooter } from "@/components/site-footer"
 import { Home, RefreshCcw } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -14,8 +15,8 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100 antialiased">
-        <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col items-center justify-center px-6 text-center">
+      <body className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100 antialiased">
+        <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-24 text-center">
           <p className="text-sm uppercase tracking-[0.2em] text-red-300">500</p>
           <h1 className="mt-4 text-4xl font-light tracking-tight text-white md:text-5xl">
             Something went wrong
@@ -40,6 +41,8 @@ export default function GlobalError({
             </Button>
           </div>
         </main>
+
+        <SiteFooter />
       </body>
     </html>
   )

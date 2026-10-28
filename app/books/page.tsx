@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { SiteFooter } from "@/components/site-footer";
 import { ArrowLeft, BookOpen, ExternalLink, Library } from "lucide-react";
 import { books, type Book, type Shelf } from "./data";
 
@@ -157,7 +158,7 @@ function BookCard({ book }: { book: Book }) {
 
 export default function BooksPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
       {/* Ambient blobs */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-1/4 right-0 h-[700px] w-[700px] rounded-full bg-gradient-to-b from-rose-900/20 to-violet-900/20 blur-3xl translate-x-1/3 opacity-50" />
@@ -175,7 +176,7 @@ export default function BooksPage() {
         </Link>
       </header>
 
-      <main className="container mx-auto max-w-5xl px-4 pb-20">
+      <main className="container mx-auto flex-1 max-w-5xl px-4 pb-20">
 
         {/* Page header */}
         <div className="mb-10 space-y-4">
@@ -261,6 +262,8 @@ export default function BooksPage() {
         </div>
 
       </main>
+
+      <SiteFooter className="max-w-5xl px-4" />
     </div>
   );
 }

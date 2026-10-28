@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { SiteFooter } from "@/components/site-footer"
 import type { Metadata } from "next"
 import { Github, ArrowRight, Flame, Globe, Video, Coffee, Wrench, Coins, Boxes, Music4, PackageOpen } from "lucide-react"
 import type { ElementType } from "react"
@@ -305,44 +306,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="container mx-auto px-6 py-12 border-t border-gray-800">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400 font-light">
-          <p>&copy; {new Date().getFullYear()} Kowit C. All rights reserved.</p>
-          <nav className="flex gap-6">
-            <Link
-              href="https://github.com/kowito"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              GitHub
-            </Link>
-            <Link
-              href="https://twitter.com/kowito"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              Twitter
-            </Link>
-            <Link href="/personal-training" className="hover:text-white transition-colors">
-              Training
-            </Link>
-            <Link href="/diet" className="hover:text-white transition-colors">
-              Diet
-            </Link>
-            <Link href="/countries" className="hover:text-white transition-colors">
-              Countries
-            </Link>
-            <Link href="/books" className="hover:text-white transition-colors">
-              Books
-            </Link>
-            <Link href="/opensource" className="hover:text-white transition-colors">
-              Open Source
-            </Link>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

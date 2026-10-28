@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { SiteFooter } from "@/components/site-footer"
 import { ArrowLeft, Utensils, Dumbbell, Zap, Leaf, Flame, AlertTriangle, Info } from "lucide-react"
 import type { ReactNode } from "react"
 
@@ -405,7 +406,7 @@ function TipCard({ tip }: { tip: ProTipItem }) {
 
 export default function DietPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-1/4 left-0 h-[650px] w-[650px] rounded-full bg-gradient-to-b from-emerald-900/20 to-teal-900/20 blur-3xl -translate-x-1/3 opacity-50" />
         <div className="absolute bottom-0 right-0 h-[650px] w-[650px] rounded-full bg-gradient-to-t from-amber-900/20 to-orange-900/20 blur-3xl translate-x-1/3 translate-y-1/3 opacity-40" />
@@ -433,7 +434,7 @@ export default function DietPage() {
         </div>
       </header>
 
-      <main className="container mx-auto max-w-6xl px-4 pb-20">
+      <main className="container mx-auto flex-1 max-w-6xl px-4 pb-20">
         {/* Page heading */}
         <div className="mb-8 space-y-3">
           <div className="flex items-center gap-3">
@@ -567,6 +568,8 @@ export default function DietPage() {
 
         </div>
       </main>
+
+      <SiteFooter className="max-w-6xl px-4" />
     </div>
   )
 }

@@ -2,6 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
+import { SiteFooter } from "@/components/site-footer"
 import Image from "next/image"
 import { ArrowLeft, Dumbbell, Utensils, Play, Target, ChevronRight, Heart, Moon, AlertTriangle } from "lucide-react"
 
@@ -1434,7 +1435,7 @@ export default function PersonalTrainingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
+    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-100">
       <header className="container mx-auto flex max-w-2xl items-center justify-between px-4 pb-4 pt-6">
         <Link href="/" className="text-sm text-gray-500 transition-colors hover:text-white">
           Kowit C.
@@ -1451,7 +1452,7 @@ export default function PersonalTrainingPage() {
         </div>
       </header>
 
-      <main className="container mx-auto max-w-2xl space-y-10 px-4 pb-24">
+      <main className="container mx-auto flex-1 max-w-2xl space-y-10 px-4 pb-24">
 
         {/* Heading */}
         <div className="pt-2">
@@ -1760,6 +1761,8 @@ export default function PersonalTrainingPage() {
         </p>
 
       </main>
+
+      <SiteFooter className="max-w-2xl px-4" />
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { SiteFooter } from "@/components/site-footer"
 import { ArrowLeft, Music4, Github, ExternalLink, FileCode2 } from "lucide-react"
 
 const highlights = [
@@ -21,7 +22,7 @@ const contributionFlow = [
 
 export default function ChopinPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-1/4 right-0 h-[650px] w-[650px] rounded-full bg-gradient-to-b from-violet-900/20 to-indigo-900/20 blur-3xl translate-x-1/3 opacity-50" />
         <div className="absolute bottom-0 left-0 h-[650px] w-[650px] rounded-full bg-gradient-to-t from-emerald-900/20 to-cyan-900/20 blur-3xl -translate-x-1/3 translate-y-1/3 opacity-40" />
@@ -40,7 +41,7 @@ export default function ChopinPage() {
         </Link>
       </header>
 
-      <main className="container mx-auto max-w-5xl px-4 pb-20">
+      <main className="container mx-auto flex-1 max-w-5xl px-4 pb-20">
         <section className="rounded-3xl border border-gray-800 bg-black/30 overflow-hidden mb-6">
           <div className="h-[2px] bg-gradient-to-r from-violet-500 to-indigo-500" />
           <div className="p-6 md:p-8 space-y-4">
@@ -114,6 +115,8 @@ export default function ChopinPage() {
           </div>
         </section>
       </main>
+
+      <SiteFooter className="max-w-5xl px-4" />
     </div>
   )
 }
