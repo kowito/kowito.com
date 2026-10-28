@@ -184,12 +184,16 @@ export const books: Book[] = [
     cover: "/covers/subtle-art.jpg",
   },
   {
-    // Unverified: no store or publisher lists this title or author.
     id: 16,
-    title: "51 วิธีคิดของคนที่ทำอะไรก็สำเร็จไว",
-    author: "Shivasaki Yukio",
-    genre: "Productivity / Self-Improvement",
-    shelf: "Life & Mind",
+    title: "51 วิธีคิดของหัวหน้าที่ลูกน้องอยากทำงานด้วย",
+    author: "Matsuo Iwata",
+    genre: "Leadership / Management",
+    shelf: "Business & Work",
+    link: {
+      store: "WeLearn",
+      url: "https://www.welearnbook.com/product/17746-14634/51-%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%84%E0%B8%B4%E0%B8%94%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%B1%E0%B8%A7%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%AD%E0%B8%A2%E0%B8%B2%E0%B8%81%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2-%E3%81%A4%E3%81%84%E3%81%A6%E3%81%84%E3%81%8D%E3%81%9F%E3%81%84%E3%81%A8%E6%80%9D%E3%82%8F%E3%82%8C%E3%82%8B%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC%E3%81%AB%E3%81%AA%E3%82%8B51%E3%81%AE%E8%80%83%E3%81%88%E6%96%B9",
+    },
+    cover: "/covers/51-leader-mindsets.jpg",
   },
   {
     id: 17,
@@ -298,6 +302,18 @@ export const books: Book[] = [
   },
   {
     id: 27,
+    title: "ความสำเร็จเกิดจากนิสัยเล็กๆ ที่คุณไม่เลิกทำ",
+    author: "Daisuke Toda",
+    genre: "Habits / Self-Improvement",
+    shelf: "Life & Mind",
+    link: {
+      store: "Amarin Books",
+      url: "https://amarinbooks.com/product/%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B3%E0%B9%80%E0%B8%A3%E0%B9%87%E0%B8%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%94%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%99%E0%B8%B4%E0%B8%AA%E0%B8%B1%E0%B8%A2/",
+    },
+    cover: "/covers/small-habits-you-keep.jpg",
+  },
+  {
+    id: 28,
     title: "สำเร็จได้สไตล์คนขี้เกียจ",
     author: "Naoyuki Honda",
     genre: "Productivity / Self-Improvement",
@@ -306,7 +322,7 @@ export const books: Book[] = [
     cover: "/covers/success-the-lazy-way.jpg",
   },
   {
-    id: 28,
+    id: 29,
     title: "เศรษฐศาสตร์พฤติกรรมฉบับย่อยง่าย",
     author: "Akira Ikegami",
     genre: "Behavioral Economics",
@@ -315,7 +331,7 @@ export const books: Book[] = [
     cover: "/covers/behavioral-economics-made-easy.jpg",
   },
   {
-    id: 29,
+    id: 30,
     title: "Company of One",
     thaiTitle: "บริษัทตัวคนเดียว",
     author: "Paul Jarvis",
@@ -325,7 +341,7 @@ export const books: Book[] = [
     cover: "/covers/company-of-one.jpg",
   },
   {
-    id: 30,
+    id: 31,
     title: "Principles: Life and Work",
     author: "Ray Dalio",
     genre: "Business Management / Investing",
@@ -334,7 +350,7 @@ export const books: Book[] = [
     cover: "/covers/principles.jpg",
   },
   {
-    id: 31,
+    id: 32,
     title: "Pour la plus grande gloire de Dieu",
     thaiTitle: "รุกสยาม ในพระนามของพระเจ้า",
     author: "Morgan Sportès",
@@ -344,7 +360,7 @@ export const books: Book[] = [
     cover: "/covers/pour-la-plus-grande-gloire-de-dieu.jpg",
   },
   {
-    id: 32,
+    id: 33,
     title: "Don Quixote, Part Two",
     thaiTitle: "ภาคสอง ของ อัศวินนักฝัน ดอนกิโฆเต้ แห่งลามันช่า",
     author: "Miguel de Cervantes Saavedra",
