@@ -1,7 +1,39 @@
-import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
-import { ArrowLeft, Utensils, Dumbbell, Zap, Leaf, Flame, AlertTriangle, Info } from "lucide-react"
-import type { ReactNode } from "react"
+import {
+  AlertTriangle,
+  Check,
+  Dumbbell,
+  Flame,
+  Info,
+  Leaf,
+  Moon,
+  Pizza,
+  Scale,
+  Sun,
+  Sunrise,
+  Utensils,
+  Zap,
+  type LucideIcon,
+} from "lucide-react"
+import type { CSSProperties, ReactNode } from "react"
+import {
+  Burst,
+  Caption,
+  INK,
+  PageTitle,
+  Panel,
+  SectionTitle,
+  SiteHeader,
+  Sticker,
+  display,
+  halftone,
+  hardShadow,
+  ink,
+  lettering,
+  smallShadow,
+  tilts,
+} from "@/components/comic"
+import { Reveal } from "@/components/comic-motion"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -215,14 +247,14 @@ const proTips: ProTipItem[] = [
   },
 ]
 
-const weekStrip = [
-  { label: "Mon", tag: "Clean", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Tue", tag: "Clean", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Wed", tag: "Clean", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Thu", tag: "Clean", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Fri", tag: "Clean", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Sat", tag: "Flex", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
-  { label: "Sun", tag: "Cheat", style: "bg-rose-500/15 text-rose-300 border-rose-500/30" },
+const weekStrip: { label: string; tag: string; type: DayType }[] = [
+  { label: "Mon", tag: "Clean", type: "regular" },
+  { label: "Tue", tag: "Clean", type: "regular" },
+  { label: "Wed", tag: "Clean", type: "regular" },
+  { label: "Thu", tag: "Clean", type: "regular" },
+  { label: "Fri", tag: "Clean", type: "regular" },
+  { label: "Sat", tag: "Flex", type: "flex" },
+  { label: "Sun", tag: "Cheat", type: "cheat" },
 ]
 
 const goalPoints = [
@@ -233,167 +265,230 @@ const goalPoints = [
   "7-Eleven is always a fallback",
 ]
 
+// ─── Comic looks ─────────────────────────────────────────────────────────────
+
+/**
+ * Clean, flex and cheat days differ in ink, print pattern and icon as well as colour:
+ * clean is flat green, flex is yellow with Ben-Day dots, cheat is red with hatching.
+ */
+const dayLook: Record<DayType, { label: string; icon: LucideIcon; light: boolean; paint: CSSProperties }> = {
+  regular: { label: "Clean Day", icon: Leaf, light: false, paint: { backgroundColor: INK.green } },
+  flex: {
+    label: "Flexible Day",
+    icon: Scale,
+    light: false,
+    paint: { backgroundColor: INK.yellow, ...halftone("rgba(0,0,0,0.22)", 6) },
+  },
+  cheat: {
+    label: "Cheat Day",
+    icon: Pizza,
+    light: true,
+    paint: {
+      backgroundColor: INK.red,
+      backgroundImage: "repeating-linear-gradient(-45deg, rgba(0,0,0,0.2) 0 3px, transparent 3px 10px)",
+    },
+  },
+}
+
+type MealTime = "Breakfast" | "Lunch" | "Dinner"
+
+const mealLook: Record<MealTime, { color: string; icon: LucideIcon; light?: boolean }> = {
+  Breakfast: { color: INK.cyan, icon: Sunrise },
+  Lunch: { color: INK.yellow, icon: Sun },
+  Dinner: { color: INK.purple, icon: Moon, light: true },
+}
+
+/** Pops in on page load, straight from CSS, so above-the-fold pieces never wait for JavaScript. */
+const popIn = "animate-in fade-in zoom-in-50 fill-mode-backwards duration-300 motion-reduce:animate-none"
+
 // ─── Components ──────────────────────────────────────────────────────────────
+
+function WeekDay({ label, tag, type, index }: { label: string; tag: string; type: DayType; index: number }) {
+  const look = dayLook[type]
+  const Icon = look.icon
+  return (
+    <div
+      className={`flex min-w-0 flex-col items-center gap-1 border-2 border-black px-0.5 py-2 shadow-[2px_2px_0_0_#000] sm:border-[3px] sm:py-3 sm:shadow-[3px_3px_0_0_#000] ${popIn} ${
+        tilts[index % tilts.length]
+      } ${look.light ? "text-white" : "text-black"}`}
+      style={{ ...look.paint, animationDelay: `${250 + index * 70}ms` }}
+    >
+      <Icon className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2.5} />
+      <span className={`${display} text-lg leading-none sm:text-2xl`} style={look.light ? lettering(1, 1.5) : undefined}>
+        {label}
+      </span>
+      <span className={`px-1 text-[10px] font-bold leading-tight sm:text-xs ${look.light ? "bg-black text-white" : ""}`}>{tag}</span>
+    </div>
+  )
+}
 
 function CatalogColumn({
   title,
   subtitle,
   items,
-  bar,
-  titleColor,
-  noteBadge,
+  color,
   unlimited = false,
   icon,
+  index,
 }: {
   title: string
   subtitle: string
   items: CatalogItem[]
-  bar: string
-  titleColor: string
-  noteBadge: string
+  color: string
   unlimited?: boolean
   icon: ReactNode
+  index: number
 }) {
   return (
-    <div className="rounded-2xl border border-gray-800 bg-gray-900/30 overflow-hidden">
-      <div className={`h-[2px] bg-gradient-to-r ${bar}`} />
-      <div className="p-5 space-y-3.5">
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex items-center gap-2.5">
-            <span className={titleColor}>{icon}</span>
-            <div>
-              <p className={`text-sm font-semibold ${titleColor}`}>{title}</p>
-              <p className="text-[11px] text-gray-500 mt-0.5">{subtitle}</p>
-            </div>
+    <div
+      className={`bg-white text-black ${ink} ${hardShadow} ${tilts[index % tilts.length]} ${popIn}`}
+      style={{ animationDelay: `${500 + index * 120}ms` }}
+    >
+      <div
+        className="flex items-start justify-between gap-2 border-b-[3px] border-black px-4 py-3"
+        style={{ backgroundColor: color, ...halftone("rgba(0,0,0,0.14)", 6) }}
+      >
+        <div className="flex items-center gap-2.5">
+          <span className={`grid h-10 w-10 shrink-0 place-items-center border-2 border-black bg-white ${smallShadow}`}>{icon}</span>
+          <div>
+            <p className={`${display} text-3xl leading-none`}>{title}</p>
+            <p className="mt-0.5 text-xs font-bold text-black/70">{subtitle}</p>
           </div>
-          {unlimited && (
-            <span className="shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-full border border-teal-500/30 bg-teal-500/10 text-teal-300">
-              Unlimited
-            </span>
-          )}
         </div>
-        <div className="space-y-1.5">
-          {items.map((item) => (
-            <div
-              key={item.name}
-              className="flex items-center justify-between gap-2 rounded-xl border border-gray-800/80 bg-gray-950/40 px-3 py-2.5"
-            >
-              <span className="text-sm text-gray-200 leading-snug">{item.name}</span>
-              {item.note && (
-                <span className={`shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-full border ${noteBadge}`}>
-                  {item.note}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
+        {unlimited && <Sticker className="shrink-0 rotate-3">Unlimited</Sticker>}
+      </div>
+      <div className="divide-y-2 divide-dashed divide-black/25 px-4 py-1.5">
+        {items.map((item) => (
+          <div key={item.name} className="flex items-center justify-between gap-2 py-2.5">
+            <span className="text-sm font-bold leading-snug">{item.name}</span>
+            {item.note && (
+              <Sticker color={color} className="shrink-0">
+                {item.note}
+              </Sticker>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
-function MealSlot({ type, meal }: { type: "Breakfast" | "Lunch" | "Dinner"; meal: Meal }) {
-  const badgeStyle = {
-    Breakfast: "border-sky-500/30 bg-sky-500/10 text-sky-300",
-    Lunch: "border-indigo-500/30 bg-indigo-500/10 text-indigo-300",
-    Dinner: "border-violet-500/30 bg-violet-500/10 text-violet-300",
-  }
+function MealSlot({ type, meal }: { type: MealTime; meal: Meal }) {
+  const look = mealLook[type]
+  const Icon = look.icon
+  const cheat = meal.isCheat
   return (
     <div
-      className={`rounded-xl border px-4 py-3 space-y-1.5 ${
-        meal.isCheat ? "border-rose-500/30 bg-rose-500/10" : "border-gray-800 bg-gray-900/50"
-      }`}
+      className={`space-y-2 border-2 border-black px-4 py-3 ${smallShadow} ${cheat ? "text-white" : "bg-white text-black"}`}
+      style={cheat ? { backgroundColor: INK.red } : undefined}
     >
-      <span
-        className={`inline-block text-[10px] font-medium px-2 py-0.5 rounded-full border ${
-          meal.isCheat ? "border-rose-500/30 bg-rose-500/15 text-rose-300" : badgeStyle[type]
-        }`}
-      >
+      <Sticker color={cheat ? "#000" : look.color} className={cheat || look.light ? "text-white" : undefined}>
+        <Icon className="h-3 w-3" strokeWidth={3} />
         {type}
-      </span>
-      <p className={`text-sm font-semibold leading-snug ${meal.isCheat ? "text-rose-200" : "text-white"}`}>
+      </Sticker>
+      <p
+        className={cheat ? `${display} text-3xl leading-none` : "text-base font-bold leading-snug"}
+        style={cheat ? lettering(1.5, 2) : undefined}
+      >
         {meal.name}
       </p>
-      {meal.detail && <p className="text-xs text-gray-400 leading-relaxed">{meal.detail}</p>}
+      {meal.detail && <p className={`text-sm leading-relaxed ${cheat ? "font-bold" : "text-black/70"}`}>{meal.detail}</p>}
       {meal.request && (
         <div className="flex items-start gap-1.5 pt-0.5">
-          <span className="text-[10px] uppercase tracking-wider text-amber-500 font-medium shrink-0 mt-0.5">
+          <span className="mt-0.5 shrink-0 bg-black px-1 py-px text-[10px] font-bold uppercase tracking-wider text-white">
             Request
           </span>
-          <span className="text-xs text-amber-200 leading-relaxed">{meal.request}</span>
+          <span className="text-sm font-bold leading-snug">{meal.request}</span>
         </div>
       )}
     </div>
   )
 }
 
-function DayMealCard({ plan }: { plan: DayPlan }) {
-  const topBar: Record<DayType, string> = {
-    regular: "from-emerald-500 to-teal-400",
-    flex: "from-amber-500 to-orange-400",
-    cheat: "from-rose-500 to-pink-400",
-  }
-  const dayTag: Record<DayType, { label: string; style: string } | null> = {
-    regular: null,
-    flex: { label: "Flexible Day", style: "bg-amber-500/10 text-amber-300 border-amber-500/30" },
-    cheat: { label: "Cheat Day", style: "bg-rose-500/10 text-rose-300 border-rose-500/30" },
-  }
-  const tag = dayTag[plan.type]
+function DayMealCard({ plan, index }: { plan: DayPlan; index: number }) {
+  const look = dayLook[plan.type]
+  const Icon = look.icon
   return (
-    <section className="rounded-3xl border border-gray-800 bg-black/30 overflow-hidden">
-      <div className={`h-[2px] bg-gradient-to-r ${topBar[plan.type]}`} />
-      <div className="p-6 md:p-7 space-y-4">
-        <div className="flex items-center gap-3">
-          <p className="text-[11px] uppercase tracking-widest text-gray-500 font-medium">{plan.day}</p>
-          {tag && (
-            <span className={`text-[10px] font-medium px-2.5 py-0.5 rounded-full border ${tag.style}`}>
-              {tag.label}
-            </span>
-          )}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <MealSlot type="Breakfast" meal={plan.breakfast} />
-          <MealSlot type="Lunch" meal={plan.lunch} />
-          <MealSlot type="Dinner" meal={plan.dinner} />
-        </div>
+    <section
+      className={`group relative bg-white text-black ${ink} ${hardShadow} ${index % 2 ? "rotate-[0.4deg]" : "-rotate-[0.4deg]"}`}
+    >
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b-[3px] border-black px-5 py-3 md:px-7" style={look.paint}>
+        <p
+          className={`${display} text-3xl leading-none ${look.light ? "text-white" : "text-black"}`}
+          style={look.light ? lettering(1.5, 2) : undefined}
+        >
+          {plan.day}
+        </p>
+        <Sticker color={look.light ? "#000" : "#fff"} className={look.light ? "text-white" : undefined}>
+          <Icon className="h-3 w-3" strokeWidth={3} />
+          {look.label}
+        </Sticker>
+      </div>
+      {plan.type === "cheat" && (
+        <Burst
+          text="YUM!"
+          className="pointer-events-none absolute -top-9 right-3 w-20 rotate-6 motion-safe:group-hover:animate-wiggle sm:w-24"
+        />
+      )}
+      <div className="grid grid-cols-1 gap-4 p-5 md:grid-cols-3 md:p-7">
+        <MealSlot type="Breakfast" meal={plan.breakfast} />
+        <MealSlot type="Lunch" meal={plan.lunch} />
+        <MealSlot type="Dinner" meal={plan.dinner} />
       </div>
     </section>
   )
 }
 
-function TipCard({ tip }: { tip: ProTipItem }) {
+/** A phrase to say at the stall, drawn as a speech bubble. */
+function PhraseBubble({ phrase }: { phrase: TipPhrase }) {
+  return (
+    <div className="relative rounded-[18px] border-2 border-black bg-white px-3.5 py-2 text-black shadow-[2px_2px_0_0_#000]">
+      <span aria-hidden className="absolute -bottom-[7px] left-6 h-3 w-3 rotate-45 border-b-2 border-r-2 border-black bg-white" />
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+        <span className="text-sm font-bold">{phrase.label}</span>
+        <span className="text-xs font-bold text-black/60">{phrase.en}</span>
+      </div>
+      <p lang="th" className="text-lg leading-snug">
+        {phrase.th}
+      </p>
+    </div>
+  )
+}
+
+function TipCard({ tip, index }: { tip: ProTipItem; index: number }) {
   return (
     <div
-      className={`rounded-2xl border overflow-hidden ${
-        tip.warning ? "border-amber-500/30 bg-amber-500/5" : "border-gray-800 bg-gray-900/40"
-      }`}
+      className={`text-black ${ink} ${hardShadow} ${tilts[index % tilts.length]}`}
+      style={{ backgroundColor: tip.warning ? INK.yellow : "#fff" }}
     >
-      {tip.warning && <div className="h-[2px] bg-gradient-to-r from-amber-500 to-orange-500" />}
-      <div className="p-5 space-y-3.5">
-        <div className="flex items-start gap-2.5">
-          {tip.warning ? (
-            <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-amber-400" />
-          ) : (
-            <Info className="h-4 w-4 shrink-0 mt-0.5 text-indigo-400" />
-          )}
+      {tip.warning && (
+        <div
+          aria-hidden
+          className="h-3.5 border-b-[3px] border-black"
+          style={{ backgroundImage: "repeating-linear-gradient(-45deg, #000 0 8px, #FFD400 8px 16px)" }}
+        />
+      )}
+      <div className="space-y-4 p-5">
+        <div className="flex items-start gap-3">
+          <span
+            className={`grid h-9 w-9 shrink-0 place-items-center border-2 border-black ${smallShadow}`}
+            style={{ backgroundColor: tip.warning ? INK.red : INK.cyan }}
+          >
+            {tip.warning ? (
+              <AlertTriangle className="h-5 w-5 text-white" strokeWidth={2.5} />
+            ) : (
+              <Info className="h-5 w-5 text-black" strokeWidth={2.5} />
+            )}
+          </span>
           <div>
-            <p className={`text-sm font-semibold ${tip.warning ? "text-amber-200" : "text-white"}`}>{tip.title}</p>
-            <p className={`mt-1 text-xs leading-relaxed ${tip.warning ? "text-amber-200/80" : "text-gray-400"}`}>
-              {tip.body}
-            </p>
+            <p className={`${display} text-2xl leading-none`}>{tip.title}</p>
+            <p className="mt-1.5 text-sm leading-relaxed">{tip.body}</p>
           </div>
         </div>
         {tip.phrases && (
-          <div className="space-y-1.5 ml-6">
+          <div className="space-y-4 pb-1">
             {tip.phrases.map((phrase) => (
-              <div
-                key={phrase.label}
-                className="grid grid-cols-[auto_1fr_auto] gap-x-3 items-center rounded-xl border border-gray-800 bg-gray-950/60 px-3 py-2"
-              >
-                <span className="text-xs font-semibold text-white">{phrase.label}</span>
-                <span className="text-xs text-gray-500 truncate">{phrase.th}</span>
-                <span className="text-[10px] text-gray-400 shrink-0">{phrase.en}</span>
-              </div>
+              <PhraseBubble key={phrase.label} phrase={phrase} />
             ))}
           </div>
         )}
@@ -406,166 +501,169 @@ function TipCard({ tip }: { tip: ProTipItem }) {
 
 export default function DietPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-1/4 left-0 h-[650px] w-[650px] rounded-full bg-gradient-to-b from-emerald-900/20 to-teal-900/20 blur-3xl -translate-x-1/3 opacity-50" />
-        <div className="absolute bottom-0 right-0 h-[650px] w-[650px] rounded-full bg-gradient-to-t from-amber-900/20 to-orange-900/20 blur-3xl translate-x-1/3 translate-y-1/3 opacity-40" />
-      </div>
+    <div className="flex min-h-screen flex-col overflow-x-clip">
+      <SiteHeader className="max-w-6xl" links={[{ href: "/personal-training", label: "Training Plan", icon: Dumbbell }]} />
 
-      <header className="container mx-auto max-w-6xl px-4 py-8 flex items-center justify-between">
-        <Link href="/" className="font-light tracking-wider text-lg text-white hover:text-gray-300 transition-colors">
-          Kowit C.
-        </Link>
-        <div className="flex items-center gap-4">
-          <Link
-            href="/personal-training"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            <Dumbbell className="h-3.5 w-3.5" />
-            Training Plan
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Link>
-        </div>
-      </header>
-
-      <main className="container mx-auto flex-1 max-w-6xl px-4 pb-20">
+      <main className="container mx-auto max-w-6xl flex-1 px-4 pb-20">
         {/* Page heading */}
-        <div className="mb-8 space-y-3">
-          <div className="flex items-center gap-3">
-            <Utensils className="h-6 w-6 text-emerald-400 shrink-0" />
-            <h1 className="text-3xl md:text-4xl font-light tracking-tight text-white">Thai Street Food Diet</h1>
-          </div>
-          <p className="max-w-xl text-gray-400 text-sm leading-relaxed">
+        <PageTitle
+          kicker={
+            <span className="inline-flex items-center gap-1.5">
+              <Utensils className="h-3.5 w-3.5" strokeWidth={2.5} />
+              Street food edition
+            </span>
+          }
+          title="Thai Street Food Diet"
+          color={INK.green}
+        >
+          <p className="max-w-xl text-base leading-relaxed">
             Real food, real streets. Machine 3&times;/week + eating like this = chest and six-pack emerge from the
             115&nbsp;kg chassis.
           </p>
-        </div>
+        </PageTitle>
 
         {/* Week overview strip */}
-        <div className="mb-10 flex flex-wrap items-center gap-2">
-          {weekStrip.map(({ label, tag, style }) => (
-            <div
-              key={label}
-              className={`flex flex-col items-center gap-0.5 rounded-xl border px-4 py-2.5 min-w-[52px] ${style}`}
-            >
-              <span className="text-xs font-semibold tracking-wide">{label}</span>
-              <span className="text-[10px] opacity-60">{tag}</span>
-            </div>
-          ))}
-          <div className="ml-auto rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-2.5 text-xs text-gray-400 shrink-0">
-            <span className="font-medium text-white block mb-0.5">Meal Formula</span>
-            Protein (1–2) + Carbs (1) + Veggies (free)
+        <div className="mt-10 flex flex-col gap-6 lg:flex-row lg:items-center">
+          <div className="grid grid-cols-7 gap-1.5 sm:gap-3 lg:flex-1">
+            {weekStrip.map(({ label, tag, type }, i) => (
+              <WeekDay key={label} label={label} tag={tag} type={type} index={i} />
+            ))}
           </div>
+          <Panel className={`rotate-1 px-4 py-3 lg:w-[22rem] lg:shrink-0 ${popIn}`} style={{ animationDelay: "800ms" }}>
+            <p className={`${display} text-2xl leading-none`}>Meal Formula</p>
+            <p className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-sm font-bold">
+              <Sticker color={INK.orange} className="text-xs">
+                Protein (1–2)
+              </Sticker>
+              {" + "}
+              <Sticker color={INK.yellow} className="text-xs">
+                Carbs (1)
+              </Sticker>
+              {" + "}
+              <Sticker color={INK.green} className="text-xs">
+                Veggies (free)
+              </Sticker>
+            </p>
+          </Panel>
         </div>
 
-        <div className="space-y-10">
-
+        <div className="mt-16 space-y-20">
           {/* ── Mix & Match Catalog ── */}
-          <section className="space-y-4">
-            <div>
-              <p className="text-[11px] uppercase tracking-widest text-gray-500 font-medium">The Blueprint</p>
-              <h2 className="mt-1 text-xl font-semibold tracking-tight text-white">Mix &amp; Match Catalog</h2>
-              <p className="mt-1 text-sm text-gray-400">
+          <section className="space-y-7">
+            <div className="space-y-3">
+              <SectionTitle title="Mix & Match Catalog" sub="The Blueprint" color={INK.yellow} />
+              <p className="max-w-2xl text-base leading-relaxed">
                 Build every meal from these three columns. Pick 1–2 proteins, 1 carb, and as many veggies as you want.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <CatalogColumn
                 title="Protein"
                 subtitle="Pick 1–2 per meal"
                 items={proteins}
-                bar="from-emerald-500 to-teal-500"
-                titleColor="text-emerald-300"
-                noteBadge="bg-emerald-500/10 text-emerald-300 border-emerald-500/25"
-                icon={<Dumbbell className="h-4 w-4" />}
+                color={INK.orange}
+                icon={<Dumbbell className="h-5 w-5" strokeWidth={2.5} />}
+                index={0}
               />
               <CatalogColumn
                 title="Carbs"
                 subtitle="Pick 1 per meal"
                 items={carbsList}
-                bar="from-amber-500 to-orange-500"
-                titleColor="text-amber-300"
-                noteBadge="bg-amber-500/10 text-amber-300 border-amber-500/25"
-                icon={<Zap className="h-4 w-4" />}
+                color={INK.yellow}
+                icon={<Zap className="h-5 w-5" strokeWidth={2.5} />}
+                index={1}
               />
               <CatalogColumn
                 title="Veggies"
                 subtitle="No limit — fill your plate"
                 items={veggiesList}
-                bar="from-teal-500 to-cyan-500"
-                titleColor="text-teal-300"
-                noteBadge="bg-teal-500/10 text-teal-300 border-teal-500/25"
+                color={INK.green}
                 unlimited
-                icon={<Leaf className="h-4 w-4" />}
+                icon={<Leaf className="h-5 w-5" strokeWidth={2.5} />}
+                index={2}
               />
             </div>
           </section>
 
           {/* ── 7-Day Meal Plan ── */}
-          <section className="space-y-4">
-            <div>
-              <p className="text-[11px] uppercase tracking-widest text-gray-500 font-medium">The Schedule</p>
-              <h2 className="mt-1 text-xl font-semibold tracking-tight text-white">7-Day Meal Plan</h2>
-              <p className="mt-1 text-sm text-gray-400">
+          <section className="space-y-7">
+            <Reveal className="space-y-3">
+              <SectionTitle title="7-Day Meal Plan" sub="The Schedule" color={INK.cyan} />
+              <p className="max-w-2xl text-base leading-relaxed">
                 Street food edition. Every meal is available at any Thai market, hawker stall, or 7-Eleven.
               </p>
-            </div>
-            <div className="space-y-3">
-              {mealPlan.map((plan) => (
-                <DayMealCard key={plan.day} plan={plan} />
+            </Reveal>
+            <div className="space-y-8">
+              {mealPlan.map((plan, i) => (
+                <Reveal key={plan.day}>
+                  <DayMealCard plan={plan} index={i} />
+                </Reveal>
               ))}
             </div>
           </section>
 
           {/* ── Pro Tips ── */}
-          <section className="space-y-4">
-            <div>
-              <p className="text-[11px] uppercase tracking-widest text-gray-500 font-medium">Street Smarts</p>
-              <h2 className="mt-1 text-xl font-semibold tracking-tight text-white">Pro Tips</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {proTips.map((tip) => (
-                <TipCard key={tip.title} tip={tip} />
+          <section className="space-y-7">
+            <Reveal>
+              <SectionTitle title="Pro Tips" sub="Street Smarts" color={INK.pink} />
+            </Reveal>
+            <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-3">
+              {proTips.map((tip, i) => (
+                <Reveal key={tip.title} delay={i * 90}>
+                  <TipCard tip={tip} index={i} />
+                </Reveal>
               ))}
             </div>
           </section>
 
           {/* ── The Goal ── */}
-          <section className="rounded-3xl border border-gray-800 bg-black/40 overflow-hidden">
-            <div className="h-[2px] bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500" />
-            <div className="p-6 md:p-8 space-y-4">
-              <div className="flex items-center gap-3">
-                <Flame className="h-5 w-5 text-amber-400 shrink-0" />
-                <div>
-                  <p className="text-[11px] uppercase tracking-widest text-gray-500 font-medium">The Goal</p>
-                  <h2 className="text-xl font-semibold tracking-tight text-white mt-0.5">Why This Works</h2>
+          <Reveal>
+            <section
+              className={`relative -rotate-[0.5deg] p-6 text-black md:p-8 ${ink} shadow-[8px_8px_0_0_#000]`}
+              style={{ backgroundColor: INK.yellow, ...halftone("rgba(0,0,0,0.12)", 6) }}
+            >
+              <Burst
+                text="POW!"
+                className="pointer-events-none absolute -top-14 right-2 w-20 rotate-12 md:-top-16 md:right-6 md:w-28"
+              />
+              <div className="space-y-5">
+                <div className="flex items-center gap-3 md:pr-32">
+                  <span className={`grid h-12 w-12 shrink-0 place-items-center bg-[#FF3B30] ${ink} ${smallShadow}`}>
+                    <Flame className="h-6 w-6 text-white" strokeWidth={2.5} />
+                  </span>
+                  <div className="space-y-2">
+                    <Caption color="#fff" className="-rotate-1">
+                      The Goal
+                    </Caption>
+                    <h2 className={`${display} text-4xl leading-none md:text-5xl`} style={{ ...lettering(2.5, 4), color: INK.red }}>
+                      Why This Works
+                    </h2>
+                  </div>
+                </div>
+                <p className="max-w-2xl text-base leading-relaxed">
+                  By eating like this and hitting the machines 3&times; a week, you aren&apos;t just
+                  &ldquo;dieting&rdquo; &mdash; you are{" "}
+                  <span className="box-decoration-clone bg-white px-1 font-bold">feeding the Chest and Six-pack</span> while burning
+                  the 115&nbsp;kg belly. Street food is on your side. The sauces are not.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-1">
+                  {goalPoints.map((point, i) => (
+                    <span
+                      key={point}
+                      className={`inline-flex items-center gap-2 border-2 border-black bg-white px-3 py-1.5 text-sm font-bold shadow-[2px_2px_0_0_#000] ${
+                        i % 2 ? "rotate-1" : "-rotate-1"
+                      }`}
+                    >
+                      <span className="grid h-4 w-4 shrink-0 place-items-center border-2 border-black bg-[#2DD881]">
+                        <Check className="h-2.5 w-2.5" strokeWidth={4} />
+                      </span>
+                      {point}
+                    </span>
+                  ))}
                 </div>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed max-w-2xl">
-                By eating like this and hitting the machines 3&times; a week, you aren&apos;t just
-                &ldquo;dieting&rdquo; &mdash; you are{" "}
-                <span className="text-white font-medium">feeding the Chest and Six-pack</span> while burning
-                the 115&nbsp;kg belly. Street food is on your side. The sauces are not.
-              </p>
-              <div className="flex flex-wrap gap-2 pt-1">
-                {goalPoints.map((point) => (
-                  <span
-                    key={point}
-                    className="rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-xs text-emerald-200"
-                  >
-                    {point}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </section>
-
+            </section>
+          </Reveal>
         </div>
       </main>
 

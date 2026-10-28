@@ -1,8 +1,9 @@
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 import type { ElementType } from "react"
+import { INK, PageTitle, SiteHeader, Sticker, buttonClass, display, halftone, hardShadow, ink, tilts } from "@/components/comic"
+import { Reveal } from "@/components/comic-motion"
 import {
-  ArrowLeft,
   ArrowRight,
   Boxes,
   ExternalLink,
@@ -30,12 +31,8 @@ type Product = {
   tagline: string
   description: string
   status: "active" | "beta" | "maintained"
-  accent: string
-  accentBg: string
-  accentBorder: string
-  accentText: string
-  barFrom: string
-  barTo: string
+  /** The product's ink, used for its header strip and module tabs. */
+  color: string
   icon: ElementType
   href?: string
   externalHref?: string
@@ -51,12 +48,7 @@ const products: Product[] = [
     description:
       "A full-stack Rust web framework built around zero-cost abstractions. Chopin provides a composable module system covering HTTP routing, authentication, database access, and developer tooling — designed to be assembled only what your project needs.",
     status: "active",
-    accent: "violet",
-    accentBg: "bg-violet-500/10",
-    accentBorder: "border-violet-500/30",
-    accentText: "text-violet-300",
-    barFrom: "from-violet-500",
-    barTo: "to-indigo-500",
+    color: INK.purple,
     icon: Music4,
     href: "/opensource/chopin",
     modules: [
@@ -73,12 +65,7 @@ const products: Product[] = [
     description:
       "A specialized JSON parsing suite that leverages SIMD and ARM NEON instructions for hardware-level throughput. Focuses on zero-decode parsing and JIT-bound schemas to maximize serialization speed in high-volume data pipelines.",
     status: "maintained",
-    accent: "cyan",
-    accentBg: "bg-cyan-500/10",
-    accentBorder: "border-cyan-500/30",
-    accentText: "text-cyan-300",
-    barFrom: "from-cyan-500",
-    barTo: "to-blue-500",
+    color: INK.cyan,
     icon: Cpu,
     externalHref: "https://crates.io/users/kowito",
     externalLabel: "crates.io/users/kowito",
@@ -94,12 +81,7 @@ const products: Product[] = [
     description:
       "A high-concurrency PostgreSQL driver built on the Monoio io_uring runtime. Eliminates blocking I/O overhead in the database-to-application pipeline by exploiting modern Linux kernel async I/O primitives for near-zero-cost data access.",
     status: "beta",
-    accent: "emerald",
-    accentBg: "bg-emerald-500/10",
-    accentBorder: "border-emerald-500/30",
-    accentText: "text-emerald-300",
-    barFrom: "from-emerald-500",
-    barTo: "to-teal-500",
+    color: INK.green,
     icon: Server,
     modules: [
       { icon: Database, title: "io_uring back-end", body: "Non-blocking I/O via Linux io_uring for minimal syscall overhead." },
@@ -108,40 +90,30 @@ const products: Product[] = [
   },
 ]
 
-const statusLabel: Record<Product["status"], { label: string; cls: string }> = {
-  active: { label: "Active", cls: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300" },
-  beta: { label: "Beta", cls: "border-amber-500/30 bg-amber-500/10 text-amber-300" },
-  maintained: { label: "Maintained", cls: "border-blue-500/30 bg-blue-500/10 text-blue-300" },
+
+const statusLabel: Record<Product["status"], { label: string; color: string }> = {
+  active: { label: "Active!", color: INK.green },
+  beta: { label: "Beta", color: INK.yellow },
+  maintained: { label: "Maintained", color: INK.cyan },
 }
 
 export default function OpenSourcePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-1/4 right-0 h-[700px] w-[700px] rounded-full bg-gradient-to-b from-violet-900/20 to-indigo-900/20 blur-3xl translate-x-1/3 opacity-50" />
-        <div className="absolute bottom-0 left-0 h-[600px] w-[600px] rounded-full bg-gradient-to-t from-cyan-900/20 to-emerald-900/20 blur-3xl -translate-x-1/3 translate-y-1/3 opacity-40" />
-      </div>
-
-      <header className="container mx-auto max-w-4xl px-4 py-8 flex items-center justify-between">
-        <Link href="/" className="font-display text-lg font-medium tracking-[0.22em] text-white">
-          Kowit C.
-        </Link>
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
-          <ArrowLeft className="h-4 w-4" />
-          Back
-        </Link>
-      </header>
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
+      <SiteHeader className="max-w-4xl" />
 
       <main className="container mx-auto flex-1 max-w-4xl px-4 pb-24">
 
         {/* ── Page header ── */}
-        <div className="mb-14 space-y-4">
-          <div className="flex items-center gap-3">
-            <Boxes className="h-5 w-5 text-gray-400 shrink-0" />
-            <p className="text-xs uppercase tracking-widest text-gray-400 font-medium">Open Source</p>
-          </div>
-          <h1 className="text-3xl md:text-5xl font-light tracking-tight text-white">Products</h1>
-          <p className="max-w-2xl text-gray-400 leading-relaxed">
+        <PageTitle
+          kicker={
+            <span className="inline-flex items-center gap-1.5">
+              <Boxes className="h-3.5 w-3.5" strokeWidth={3} />
+              Open Source
+            </span>
+          }
+          title="Products!" color={INK.purple} className="mb-14">
+          <p className="max-w-2xl text-lg leading-relaxed">
             A vertical stack of Rust libraries — from hardware-level JSON parsing to a full web framework —
             each layer tuned for zero-cost abstractions and real-world developer ergonomics.
           </p>
@@ -149,92 +121,81 @@ export default function OpenSourcePage() {
             href="https://crates.io/users/kowito"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-gray-700 bg-gray-900/60 px-4 py-1.5 text-xs text-gray-300 hover:border-gray-500 hover:text-white transition-colors"
+            className={buttonClass("sm", "bg-[#4CC9F0]")}
           >
-            <PackageOpen className="h-3.5 w-3.5" />
+            <PackageOpen className="h-4 w-4" strokeWidth={2.5} />
             crates.io/users/kowito
-            <ExternalLink className="h-3 w-3 opacity-60" />
+            <ExternalLink className="h-3.5 w-3.5" strokeWidth={2.5} />
           </Link>
-        </div>
+        </PageTitle>
 
         {/* ── Product list ── */}
-        <div className="space-y-6">
-          {products.map((product) => {
+        <div className="space-y-10">
+          {products.map((product, i) => {
             const Icon = product.icon
-            const { label, cls } = statusLabel[product.status]
+            const status = statusLabel[product.status]
             return (
-              <article
-                key={product.id}
-                className="rounded-3xl border border-gray-800 bg-black/30 overflow-hidden"
-              >
-                <div className={`h-[2px] bg-gradient-to-r ${product.barFrom} ${product.barTo}`} />
-                <div className="p-6 md:p-8 space-y-6">
-
-                  {/* Product header */}
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                    <div className="flex items-start gap-3">
-                      <div className={`mt-0.5 rounded-xl p-2 ${product.accentBg} border ${product.accentBorder}`}>
-                        <Icon className={`h-5 w-5 ${product.accentText}`} />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h2 className="text-xl font-semibold tracking-tight text-white">{product.name}</h2>
-                          <span className={`text-[10px] font-medium rounded-full border px-2 py-0.5 ${cls}`}>
-                            {label}
-                          </span>
+              <Reveal key={product.id}>
+                <article className={`overflow-hidden bg-white ${ink} shadow-[8px_8px_0_0_#000] ${i % 2 ? "rotate-[0.4deg]" : "-rotate-[0.4deg]"}`}>
+                  {/* Product header, printed in the product's ink */}
+                  <div
+                    className="flex flex-col gap-4 border-b-[3px] border-black p-5 sm:flex-row sm:items-center sm:justify-between md:px-7"
+                    style={{ backgroundColor: product.color, ...halftone("rgba(0,0,0,0.14)", 6) }}
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <span className="grid h-14 w-14 shrink-0 place-items-center border-[3px] border-black bg-white shadow-[3px_3px_0_0_#000]">
+                        <Icon className="h-7 w-7" strokeWidth={2.5} />
+                      </span>
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h2 className={`${display} text-4xl leading-none`}>{product.name}</h2>
+                          <Sticker color={status.color} className="-rotate-3 uppercase tracking-wider">
+                            {status.label}
+                          </Sticker>
                         </div>
-                        <p className={`mt-0.5 text-sm ${product.accentText}`}>{product.tagline}</p>
+                        <p className="mt-1 text-sm font-bold">{product.tagline}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex shrink-0 flex-wrap items-center gap-2.5">
                       {product.externalHref && (
-                        <Link
-                          href={product.externalHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors ${product.accentBorder} ${product.accentBg} ${product.accentText} hover:brightness-125`}
-                        >
-                          <ExternalLink className="h-3 w-3" />
+                        <Link href={product.externalHref} target="_blank" rel="noopener noreferrer" className={buttonClass("sm")}>
+                          <ExternalLink className="h-4 w-4" strokeWidth={2.5} />
                           {product.externalLabel}
                         </Link>
                       )}
                       {product.href && (
-                        <Link
-                          href={product.href}
-                          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors ${product.accentBorder} ${product.accentBg} ${product.accentText} hover:brightness-125`}
-                        >
+                        <Link href={product.href} className={buttonClass("sm", "bg-[#FFD400]")}>
                           View details
-                          <ArrowRight className="h-3 w-3" />
+                          <ArrowRight className="h-4 w-4" strokeWidth={3} />
                         </Link>
                       )}
                     </div>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-sm text-gray-400 leading-relaxed max-w-3xl">{product.description}</p>
+                  <div className="space-y-6 p-5 md:p-7">
+                    {/* Description */}
+                    <p className="max-w-3xl leading-relaxed">{product.description}</p>
 
-                  {/* Modules */}
-                  {product.modules && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {product.modules.map((mod) => {
-                        const ModIcon = mod.icon
-                        return (
-                          <div
-                            key={mod.title}
-                            className={`rounded-2xl border ${product.accentBorder} ${product.accentBg} px-4 py-3.5`}
-                          >
-                            <div className="flex items-center gap-2 mb-1">
-                              <ModIcon className={`h-3.5 w-3.5 shrink-0 ${product.accentText}`} />
-                              <p className={`text-xs font-semibold font-mono ${product.accentText}`}>{mod.title}</p>
+                    {/* Modules */}
+                    {product.modules && (
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        {product.modules.map((mod, j) => {
+                          const ModIcon = mod.icon
+                          return (
+                            <div key={mod.title} className={`group bg-white ${ink} ${hardShadow} ${tilts[j % tilts.length]}`}>
+                              <div className="flex items-center gap-2 border-b-[3px] border-black px-3 py-1.5" style={{ backgroundColor: product.color }}>
+                                <ModIcon className="h-4 w-4 shrink-0 group-hover:animate-wiggle motion-reduce:animate-none" strokeWidth={2.5} />
+                                <p className="font-mono text-sm font-bold">{mod.title}</p>
+                              </div>
+                              <p className="px-3 py-2.5 text-sm leading-relaxed">{mod.body}</p>
                             </div>
-                            <p className="text-xs text-gray-400 leading-relaxed">{mod.body}</p>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
-              </article>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              </Reveal>
             )
           })}
         </div>

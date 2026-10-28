@@ -4,8 +4,23 @@ import { SiteFooter } from "@/components/site-footer"
 import type { Metadata } from "next"
 import { Github, ArrowRight, Flame, Globe, Video, Coffee, Wrench, Coins, Boxes, Music4, PackageOpen } from "lucide-react"
 import type { ElementType } from "react"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
+import {
+  Burst,
+  Caption,
+  INK,
+  SectionTitle,
+  SiteHeader,
+  Sticker,
+  buttonClass,
+  display,
+  halftone,
+  hardShadow,
+  ink,
+  lettering,
+  lift,
+  tilts,
+} from "@/components/comic"
+import { Reveal } from "@/components/comic-motion"
 
 export const metadata: Metadata = {
   title: "Home",
@@ -25,37 +40,37 @@ type InterestItem = {
 const interests: InterestItem[] = [
   {
     icon: Coins,
-    color: "text-indigo-400",
+    color: INK.purple,
     title: "Web3 & Blockchain",
     body: "Because plain-old CRUD apps were putting me into a coma.",
   },
   {
     icon: Wrench,
-    color: "text-red-400",
+    color: INK.orange,
     title: "Rust",
-    body: "My favorite self-inflicted torture device\u2014borrow checkers at 2 AM.",
+    body: "My favorite self-inflicted torture device—borrow checkers at 2 AM.",
   },
   {
     icon: Flame,
-    color: "text-amber-400",
+    color: INK.red,
     title: "BBQ",
     body: "On a relentless quest to char meat into legend (and occasionally my grill).",
   },
   {
     icon: Globe,
-    color: "text-blue-400",
+    color: INK.cyan,
     title: "Globetrotter",
     body: "Collecting airport lounges, questionable street-food souvenirs, and delayed-flight war stories.",
   },
   {
     icon: Video,
-    color: "text-green-400",
+    color: INK.green,
     title: "Remote Work",
-    body: "Master of distracting Zoom backgrounds and \u201cSorry, I was muted\u201d excuses.",
+    body: "Master of distracting Zoom backgrounds and “Sorry, I was muted” excuses.",
   },
   {
     icon: Coffee,
-    color: "text-pink-400",
+    color: INK.pink,
     title: "Conference Circuit",
     body: "Champion of awkward small talk and unintentional door prizes.",
   },
@@ -74,77 +89,85 @@ const stack = [
   "DevOps",
 ]
 
-function InterestCard({ item }: { item: InterestItem }) {
+const stackInks = [INK.yellow, INK.cyan, INK.pink, INK.green, "#fff", INK.orange]
+
+/** A colour-blocked panel: the interest's ink and icon on top, the punchline underneath. */
+function InterestCard({ item, index }: { item: InterestItem; index: number }) {
   const Icon = item.icon
   return (
-    <div className="group p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-colors">
-      <div className="flex items-center gap-2 mb-2">
-        <Icon className={`w-4 h-4 shrink-0 ${item.color}`} />
-        <h4 className="font-medium text-white text-sm">{item.title}</h4>
+    <div className={`group h-full bg-white ${ink} ${hardShadow} ${tilts[index % tilts.length]} ${lift}`}>
+      <div
+        className="flex items-center gap-2 border-b-[3px] border-black px-3 py-2"
+        style={{ backgroundColor: item.color, ...halftone("rgba(0,0,0,0.14)", 6) }}
+      >
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-black bg-white group-hover:animate-wiggle motion-reduce:animate-none">
+          <Icon className="h-4 w-4" strokeWidth={2.5} />
+        </span>
+        <h3 className={`${display} text-xl leading-none`}>{item.title}</h3>
       </div>
-      <p className="text-sm text-gray-400 leading-snug">{item.body}</p>
+      <p className="px-3 py-2.5 text-sm leading-snug">{item.body}</p>
+    </div>
+  )
+}
+
+/** A white speech bubble whose tail points up at whoever is talking. */
+function SpeechBubble({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative rounded-[26px] bg-white p-5 text-black sm:p-6 ${ink} shadow-[6px_6px_0_0_#000] ${className}`}>
+      <span aria-hidden className="absolute -top-[15px] left-16 h-7 w-7 rotate-45 border-l-[3px] border-t-[3px] border-black bg-white" />
+      <div className="relative">{children}</div>
     </div>
   )
 }
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100 flex flex-col">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-1/4 right-0 h-[800px] w-[800px] rounded-full bg-gradient-to-b from-indigo-900/20 to-purple-900/20 blur-3xl translate-x-1/3 opacity-50" />
-        <div className="absolute bottom-0 left-0 h-[600px] w-[600px] rounded-full bg-gradient-to-t from-blue-900/20 to-cyan-900/20 blur-3xl -translate-x-1/3 translate-y-1/3 opacity-50" />
-      </div>
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
+      <SiteHeader className="max-w-5xl" back={false} links={[{ href: "/opensource", label: "Open Source", icon: Boxes }]} />
 
-      <header className="container mx-auto py-8 px-4 flex items-center justify-between">
-        <span className="font-display text-lg font-medium tracking-[0.22em] text-white">Kowit C.</span>
-        <div className="flex items-center gap-4">
-          <Link
-            href="/opensource"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            <Boxes className="h-3.5 w-3.5" />
-            Open Source
-          </Link>
-          <ThemeToggle />
-        </div>
-      </header>
-
-      <main className="container mx-auto flex-1 px-6 py-16 md:py-28 max-w-2xl">
-        <div className="space-y-20">
+      <main className="container mx-auto max-w-5xl flex-1 px-4 pb-24 pt-6 md:pt-10">
+        <div className="space-y-24">
 
           {/* ── Hero ── */}
-          <section className="flex flex-col gap-10">
-            <div className="flex flex-col items-center gap-5 text-center">
-              <div className="relative">
-                <div className="h-48 w-48 md:h-64 md:w-64 rounded-full overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-600 p-[3px]">
-                  <div className="h-full w-full rounded-full overflow-hidden bg-gray-900">
-                    <Image
-                      src="/kowito.jpg"
-                      alt="Kowit C."
-                      width={320}
-                      height={320}
-                      className="object-cover w-full h-full"
-                      priority
-                    />
+          <section className="space-y-10">
+            <div className="grid items-center gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:gap-14">
+              {/* Portrait, printed in a tilted panel */}
+              <div className="relative mx-auto w-60 animate-in fade-in zoom-in-90 duration-700 motion-reduce:animate-none md:w-72">
+                <div className={`-rotate-3 p-3 ${ink} shadow-[8px_8px_0_0_#000]`} style={{ backgroundColor: INK.cyan, ...halftone("rgba(0,0,0,0.16)", 6) }}>
+                  <div className="relative aspect-square overflow-hidden rounded-full border-[3px] border-black bg-white">
+                    <Image src="/kowito.jpg" alt="Kowit C." width={320} height={320} className="h-full w-full object-cover" priority />
+                    <div aria-hidden className="pointer-events-none absolute inset-0 mix-blend-multiply" style={halftone("rgba(0,0,0,0.18)", 5)} />
                   </div>
                 </div>
-                <span className="absolute bottom-2 right-2 md:bottom-3 md:right-3 h-6 w-6 md:h-7 md:w-7 rounded-full bg-green-400 ring-[3px] ring-gray-950" />
+                <Burst
+                  text="30 YRS!"
+                  className="absolute -right-8 -top-8 w-24 animate-in zoom-in-50 spin-in-12 fill-mode-both delay-300 duration-500 motion-reduce:animate-none md:w-28"
+                />
+                <Sticker color={INK.green} className="absolute -bottom-3 left-1/2 -translate-x-1/2 rotate-2 whitespace-nowrap text-xs">
+                  <span className="h-2 w-2 rounded-full border border-black bg-white" />
+                  Online &amp; coding
+                </Sticker>
               </div>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-light tracking-tight text-white">Kowit C.</h1>
-                <p className="mt-0.5 text-sm md:text-base text-gray-400 font-light">Digital Craftsman</p>
+
+              <div className="space-y-5 text-center animate-in fade-in slide-in-from-right-8 duration-700 motion-reduce:animate-none md:text-left">
+                <Caption className="-rotate-2">Meanwhile, at the keyboard…</Caption>
+                <div>
+                  <h1 className={`${display} -rotate-2 text-7xl leading-[0.9] md:text-8xl`} style={{ ...lettering(3, 6), color: INK.yellow }}>
+                    Kowit C.
+                  </h1>
+                  <p className={`${display} mt-3 text-2xl text-black/70`}>Digital Craftsman</p>
+                </div>
+                <h2 className={`${display} text-3xl leading-tight md:text-4xl`}>
+                  <span className="bg-[#FF3B30] box-decoration-clone px-1.5 text-white" style={lettering(1.5, 2)}>
+                    Software Engineer &amp; BBQ Arsonist
+                  </span>
+                  {" "}&mdash; Faking competence in code, blockchain &amp; charred meat for 30 years.
+                </h2>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <h2 className="font-display text-3xl md:text-5xl font-medium leading-tight text-white">
-                <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                  Software Engineer &amp; BBQ Arsonist
-                </span>
-                {" "}&mdash; Faking competence in code, blockchain &amp; charred meat for 30 years.
-              </h2>
-
-              <div className="text-gray-300 leading-relaxed text-lg font-light space-y-3">
+            <SpeechBubble className="animate-in fade-in zoom-in-95 delay-200 fill-mode-both duration-500 motion-reduce:animate-none">
+              <div className="space-y-3 text-lg leading-relaxed">
                 <p>
                   I&apos;m Kowito&mdash;a &ldquo;veteran&rdquo; software engineer who&apos;s been faking it for just
                   under three decades. I&apos;ve spent the better part of that time convincing teams that my
@@ -158,122 +181,98 @@ export default function Home() {
                   a passport-stamp addict, hoarding travel tales like rare coins.
                 </p>
               </div>
+            </SpeechBubble>
 
-              <div className="pt-2 grid grid-cols-2 md:grid-cols-3 gap-3">
-                {interests.map((item) => (
-                  <InterestCard key={item.title} item={item} />
-                ))}
-              </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {interests.map((item, i) => (
+                <Reveal key={item.title} delay={(i % 3) * 70}>
+                  <InterestCard item={item} index={i} />
+                </Reveal>
+              ))}
             </div>
 
-            <div className="flex flex-wrap gap-3">
-              <Button
-                className="rounded-full px-6 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white border-0"
-                asChild
-              >
-                <Link href="mailto:hi@kowito.com">
-                  Connect
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-full px-5 border-gray-500 text-white bg-gray-800/50 hover:bg-gray-700 hover:border-gray-400"
-                asChild
-              >
-                <Link href="https://github.com/kowito" target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-4 w-4" />
-                  GitHub
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-full px-5 border-gray-500 text-white bg-gray-800/50 hover:bg-gray-700 hover:border-gray-400"
-                asChild
-              >
-                <Link href="/opensource">
-                  <Boxes className="mr-2 h-4 w-4" />
-                  Open Source
-                </Link>
-              </Button>
+            <div className="flex flex-wrap gap-4">
+              <Link href="mailto:hi@kowito.com" className={buttonClass("lg", "bg-[#FF3B30] text-white")} style={lettering(1.5, 2)}>
+                Connect
+                <ArrowRight className="h-5 w-5" strokeWidth={3} />
+              </Link>
+              <Link href="https://github.com/kowito" target="_blank" rel="noopener noreferrer" className={buttonClass("lg")}>
+                <Github className="h-5 w-5" strokeWidth={2.5} />
+                GitHub
+              </Link>
+              <Link href="/opensource" className={buttonClass("lg", "bg-[#FFD400]")}>
+                <Boxes className="h-5 w-5" strokeWidth={2.5} />
+                Open Source
+              </Link>
             </div>
           </section>
 
           {/* ── Open Source ── */}
-          <section className="space-y-6 border-t border-gray-800/60 pt-12">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-gray-400 font-medium">Open Source</p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-light tracking-tight text-white">Public Work</h2>
-              <p className="mt-2 text-sm text-gray-400 leading-relaxed max-w-2xl">
+          <section className="space-y-7">
+            <Reveal className="space-y-4">
+              <SectionTitle title="Public Work!" sub="Open Source" color={INK.purple} />
+              <p className="max-w-2xl leading-relaxed">
                 I build Rust-first open source tooling, publish crates, and maintain public repos with practical docs,
                 issue triage, and iterative releases. My focus is shipping useful developer workflows, not just demos.
               </p>
+            </Reveal>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {[
+                { href: "https://crates.io/users/kowito", external: true, icon: PackageOpen, title: "crates.io Profile", body: "crates.io/users/kowito", color: INK.cyan, tilt: "-rotate-1" },
+                { href: "/opensource/chopin", external: false, icon: Music4, title: "Chopin", body: "Dedicated project page", color: INK.purple, tilt: "rotate-1" },
+              ].map(({ href, external, icon: Icon, title, body, color, tilt }) => (
+                <Reveal key={href}>
+                  <Link
+                    href={href}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className={`group flex items-center gap-4 bg-white p-4 ${ink} ${hardShadow} ${tilt} ${lift}`}
+                  >
+                    <span
+                      className="grid h-14 w-14 shrink-0 place-items-center border-[3px] border-black group-hover:animate-wiggle motion-reduce:animate-none"
+                      style={{ backgroundColor: color, ...halftone("rgba(0,0,0,0.16)", 5) }}
+                    >
+                      <Icon className="h-6 w-6" strokeWidth={2.5} />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className={`${display} block text-2xl leading-none`}>{title}</span>
+                      <span className="mt-1 block truncate text-sm font-bold text-black/60">{body}</span>
+                    </span>
+                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" strokeWidth={3} />
+                  </Link>
+                </Reveal>
+              ))}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <Link
-                href="https://crates.io/users/kowito"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-2xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-4 hover:bg-cyan-500/20 transition-colors"
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <PackageOpen className="h-4 w-4 text-cyan-300" />
-                  <h3 className="text-sm font-semibold text-white">crates.io Profile</h3>
-                </div>
-                <p className="text-xs text-cyan-100/80">crates.io/users/kowito</p>
-              </Link>
-
-              <Link
-                href="/opensource/chopin"
-                className="rounded-2xl border border-violet-500/25 bg-violet-500/10 px-4 py-4 hover:bg-violet-500/20 transition-colors"
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <Music4 className="h-4 w-4 text-violet-300" />
-                  <h3 className="text-sm font-semibold text-white">Chopin</h3>
-                </div>
-                <p className="text-xs text-violet-100/80">Dedicated project page</p>
-              </Link>
-            </div>
-
-            <Button
-              variant="outline"
-              className="rounded-full px-5 border-gray-500 text-white bg-gray-800/50 hover:bg-gray-700 hover:border-gray-400"
-              asChild
-            >
-              <Link href="/opensource">
-                <Boxes className="mr-2 h-4 w-4" />
-                View All Open Source Work
-              </Link>
-            </Button>
-
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-3">
               {[
                 "Rust crates and package releases",
                 "Repository maintenance and issue cleanup",
                 "API ergonomics and developer tooling",
-              ].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-gray-700 bg-gray-900/60 px-3 py-1.5 text-xs text-gray-300"
-                >
+              ].map((item, i) => (
+                <Sticker key={item} color={i === 1 ? INK.yellow : "#fff"} className={i % 2 ? "rotate-1" : "-rotate-1"}>
                   {item}
-                </span>
+                </Sticker>
               ))}
             </div>
+
+            <Link href="/opensource" className={buttonClass("md")}>
+              <Boxes className="h-5 w-5" strokeWidth={2.5} />
+              View All Open Source Work
+            </Link>
           </section>
 
           {/* ── Tech Stack ── */}
-          <section className="space-y-6 border-t border-gray-800/60 pt-12">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-gray-400 font-medium">Expertise</p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-light tracking-tight text-white">Tech Stack</h2>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {stack.map((tag) => (
+          <section className="space-y-7">
+            <Reveal>
+              <SectionTitle title="Tech Stack!" sub="Expertise" color={INK.green} />
+            </Reveal>
+            <div className="flex flex-wrap gap-3">
+              {stack.map((tag, i) => (
                 <span
                   key={tag}
-                  className="rounded-full px-3 py-1.5 text-sm bg-gray-900/60 border border-gray-800 text-gray-300"
+                  className={`${display} border-[3px] border-black px-3 py-1 text-xl shadow-[3px_3px_0_0_#000] transition-transform hover:-rotate-3 hover:scale-110 motion-reduce:transition-none ${tilts[i % tilts.length]}`}
+                  style={{ backgroundColor: stackInks[i % stackInks.length] }}
                 >
                   {tag}
                 </span>
@@ -282,31 +281,32 @@ export default function Home() {
           </section>
 
           {/* ── Contact ── */}
-          <section className="space-y-6 border-t border-gray-800/60 pt-12">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-gray-400 font-medium">Let&apos;s Connect</p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-light tracking-tight text-white">Start a Conversation</h2>
-            </div>
-            <p className="text-gray-300 font-light">
-              Looking for a code-crashing sidekick to share the burden of bug hunts? A foolproof rib rub recipe that
-              doesn&apos;t lead to literal smoking? Or a travel story so tall it needs its own zip code?
-              Let&apos;s connect&mdash;if you dare.
-            </p>
-            <Button
-              className="rounded-full px-6 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white border-0"
-              asChild
-            >
-              <Link href="mailto:hi@kowito.com">
-                Send a message
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+          <section className="space-y-7">
+            <Reveal>
+              <SectionTitle title="Start a Conversation!" sub="Let's Connect" color={INK.red} />
+            </Reveal>
+            <Reveal>
+              <div className="relative">
+                <SpeechBubble className="pr-5 sm:pr-28">
+                  <p className="text-lg leading-relaxed">
+                    Looking for a code-crashing sidekick to share the burden of bug hunts? A foolproof rib rub recipe that
+                    doesn&apos;t lead to literal smoking? Or a travel story so tall it needs its own zip code?
+                    Let&apos;s connect&mdash;if you dare.
+                  </p>
+                  <Link href="mailto:hi@kowito.com" className={buttonClass("lg", "mt-5 bg-[#FF3B30] text-white")} style={lettering(1.5, 2)}>
+                    Send a message
+                    <ArrowRight className="h-5 w-5" strokeWidth={3} />
+                  </Link>
+                </SpeechBubble>
+                <Burst text="HI!" className="absolute -bottom-10 -right-4 hidden w-28 rotate-12 sm:block" />
+              </div>
+            </Reveal>
           </section>
 
         </div>
       </main>
 
-      <SiteFooter />
+      <SiteFooter className="max-w-5xl px-4" />
     </div>
   )
 }

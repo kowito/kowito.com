@@ -1,10 +1,27 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
-import { SiteFooter } from "@/components/site-footer"
 import Image from "next/image"
-import { ArrowLeft, Dumbbell, Utensils, Play, Target, ChevronRight, Heart, Moon, AlertTriangle } from "lucide-react"
+import { SiteFooter } from "@/components/site-footer"
+import {
+  Burst,
+  Caption,
+  INK,
+  PageTitle,
+  Panel,
+  RED_TEXT,
+  SectionTitle,
+  SiteHeader,
+  Sticker,
+  buttonClass,
+  display,
+  halftone,
+  ink,
+  lettering,
+  tilts,
+} from "@/components/comic"
+import { Reveal } from "@/components/comic-motion"
+import { AlertTriangle, Check, ChevronRight, Dumbbell, Heart, Moon, Play, RotateCcw, Target, Utensils } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -668,6 +685,7 @@ type DayKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "satu
 type DayProgram = {
   eyebrow: string
   title: string
+  /** The day's comic ink (see INK). */
   color: string
   /** Warm-up drills first, then the working exercises. */
   warmup: readonly Exercise[]
@@ -691,7 +709,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   monday: {
     eyebrow: "Monday",
     title: "Chest, Shoulders, Triceps + Light Legs",
-    color: "text-emerald-400",
+    color: INK.green,
     warmup: warmupUpper,
     rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
     work: [
@@ -706,7 +724,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   tuesday: {
     eyebrow: "Tuesday",
     title: "Zone 2 Cardio",
-    color: "text-blue-400",
+    color: INK.cyan,
     warmup: [],
     work: [],
     recovery: {
@@ -718,7 +736,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   wednesday: {
     eyebrow: "Wednesday",
     title: "Upper Body + Hamstrings",
-    color: "text-emerald-400",
+    color: INK.green,
     warmup: warmupUpper,
     rampUp: "Then 2–4 progressively heavier warm-up sets on the first main lift.",
     work: [
@@ -733,7 +751,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   thursday: {
     eyebrow: "Thursday",
     title: "Rest and Recovery",
-    color: "text-gray-500",
+    color: INK.purple,
     warmup: [],
     work: [],
     recovery: {
@@ -744,7 +762,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   friday: {
     eyebrow: "Friday · Trainer",
     title: "Heavy Back + Delts",
-    color: "text-amber-400",
+    color: INK.yellow,
     warmup: warmupFriday,
     rampUp: "Then light warm-up sets of Lat Pulldown and Seated Cable Row before the working sets.",
     work: [
@@ -758,7 +776,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   saturday: {
     eyebrow: "Saturday · Trainer",
     title: "Legs + Chest Accessory",
-    color: "text-amber-400",
+    color: INK.yellow,
     warmup: warmupLower,
     safety: "Your trainer may reorder these based on fatigue, equipment and technique. Keep the overall volume similar unless there is a clear reason to change it.",
     work: [
@@ -772,7 +790,7 @@ const dayPrograms: Record<DayKey, DayProgram> = {
   sunday: {
     eyebrow: "Sunday",
     title: "Zone 2 Cardio",
-    color: "text-blue-400",
+    color: INK.cyan,
     warmup: [],
     work: [],
     recovery: {
@@ -849,13 +867,13 @@ const nutrition = [
 ]
 
 const weekOverview = [
-  { label: "Mon", tag: "Chest", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Tue", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
-  { label: "Wed", tag: "Upper", style: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-  { label: "Thu", tag: "Rest", style: "bg-gray-500/15 text-gray-400 border-gray-600/30" },
-  { label: "Fri", tag: "Back", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
-  { label: "Sat", tag: "Legs", style: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
-  { label: "Sun", tag: "Zone 2", style: "bg-blue-500/15 text-blue-300 border-blue-500/30" },
+  { label: "Mon", tag: "Chest", color: INK.green },
+  { label: "Tue", tag: "Zone 2", color: INK.cyan },
+  { label: "Wed", tag: "Upper", color: INK.green },
+  { label: "Thu", tag: "Rest", color: INK.purple },
+  { label: "Fri", tag: "Back", color: INK.yellow },
+  { label: "Sat", tag: "Legs", color: INK.yellow },
+  { label: "Sun", tag: "Zone 2", color: INK.cyan },
 ]
 
 /** Working sets per lifting day, for the volume section summary. */
@@ -992,11 +1010,80 @@ function setView(next: View) {
 
 // ─── Components ──────────────────────────────────────────────────────────────
 
-function SafetyNote({ children }: { children: React.ReactNode }) {
+/** Day inks read white only on purple; every other one takes black lettering. */
+const onInk = (color: string) => (color === INK.purple ? "text-white" : "text-black")
+
+const stripes = (color: string, light: string) => `repeating-linear-gradient(45deg, ${color} 0 10px, ${light} 10px 20px)`
+
+const eyebrowLabel = "text-[10px] font-bold uppercase tracking-wider text-black/60"
+
+/** Rubber-stamped onto a finished day or exercise. */
+function DoneStamp({ className = "" }: { className?: string }) {
   return (
-    <div className="mt-2 flex items-start gap-2 rounded-lg border border-amber-500/25 bg-amber-500/[0.07] px-3 py-2">
-      <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
-      <p className="text-[12px] leading-relaxed text-amber-200/90">{children}</p>
+    <span
+      className={`inline-block shrink-0 -rotate-6 border-[2.5px] bg-white px-1.5 py-0.5 ${display} text-sm leading-none animate-in fade-in zoom-in-150 duration-200 motion-reduce:animate-none ${className}`}
+      style={{ color: RED_TEXT, borderColor: RED_TEXT, outline: `1.5px solid ${RED_TEXT}`, outlineOffset: "2px" }}
+    >
+      Done!
+    </span>
+  )
+}
+
+/** Slams in, then puffs away, next to the set that finished the day. Skipped for reduced motion. */
+function DoneBurst({ className = "" }: { className?: string }) {
+  return <Burst text="DONE!" className={`pointer-events-none absolute z-20 w-20 animate-comic-pop motion-reduce:hidden ${className}`} />
+}
+
+/**
+ * Wraps a day's toggle so the tap that checks its last working set is remembered, and the
+ * exercise it landed on can pop a "DONE!" burst. Warm-up drills never count.
+ */
+function useDonePop(sets: boolean[][], offset: number, onToggle: (exerciseIndex: number, setIndex: number) => void) {
+  const [pop, setPop] = React.useState<{ n: number; ex: number } | null>(null)
+  const toggle = (exerciseIndex: number, setIndex: number) => {
+    const finishing =
+      exerciseIndex >= offset &&
+      !sets[exerciseIndex][setIndex] &&
+      sets.slice(offset).every((s, i) => s.every((v, j) => v || (offset + i === exerciseIndex && j === setIndex)))
+    if (finishing) setPop((p) => ({ n: (p?.n ?? 0) + 1, ex: exerciseIndex }))
+    onToggle(exerciseIndex, setIndex)
+  }
+  return { pop, toggle }
+}
+
+/** A set to tick off: an inked box that presses flat and gets a check stamped into it. */
+function SetBox({ n, done, label, onClick, big = false }: { n: number; done: boolean; label: string; onClick: () => void; big?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className={`grid select-none place-items-center ${ink} ${display} leading-none text-black transition-[transform,box-shadow] duration-100 motion-reduce:transition-none ${
+        big ? "h-11 flex-1 text-2xl" : "h-9 w-9 shrink-0 text-xl"
+      } ${
+        done
+          ? "translate-x-[3px] translate-y-[3px] shadow-none"
+          : "bg-white shadow-[3px_3px_0_0_#000] hover:bg-[#FFF4DC] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+      }`}
+      style={done ? { backgroundColor: INK.green, ...halftone("rgba(0,0,0,0.2)", 5) } : undefined}
+    >
+      {done ? (
+        <Check
+          className={`${big ? "h-7 w-7" : "h-6 w-6"} -rotate-6 animate-in fade-in zoom-in-150 spin-in-12 duration-200 motion-reduce:animate-none`}
+          strokeWidth={4}
+        />
+      ) : (
+        n
+      )}
+    </button>
+  )
+}
+
+function SafetyNote({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`flex items-start gap-2 border-2 border-black px-3 py-2 shadow-[2px_2px_0_0_#000] ${className}`} style={{ backgroundColor: INK.yellow }}>
+      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={2.5} />
+      <p className="text-[13px] leading-snug text-black">{children}</p>
     </div>
   )
 }
@@ -1004,8 +1091,25 @@ function SafetyNote({ children }: { children: React.ReactNode }) {
 function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-[10px] uppercase tracking-wider text-gray-600 mb-0.5">{label}</div>
-      <p className="text-[13px] text-gray-400 leading-relaxed">{children}</p>
+      <div className={`mb-0.5 ${eyebrowLabel}`}>{label}</div>
+      <p className="text-[13px] leading-relaxed text-black">{children}</p>
+    </div>
+  )
+}
+
+/** Day name in a narration box, then the session lettered in the day's ink. */
+function DayHeading({ program, children }: { program: DayProgram; children?: React.ReactNode }) {
+  return (
+    <div className="flex items-end justify-between gap-3">
+      <div className="min-w-0 space-y-2.5">
+        <Caption color={program.color} className={`-rotate-2 ${onInk(program.color)}`}>
+          {program.eyebrow}
+        </Caption>
+        <h2 className={`${display} text-3xl leading-[1.05] md:text-4xl`} style={{ ...lettering(2, 3), color: program.color }}>
+          {program.title}
+        </h2>
+      </div>
+      {children}
     </div>
   )
 }
@@ -1015,23 +1119,26 @@ function ExerciseRow({
   completedSets,
   onToggleSet,
   compact = false,
+  celebrate,
 }: {
   ex: Exercise
   completedSets: boolean[]
   onToggleSet: (setIndex: number) => void
   /** Warm-up drills render tighter: smaller photos, no "muscles worked" chips. */
   compact?: boolean
+  /** Key of the "DONE!" burst to pop on this exercise, when it was the one that finished the day. */
+  celebrate?: number
 }) {
   const doneCount = completedSets.filter(Boolean).length
   const allDone = doneCount === ex.sets && ex.sets > 0
 
   return (
-    <div className={`px-4 py-5 border-b border-gray-800/60 last:border-0 transition-colors ${allDone ? "bg-emerald-500/[0.04]" : ""}`}>
+    <div className={compact ? "px-3 py-4" : "p-4"}>
       {/* Demo photos: start & end position */}
       {ex.img && (
-        <div className={`mb-4 grid grid-cols-2 gap-2 ${compact ? "max-w-xs" : ""}`}>
+        <div className={`mb-4 grid grid-cols-2 gap-3 ${compact ? "max-w-xs" : ""}`}>
           {[0, 1].map((n) => (
-            <div key={n} className="relative aspect-[3/2] overflow-hidden rounded-lg border border-gray-800 bg-gray-900">
+            <div key={n} className={`relative aspect-[3/2] overflow-hidden bg-white ${ink} ${n === 0 ? "-rotate-1" : "rotate-1"}`}>
               <Image
                 src={`/exercises/${ex.img}/${n}.jpg`}
                 alt={`${ex.name} — ${n === 0 ? "start" : "end"} position`}
@@ -1040,70 +1147,58 @@ function ExerciseRow({
                 className="object-cover"
                 loading="eager"
               />
-              <span className="absolute bottom-1 left-1 rounded bg-black/60 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-200">
+              <span
+                className="absolute bottom-1 left-1 border-2 border-black px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-black"
+                style={{ backgroundColor: INK.yellow }}
+              >
                 {n === 0 ? "Start" : "End"}
               </span>
             </div>
           ))}
-          {ex.imgNote && (
-            <p className="col-span-2 text-[11px] leading-relaxed text-gray-600">{ex.imgNote}</p>
-          )}
+          {ex.imgNote && <p className="col-span-2 text-[11px] italic leading-relaxed text-black/60">{ex.imgNote}</p>}
         </div>
       )}
 
       {/* Header: name + weight */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <h3 className={`text-[15px] font-semibold leading-tight ${allDone ? "text-emerald-300" : "text-white"}`}>
-              {ex.name}
-            </h3>
-            {ex.target && (
-              <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
-                {ex.target}
-              </span>
-            )}
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+            <h3 className={`${display} ${compact ? "text-xl" : "text-2xl"} leading-none text-black`}>{ex.name}</h3>
+            {ex.target && <Sticker color={INK.green}>{ex.target}</Sticker>}
+            {allDone && <DoneStamp className="ml-1" />}
           </div>
-          <p className="mt-1 text-[13px] text-gray-400">
+          <p className="mt-2 text-[13px] font-bold leading-relaxed text-black">
             {ex.sets} {ex.sets === 1 ? "set" : "sets"} × {ex.reps}
             {ex.intensity && (
-              <span className="mx-2 rounded border border-amber-500/25 bg-amber-500/10 px-1.5 py-0.5 align-middle text-[10px] font-medium uppercase tracking-wide text-amber-300">
+              <Sticker color={INK.yellow} className="mx-2 align-middle text-[10px] uppercase tracking-wide">
                 {ex.intensity}
-              </span>
+              </Sticker>
             )}
-            <span className="text-gray-600"> · rest {ex.rest}</span>
+            <span className="whitespace-nowrap font-normal text-black/60"> · rest {ex.rest}</span>
           </p>
         </div>
         {ex.weight && (
-          <div className="shrink-0 text-lg font-bold text-blue-400 tabular-nums leading-tight text-right">
+          <span
+            className={`max-w-[45%] shrink-0 rotate-2 border-2 border-black px-2 py-1 text-right ${display} text-xl leading-none tabular-nums text-black shadow-[2px_2px_0_0_#000]`}
+            style={{ backgroundColor: INK.yellow }}
+          >
             {ex.weight}
-          </div>
+          </span>
         )}
       </div>
 
       {/* Set tracking */}
-      <div className="mt-3 flex gap-2">
+      <div className="relative mt-3.5 flex gap-2.5">
         {Array.from({ length: ex.sets }).map((_, i) => {
           const active = completedSets[i]
-          return (
-            <button
-              key={i}
-              onClick={() => onToggleSet(i)}
-              aria-label={`Set ${i + 1}${active ? " done" : ""}`}
-              className={`flex-1 h-10 rounded-lg border text-sm font-semibold transition-all active:scale-95 ${active
-                ? "bg-emerald-500 border-emerald-500 text-white shadow-sm shadow-emerald-500/20"
-                : "border-gray-700 bg-gray-900/40 text-gray-500 hover:border-emerald-500/50 hover:text-gray-300"
-                }`}
-            >
-              {active ? "✓" : i + 1}
-            </button>
-          )
+          return <SetBox key={i} big n={i + 1} done={active} label={`Set ${i + 1}${active ? " done" : ""}`} onClick={() => onToggleSet(i)} />
         })}
+        {celebrate !== undefined && <DoneBurst key={celebrate} className="-top-9 right-0" />}
       </div>
 
       {/* Fatigue caveat */}
       {ex.note && (
-        <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-3 py-2 text-[12px] leading-relaxed text-amber-300/90">
+        <p className="mt-3.5 border-2 border-black px-3 py-2 text-[13px] leading-snug text-black shadow-[2px_2px_0_0_#000]" style={{ backgroundColor: INK.yellow }}>
           {ex.note}
         </p>
       )}
@@ -1111,34 +1206,30 @@ function ExerciseRow({
       {/* Muscles worked */}
       {ex.target && !compact && (
         <div className="mt-4">
-          <div className="mb-1.5 text-[10px] uppercase tracking-wider text-gray-600">Muscles worked</div>
-          <div className="flex flex-wrap gap-1.5">
-            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 text-[11px] font-medium text-emerald-300">
-              {ex.target}
-            </span>
+          <div className={`mb-1.5 ${eyebrowLabel}`}>Muscles worked</div>
+          <div className="flex flex-wrap gap-2">
+            <Sticker color={INK.green}>{ex.target}</Sticker>
             {ex.secondaryMuscles?.map((m) => (
-              <span key={m} className="rounded-full border border-gray-700 bg-gray-800/50 px-2 py-0.5 text-[11px] text-gray-400">
-                {m}
-              </span>
+              <Sticker key={m}>{m}</Sticker>
             ))}
           </div>
         </div>
       )}
 
       {/* How to — always visible */}
-      <div className="mt-4 space-y-3 rounded-lg border border-gray-800 bg-gray-900/40 p-3">
+      <div className="mt-4 space-y-3 border-2 border-black p-3" style={{ backgroundColor: INK.paper }}>
         <DetailBlock label="Machine">
           {ex.machine}
-          {ex.altMachine && <span className="text-gray-600"> · alt: {ex.altMachine}</span>}
+          {ex.altMachine && <span className="text-black/60"> · alt: {ex.altMachine}</span>}
         </DetailBlock>
         <DetailBlock label="Setup">{ex.setup}</DetailBlock>
         <DetailBlock label="Tempo">{ex.tempo}</DetailBlock>
         <div>
-          <div className="text-[10px] uppercase tracking-wider text-gray-600 mb-1.5">Tips</div>
+          <div className={`mb-1.5 ${eyebrowLabel}`}>Tips</div>
           <ul className="space-y-1.5">
             {ex.cues.map((cue, i) => (
-              <li key={i} className="flex items-start gap-2 text-[13px] text-gray-400">
-                <span className="mt-1.5 h-1 w-1 rounded-full bg-emerald-500 shrink-0" />
+              <li key={i} className="flex items-start gap-2 text-[13px] leading-relaxed text-black">
+                <span className="mt-[7px] h-2 w-2 shrink-0 rotate-45 border border-black" style={{ backgroundColor: INK.green }} />
                 <span>{cue}</span>
               </li>
             ))}
@@ -1149,9 +1240,10 @@ function ExerciseRow({
             href={ex.video}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[13px] text-blue-400 hover:underline"
+            className={buttonClass("sm", "bg-[#FF3B30] text-white")}
+            style={lettering(1.5, 2)}
           >
-            <Play className="h-3.5 w-3.5" />
+            <Play className="h-4 w-4" strokeWidth={3} />
             Watch demo video
           </a>
         )}
@@ -1180,67 +1272,68 @@ function DaySection({
   const done = workSets.reduce((a, s) => a + s.filter(Boolean).length, 0)
   const pct = total ? Math.round((done / total) * 100) : 0
   const warmupDone = sets.slice(0, offset).every((s) => s.every(Boolean))
+  const complete = total > 0 && done === total
+  const { pop, toggle } = useDonePop(sets, offset, onToggle)
 
   return (
-    <section>
-      <div className="flex items-end justify-between gap-3 mb-2">
-        <div>
-          <div className={`text-[10px] font-semibold uppercase tracking-widest ${program.color}`}>{program.eyebrow}</div>
-          <h2 className="mt-0.5 text-[17px] font-semibold text-white">{program.title}</h2>
-        </div>
+    <section className="space-y-5">
+      <DayHeading program={program}>
         {sets.some((s) => s.some(Boolean)) && (
-          <button onClick={onReset} className="shrink-0 text-[11px] text-gray-600 hover:text-gray-400 transition-colors">
+          <button onClick={onReset} className={buttonClass("sm", "shrink-0")}>
+            <RotateCcw className="h-4 w-4" strokeWidth={3} />
             Reset
           </button>
         )}
-      </div>
+      </DayHeading>
 
       {/* Progress bar */}
-      <div className="mb-3 flex items-center gap-2">
-        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800">
-          <div className="h-full rounded-full bg-emerald-500 transition-all duration-300" style={{ width: `${pct}%` }} />
+      <div className="flex items-center gap-3">
+        <div className={`h-5 flex-1 overflow-hidden bg-white ${ink} shadow-[3px_3px_0_0_#000]`}>
+          <div
+            className={`h-full transition-[width] duration-300 motion-reduce:transition-none ${pct > 0 && pct < 100 ? "border-r-[3px] border-black" : ""}`}
+            style={{ width: `${pct}%`, background: stripes(INK.green, "#8DF0BE") }}
+          />
         </div>
-        <span className="shrink-0 text-[11px] text-gray-500 tabular-nums">{done}/{total} working sets</span>
+        <span className="shrink-0 text-xs font-bold tabular-nums text-black">
+          {done}/{total} working sets
+        </span>
+        {complete && <DoneStamp />}
       </div>
 
-      {program.safety && <div className="mb-3"><SafetyNote>{program.safety}</SafetyNote></div>}
+      {program.safety && <SafetyNote>{program.safety}</SafetyNote>}
 
       {/* Warm-up — collapsed into one block */}
       {offset > 0 && (
-        <details className="group mb-3 overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-          <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-[13px] text-gray-400 transition-colors hover:text-gray-200">
-            <ChevronRight className="h-3.5 w-3.5 shrink-0 text-gray-600 transition-transform group-open:rotate-90" />
-            <span className="font-medium text-gray-300">{program.warmupLabel ?? "Warm-up"}</span>
-            <span className="hidden text-gray-600 sm:inline">· {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}</span>
-            {warmupDone && <span className="ml-auto shrink-0 text-[11px] text-emerald-400">done</span>}
-          </summary>
-          <div className="border-t border-gray-800">
-            {warmup.map((ex, i) => (
-              <ExerciseRow
-                key={ex.name + i}
-                ex={ex}
-                compact
-                completedSets={sets[i]}
-                onToggleSet={(setIndex) => onToggle(i, setIndex)}
-              />
-            ))}
-            {program.rampUp && (
-              <p className="border-t border-gray-800/60 px-4 py-3 text-[12px] leading-relaxed text-gray-500">
-                {program.rampUp}
-              </p>
+        <details className={`group bg-white ${ink} shadow-[3px_3px_0_0_#000]`}>
+          <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-2.5 text-black [&::-webkit-details-marker]:hidden">
+            <ChevronRight className="h-4 w-4 shrink-0 transition-transform group-open:rotate-90 motion-reduce:transition-none" strokeWidth={3} />
+            <span className={`${display} shrink-0 text-xl leading-none`}>{program.warmupLabel ?? "Warm-up"}</span>
+            <span className="hidden min-w-0 text-xs text-black/60 sm:inline">· {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}</span>
+            {warmupDone && (
+              <Sticker color={INK.green} className="ml-auto shrink-0">
+                done
+              </Sticker>
             )}
+          </summary>
+          <div className="divide-y-2 divide-dashed divide-black/30 border-t-[3px] border-black">
+            {warmup.map((ex, i) => (
+              <ExerciseRow key={ex.name + i} ex={ex} compact completedSets={sets[i]} onToggleSet={(setIndex) => toggle(i, setIndex)} />
+            ))}
+            {program.rampUp && <p className="px-3 py-3 text-[13px] leading-relaxed text-black/70">{program.rampUp}</p>}
           </div>
         </details>
       )}
 
-      <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
+      <div className="space-y-6">
         {work.map((ex, i) => (
-          <ExerciseRow
-            key={ex.name + i}
-            ex={ex}
-            completedSets={sets[offset + i]}
-            onToggleSet={(setIndex) => onToggle(offset + i, setIndex)}
-          />
+          <Panel key={ex.name + i}>
+            <ExerciseRow
+              ex={ex}
+              completedSets={sets[offset + i]}
+              onToggleSet={(setIndex) => toggle(offset + i, setIndex)}
+              celebrate={complete && pop?.ex === offset + i ? pop.n : undefined}
+            />
+          </Panel>
         ))}
       </div>
     </section>
@@ -1252,41 +1345,44 @@ function RecoveryDay({ program }: { program: DayProgram }) {
   const isZone2 = Boolean(rec?.duration)
 
   return (
-    <section>
-      <div className="mb-2">
-        <div className={`text-[10px] font-semibold uppercase tracking-widest ${program.color}`}>{program.eyebrow}</div>
-        <h2 className="mt-0.5 text-[17px] font-semibold text-white">{program.title}</h2>
-      </div>
-      <div className={`rounded-xl border p-4 ${isZone2 ? "border-blue-900/40 bg-blue-950/20" : "border-gray-800 bg-gray-900/20"}`}>
+    <section className="space-y-5">
+      <DayHeading program={program} />
+      <Panel className="p-4">
         <div className="flex items-start gap-3">
-          {isZone2
-            ? <Heart className="mt-0.5 h-5 w-5 shrink-0 text-blue-400" />
-            : <Moon className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" />}
+          <span
+            className={`grid h-10 w-10 shrink-0 place-items-center ${ink} shadow-[2px_2px_0_0_#000]`}
+            style={{ backgroundColor: isZone2 ? INK.cyan : INK.purple }}
+          >
+            {isZone2 ? <Heart className="h-5 w-5" fill={INK.red} strokeWidth={2.5} /> : <Moon className="h-5 w-5 text-white" strokeWidth={2.5} />}
+          </span>
           <div>
-            {isZone2 && (
-              <p className="text-sm font-medium text-blue-200">Zone 2 · {rec?.duration}</p>
-            )}
-            <p className={`text-[13px] leading-relaxed text-gray-400 ${isZone2 ? "mt-1" : ""}`}>{rec?.note}</p>
+            {isZone2 && <p className={`${display} text-2xl leading-none text-black`}>Zone 2 · {rec?.duration}</p>}
+            <p className={`text-sm leading-relaxed text-black ${isZone2 ? "mt-1.5" : ""}`}>{rec?.note}</p>
           </div>
         </div>
 
-        {program.safety && <SafetyNote>{program.safety}</SafetyNote>}
+        {program.safety && <SafetyNote className="mt-3">{program.safety}</SafetyNote>}
 
         {isZone2 && (
-          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
             {[...zone2Settings, { label: "Duration", value: rec!.duration! }].map(({ label, value }) => (
-              <div key={label} className="rounded-lg border border-blue-900/40 bg-blue-950/30 p-2.5">
-                <div className="text-[10px] uppercase tracking-wider text-gray-500">{label}</div>
-                <div className="mt-0.5 text-[13px] font-semibold text-blue-200 tabular-nums">{value}</div>
+              <div
+                key={label}
+                className="border-2 border-black p-2.5 shadow-[2px_2px_0_0_#000]"
+                style={{ backgroundColor: INK.cyan, ...halftone("rgba(0,0,0,0.12)", 6) }}
+              >
+                <div className="text-[10px] font-bold uppercase tracking-wider text-black/70">{label}</div>
+                <div className="mt-0.5 text-[13px] font-bold tabular-nums text-black">{value}</div>
               </div>
             ))}
           </div>
         )}
-      </div>
+      </Panel>
     </section>
   )
 }
 
+/** The gym view: one inked panel per day, every set a box to stamp. */
 function TextDay({
   program,
   sets,
@@ -1305,78 +1401,101 @@ function TextDay({
   const done = workSets.reduce((a, s) => a + s.filter(Boolean).length, 0)
   const dayName = program.eyebrow.split(" · ")[0]
   const isTrainer = program.eyebrow.includes("Trainer")
+  const complete = total > 0 && done === total
+  const light = program.color === INK.purple
+  const { pop, toggle } = useDonePop(sets, offset, onToggle)
 
   return (
     <section>
-      <div className="flex items-baseline justify-between gap-2 border-b border-gray-800 pb-1.5">
-        <h2 className="text-[12px] font-semibold uppercase tracking-wider text-white">
-          {dayName} <span className="text-gray-600">—</span> {program.title}
-          {isTrainer && (
-            <span className="ml-2 text-[10px] font-medium normal-case tracking-normal text-amber-400">trainer</span>
-          )}
+    <Panel>
+      <div
+        className={`flex items-center justify-between gap-3 border-b-[3px] border-black px-3 py-2 ${onInk(program.color)}`}
+        style={{ backgroundColor: program.color, ...halftone("rgba(0,0,0,0.12)", 6) }}
+      >
+        <h2 className="min-w-0">
+          <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="text-[26px] leading-none" style={light ? lettering(1.5, 2) : undefined}>
+              {dayName}
+            </span>
+            {isTrainer && (
+              <Sticker color="#000" className="rotate-3 text-[13px] leading-none text-white">
+                trainer
+              </Sticker>
+            )}
+          </span>
+          <span className="sr-only"> — </span>
+          <span className="mt-1 block font-sans text-[13px] font-bold leading-snug tracking-normal">{program.title}</span>
         </h2>
         {total > 0 && (
-          <button
-            onClick={onReset}
-            className="shrink-0 text-[11px] tabular-nums text-gray-600 transition-colors hover:text-gray-400"
-          >
-            {done}/{total}
-          </button>
+          <div className="flex shrink-0 items-center gap-2.5">
+            {complete && <DoneStamp />}
+            <button
+              onClick={onReset}
+              title="Reset"
+              className={`border-2 border-black px-2 py-0.5 ${display} text-lg leading-tight tabular-nums text-black shadow-[2px_2px_0_0_#000] transition-[transform,box-shadow] duration-150 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none motion-reduce:transition-none`}
+              style={{ backgroundColor: complete ? INK.green : "#fff" }}
+            >
+              {done}/{total}
+            </button>
+          </div>
         )}
       </div>
 
-      {recovery && (
-        <p className="pt-2 text-[13px] text-gray-400">{recovery.short}</p>
-      )}
+      <div className="divide-y-2 divide-dashed divide-black/30">
+        {(recovery || program.safety || warmup.length > 0) && (
+          <div className="space-y-2 px-3 py-2.5">
+            {recovery && <p className="text-sm font-bold leading-snug text-black">{recovery.short}</p>}
+            {program.safety && <SafetyNote>{program.safety}</SafetyNote>}
+            {warmup.length > 0 && (
+              <p className="text-[12px] leading-relaxed text-black/70">
+                <b className="text-black">Warm-up</b> · {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}
+                {program.rampUp && <span className="block">{program.rampUp}</span>}
+              </p>
+            )}
+          </div>
+        )}
 
-      {program.safety && <SafetyNote>{program.safety}</SafetyNote>}
-
-      {warmup.length > 0 && (
-        <p className="pt-2 text-[12px] text-gray-600">
-          Warm-up · {warmup.map((e) => e.name.replace(/\s*\(.*\)$/, "")).join(" · ")}
-          {program.rampUp && <span className="block">{program.rampUp}</span>}
-        </p>
-      )}
-
-      <div className="divide-y divide-gray-900">
         {work.map((ex, i) => {
           const completed = sets[offset + i]
           const allDone = completed.every(Boolean)
           return (
-            <div key={ex.name + i} className="py-2.5">
+            <div key={ex.name + i} className="px-3 py-2.5">
               <div className="flex items-baseline justify-between gap-3">
-                <span className={`text-[13px] ${allDone ? "text-gray-600 line-through" : "text-gray-200"}`}>
+                <span
+                  className={`text-[15px] font-bold leading-snug ${allDone ? "text-black/60 line-through decoration-[3px]" : "text-black"}`}
+                  style={allDone ? { textDecorationColor: RED_TEXT } : undefined}
+                >
                   {ex.name}
                 </span>
-                <span className="shrink-0 text-[13px] tabular-nums text-gray-400">
+                <span className={`${display} shrink-0 text-lg leading-none tabular-nums text-black`}>
                   {ex.sets} × {ex.reps}
                 </span>
               </div>
-              <div className="mt-1.5 flex items-center justify-between gap-3">
-                <div className="flex gap-1">
+              <div className="relative mt-2 flex items-center justify-between gap-3">
+                <div className="flex gap-2">
                   {completed.map((active, j) => (
-                    <button
+                    <SetBox
                       key={j}
-                      onClick={() => onToggle(offset + i, j)}
-                      aria-label={`${ex.name} set ${j + 1}${active ? " done" : ""}`}
-                      className={`h-7 w-7 rounded border text-[11px] font-semibold transition-all active:scale-95 ${active
-                        ? "border-emerald-500 bg-emerald-500 text-white"
-                        : "border-gray-700 bg-gray-900/40 text-gray-500 hover:border-emerald-500/50 hover:text-gray-300"
-                        }`}
-                    >
-                      {active ? "✓" : j + 1}
-                    </button>
+                      n={j + 1}
+                      done={active}
+                      label={`${ex.name} set ${j + 1}${active ? " done" : ""}`}
+                      onClick={() => toggle(offset + i, j)}
+                    />
                   ))}
                 </div>
                 {ex.weight && (
-                  <span className="text-right text-[12px] tabular-nums text-blue-400">{ex.weight}</span>
+                  <Sticker color={INK.yellow} className="min-w-0 text-right text-[13px] tabular-nums">
+                    {ex.weight}
+                  </Sticker>
                 )}
+                {complete && pop?.ex === offset + i && <DoneBurst key={pop.n} className="-top-6 right-2" />}
               </div>
-              {ex.note && <SafetyNote>{ex.note}</SafetyNote>}
+              {ex.note && <SafetyNote className="mt-2.5">{ex.note}</SafetyNote>}
             </div>
           )
         })}
       </div>
+    </Panel>
     </section>
   )
 }
@@ -1391,7 +1510,7 @@ function TextWeek({
   onReset: (day: DayKey) => void
 }) {
   return (
-    <div className="space-y-7">
+    <div className="space-y-7 animate-in fade-in zoom-in-95 duration-300 motion-reduce:animate-none">
       {dayKeys.map((key) => (
         <TextDay
           key={key}
@@ -1402,14 +1521,49 @@ function TextWeek({
         />
       ))}
 
-      <div className="space-y-1.5 border-t border-gray-800 pt-4 text-[12px] leading-relaxed text-gray-500">
+      <Panel className="space-y-1.5 p-3 text-[13px] leading-relaxed">
         <p>RIR 1–2 on compounds · RIR 0–2 on isolation · controlled 2–3s eccentric.</p>
         <p>Double progression: top of the rep range on every set, then the smallest jump in weight.</p>
-        <p className="text-amber-300/80">Bad sleep? Keep the weight, hit good reps, move on.</p>
-      </div>
+        <p>
+          <span className="box-decoration-clone px-1 font-bold" style={{ backgroundColor: INK.yellow }}>
+            Bad sleep? Keep the weight, hit good reps, move on.
+          </span>
+        </p>
+      </Panel>
     </div>
   )
 }
+
+function ViewToggle({ view }: { view: View }) {
+  return (
+    <div role="radiogroup" aria-label="View" className="inline-grid grid-cols-2 gap-2.5">
+      {(["text", "full"] as View[]).map((v) => {
+        const on = view === v
+        return (
+          <button
+            key={v}
+            role="radio"
+            aria-checked={on}
+            onClick={() => setView(v)}
+            className={`min-w-[5.5rem] ${ink} px-3 py-1 ${display} text-xl capitalize leading-tight text-black transition-[transform,box-shadow,background-color] duration-150 motion-reduce:transition-none ${
+              on ? "translate-x-[3px] translate-y-[3px] bg-[#FFD400] shadow-[2px_2px_0_0_#000]" : "bg-white shadow-[3px_3px_0_0_#000] hover:-translate-y-0.5"
+            }`}
+          >
+            {v}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+const filterButton = (on: boolean) =>
+  `flex min-w-0 flex-col items-center justify-center gap-1 ${ink} px-1 py-1.5 text-black transition-[transform,box-shadow,background-color] duration-150 motion-reduce:transition-none ${
+    on ? "translate-x-[3px] translate-y-[3px] shadow-[2px_2px_0_0_#000]" : "bg-white shadow-[3px_3px_0_0_#000] hover:-translate-y-0.5"
+  }`
+
+const sectionIntro = "text-sm leading-relaxed text-black"
+const footnote = "text-[13px] leading-relaxed text-black/70"
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
@@ -1435,315 +1589,319 @@ export default function PersonalTrainingPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-100">
-      <header className="container mx-auto flex max-w-2xl items-center justify-between px-4 pb-4 pt-6">
-        <Link href="/" className="text-sm text-gray-500 transition-colors hover:text-white">
-          Kowit C.
-        </Link>
-        <div className="flex items-center gap-4">
-          <Link href="/diet" className="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-white">
-            <Utensils className="h-3.5 w-3.5" />
-            Diet Plan
-          </Link>
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-white">
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Link>
-        </div>
-      </header>
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
+      <SiteHeader className="max-w-2xl" links={[{ href: "/diet", label: "Diet Plan", icon: Utensils }]} />
 
-      <main className="container mx-auto flex-1 max-w-2xl space-y-10 px-4 pb-24">
-
+      <main className="container mx-auto max-w-2xl flex-1 space-y-10 px-4 pb-24">
         {/* Heading */}
-        <div className="pt-2">
-          <div className="mb-1 flex items-center gap-2">
-            <Dumbbell className="h-4 w-4 shrink-0 text-emerald-400" />
-            <h1 className="text-xl font-semibold text-white">4-Day Hypertrophy Cut</h1>
-          </div>
+        <PageTitle
+          compact
+          className="pt-2"
+          color={INK.red}
+          kicker={
+            <>
+              <Dumbbell className="-mt-0.5 mr-1.5 inline h-3.5 w-3.5" strokeWidth={3} />
+              Meanwhile, at the gym…
+            </>
+          }
+          title="4-Day Hypertrophy Cut"
+        >
           {view === "full" ? (
             <>
-              <p className="pl-6 text-sm text-gray-500">
+              <p className="max-w-xl text-base leading-relaxed text-black">
                 {weeklyWorkingSets} working sets across 4 lifting days · 2 Zone 2 sessions · 1 full rest day. Chest and back are trained
                 three times a week, with Friday and Saturday fixed as the trainer-led anchors. Tap a set to check it off — progress is
                 saved on this device.
               </p>
-              <blockquote className="ml-6 mt-4 border-l-2 border-emerald-500/40 pl-3 text-[13px] italic leading-relaxed text-gray-400">
-                Train for hypertrophy first. Strength progression is valuable, but powerlifting performance is secondary and should not
-            compromise muscle growth or recovery.
+              {/* The program's motto, in a speech bubble. */}
+              <blockquote className={`relative mt-5 rounded-[22px] bg-white px-4 py-3 text-sm font-bold italic leading-relaxed text-black ${ink} shadow-[4px_4px_0_0_#000]`}>
+                <span aria-hidden className="absolute -top-[14px] left-10 h-6 w-6 rotate-45 border-l-[3px] border-t-[3px] border-black bg-white" />
+                <span className="relative">
+                  Train for hypertrophy first. Strength progression is valuable, but powerlifting performance is secondary and should not
+                  compromise muscle growth or recovery.
+                </span>
               </blockquote>
             </>
           ) : (
-            <p className="pl-6 text-sm text-gray-500">
-              {weeklyWorkingSets} working sets · 4 lifting days · chest &amp; back 3×/week · Fri &amp; Sat trainer
+            <p className="text-sm font-bold leading-relaxed text-black">
+              {weeklyWorkingSets}{" "}working sets · 4 lifting days · chest &amp; back 3×/week · Fri &amp; Sat trainer
             </p>
           )}
 
           {/* View toggle */}
-          <div className="mt-4 ml-6 inline-flex rounded-lg border border-gray-800 bg-gray-900/40 p-0.5">
-            {(["text", "full"] as View[]).map((v) => (
-              <button
-                key={v}
-                onClick={() => setView(v)}
-                className={`rounded-md px-3 py-1 text-[11px] font-semibold capitalize transition-colors ${view === v ? "bg-white/10 text-white" : "text-gray-500 hover:text-gray-300"
-                  }`}
-              >
-                {v}
-              </button>
-            ))}
-          </div>
-        </div>
+          <ViewToggle view={view} />
+        </PageTitle>
 
-        {view === "text" && (
-          <TextWeek progress={progress} onToggle={toggleSet} onReset={resetDay} />
-        )}
+        {view === "text" && <TextWeek progress={progress} onToggle={toggleSet} onReset={resetDay} />}
 
         {view === "full" && (
-          <>
-          {/* Goal */}
-          <section className="rounded-xl border border-emerald-900/40 bg-emerald-950/20 p-4">
-            <div className="flex items-start gap-3">
-              <Target className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
-              <div>
-                <p className="text-sm font-medium text-emerald-200">Goal · Hypertrophy first, fat loss alongside</p>
-                <p className="mt-1 text-[13px] leading-relaxed text-gray-400">
-                  Maximise muscle hypertrophy while reducing body fat and preserving strength through the deficit.
-                  Priority muscles: chest — especially the upper chest; shoulders — especially the lateral delts for width;
-                  back thickness and overall back development; and legs and glutes to keep development balanced.
-                </p>
-                <p className="mt-2 text-[12px] text-gray-600">
-                  Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
-                  Strength is a secondary goal, not the organising principle: powerlifting-specific work is optional here and must not
-                  come at the cost of muscle growth or recovery. If competition numbers ever become the goal, that wants a dedicated
-                  strength block rather than sacrificing hypertrophy year-round.
-                </p>
-              </div>
-            </div>
-          </section>
+          <div className="space-y-12 animate-in fade-in zoom-in-95 duration-300 motion-reduce:animate-none">
+            {/* Goal */}
+            <Panel className="px-4 pb-4 pt-6">
+              <Caption color={INK.green} className="absolute -top-4 left-3 -rotate-2">
+                <Target className="-mt-0.5 mr-1.5 inline h-3.5 w-3.5" strokeWidth={3} />
+                Goal
+              </Caption>
+              <p className={`${display} text-2xl leading-tight text-black`}>
+                Hypertrophy first, fat loss alongside
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-black">
+                Maximise muscle hypertrophy while reducing body fat and preserving strength through the deficit.
+                Priority muscles: chest — especially the upper chest; shoulders — especially the lateral delts for width;
+                back thickness and overall back development; and legs and glutes to keep development balanced.
+              </p>
+              <p className={`mt-2 ${footnote}`}>
+                Friday and Saturday are trainer-led and fixed — the rest of the week is built around them, not the other way round.
+                Strength is a secondary goal, not the organising principle: powerlifting-specific work is optional here and must not
+                come at the cost of muscle growth or recovery. If competition numbers ever become the goal, that wants a dedicated
+                strength block rather than sacrificing hypertrophy year-round.
+              </p>
+            </Panel>
 
-          {/* Day filter */}
-          <div className="flex gap-1.5">
-            <button
-              onClick={() => setActiveDay(null)}
-              className={`flex flex-col items-center justify-center gap-0.5 rounded-lg border px-2.5 py-1.5 transition-all active:scale-95 ${activeDay === null ? "border-white/30 bg-white/10 text-white" : "border-gray-800 bg-gray-900/40 text-gray-500 hover:text-gray-300"}`}
-            >
-              <span className="text-[11px] font-semibold">All</span>
-            </button>
-            {weekOverview.map((d, i) => (
+            {/* Day filter */}
+            <div className="grid grid-cols-4 gap-2.5 sm:grid-cols-8">
               <button
-                key={d.label}
-                onClick={() => setActiveDay(activeDay === i ? null : i)}
-                className={`flex flex-1 flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 transition-all active:scale-95 ${activeDay === i ? `${d.style} ring-1 ring-white/20` : "border-gray-800 bg-gray-900/40 opacity-50 hover:opacity-80"}`}
+                onClick={() => setActiveDay(null)}
+                aria-pressed={activeDay === null}
+                className={filterButton(activeDay === null)}
+                style={activeDay === null ? { backgroundColor: INK.yellow } : undefined}
               >
-                <span className="text-[11px] font-semibold">{d.label}</span>
-                <span className="text-[9px] opacity-60">{d.tag}</span>
+                <span className={`${display} text-lg leading-none`}>All</span>
               </button>
-            ))}
-          </div>
-
-          {/* Days */}
-          {dayKeys.map((key, i) =>
-            activeDay === null || activeDay === i ? (
-              dayPrograms[key].work.length === 0 ? (
-                <RecoveryDay key={key} program={dayPrograms[key]} />
-              ) : (
-                <DaySection
-                  key={key}
-                  program={dayPrograms[key]}
-                  sets={progress[key]}
-                  onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
-                  onReset={() => resetDay(key)}
-                />
-              )
-            ) : null
-          )}
-
-          {/* Progression */}
-          <section>
-            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Progressive Overload</h2>
-            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-              Double progression, kept practical: add reps until you hit the top of the range on <em>all</em> sets, then take the smallest
-              practical jump in weight and build it back up.
-            </p>
-            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-              <div className="border-b border-gray-800 px-4 py-2 text-[11px] font-medium uppercase tracking-wide text-gray-500">
-                Example · Low-Incline DB Press, 3 × 6–8
-              </div>
-              {progressionExample.map((row) => (
-                <div
-                  key={row.session}
-                  className={`flex items-center gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${row.bump ? "bg-emerald-500/[0.06]" : ""}`}
-                >
-                  <span className="w-5 shrink-0 text-[13px] tabular-nums text-gray-600">{row.session}</span>
-                  <span className={`flex-1 text-[12px] ${row.bump ? "font-medium text-emerald-300" : "text-gray-400"}`}>
-                    {row.load}
-                  </span>
-                  <span className={`shrink-0 text-right text-[13px] tabular-nums ${row.bump ? "text-emerald-300" : "text-blue-400"}`}>
-                    {row.reps}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
-              Illustrative numbers — actual progress depends on recovery, technique and the equipment available. On machines, compare
-              performance on the <em>same</em> machine, since stack numbers differ between models.
-            </p>
-            <p className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/[0.06] px-3 py-2.5 text-[13px] leading-relaxed text-amber-300/90">
-              <strong className="font-semibold">Bad sleep = don&rsquo;t force progression.</strong> If you slept five hours and the working
-              weight feels terrible, you have nothing to prove. Keep the load and the target RIR, hit good reps, and move on.
-              Consistency over months beats one heroic workout.
-            </p>
-          </section>
-
-          {/* Intensity */}
-          <section>
-            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Intensity &amp; Tempo</h2>
-            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-              No mandatory 3-second eccentrics. Lower under control — roughly 2–3 seconds — but never so slowly that it costs you
-              productive load. Priority order: <em>full range of motion → stable technique → sufficient effort → progressive overload → recovery.</em>
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              {intensityRules.map(({ label, value }) => (
-                <div key={label} className="rounded-lg border border-gray-800 bg-gray-900/20 p-3">
-                  <div className="text-[11px] text-gray-500">{label}</div>
-                  <div className="mt-0.5 text-sm font-semibold text-white">{value}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Fatigue management */}
-          <section>
-            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Recovery &amp; Adjustment Rules</h2>
-            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-              Recovery is part of the program, not an optional extra. Friday and Saturday run back to back, so what gets cut matters
-              more than what gets added.
-            </p>
-            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-              {fatigueRules.map(({ when, then }) => (
-                <div key={when} className="border-b border-gray-800/60 px-4 py-2.5 last:border-0">
-                  <div className="text-[12px] font-medium text-gray-300">{when}</div>
-                  <p className="mt-0.5 text-[13px] leading-relaxed text-gray-500">{then}</p>
-                </div>
-              ))}
-            </div>
-            <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
-              Don&rsquo;t add sets just to make a session feel harder. Add volume only when recovery is good <em>and</em> the target
-              muscle has stopped progressing.
-            </p>
-          </section>
-
-          {/* Weekly volume */}
-          <section>
-            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Weekly Volume Targets</h2>
-            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-              Direct sets per muscle per week — {weeklyWorkingSets} in total. This is deliberately less than a high-volume program:
-              while performance keeps progressing, there is no reason to add sets.
-            </p>
-            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-              {weeklyVolume.map(({ muscle, direct, days, bar, hero, indirect }) => (
-                <div
-                  key={muscle}
-                  className={`border-b border-gray-800/60 px-4 py-2.5 last:border-0 ${hero ? "bg-emerald-500/[0.05]" : ""}`}
-                >
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span className={`text-[13px] ${hero ? "font-medium text-emerald-300" : "text-gray-400"}`}>
-                      {muscle}
+              {weekOverview.map((d, i) => {
+                const on = activeDay === i
+                const light = on && d.color === INK.purple
+                return (
+                  <button
+                    key={d.label}
+                    onClick={() => setActiveDay(activeDay === i ? null : i)}
+                    aria-pressed={on}
+                    className={filterButton(on)}
+                    style={on ? { backgroundColor: d.color } : undefined}
+                  >
+                    <span className={`flex items-center gap-1 ${display} text-lg leading-none ${light ? "text-white" : ""}`} style={light ? lettering(1, 1.5) : undefined}>
+                      {!on && <span aria-hidden className="h-2.5 w-2.5 border-2 border-black" style={{ backgroundColor: d.color }} />}
+                      {d.label}
                     </span>
-                    <span className="shrink-0 text-right text-[12px] text-gray-300">
-                      <span className="tabular-nums">{direct}</span> direct <span className="text-gray-600">· {days}</span>
-                    </span>
-                  </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-gray-800">
+                    <span className={`text-[10px] font-bold leading-none ${light ? "text-white" : "text-black/60"}`}>{d.tag}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Days */}
+            {dayKeys.map((key, i) =>
+              activeDay === null || activeDay === i ? (
+                dayPrograms[key].work.length === 0 ? (
+                  <RecoveryDay key={key} program={dayPrograms[key]} />
+                ) : (
+                  <DaySection
+                    key={key}
+                    program={dayPrograms[key]}
+                    sets={progress[key]}
+                    onToggle={(exIdx, setIdx) => toggleSet(key, exIdx, setIdx)}
+                    onReset={() => resetDay(key)}
+                  />
+                )
+              ) : null
+            )}
+
+            {/* Progression */}
+            <section className="space-y-4">
+              <Reveal>
+                <SectionTitle title="Progressive Overload" color={INK.green} />
+              </Reveal>
+              <p className={sectionIntro}>
+                Double progression, kept practical: add reps until you hit the top of the range on <em>all</em> sets, then take the smallest
+                practical jump in weight and build it back up.
+              </p>
+              <Panel>
+                <div className="border-b-[3px] border-black bg-black px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-white">
+                  Example · Low-Incline DB Press, 3 × 6–8
+                </div>
+                <div className="divide-y-2 divide-black">
+                  {progressionExample.map((row) => (
                     <div
-                      className={`h-full rounded-full ${hero ? "bg-emerald-500" : "bg-gray-600"}`}
-                      style={{ width: `${(bar / 13) * 100}%` }}
-                    />
-                  </div>
-                  {indirect && (
-                    <p className="mt-1 text-[11px] text-gray-600">Indirect: {indirect} — not counted as a direct session.</p>
-                  )}
+                      key={row.session}
+                      className="flex items-center gap-3 px-3 py-2.5"
+                      style={row.bump ? { backgroundColor: INK.green, ...halftone("rgba(0,0,0,0.12)", 6) } : undefined}
+                    >
+                      <span className={`grid h-7 w-7 shrink-0 place-items-center border-2 border-black bg-white ${display} text-base leading-none`}>
+                        {row.session}
+                      </span>
+                      <span className={`flex-1 text-[13px] text-black ${row.bump ? "font-bold" : ""}`}>{row.load}</span>
+                      <span className={`${display} shrink-0 text-right text-xl leading-none tabular-nums text-black`}>{row.reps}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <p className="mt-3 text-[12px] leading-relaxed text-gray-600">
-              Direct working sets only, counted from the sessions above. Compounds also stimulate secondary muscles, but indirect work is
-              never counted as a direct session. A single exercise can be direct for two muscles — Bulgarian split squats count for quads
-              and glutes — so these rows deliberately sum to more than the {weeklyWorkingSets} working sets in the week.
-            </p>
-            <p className="mt-2 text-[12px] leading-relaxed text-gray-500">
-              <strong className="font-medium text-gray-300">Chest and back are deliberately prioritised, and direct arm volume is low.</strong>{" "}
-              If arm growth becomes a higher priority, add 2 sets of curls on Friday and 2 sets of triceps pressdowns or machine extensions
-              on Wednesday — provided recovery stays adequate.
-            </p>
-          </section>
+              </Panel>
+              <p className={footnote}>
+                Illustrative numbers — actual progress depends on recovery, technique and the equipment available. On machines, compare
+                performance on the <em>same</em> machine, since stack numbers differ between models.
+              </p>
+              <Panel color={INK.yellow} className="-rotate-[0.5deg] p-3 text-[13px] leading-relaxed">
+                <strong className="font-bold">Bad sleep = don&rsquo;t force progression.</strong> If you slept five hours and the working
+                weight feels terrible, you have nothing to prove. Keep the load and the target RIR, hit good reps, and move on.
+                Consistency over months beats one heroic workout.
+              </Panel>
+            </section>
 
-          {/* Nutrition */}
-          <section>
-            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Nutrition During the Cut</h2>
-            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-              Lose fat while preserving training performance and lean mass. The weekly trend decides the next move, not any single reading.
-            </p>
-            <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/20">
-              {nutrition.map(({ label, value }) => (
-                <div key={label} className="flex items-center justify-between gap-3 border-b border-gray-800/60 px-4 py-2.5 last:border-0">
-                  <span className="shrink-0 text-[13px] text-gray-400">{label}</span>
-                  <span className="text-right text-[13px] font-medium text-gray-200">{value}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-3 space-y-1.5 text-[12px] leading-relaxed text-gray-600">
-              <p>The slower end of that pace is usually preferable when preserving muscle and strength is the priority.</p>
-              <p>Track average weekly weight, waist circumference, gym performance and recovery together — not a single body-composition reading.</p>
-              <p>Creatine, if you already use it and it suits you: daily consistency matters more than timing it around workouts.</p>
-            </div>
-            <div className="mt-3 flex items-start gap-2 rounded-lg border border-amber-500/25 bg-amber-500/[0.07] px-3 py-2">
-              <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
-              <p className="text-[12px] leading-relaxed text-amber-200/90">
+            {/* Intensity */}
+            <section className="space-y-4">
+              <Reveal>
+                <SectionTitle title="Intensity & Tempo" color={INK.orange} />
+              </Reveal>
+              <p className={sectionIntro}>
+                No mandatory 3-second eccentrics. Lower under control — roughly 2–3 seconds — but never so slowly that it costs you
+                productive load. Priority order: <em>full range of motion → stable technique → sufficient effort → progressive overload → recovery.</em>
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {intensityRules.map(({ label, value }, i) => (
+                  <Reveal key={label} delay={(i % 2) * 70} className="h-full">
+                    <div className={`h-full bg-white p-3 ${ink} shadow-[3px_3px_0_0_#000] ${tilts[i % tilts.length]}`}>
+                      <div className="text-[11px] font-bold text-black/60">{label}</div>
+                      <div className={`mt-1 ${display} text-xl leading-tight text-black`}>{value}</div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </section>
+
+            {/* Fatigue management */}
+            <section className="space-y-4">
+              <Reveal>
+                <SectionTitle title="Recovery & Adjustment Rules" color={INK.purple} />
+              </Reveal>
+              <p className={sectionIntro}>
+                Recovery is part of the program, not an optional extra. Friday and Saturday run back to back, so what gets cut matters
+                more than what gets added.
+              </p>
+              <Panel className="divide-y-2 divide-black">
+                {fatigueRules.map(({ when, then }) => (
+                  <div key={when} className="px-3 py-2.5">
+                    <div className={`${display} text-lg leading-tight text-black`}>{when}</div>
+                    <p className="mt-0.5 text-[13px] leading-relaxed text-black">{then}</p>
+                  </div>
+                ))}
+              </Panel>
+              <p className={footnote}>
+                Don&rsquo;t add sets just to make a session feel harder. Add volume only when recovery is good <em>and</em> the target
+                muscle has stopped progressing.
+              </p>
+            </section>
+
+            {/* Weekly volume */}
+            <section className="space-y-4">
+              <Reveal>
+                <SectionTitle title="Weekly Volume Targets" color={INK.cyan} />
+              </Reveal>
+              <p className={sectionIntro}>
+                Direct sets per muscle per week — {weeklyWorkingSets} in total. This is deliberately less than a high-volume program:
+                while performance keeps progressing, there is no reason to add sets.
+              </p>
+              <Panel className="divide-y-2 divide-black">
+                {weeklyVolume.map(({ muscle, direct, days, bar, hero, indirect }) => (
+                  <div key={muscle} className="px-3 py-2.5" style={hero ? { backgroundColor: INK.yellow } : undefined}>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className={`text-sm text-black ${hero ? "font-bold" : ""}`}>{muscle}</span>
+                      <span className="shrink-0 text-right text-[13px] text-black">
+                        <span className="font-bold tabular-nums">{direct}</span> direct <span className="text-black/60">· {days}</span>
+                      </span>
+                    </div>
+                    <div className="mt-1.5 h-3.5 overflow-hidden border-2 border-black bg-white">
+                      <div
+                        className="h-full border-r-2 border-black"
+                        style={{ width: `${(bar / 13) * 100}%`, background: hero ? stripes(INK.red, "#FF7A70") : INK.cyan }}
+                      />
+                    </div>
+                    {indirect && <p className="mt-1 text-[11px] text-black/60">Indirect: {indirect} — not counted as a direct session.</p>}
+                  </div>
+                ))}
+              </Panel>
+              <p className={footnote}>
+                Direct working sets only, counted from the sessions above. Compounds also stimulate secondary muscles, but indirect work is
+                never counted as a direct session. A single exercise can be direct for two muscles — Bulgarian split squats count for quads
+                and glutes — so these rows deliberately sum to more than the {weeklyWorkingSets} working sets in the week.
+              </p>
+              <p className="text-[13px] leading-relaxed text-black">
+                <strong className="font-bold">Chest and back are deliberately prioritised, and direct arm volume is low.</strong>{" "}
+                If arm growth becomes a higher priority, add 2 sets of curls on Friday and 2 sets of triceps pressdowns or machine extensions
+                on Wednesday — provided recovery stays adequate.
+              </p>
+            </section>
+
+            {/* Nutrition */}
+            <section className="space-y-4">
+              <Reveal>
+                <SectionTitle title="Nutrition During the Cut" color={INK.pink} />
+              </Reveal>
+              <p className={sectionIntro}>
+                Lose fat while preserving training performance and lean mass. The weekly trend decides the next move, not any single reading.
+              </p>
+              <Panel className="divide-y-2 divide-black">
+                {nutrition.map(({ label, value }) => (
+                  <div key={label} className="flex items-center justify-between gap-3 px-3 py-2.5">
+                    <span className={`${display} shrink-0 text-lg leading-none text-black`}>{label}</span>
+                    <span className="text-right text-[13px] font-bold text-black">{value}</span>
+                  </div>
+                ))}
+              </Panel>
+              <div className={`space-y-1.5 ${footnote}`}>
+                <p>The slower end of that pace is usually preferable when preserving muscle and strength is the priority.</p>
+                <p>Track average weekly weight, waist circumference, gym performance and recovery together — not a single body-composition reading.</p>
+                <p>Creatine, if you already use it and it suits you: daily consistency matters more than timing it around workouts.</p>
+              </div>
+              <SafetyNote>
                 If medication substantially reduces your appetite, don&rsquo;t let protein, hydration or total intake drift too low.
                 Follow your prescribing clinician&rsquo;s instructions for any medication.
+              </SafetyNote>
+            </section>
+
+            {/* Weekly review */}
+            <section className="space-y-4">
+              <Reveal>
+                <SectionTitle title="Weekly Review" color={INK.yellow} />
+              </Reveal>
+              <p className={sectionIntro}>
+                Record these every week. Review the trend every two weeks before changing calories, cardio or volume — not sooner.
               </p>
-            </div>
-          </section>
+              <ol className="space-y-2.5">
+                {weeklyReview.map((item, i) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className={`grid h-7 w-7 shrink-0 place-items-center border-2 border-black bg-black ${display} text-base leading-none text-white`}>
+                      {i + 1}
+                    </span>
+                    <span className="text-sm text-black">{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
 
-          {/* Weekly review */}
-          <section>
-            <h2 className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-600">Weekly Review</h2>
-            <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
-              Record these every week. Review the trend every two weeks before changing calories, cardio or volume — not sooner.
-            </p>
-            <div className="space-y-2">
-              {weeklyReview.map((item, i) => (
-                <div key={item} className="flex items-baseline gap-3">
-                  <span className="w-4 shrink-0 text-[12px] tabular-nums text-gray-600">{i + 1}</span>
-                  <span className="text-[13px] text-gray-400">{item}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Final principle */}
-          <section className="rounded-xl border border-gray-800 bg-gray-900/20 p-4">
-            <h2 className="mb-2 text-xs font-semibold uppercase tracking-widest text-gray-600">Final Training Principle</h2>
-            <p className="text-[14px] font-medium leading-relaxed text-gray-200">
-              Train hard enough to stimulate growth, use progressive overload to measure improvement, and manage fatigue so that you
-              can repeat high-quality sessions consistently.
-            </p>
-            <p className="mt-2 text-[12px] leading-relaxed text-gray-500">
-              Hypertrophy is the primary objective. Powerlifting-style strength gains are welcome when they support it, but they are
-              not worth sacrificing recovery or productive muscle-building volume.
-            </p>
-          </section>
-          </>
+            {/* Final principle */}
+            <Reveal>
+              <Panel color={INK.yellow} dots className="rotate-[0.5deg] p-4">
+                <h2 className={`${display} mb-2 text-3xl leading-none text-black`}>Final Training Principle</h2>
+                <p className="text-base font-bold leading-relaxed text-black">
+                  Train hard enough to stimulate growth, use progressive overload to measure improvement, and manage fatigue so that you
+                  can repeat high-quality sessions consistently.
+                </p>
+                <p className="mt-2 text-[13px] leading-relaxed text-black/70">
+                  Hypertrophy is the primary objective. Powerlifting-style strength gains are welcome when they support it, but they are
+                  not worth sacrificing recovery or productive muscle-building volume.
+                </p>
+              </Panel>
+            </Reveal>
+          </div>
         )}
 
         {/* Credit */}
-        <p className="border-t border-gray-900 pt-4 text-center text-[11px] leading-relaxed text-gray-700">
+        <p className="border-t-2 border-dashed border-black/30 pt-4 text-center text-[11px] leading-relaxed text-black/60">
           Muscle data from{" "}
           <a
             href="https://github.com/hasaneyldrm/exercises-dataset"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-400"
+            className="font-bold text-black underline underline-offset-2 hover:text-[#E5221A]"
           >
             ExerciseDB
           </a>
@@ -1753,13 +1911,12 @@ export default function PersonalTrainingPage() {
             href="https://github.com/yuhonas/free-exercise-db"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-400"
+            className="font-bold text-black underline underline-offset-2 hover:text-[#E5221A]"
           >
             free-exercise-db
           </a>{" "}
           (public domain)
         </p>
-
       </main>
 
       <SiteFooter className="max-w-2xl px-4" />
