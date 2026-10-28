@@ -1,0 +1,1588 @@
+{
+  "fetched": "2026-10-28",
+  "variants": [
+    {
+      "id": "macbook-pro/16inch/m5max-18-32",
+      "device": "macbook-pro",
+      "size": "16inch",
+      "chip": "m5max-18-32",
+      "price": {
+        "TH": 154900,
+        "JP": 749800,
+        "SG": 5999,
+        "HK": 34999,
+        "TW": 144900,
+        "CN": 35999
+      },
+      "defaults": {
+        "memory": "36gb",
+        "storage": "2tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "36gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          },
+          {
+            "value": "8tb",
+            "delta": {
+              "TH": 105000,
+              "JP": 540000,
+              "SG": 4500,
+              "HK": 22500,
+              "TW": 105000,
+              "CN": 22500
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "macbook-pro/14inch/m5pro-18-20",
+      "device": "macbook-pro",
+      "size": "14inch",
+      "chip": "m5pro-18-20",
+      "price": {
+        "TH": 97400,
+        "JP": 459800,
+        "SG": 3749,
+        "HK": 21749,
+        "TW": 92400,
+        "CN": 22249
+      },
+      "defaults": {
+        "memory": "24gb",
+        "storage": "1tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "24gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "48gb",
+            "delta": {
+              "TH": 21000,
+              "JP": 108000,
+              "SG": 900,
+              "HK": 4500,
+              "TW": 21000,
+              "CN": 4500
+            }
+          },
+          {
+            "value": "64gb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 17500,
+              "JP": 90000,
+              "SG": 750,
+              "HK": 3750,
+              "TW": 17500,
+              "CN": 3750
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 52500,
+              "JP": 270000,
+              "SG": 2250,
+              "HK": 11250,
+              "TW": 52500,
+              "CN": 11250
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "macbook-pro/14inch/m5max-18-40",
+      "device": "macbook-pro",
+      "size": "14inch",
+      "chip": "m5max-18-40",
+      "price": {
+        "TH": 165900,
+        "JP": 807800,
+        "SG": 6699,
+        "HK": 36999,
+        "TW": 160900,
+        "CN": 38499
+      },
+      "defaults": {
+        "memory": "48gb",
+        "storage": "2tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "48gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "64gb",
+            "delta": {
+              "TH": 14000,
+              "JP": 72000,
+              "SG": 600,
+              "HK": 3000,
+              "TW": 14000,
+              "CN": 3000
+            }
+          },
+          {
+            "value": "128gb",
+            "delta": {
+              "TH": 70000,
+              "JP": 360000,
+              "SG": 3000,
+              "HK": 15000,
+              "TW": 70000,
+              "CN": 15000
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          },
+          {
+            "value": "8tb",
+            "delta": {
+              "TH": 105000,
+              "JP": 540000,
+              "SG": 4500,
+              "HK": 22500,
+              "TW": 105000,
+              "CN": 22500
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "macbook-pro/14inch/m5pro-15-16",
+      "device": "macbook-pro",
+      "size": "14inch",
+      "chip": "m5pro-15-16",
+      "price": {
+        "TH": 87900,
+        "JP": 429800,
+        "SG": 3499,
+        "HK": 19999,
+        "TW": 84900,
+        "CN": 19999
+      },
+      "defaults": {
+        "memory": "24gb",
+        "storage": "1tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "24gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "48gb",
+            "delta": {
+              "TH": 21000,
+              "JP": 108000,
+              "SG": 900,
+              "HK": 4500,
+              "TW": 21000,
+              "CN": 4500
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 17500,
+              "JP": 90000,
+              "SG": 750,
+              "HK": 3750,
+              "TW": 17500,
+              "CN": 3750
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 52500,
+              "JP": 270000,
+              "SG": 2250,
+              "HK": 11250,
+              "TW": 52500,
+              "CN": 11250
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "macbook-pro/16inch/m5max-18-40",
+      "device": "macbook-pro",
+      "size": "16inch",
+      "chip": "m5max-18-40",
+      "price": {
+        "TH": 174900,
+        "JP": 849800,
+        "SG": 6999,
+        "HK": 39999,
+        "TW": 169900,
+        "CN": 40999
+      },
+      "defaults": {
+        "memory": "48gb",
+        "storage": "2tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "48gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "64gb",
+            "delta": {
+              "TH": 14000,
+              "JP": 72000,
+              "SG": 600,
+              "HK": 3000,
+              "TW": 14000,
+              "CN": 3000
+            }
+          },
+          {
+            "value": "128gb",
+            "delta": {
+              "TH": 70000,
+              "JP": 360000,
+              "SG": 3000,
+              "HK": 15000,
+              "TW": 70000,
+              "CN": 15000
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          },
+          {
+            "value": "8tb",
+            "delta": {
+              "TH": 105000,
+              "JP": 540000,
+              "SG": 4500,
+              "HK": 22500,
+              "TW": 105000,
+              "CN": 22500
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "macbook-pro/16inch/m5pro-18-20",
+      "device": "macbook-pro",
+      "size": "16inch",
+      "chip": "m5pro-18-20",
+      "price": {
+        "TH": 104900,
+        "JP": 519800,
+        "SG": 3999,
+        "HK": 23999,
+        "TW": 99900,
+        "CN": 24999
+      },
+      "defaults": {
+        "memory": "24gb",
+        "storage": "1tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "24gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "48gb",
+            "delta": {
+              "TH": 21000,
+              "JP": 108000,
+              "SG": 900,
+              "HK": 4500,
+              "TW": 21000,
+              "CN": 4500
+            }
+          },
+          {
+            "value": "64gb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 17500,
+              "JP": 90000,
+              "SG": 750,
+              "HK": 3750,
+              "TW": 17500,
+              "CN": 3750
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 52500,
+              "JP": 270000,
+              "SG": 2250,
+              "HK": 11250,
+              "TW": 52500,
+              "CN": 11250
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "macbook-pro/14inch/m6-12-12",
+      "device": "macbook-pro",
+      "size": "14inch",
+      "chip": "m6-12-12",
+      "price": {
+        "TH": 69900,
+        "JP": 339800,
+        "SG": 2699,
+        "HK": 15999,
+        "TW": 64900,
+        "CN": 15999
+      },
+      "defaults": {
+        "memory": "16gb",
+        "storage": "1tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "16gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "24gb",
+            "delta": {
+              "TH": 7000,
+              "JP": 36000,
+              "SG": 300,
+              "HK": 1500,
+              "TW": 7000,
+              "CN": 1500
+            }
+          },
+          {
+            "value": "32gb",
+            "delta": {
+              "TH": 14000,
+              "JP": 72000,
+              "SG": 600,
+              "HK": 3000,
+              "TW": 14000,
+              "CN": 3000
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 17500,
+              "JP": 90000,
+              "SG": 750,
+              "HK": 3750,
+              "TW": 17500,
+              "CN": 3750
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 52500,
+              "JP": 270000,
+              "SG": 2250,
+              "HK": 11250,
+              "TW": 52500,
+              "CN": 11250
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "macbook-pro/14inch/m5max-18-32",
+      "device": "macbook-pro",
+      "size": "14inch",
+      "chip": "m5max-18-32",
+      "price": {
+        "TH": 144900,
+        "JP": 699800,
+        "SG": 5799,
+        "HK": 32499,
+        "TW": 139900,
+        "CN": 33999
+      },
+      "defaults": {
+        "memory": "36gb",
+        "storage": "2tb"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "36gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          },
+          {
+            "value": "8tb",
+            "delta": {
+              "TH": 105000,
+              "JP": 540000,
+              "SG": 4500,
+              "HK": 22500,
+              "TW": 105000,
+              "CN": 22500
+            }
+          }
+        ],
+        "display": [
+          {
+            "value": "standard",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "nano_texture",
+            "delta": {
+              "TH": 5250,
+              "JP": 27000,
+              "SG": 225,
+              "HK": 1125,
+              "TW": 5250,
+              "CN": 1125
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mac-mini/m5pro-18-20",
+      "device": "mac-mini",
+      "chip": "m5pro-18-20",
+      "price": {
+        "TH": 68900,
+        "JP": 335800,
+        "SG": 2799,
+        "HK": 15499,
+        "TW": 66900,
+        "CN": 14499
+      },
+      "defaults": {
+        "memory": "24gb",
+        "storage": "512gb",
+        "ethernet": "2_5gb_per_second"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "24gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "48gb",
+            "delta": {
+              "TH": 21000,
+              "JP": 108000,
+              "SG": 900,
+              "HK": 4500,
+              "TW": 21000,
+              "CN": 4500
+            }
+          },
+          {
+            "value": "64gb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 10500,
+              "JP": 54000,
+              "SG": 450,
+              "HK": 2250,
+              "TW": 10500,
+              "CN": 2250
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 28000,
+              "JP": 144000,
+              "SG": 1200,
+              "HK": 6000,
+              "TW": 28000,
+              "CN": 6000
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 63000,
+              "JP": 324000,
+              "SG": 2700,
+              "HK": 13500,
+              "TW": 63000,
+              "CN": 13500
+            }
+          },
+          {
+            "value": "8tb",
+            "delta": {
+              "TH": 133000,
+              "JP": 684000,
+              "SG": 5700,
+              "HK": 28500,
+              "TW": 133000,
+              "CN": 28500
+            }
+          }
+        ],
+        "ethernet": [
+          {
+            "value": "2_5gb_per_second",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "10gb_per_second",
+            "delta": {
+              "TH": 3500,
+              "JP": 18000,
+              "SG": 150,
+              "HK": 750,
+              "TW": 3500,
+              "CN": 750
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mac-mini/m6-12-12",
+      "device": "mac-mini",
+      "chip": "m6-12-12",
+      "price": {
+        "TH": 32900,
+        "JP": 149800,
+        "SG": 1299,
+        "HK": 7299,
+        "TW": 29900,
+        "CN": 6999
+      },
+      "defaults": {
+        "memory": "16gb",
+        "storage": "256gb",
+        "ethernet": "2_5gb_per_second"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "16gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "24gb",
+            "delta": {
+              "TH": 7000,
+              "JP": 36000,
+              "SG": 300,
+              "HK": 1500,
+              "TW": 7000,
+              "CN": 1500
+            }
+          },
+          {
+            "value": "32gb",
+            "delta": {
+              "TH": 14000,
+              "JP": 72000,
+              "SG": 600,
+              "HK": 3000,
+              "TW": 14000,
+              "CN": 3000
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "256gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 7000,
+              "JP": 36000,
+              "SG": 300,
+              "HK": 1500,
+              "TW": 7000,
+              "CN": 1500
+            }
+          },
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 17500,
+              "JP": 90000,
+              "SG": 750,
+              "HK": 3750,
+              "TW": 17500,
+              "CN": 3750
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          }
+        ],
+        "ethernet": [
+          {
+            "value": "2_5gb_per_second",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "10gb_per_second",
+            "delta": {
+              "TH": 3500,
+              "JP": 18000,
+              "SG": 150,
+              "HK": 750,
+              "TW": 3500,
+              "CN": 750
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mac-mini/m5pro-15-16",
+      "device": "mac-mini",
+      "chip": "m5pro-15-16",
+      "price": {
+        "TH": 61900,
+        "JP": 299800,
+        "SG": 2499,
+        "HK": 13999,
+        "TW": 59900,
+        "CN": 12999
+      },
+      "defaults": {
+        "memory": "24gb",
+        "storage": "512gb",
+        "ethernet": "2_5gb_per_second"
+      },
+      "options": {
+        "memory": [
+          {
+            "value": "24gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "48gb",
+            "delta": {
+              "TH": 21000,
+              "JP": 108000,
+              "SG": 900,
+              "HK": 4500,
+              "TW": 21000,
+              "CN": 4500
+            }
+          },
+          {
+            "value": "64gb",
+            "delta": {
+              "TH": 35000,
+              "JP": 180000,
+              "SG": 1500,
+              "HK": 7500,
+              "TW": 35000,
+              "CN": 7500
+            }
+          }
+        ],
+        "storage": [
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 10500,
+              "JP": 54000,
+              "SG": 450,
+              "HK": 2250,
+              "TW": 10500,
+              "CN": 2250
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 28000,
+              "JP": 144000,
+              "SG": 1200,
+              "HK": 6000,
+              "TW": 28000,
+              "CN": 6000
+            }
+          },
+          {
+            "value": "4tb",
+            "delta": {
+              "TH": 63000,
+              "JP": 324000,
+              "SG": 2700,
+              "HK": 13500,
+              "TW": 63000,
+              "CN": 13500
+            }
+          },
+          {
+            "value": "8tb",
+            "delta": {
+              "TH": 133000,
+              "JP": 684000,
+              "SG": 5700,
+              "HK": 28500,
+              "TW": 133000,
+              "CN": 28500
+            }
+          }
+        ],
+        "ethernet": [
+          {
+            "value": "2_5gb_per_second",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "10gb_per_second",
+            "delta": {
+              "TH": 3500,
+              "JP": 18000,
+              "SG": 150,
+              "HK": 750,
+              "TW": 3500,
+              "CN": 750
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "iphone/iphone17e",
+      "device": "iphone",
+      "chip": "iphone17e",
+      "price": {
+        "TH": 26900,
+        "JP": 124800,
+        "SG": 1099,
+        "HK": 5999,
+        "TW": 25900,
+        "CN": 5299
+      },
+      "defaults": {
+        "storage": "256gb"
+      },
+      "options": {
+        "storage": [
+          {
+            "value": "256gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 8000,
+              "JP": 35000,
+              "SG": 300,
+              "HK": 1800,
+              "TW": 7000,
+              "CN": 2000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "iphone/iphone17",
+      "device": "iphone",
+      "chip": "iphone17",
+      "price": {
+        "TH": 34900,
+        "JP": 159800,
+        "SG": 1449,
+        "HK": 7799,
+        "TW": 32900,
+        "CN": 6799
+      },
+      "defaults": {
+        "storage": "256gb"
+      },
+      "options": {
+        "storage": [
+          {
+            "value": "256gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 8000,
+              "JP": 35000,
+              "SG": 300,
+              "HK": 1800,
+              "TW": 7000,
+              "CN": 2000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "iphone/iphoneair",
+      "device": "iphone",
+      "chip": "iphoneair",
+      "price": {
+        "TH": 43900,
+        "JP": 189800,
+        "SG": 1749,
+        "HK": 9499,
+        "TW": 39900,
+        "CN": 8799
+      },
+      "defaults": {
+        "storage": "256gb"
+      },
+      "options": {
+        "storage": [
+          {
+            "value": "256gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 8000,
+              "JP": 35000,
+              "SG": 300,
+              "HK": 1800,
+              "TW": 7000,
+              "CN": 2000
+            }
+          },
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 24000,
+              "JP": 105000,
+              "SG": 900,
+              "HK": 5300,
+              "TW": 22000,
+              "CN": 5500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "iphone/iphone18promax",
+      "device": "iphone",
+      "chip": "iphone18promax",
+      "price": {
+        "TH": 52900,
+        "JP": 239800,
+        "SG": 2099,
+        "HK": 11499,
+        "TW": 49900,
+        "CN": 10999
+      },
+      "defaults": {
+        "storage": "256gb"
+      },
+      "options": {
+        "storage": [
+          {
+            "value": "256gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 8000,
+              "JP": 35000,
+              "SG": 300,
+              "HK": 1800,
+              "TW": 7000,
+              "CN": 2000
+            }
+          },
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 24000,
+              "JP": 105000,
+              "SG": 900,
+              "HK": 5300,
+              "TW": 22000,
+              "CN": 5500
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 48000,
+              "JP": 210000,
+              "SG": 1800,
+              "HK": 10500,
+              "TW": 44000,
+              "CN": 10500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "iphone/iphone18pro",
+      "device": "iphone",
+      "chip": "iphone18pro",
+      "price": {
+        "TH": 48900,
+        "JP": 219800,
+        "SG": 1899,
+        "HK": 10499,
+        "TW": 44900,
+        "CN": 9999
+      },
+      "defaults": {
+        "storage": "256gb"
+      },
+      "options": {
+        "storage": [
+          {
+            "value": "256gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 8000,
+              "JP": 35000,
+              "SG": 300,
+              "HK": 1800,
+              "TW": 7000,
+              "CN": 2000
+            }
+          },
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 24000,
+              "JP": 105000,
+              "SG": 900,
+              "HK": 5300,
+              "TW": 22000,
+              "CN": 5500
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 48000,
+              "JP": 210000,
+              "SG": 1800,
+              "HK": 10500,
+              "TW": 44000,
+              "CN": 10500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "iphone/iphoneduo",
+      "device": "iphone",
+      "chip": "iphoneduo",
+      "price": {
+        "TH": 79900,
+        "JP": 364800,
+        "SG": 3099,
+        "HK": 17499,
+        "TW": 74900,
+        "CN": 15999
+      },
+      "defaults": {
+        "storage": "256gb"
+      },
+      "options": {
+        "storage": [
+          {
+            "value": "256gb",
+            "delta": {
+              "TH": 0,
+              "JP": 0,
+              "SG": 0,
+              "HK": 0,
+              "TW": 0,
+              "CN": 0
+            }
+          },
+          {
+            "value": "512gb",
+            "delta": {
+              "TH": 8000,
+              "JP": 35000,
+              "SG": 300,
+              "HK": 1800,
+              "TW": 7000,
+              "CN": 2000
+            }
+          },
+          {
+            "value": "1tb",
+            "delta": {
+              "TH": 24000,
+              "JP": 105000,
+              "SG": 900,
+              "HK": 5300,
+              "TW": 22000,
+              "CN": 5500
+            }
+          },
+          {
+            "value": "2tb",
+            "delta": {
+              "TH": 48000,
+              "JP": 210000,
+              "SG": 1800,
+              "HK": 10500,
+              "TW": 44000,
+              "CN": 10500
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
-import { ArrowLeft, CalendarDays, ExternalLink, Info, Repeat, Tag } from "lucide-react";
+import { ArrowLeft, CalendarDays, ExternalLink, Info, Repeat, SlidersHorizontal, Tag } from "lucide-react";
 import { Comparison } from "./comparison";
-import { abroad, countries, fxDate, fxSource, models, priceDate, sources, THAI_IMPORT_VAT } from "./data";
+import { abroad, configCount, countries, fxDate, fxSource, priceDate, sources, THAI_IMPORT_VAT } from "./data";
 
 export const metadata: Metadata = {
   title: "Apple Prices in Asia",
@@ -47,7 +47,8 @@ export default function ApplePricesPage() {
           </div>
           <h1 className="text-3xl md:text-5xl font-light tracking-tight text-white">Apple Prices in Asia</h1>
           <p className="max-w-2xl text-gray-400 leading-relaxed">
-            Is it worth buying that MacBook or iPhone on your next trip? Apple&apos;s own prices in{" "}
+            Is it worth buying that MacBook or iPhone on your next trip? Pick a device and configuration to see what
+            it costs at Apple&apos;s own stores in{" "}
             {abroad.map((c) => c.name).join(", ").replace(/, ([^,]*)$/, " and $1")}, converted to baht and set
             against the Thai Apple Store.
           </p>
@@ -59,14 +60,16 @@ export default function ApplePricesPage() {
               Prices as of {formatDate(priceDate)}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-700 bg-gray-900/60 px-3 py-1 text-xs text-gray-300">
-              <Tag className="h-3 w-3" />
-              {models.length} models
+              <SlidersHorizontal className="h-3 w-3" />
+              {configCount.toLocaleString("en-US")} configurations
             </span>
           </div>
         </div>
 
+        <Comparison />
+
         {/* Exchange rates */}
-        <div className="mb-12 rounded-3xl border border-gray-800 bg-black/30 overflow-hidden">
+        <div className="mt-14 rounded-3xl border border-gray-800 bg-black/30 overflow-hidden">
           <div className="h-[2px] bg-gradient-to-r from-blue-500 via-gray-500 to-red-500" />
           <div className="px-4 py-5 sm:px-6 space-y-3">
             <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-gray-400 font-medium">
@@ -92,8 +95,6 @@ export default function ApplePricesPage() {
             </p>
           </div>
         </div>
-
-        <Comparison />
 
         {/* Country notes */}
         <section className="mt-14 space-y-5 border-t border-gray-800/60 pt-10">
@@ -139,9 +140,11 @@ export default function ApplePricesPage() {
         <section className="mt-14 space-y-3 border-t border-gray-800/60 pt-10 text-sm leading-relaxed text-gray-400">
           <h2 className="text-xs uppercase tracking-widest text-gray-500 font-medium">How these numbers work</h2>
           <p>
-            Every price is the cheapest standard configuration on Apple&apos;s own online store in that country, with
-            local tax included, as listed on {formatDate(priceDate)}. Resellers, carrier deals and student pricing are
-            left out, and Apple changes prices without notice, so check the store before you fly.
+            Every price comes from Apple&apos;s own online store in that country, as listed on{" "}
+            {formatDate(priceDate)}: the price of each chip in its base configuration plus Apple&apos;s own price for
+            each memory, storage, display or Ethernet upgrade, with local tax included. Colour and keyboard don&apos;t
+            change the price. Resellers, carrier deals and student pricing are left out, and Apple changes prices
+            without notice, so check the store before you fly.
           </p>
           <p>
             &ldquo;After tourist refund&rdquo; takes off only the sales tax a foreign visitor can confirmably claim

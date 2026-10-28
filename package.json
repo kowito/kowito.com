@@ -7,7 +7,8 @@
     "dev:reset": "sh -c 'lsof -ti tcp:3000 | xargs kill -9 2>/dev/null || true; next dev -p 3000'",
     "build": "next build",
     "start": "serve -s out -l 3001",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prices": "node scripts/fetch-apple-prices.mjs"
   },
   "dependencies": {
     "@amcharts/amcharts5": "^5.17.3",
