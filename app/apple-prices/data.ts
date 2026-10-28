@@ -2,6 +2,8 @@ import prices from "./prices.json";
 
 export type CountryCode = "TH" | "JP" | "SG" | "HK" | "TW" | "CN";
 
+export type RefundStatus = "yes" | "no" | "unconfirmed" | "none";
+
 export interface Country {
   code: CountryCode;
   name: string;
@@ -20,7 +22,13 @@ export interface Country {
    * refund operator's fee. Zero where there's no tax, no scheme, or Apple's participation is unconfirmed.
    */
   touristRefund: number;
-  taxNote: string;
+  /** Sales tax baked into shelf prices, as a short label. */
+  tax: string;
+  refund: { status: RefundStatus; label: string };
+  /** MacBook keyboard layout Apple ships as standard there. */
+  keyboard: string;
+  /** The one thing to know, shown first. */
+  headline: string;
   notes: string[];
   store: string;
 }
@@ -29,7 +37,8 @@ export const fxDate = "2026-10-27";
 export const fxSource = "Bank of Thailand, mid of buying and selling";
 
 /** Thai VAT on goods brought home above the 20,000-baht personal allowance. Import duty on these is 0%. */
-export const THAI_IMPORT_VAT = 0.07;
+export const THAI_VAT_PERCENT = 7;
+export const THAI_IMPORT_VAT = THAI_VAT_PERCENT / 100;
 
 export const countries: Country[] = [
   {
@@ -42,10 +51,13 @@ export const countries: Country[] = [
     fxUnit: 1,
     thbPerUnit: 1,
     touristRefund: 0,
-    taxNote: "Prices include 7% VAT. Every other country on this page is measured against these.",
+    tax: "7% VAT",
+    refund: { status: "none", label: "Home store" },
+    keyboard: "Thai",
+    headline: "The baseline. Everything else on this page is measured against Apple Thailand.",
     notes: [
       "Coming home with a new laptop or phone? Anything over the 20,000-baht allowance goes through the red channel: no import duty, but 7% VAT.",
-      "The 14″ MacBook Pro with M6 has a Thai price, but Apple Thailand hasn't given a release date yet.",
+      "The 14″ MacBook Pro with M6 has a Thai price, but no Thai release date yet.",
     ],
     store: "https://www.apple.com/th/",
   },
@@ -59,11 +71,13 @@ export const countries: Country[] = [
     fxUnit: 100,
     thbPerUnit: 0.21447,
     touristRefund: 0,
-    taxNote:
-      "Prices include 10% consumption tax. Apple's own stores in Japan stopped tax-free sales for tourists in 2022, so at Apple you pay the full price.",
+    tax: "10% consumption",
+    refund: { status: "no", label: "No refund at Apple" },
+    keyboard: "Japanese (JIS)",
+    headline: "Apple's own stores in Japan stopped tax-free sales for tourists in 2022.",
     notes: [
-      "Resellers like Bic Camera and Yodobashi still refund the tax to tourists. From 1 Nov 2026 Japan switches to refunds at departure: you pay full price and claim the 10% back at customs.",
-      "Macs come with a Japanese (JIS) keyboard. A US layout is a free option, but only as a custom order.",
+      "Resellers like Bic Camera and Yodobashi still refund the tax. From 1 Nov 2026 you pay full price and claim the 10% back at departure.",
+      "A US keyboard is a free option, but only as a custom order.",
       "Japanese iPhones always play the camera shutter sound while in Japan, even on silent.",
       "apple.com/jp only delivers inside Japan.",
     ],
@@ -79,10 +93,13 @@ export const countries: Country[] = [
     fxUnit: 1,
     thbPerUnit: 26.369,
     touristRefund: 0.063,
-    taxNote:
-      "Prices include 9% GST. Buy in a physical Apple Store (not online) and claim it back at Changi through the Tourist Refund Scheme: roughly 6% of the price after the refund agent's fee.",
+    tax: "9% GST",
+    refund: { status: "yes", label: "~6% back in store" },
+    keyboard: "US English",
+    headline: "Buy in a physical Apple Store and claim the GST back at Changi: roughly 6% after the agent's fee.",
     notes: [
-      "Spend at least S$100, and leave by air with the goods within two months.",
+      "Online orders don't qualify. Spend at least S$100 and fly out with the goods within two months.",
+      "A Thai keyboard is a free build-to-order option on the online store.",
       "iPhone Air and iPhone Duo are eSIM-only. When checked, a new iPhone Duo order was quoting late-January 2027 delivery.",
     ],
     store: "https://www.apple.com/sg/",
@@ -97,9 +114,11 @@ export const countries: Country[] = [
     fxUnit: 1,
     thbPerUnit: 4.3047,
     touristRefund: 0,
-    taxNote: "No sales tax at all, so the shelf price is the final price and there's nothing to claim back.",
+    tax: "None",
+    refund: { status: "none", label: "Nothing to claim" },
+    keyboard: "US English",
+    headline: "No sales tax at all, so the shelf price is the final price.",
     notes: [
-      "MacBooks come with a US English keyboard as standard, the easiest layout to pick up off the shelf.",
       "The dual-physical-SIM iPhones are gone: current models take one nano-SIM plus eSIM, and Air and Duo are eSIM-only.",
       "Chargers have UK-style three-pin plugs, so bring a travel adapter for Thai sockets.",
     ],
@@ -115,12 +134,12 @@ export const countries: Country[] = [
     fxUnit: 1,
     thbPerUnit: 1.0359,
     touristRefund: 0,
-    taxNote:
-      "Prices include 5% VAT. Taiwan refunds it to tourists at participating stores (about 3.8% of the price after the 20% handling charge), but I couldn't confirm Apple's own stores take part, so it isn't counted here.",
-    notes: [
-      "Macs come with a Zhuyin (Traditional Chinese) keyboard. A US layout is a free option, but only as a custom order.",
-      "apple.com/tw only delivers inside Taiwan.",
-    ],
+    tax: "5% VAT",
+    refund: { status: "unconfirmed", label: "Refund unconfirmed" },
+    keyboard: "Zhuyin",
+    headline:
+      "Taiwan refunds VAT to tourists at participating stores (about 3.8% after fees), but I couldn't confirm Apple takes part, so it isn't counted.",
+    notes: ["A US keyboard is a free option, but only as a custom order.", "apple.com/tw only delivers inside Taiwan."],
     store: "https://www.apple.com/tw/",
   },
   {
@@ -133,12 +152,14 @@ export const countries: Country[] = [
     fxUnit: 1,
     thbPerUnit: 5.0637,
     touristRefund: 0,
-    taxNote:
-      "Prices include 13% VAT. China's departure tax refund returns about 9% of the price at participating stores, but I found no sign Apple Stores take part, so it isn't counted here.",
+    tax: "13% VAT",
+    refund: { status: "unconfirmed", label: "Refund unconfirmed" },
+    keyboard: "Pinyin",
+    headline: "Apple says Apple Intelligence doesn't currently work on devices bought in mainland China.",
     notes: [
-      "Apple says Apple Intelligence doesn't currently work on devices bought in mainland China. It follows where the device was bought, not where you use it.",
-      "iPhone 17 and 18 Pro take two physical nano-SIMs. Air and Duo are eSIM-only, so check that your Thai carrier's eSIM works on a China model first.",
-      "JD and Tmall often undercut Apple's list price, but the best deals lean on China's national subsidy, which needs local eligibility.",
+      "China's departure tax refund returns about 9% at participating stores, but I found no sign Apple Stores take part, so it isn't counted.",
+      "iPhone 17 and 18 Pro take two physical nano-SIMs. Air and Duo are eSIM-only, so check your Thai carrier's eSIM works on a China model.",
+      "JD and Tmall often undercut Apple, but the best deals lean on a national subsidy that needs local eligibility.",
       "Apple China says the M6 MacBook Pro goes on sale only “after approval.”",
     ],
     store: "https://www.apple.com.cn/",
