@@ -74,10 +74,29 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        // Comic sound-effect burst: slams in, holds, then puffs away.
+        "comic-pop": {
+          "0%": { transform: "scale(0.2) rotate(-16deg)", opacity: "0" },
+          "16%": { transform: "scale(1.2) rotate(5deg)", opacity: "1" },
+          "28%": { transform: "scale(1) rotate(-4deg)" },
+          "78%": { transform: "scale(1) rotate(-4deg)", opacity: "1" },
+          "100%": { transform: "scale(1.3) rotate(-4deg)", opacity: "0" },
+        },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-6deg)" },
+          "50%": { transform: "rotate(6deg)" },
+        },
+        stripes: {
+          from: { backgroundPosition: "0 0" },
+          to: { backgroundPosition: "28px 0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "comic-pop": "comic-pop 1.5s cubic-bezier(.2,.9,.3,1.2) forwards",
+        wiggle: "wiggle 0.35s ease-in-out 2",
+        stripes: "stripes 0.8s linear infinite",
       },
     },
   },

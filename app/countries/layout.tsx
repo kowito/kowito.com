@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { bangers, comicNeue } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Countries",
@@ -13,5 +14,5 @@ export default function CountriesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <div className={`${bangers.variable} ${comicNeue.variable}`}>{children}</div>;
 }

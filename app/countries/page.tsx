@@ -1,16 +1,26 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type PointerEvent, type ReactNode } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { SiteFooter } from "@/components/site-footer";
-import { ArrowLeft, ChevronLeft, ChevronRight, Globe as GlobeIcon, MapPin, Pause, Plane, Play, X } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, MapPin, Pause, Plane, Play, X } from "lucide-react";
 import { countries, distanceKm, flagOf, home, type Country } from "./data";
 import { matches, type Filter } from "./globe";
+import { Landmark } from "./landmarks";
 
 const Globe = dynamic(() => import("./globe").then((mod) => ({ default: mod.Globe })), {
   ssr: false,
-  loading: () => <div className="absolute inset-[6%] animate-pulse rounded-full bg-gradient-to-br from-slate-800/60 to-slate-950/60" />,
+  loading: () => <div className="absolute inset-[12px] animate-pulse rounded-full border-[3px] border-black bg-sky-400" />,
 });
 
 const visited = countries.filter((c) => c.visited);
@@ -21,11 +31,43 @@ const furthest = visited.reduce((best, c) => (distanceFromHome(c) > distanceFrom
 
 const filters: { id: Filter; label: string; count: number }[] = [
   { id: "all", label: "All", count: countries.length },
-  { id: "visited", label: "Visited", count: visited.length },
-  { id: "wishlist", label: "Wishlist", count: wishlist.length },
+  { id: "visited", label: "Been", count: visited.length },
+  { id: "wishlist", label: "Someday", count: wishlist.length },
 ];
 
 const TOUR_STEP_MS = 5000;
+
+/* ───────────────────────── Comic ink ───────────────────────── */
+
+const INK = {
+  red: "#FF3B30",
+  yellow: "#FFD400",
+  cyan: "#4CC9F0",
+  purple: "#A855F7",
+};
+
+const display = "font-[family-name:var(--font-bangers)] tracking-wide";
+const ink = "border-[3px] border-black";
+const hardShadow = "shadow-[5px_5px_0_0_#000]";
+/** Buttons press into the page: they drop onto their own shadow. */
+const press =
+  "transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[2px_2px_0_0_#000]";
+
+/** Ben-Day dots, the printed shading of old comics. */
+const halftone = (dot = "rgba(0,0,0,0.16)", size = 7): CSSProperties => ({
+  backgroundImage: `radial-gradient(${dot} 1.3px, transparent 1.7px)`,
+  backgroundSize: `${size}px ${size}px`,
+});
+
+/** Outlined, drop-shadowed lettering for big titles. */
+const lettering = (stroke = 3, shadow = 5): CSSProperties => ({
+  WebkitTextStroke: `${stroke}px #000`,
+  paintOrder: "stroke fill",
+  textShadow: `${shadow}px ${shadow}px 0 #000`,
+});
+
+const SOUNDS = ["WHOOSH!", "ZOOM!", "SWOOSH!", "VROOM!", "KA-POW!", "ZIP!", "WHAM!"];
+const soundFor = (code: string) => SOUNDS[(code.charCodeAt(0) * 7 + code.charCodeAt(1)) % SOUNDS.length];
 
 /* ───────────────────────── Motion helpers ───────────────────────── */
 
@@ -59,7 +101,7 @@ function useCountUp(target: number, duration = 1600, delay = 0) {
   return value;
 }
 
-/** Fades and lifts its children in the first time they scroll into view. */
+/** Pops its children in, with a little overshoot, the first time they scroll into view. */
 function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
@@ -82,8 +124,8 @@ function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; 
     <div
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-700 ease-out motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none ${
-        shown ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+      className={`transition-all duration-500 ease-[cubic-bezier(.2,.9,.3,1.5)] motion-reduce:scale-100 motion-reduce:opacity-100 motion-reduce:transition-none ${
+        shown ? "scale-100 opacity-100" : "scale-75 opacity-0"
       } ${className}`}
     >
       {children}
@@ -91,125 +133,115 @@ function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; 
   );
 }
 
-/** Tilts toward the pointer with a soft glare that follows it. Written straight to CSS variables, no re-render. */
-function tilt(e: PointerEvent<HTMLElement>) {
-  if (e.pointerType !== "mouse" || window.matchMedia(motionQuery).matches) return;
-  const el = e.currentTarget;
-  const r = el.getBoundingClientRect();
-  const x = (e.clientX - r.left) / r.width;
-  const y = (e.clientY - r.top) / r.height;
-  el.style.setProperty("--rx", `${(0.5 - y) * 10}deg`);
-  el.style.setProperty("--ry", `${(x - 0.5) * 12}deg`);
-  el.style.setProperty("--mx", `${x * 100}%`);
-  el.style.setProperty("--my", `${y * 100}%`);
+/* ───────────────────────── Comic pieces ───────────────────────── */
+
+/** A jagged starburst with a sound effect in it. Spikes are seeded so every render matches. */
+function Burst({ text, className = "" }: { text: string; className?: string }) {
+  const spikes = 13;
+  const points = Array.from({ length: spikes * 2 }, (_, i) => {
+    const r = i % 2 ? 31 + ((i * 37) % 7) : 48 - ((i * 53) % 5);
+    const a = (Math.PI * i) / spikes - Math.PI / 2;
+    return `${(50 + r * Math.cos(a)).toFixed(1)},${(50 + r * Math.sin(a)).toFixed(1)}`;
+  }).join(" ");
+  return (
+    <svg viewBox="0 0 100 100" className={className} aria-hidden>
+      <polygon points={points} fill={INK.yellow} stroke="#000" strokeWidth="3" strokeLinejoin="round" />
+      <text
+        x="50"
+        y="57"
+        textAnchor="middle"
+        fontSize={text.length > 6 ? 15 : 19}
+        fill={INK.red}
+        stroke="#000"
+        strokeWidth="1.2"
+        style={{ fontFamily: "var(--font-bangers)", paintOrder: "stroke", letterSpacing: "0.5px" }}
+        transform="rotate(-8 50 50)"
+      >
+        {text}
+      </text>
+    </svg>
+  );
 }
 
-function untilt(e: PointerEvent<HTMLElement>) {
-  e.currentTarget.style.setProperty("--rx", "0deg");
-  e.currentTarget.style.setProperty("--ry", "0deg");
+/** The yellow narration box comics use for "Meanwhile…". */
+function Caption({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <span className={`inline-block bg-[#FFD400] px-3 py-1 text-xs font-bold uppercase tracking-wider text-black ${ink} shadow-[3px_3px_0_0_#000] ${className}`}>
+      {children}
+    </span>
+  );
 }
 
-/** Twinkling stars around the globe; positions are seeded so server and client agree. */
-const stars = Array.from({ length: 48 }, (_, i) => {
-  const rand = (n: number) => {
-    const x = Math.sin(i * 127.1 + n * 311.7) * 43758.5453;
-    return x - Math.floor(x);
-  };
-  return { left: rand(1) * 100, top: rand(2) * 100, size: rand(3) > 0.85 ? 2 : 1, delay: rand(4) * 4, duration: 2 + rand(5) * 3 };
-});
+function Stamp({ country, className = "" }: { country: Country; className?: string }) {
+  const color = country.visited ? INK.red : "#000";
+  return (
+    <span
+      className={`inline-block shrink-0 rotate-[-8deg] border-[2.5px] bg-white px-1.5 py-0.5 ${display} text-sm leading-none ${className}`}
+      style={{ color, borderColor: color, outline: `1.5px solid ${color}`, outlineOffset: "2px" }}
+    >
+      {country.visited ? "Visited!" : "Someday…"}
+    </span>
+  );
+}
 
-/* ───────────────────────── Pieces ───────────────────────── */
-
-function Stat({ value, label, suffix = "", delay }: { value: number; label: string; suffix?: string; delay: number }) {
+function Stat({ value, label, suffix = "", delay, bg, light }: { value: number; label: string; suffix?: string; delay: number; bg: string; light?: boolean }) {
   const n = useCountUp(value, 1600, delay);
   return (
-    <div className="min-w-0 rounded-2xl border border-white/5 bg-white/[0.03] px-2.5 py-2 sm:px-3 sm:py-2.5">
-      <p className="font-display text-xl font-light tabular-nums text-white sm:text-3xl">
+    <div className={`min-w-0 px-2.5 py-2 ${ink} ${hardShadow}`} style={{ backgroundColor: bg, ...halftone("rgba(0,0,0,0.14)", 6) }}>
+      <p className={`${display} text-3xl leading-none sm:text-4xl ${light ? "text-white" : "text-black"}`} style={light ? lettering(1.5, 2) : undefined}>
         {Math.round(n).toLocaleString("en-US")}
-        {suffix && <span className="ml-0.5 text-xs text-gray-400 sm:text-base">{suffix}</span>}
+        {suffix && <span className="ml-0.5 text-base">{suffix}</span>}
       </p>
-      <p className="mt-0.5 truncate text-[10px] uppercase tracking-wider text-gray-500 sm:text-[11px] sm:tracking-widest">{label}</p>
+      <p className={`mt-1 truncate text-[10px] font-bold uppercase tracking-wider ${light ? "text-white" : "text-black"}`}>{label}</p>
     </div>
   );
 }
 
-function ProgressRing() {
-  const n = useCountUp(visited.length, 1800, 200);
-  const r = 34;
-  const circumference = 2 * Math.PI * r;
+function ProgressBar() {
+  const n = useCountUp(visited.length, 1800, 300);
   const share = n / countries.length;
   return (
-    <div className="flex items-center gap-4">
-      <svg viewBox="0 0 80 80" className="h-20 w-20 -rotate-90" aria-hidden>
-        <circle cx="40" cy="40" r={r} fill="none" stroke="currentColor" strokeWidth="6" className="text-white/[0.06]" />
-        <circle
-          cx="40"
-          cy="40"
-          r={r}
-          fill="none"
-          stroke="url(#ring)"
-          strokeWidth="6"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference * (1 - share)}
+    <div className="space-y-1.5">
+      <div className="flex items-baseline justify-between gap-2">
+        <p className={`${display} text-2xl leading-none text-black`}>{Math.round(share * 100)}% stamped!</p>
+        <p className="text-xs font-bold text-black/60">
+          {visited.length} of {countries.length} countries
+        </p>
+      </div>
+      <div className={`h-6 overflow-hidden bg-white ${ink} ${hardShadow}`}>
+        <div
+          className="h-full animate-stripes border-r-[3px] border-black motion-reduce:animate-none"
+          style={{ width: `${share * 100}%`, background: `repeating-linear-gradient(45deg, ${INK.red} 0 10px, #FF7A70 10px 20px)`, backgroundSize: "28px 100%" }}
         />
-        <defs>
-          <linearGradient id="ring" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0%" stopColor="#34d399" />
-            <stop offset="100%" stopColor="#60a5fa" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <div>
-        <p className="font-display text-3xl font-light tabular-nums text-white">{Math.round(share * 100)}%</p>
-        <p className="text-xs text-gray-400">of the list ticked off</p>
       </div>
     </div>
   );
 }
 
 function FilterSwitch({ filter, onChange }: { filter: Filter; onChange: (f: Filter) => void }) {
-  const index = filters.findIndex((f) => f.id === filter);
   return (
-    <div role="radiogroup" aria-label="Show countries" className="relative grid grid-cols-3 rounded-2xl border border-white/5 bg-white/[0.03] p-1">
-      {/* The pill slides under whichever option is active. */}
-      <span
-        aria-hidden
-        className="absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-xl bg-white shadow-lg shadow-black/30 transition-transform duration-500 ease-[cubic-bezier(.2,.9,.3,1.2)] motion-reduce:transition-none"
-        style={{ transform: `translateX(${index * 100}%)` }}
-      />
-      {filters.map((f) => (
-        <button
-          key={f.id}
-          role="radio"
-          aria-checked={filter === f.id}
-          onClick={() => onChange(f.id)}
-          className={`relative z-10 rounded-xl px-2 py-2 text-xs font-medium transition-colors duration-300 sm:text-sm ${
-            filter === f.id ? "text-gray-950" : "text-gray-400 hover:text-white"
-          }`}
-        >
-          {f.label} <span className={filter === f.id ? "text-gray-500" : "text-gray-600"}>{f.count}</span>
-        </button>
-      ))}
+    <div role="radiogroup" aria-label="Show countries" className="grid grid-cols-3 gap-2.5">
+      {filters.map((f) => {
+        const on = filter === f.id;
+        return (
+          <button
+            key={f.id}
+            role="radio"
+            aria-checked={on}
+            onClick={() => onChange(f.id)}
+            className={`${ink} px-2 py-1.5 ${display} text-lg leading-tight text-black transition-[transform,box-shadow,background-color] duration-150 ${
+              on ? "translate-x-[3px] translate-y-[3px] bg-[#FFD400] shadow-[2px_2px_0_0_#000]" : `bg-white ${hardShadow} hover:-translate-y-0.5`
+            }`}
+          >
+            {f.label} <span className="text-sm opacity-60">{f.count}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }
 
-function StatusPill({ country }: { country: Country }) {
-  return country.visited ? (
-    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-emerald-400/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-emerald-300">
-      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-      Visited
-    </span>
-  ) : (
-    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-blue-400/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-blue-300">
-      <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-      Wishlist
-    </span>
-  );
-}
-
-function DetailCard({
+function SpeechBubble({
   country,
   position,
   total,
@@ -225,95 +257,103 @@ function DetailCard({
   onClose: () => void;
 }) {
   const km = useCountUp(distanceFromHome(country), 1200);
+  const navButton = `inline-flex items-center gap-0.5 bg-white px-2.5 py-1 ${display} text-base ${ink} shadow-[3px_3px_0_0_#000] ${press}`;
   return (
     <div
-      className="animate-in fade-in slide-in-from-bottom-4 rounded-3xl border border-white/10 bg-gray-950/80 p-4 shadow-2xl shadow-black/60 backdrop-blur-xl duration-500 motion-reduce:animate-none sm:p-5"
+      className={`relative rounded-[26px] bg-white p-4 text-black sm:p-5 ${ink} shadow-[6px_6px_0_0_#000] animate-in fade-in zoom-in-75 duration-300 ease-[cubic-bezier(.2,.9,.3,1.4)] motion-reduce:animate-none`}
     >
-      <div className="flex items-start gap-3">
-        <span className="text-4xl leading-none">{flagOf(country.code)}</span>
+      {/* The bubble's tail, pointing up at the globe. */}
+      <span aria-hidden className="absolute -top-[15px] left-16 h-7 w-7 rotate-45 border-l-[3px] border-t-[3px] border-black bg-white" />
+
+      <div className="relative flex items-start gap-3">
+        <span className="text-5xl leading-none drop-shadow-[2px_2px_0_#000]">{flagOf(country.code)}</span>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-xl font-light tracking-tight text-white">{country.name}</h2>
-            <StatusPill country={country} />
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <h2 className={`${display} text-3xl leading-none sm:text-4xl`}>{country.name}</h2>
+            <Stamp country={country} />
           </div>
-          <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-gray-400">
+          <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs font-bold text-black/70">
             <span className="inline-flex items-center gap-1">
-              <MapPin className="h-3 w-3" />
+              <MapPin className="h-3.5 w-3.5" />
               {country.cities.map((c) => c.name).join(" · ")}
             </span>
             {country.code !== "TH" && (
               <span className="inline-flex items-center gap-1 tabular-nums">
-                <Plane className="h-3 w-3" />
-                {Math.round(km).toLocaleString("en-US")} km from {home.name}
+                <Plane className="h-3.5 w-3.5" />
+                {Math.round(km).toLocaleString("en-US")} km from {home.name}!
               </span>
             )}
           </p>
         </div>
-        <button onClick={onClose} aria-label="Close" className="-mr-1 -mt-1 rounded-full p-1.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white">
-          <X className="h-4 w-4" />
+        <button onClick={onClose} aria-label="Close" className={`-mr-1 -mt-1 bg-white p-1 ${ink} shadow-[2px_2px_0_0_#000] transition-transform hover:rotate-90`}>
+          <X className="h-4 w-4" strokeWidth={3} />
         </button>
       </div>
 
-      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-300">{country.description}</p>
+      <p className="relative mt-3 line-clamp-3 text-sm leading-relaxed">{country.description}</p>
 
-      <div className="mt-3 flex flex-wrap gap-1.5">
+      <div className="relative mt-3 flex flex-wrap gap-2">
         {country.highlights.map((h, i) => (
           <span
             key={h}
-            style={{ animationDelay: `${150 + i * 70}ms` }}
-            className="animate-in fade-in zoom-in-95 fill-mode-both rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] text-gray-300 duration-500 motion-reduce:animate-none"
+            style={{ animationDelay: `${120 + i * 80}ms`, rotate: `${i % 2 ? 2 : -2}deg` }}
+            className="animate-in fade-in zoom-in-50 fill-mode-both border-2 border-black bg-[#FFD400] px-2 py-0.5 text-[11px] font-bold duration-300 motion-reduce:animate-none"
           >
             {h}
           </span>
         ))}
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-white/5 pt-3">
-        <button onClick={onPrev} className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-gray-400 transition-colors hover:bg-white/5 hover:text-white">
-          <ChevronLeft className="h-4 w-4" />
+      <div className="relative mt-4 flex items-center justify-between">
+        <button onClick={onPrev} className={navButton}>
+          <ChevronLeft className="h-4 w-4" strokeWidth={3} />
           Prev
         </button>
-        <span className="text-[11px] tabular-nums text-gray-500">
+        <span className={`${display} text-lg tabular-nums`}>
           {position} / {total}
         </span>
-        <button onClick={onNext} className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-gray-400 transition-colors hover:bg-white/5 hover:text-white">
+        <button onClick={onNext} className={navButton}>
           Next
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" strokeWidth={3} />
         </button>
       </div>
     </div>
   );
 }
 
-function CountryCard({ country, active, onSelect }: { country: Country; active: boolean; onSelect: () => void }) {
+/** A manga panel of the country's landmark, captioned, with the details underneath. */
+function CountryPanel({ country, index, active, onSelect }: { country: Country; index: number; active: boolean; onSelect: () => void }) {
+  const tilt = ["-rotate-1", "rotate-1", "rotate-[0.5deg]", "-rotate-[1.5deg]"][index % 4];
   return (
     <button
       onClick={onSelect}
-      onPointerMove={tilt}
-      onPointerLeave={untilt}
-      style={{ transform: "perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))" }}
-      className={`group relative block h-full w-full overflow-hidden rounded-2xl border p-4 text-left transition-[transform,border-color,background-color] duration-200 ease-out ${
-        active ? "border-white/40 bg-white/[0.07]" : "border-white/[0.06] bg-white/[0.025] hover:border-white/15"
+      className={`group relative block w-full bg-white text-left text-black ${ink} ${hardShadow} ${tilt} transition-[transform,box-shadow] duration-200 hover:z-10 hover:rotate-0 hover:scale-[1.04] hover:shadow-[9px_9px_0_0_#000] active:scale-100 ${
+        active ? "outline outline-4 outline-offset-4 outline-[#A855F7]" : ""
       }`}
     >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ background: "radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.09), transparent 60%)" }}
-      />
-      <span
-        aria-hidden
-        className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${country.visited ? "via-emerald-400/60" : "via-blue-400/60"} to-transparent`}
-      />
-      <div className="relative flex items-start justify-between gap-2">
-        <span className="text-3xl leading-none transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-110">{flagOf(country.code)}</span>
-        <StatusPill country={country} />
+      <div className="relative overflow-hidden border-b-[3px] border-black">
+        <Landmark code={country.code} className="block aspect-[16/10] w-full" />
+        <span
+          className={`absolute bottom-1.5 left-1.5 max-w-[calc(100%-0.75rem)] truncate border-2 border-black px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-[2px_2px_0_0_#000] ${
+            country.visited ? "bg-[#FF3B30] text-white" : "bg-[#FFD400] text-black"
+          }`}
+        >
+          {country.landmark}
+        </span>
+        <Stamp country={country} className="absolute right-1.5 top-2" />
       </div>
-      <h3 className="relative mt-3 font-medium text-white">{country.name}</h3>
-      <p className="relative mt-0.5 truncate text-xs text-gray-500">{country.cities.map((c) => c.name).join(" · ")}</p>
-      <p className="relative mt-3 flex items-center justify-between text-[11px] text-gray-500">
-        <span className="truncate">{country.highlights[0]}</span>
-        {country.code !== "TH" && <span className="shrink-0 tabular-nums">{distanceFromHome(country).toLocaleString("en-US")} km</span>}
+      <div className="flex items-start gap-2.5 p-3">
+        <span className="text-3xl leading-none drop-shadow-[2px_2px_0_#000] group-hover:animate-wiggle motion-reduce:animate-none">
+          {flagOf(country.code)}
+        </span>
+        <div className="min-w-0 flex-1">
+          <h3 className={`${display} text-2xl leading-none`}>{country.name}</h3>
+          <p className="mt-1 truncate text-xs font-bold text-black/60">{country.cities.map((c) => c.name).join(" · ")}</p>
+        </div>
+      </div>
+      <p className="-mt-1 flex items-center justify-between gap-2 px-3 pb-3 text-[11px]">
+        <span className="truncate italic">“{country.highlights[0]}”</span>
+        {country.code !== "TH" && <span className="shrink-0 font-bold tabular-nums">✈ {distanceFromHome(country).toLocaleString("en-US")} km</span>}
       </p>
     </button>
   );
@@ -330,7 +370,7 @@ export default function CountriesPage() {
 
   const list = useMemo(() => countries.filter((c) => matches(c, filter)), [filter]);
   const country = selected ? countries.find((c) => c.code === selected) ?? null : null;
-  // The card steps through the current filter; a country outside it still gets a position in the full list.
+  // The bubble steps through the current filter; a country outside it still gets a position in the full list.
   const ring = country && list.some((c) => c.code === country.code) ? list : countries;
   const position = country ? ring.findIndex((c) => c.code === country.code) : -1;
 
@@ -373,101 +413,114 @@ export default function CountriesPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100">
-      {/* Ambient blobs */}
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-1/4 right-0 h-[700px] w-[700px] translate-x-1/3 rounded-full bg-gradient-to-b from-emerald-900/20 to-cyan-900/20 opacity-50 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-[600px] w-[600px] -translate-x-1/3 translate-y-1/3 rounded-full bg-gradient-to-t from-indigo-900/20 to-blue-900/20 opacity-40 blur-3xl" />
-      </div>
-
+    <div
+      className="flex min-h-screen flex-col overflow-x-hidden bg-[#FFF4DC] font-[family-name:var(--font-comic)] text-black"
+      style={halftone("rgba(0,0,0,0.07)", 10)}
+    >
       {/* Header */}
-      <header className="container mx-auto flex max-w-6xl items-center justify-between px-4 py-8">
-        <Link href="/" className="font-display text-lg font-medium tracking-[0.22em] text-white">
+      <header className="container mx-auto flex max-w-6xl items-center justify-between px-4 py-6">
+        <Link href="/" className={`${display} text-2xl text-black`}>
           Kowit C.
         </Link>
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white">
-          <ArrowLeft className="h-4 w-4" />
+        <Link href="/" className={`inline-flex items-center gap-1.5 bg-white px-3 py-1 ${display} text-lg ${ink} shadow-[3px_3px_0_0_#000] ${press}`}>
+          <ArrowLeft className="h-4 w-4" strokeWidth={3} />
           Back
         </Link>
       </header>
 
-      <main className="container mx-auto max-w-6xl flex-1 px-4 pb-16">
+      <main className="container mx-auto max-w-6xl flex-1 px-4 pb-20">
         {/* Hero: intro and controls on the left, globe on the right. Phones get intro, globe, then controls. */}
-        <section className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] lg:gap-x-10 lg:gap-y-6">
-          <div className="animate-in fade-in slide-in-from-left-6 duration-700 motion-reduce:animate-none lg:col-start-1 lg:row-start-1 lg:self-end">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <GlobeIcon className="h-5 w-5 shrink-0 text-gray-400" />
-                <p className="text-xs font-medium uppercase tracking-widest text-gray-400">World Map</p>
-              </div>
-              <h1 className="bg-gradient-to-r from-white via-emerald-100 to-blue-200 bg-clip-text text-4xl font-light tracking-tight text-transparent md:text-6xl">
-                Countries
-              </h1>
-              <p className="max-w-md leading-relaxed text-gray-400">
-                Collecting passport stamps and airport lounges. Every route starts in {home.name}: solid lines are trips
-                taken, dashed ones are still on the list.
-              </p>
-            </div>
+        <section className="grid gap-7 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] lg:gap-x-10 lg:gap-y-7">
+          <div className="space-y-4 animate-in fade-in slide-in-from-left-8 duration-700 motion-reduce:animate-none lg:col-start-1 lg:row-start-1 lg:self-end">
+            <Caption className="-rotate-2">Meanwhile, in {home.name}…</Caption>
+            <h1 className={`${display} -rotate-2 text-7xl leading-[0.9] text-[#FFD400] md:text-8xl`} style={lettering(3, 6)}>
+              Countries!
+            </h1>
+            <p className="max-w-md text-base leading-relaxed">
+              Our hero collects passport stamps and airport lounges. Every route starts in {home.name}:{" "}
+              <b className="text-[#E5221A]">red lines</b> are trips taken, <b>dashed ones</b> are adventures still to
+              come.
+            </p>
           </div>
 
-          <div className="order-last animate-in fade-in slide-in-from-left-6 space-y-6 duration-700 motion-reduce:animate-none lg:order-none lg:col-start-1 lg:row-start-2 lg:self-start">
-            <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 xl:grid-cols-4">
-              <Stat value={visited.length} label="Visited" delay={0} />
-              <Stat value={wishlist.length} label="To go" delay={120} />
-              <Stat value={citiesVisited} label="Cities" delay={240} />
-              <Stat value={distanceFromHome(furthest) / 1000} suffix="k km" label="Furthest" delay={360} />
+          <div className="order-last space-y-6 animate-in fade-in slide-in-from-left-8 duration-700 motion-reduce:animate-none lg:order-none lg:col-start-1 lg:row-start-2 lg:self-start">
+            <div className="grid grid-cols-4 gap-2.5 lg:grid-cols-2 xl:grid-cols-4">
+              <Stat value={visited.length} label="Visited" delay={0} bg={INK.red} light />
+              <Stat value={wishlist.length} label="To go" delay={120} bg={INK.yellow} />
+              <Stat value={citiesVisited} label="Cities" delay={240} bg={INK.cyan} />
+              <Stat value={distanceFromHome(furthest) / 1000} suffix="k km" label="Furthest" delay={360} bg="#FFFFFF" />
             </div>
 
-            <ProgressRing />
+            <ProgressBar />
 
-            <div className="space-y-3">
+            <div className="space-y-4">
               <FilterSwitch filter={filter} onChange={changeFilter} />
               <button
                 onClick={toggleTour}
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-4 py-2.5 text-sm font-medium text-gray-950 shadow-lg shadow-emerald-500/10 transition-all hover:bg-gray-100 hover:shadow-emerald-500/25"
+                className={`inline-flex w-full items-center justify-center gap-2 bg-[#FF3B30] px-4 py-2.5 ${display} text-2xl text-white ${ink} ${hardShadow} ${press}`}
+                style={lettering(1.5, 2)}
               >
-                {touring ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 transition-transform group-hover:scale-110" />}
-                {touring ? "Pause the tour" : `Take the tour · ${list.length} stops`}
+                {touring ? <Pause className="h-5 w-5" strokeWidth={3} /> : <Play className="h-5 w-5" strokeWidth={3} />}
+                {touring ? "Pause the tour!" : `Take the tour! · ${list.length} stops`}
               </button>
             </div>
           </div>
 
-          {/* Globe */}
+          {/* Globe panel */}
           <div ref={globeRef} className="relative scroll-mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
-            <div className="relative mx-auto aspect-square w-full max-w-[640px] animate-in fade-in zoom-in-90 duration-1000 motion-reduce:animate-none">
-              {/* Starfield */}
-              <div aria-hidden className="pointer-events-none absolute -inset-6">
-                {stars.map((s, i) => (
-                  <span
-                    key={i}
-                    className="absolute animate-pulse rounded-full bg-white/70 motion-reduce:animate-none"
-                    style={{
-                      left: `${s.left}%`,
-                      top: `${s.top}%`,
-                      width: s.size,
-                      height: s.size,
-                      animationDelay: `${s.delay}s`,
-                      animationDuration: `${s.duration}s`,
-                    }}
-                  />
-                ))}
+            <div
+              className={`relative rotate-[0.6deg] overflow-hidden bg-[#FFD400] ${ink} shadow-[8px_8px_0_0_#000] animate-in fade-in zoom-in-90 duration-700 motion-reduce:animate-none`}
+            >
+              {/* Action lines radiating from the globe, slowly turning. */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[160%] -translate-x-1/2 -translate-y-1/2 animate-[spin_90s_linear_infinite] motion-reduce:animate-none"
+                style={{
+                  background: "repeating-conic-gradient(rgba(0,0,0,0.85) 0deg 1.2deg, transparent 1.2deg 9deg)",
+                  maskImage: "radial-gradient(circle, transparent 30%, black 62%)",
+                  WebkitMaskImage: "radial-gradient(circle, transparent 30%, black 62%)",
+                }}
+              />
+              <div aria-hidden className="pointer-events-none absolute inset-0" style={halftone("rgba(0,0,0,0.12)", 6)} />
+
+              <div className="relative mx-auto aspect-square w-full max-w-[600px]">
+                <Globe selected={selected} filter={filter} reducedMotion={reduced} onSelect={select} onInteract={stopTour} />
+                {/* Printed-dot shading and an ink outline over the sphere. */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-[12px] rounded-full border-[3px] border-black mix-blend-multiply"
+                  style={halftone("rgba(0,0,0,0.2)", 5)}
+                />
               </div>
-              {/* Atmosphere */}
-              <div aria-hidden className="pointer-events-none absolute inset-[5%] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.18)_55%,rgba(16,185,129,0.08)_68%,transparent_72%)] blur-xl" />
-              <div aria-hidden className="pointer-events-none absolute inset-[8%] rounded-full shadow-[0_0_80px_10px_rgba(56,189,248,0.12)]" />
 
-              <Globe selected={selected} filter={filter} reducedMotion={reduced} onSelect={select} onInteract={stopTour} />
-
-              {!country && (
-                <p className="pointer-events-none absolute inset-x-0 bottom-2 text-center text-[11px] text-gray-500 animate-in fade-in duration-1000">
-                  Drag to spin · tap a coloured country
-                </p>
+              {country && !reduced && (
+                <Burst
+                  key={`${country.code}-${position}`}
+                  text={soundFor(country.code)}
+                  className="pointer-events-none absolute right-2 top-2 w-24 animate-comic-pop sm:w-32"
+                />
               )}
+
+              <div className="relative flex flex-wrap items-center justify-between gap-2 border-t-[3px] border-black bg-white px-3 py-2 text-[11px] font-bold">
+                <span className="uppercase tracking-wider">Drag to spin! Tap a country!</span>
+                <span className="flex flex-wrap gap-x-3 gap-y-1">
+                  {[
+                    { color: INK.red, label: "Been" },
+                    { color: INK.yellow, label: "Someday" },
+                    { color: INK.purple, label: "Picked" },
+                  ].map((l) => (
+                    <span key={l.label} className="inline-flex items-center gap-1">
+                      <span className="h-3 w-3 border-2 border-black" style={{ backgroundColor: l.color }} />
+                      {l.label}
+                    </span>
+                  ))}
+                </span>
+              </div>
             </div>
 
             {country && (
-              <div className="relative z-10 -mt-10 lg:absolute lg:inset-x-6 lg:bottom-2 lg:mt-0">
-                <DetailCard
+              <div className="relative z-10 mt-6 lg:absolute lg:inset-x-6 lg:bottom-14 lg:mt-0">
+                <SpeechBubble
                   key={country.code}
                   country={country}
                   position={position + 1}
@@ -490,24 +543,26 @@ export default function CountriesPage() {
           </div>
         </section>
 
-        {/* Country cards */}
+        {/* Country panels */}
         {[
-          { title: "Been there", sub: "Stamped and remembered.", items: visited, show: filter !== "wishlist" },
-          { title: "Next up", sub: "Waiting for a long weekend.", items: wishlist, show: filter !== "visited" },
+          { title: "Been there!", sub: "Stamped and remembered.", items: visited, show: filter !== "wishlist", color: INK.red },
+          { title: "Next up…", sub: "Waiting for a long weekend.", items: wishlist, show: filter !== "visited", color: INK.cyan },
         ]
           .filter((group) => group.show)
           .map((group) => (
-            <section key={group.title} className="mt-16 space-y-5">
-              <Reveal className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-white/5 pt-8">
-                <h2 className="text-2xl font-light tracking-tight text-white md:text-3xl">{group.title}</h2>
-                <p className="text-sm text-gray-500">
+            <section key={group.title} className="mt-20 space-y-7">
+              <Reveal className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
+                <h2 className={`${display} -rotate-1 text-5xl leading-none md:text-6xl`} style={{ ...lettering(2.5, 4), color: group.color }}>
+                  {group.title}
+                </h2>
+                <Caption className="rotate-1">
                   {group.items.length} countries · {group.sub}
-                </p>
+                </Caption>
               </Reveal>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
                 {group.items.map((c, i) => (
-                  <Reveal key={c.code} delay={(i % 4) * 80}>
-                    <CountryCard country={c} active={c.code === selected} onSelect={() => pickFromGrid(c.code)} />
+                  <Reveal key={c.code} delay={(i % 4) * 70}>
+                    <CountryPanel country={c} index={i} active={c.code === selected} onSelect={() => pickFromGrid(c.code)} />
                   </Reveal>
                 ))}
               </div>
@@ -515,7 +570,9 @@ export default function CountriesPage() {
           ))}
       </main>
 
-      <SiteFooter className="max-w-6xl px-4" />
+      <div className="border-t-4 border-black bg-neutral-950 text-gray-100">
+        <SiteFooter className="max-w-6xl border-t-0 px-4" />
+      </div>
     </div>
   );
 }

@@ -6,18 +6,21 @@ import * as am5map from "@amcharts/amcharts5/map";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
 import { countries, home, type Country } from "./data";
+import { bangers } from "./fonts";
 
 export type Filter = "all" | "visited" | "wishlist";
 
 export const matches = (c: Country, f: Filter) => f === "all" || (f === "visited" ? Boolean(c.visited) : !c.visited);
 
+/** Comic inks: paper land, black outlines, red for places been, yellow for places to go. */
 const COLORS = {
-  land: 0x1e293b,
-  border: 0x0b1220,
-  visited: 0x10b981,
-  wishlist: 0x3b82f6,
-  dimmed: 0x273449,
-  selected: 0xf8fafc,
+  land: 0xfff4d6,
+  border: 0x000000,
+  visited: 0xff3b30,
+  wishlist: 0xffd400,
+  dimmed: 0xe6dcc2,
+  selected: 0xa855f7,
+  route: 0xff2d2d,
 };
 
 const byCode = new Map(countries.map((c) => [c.code, c]));
@@ -78,7 +81,7 @@ export function Globe({ selected, filter, reducedMotion, onSelect, onInteract }:
     const ocean = chart.series.push(am5map.MapPolygonSeries.new(root, {}));
     ocean.mapPolygons.template.setAll({
       fillGradient: am5.RadialGradient.new(root, {
-        stops: [{ color: am5.color(0x1b2b4b) }, { color: am5.color(0x0a1122) }, { color: am5.color(0x050913) }],
+        stops: [{ color: am5.color(0x7dd3fc) }, { color: am5.color(0x2f8de4) }, { color: am5.color(0x1d5fb8) }],
       }),
       strokeOpacity: 0,
       interactive: false,
@@ -86,21 +89,21 @@ export function Globe({ selected, filter, reducedMotion, onSelect, onInteract }:
     ocean.data.push({ geometry: am5map.getGeoRectangle(90, 180, -90, -180) });
 
     const graticule = chart.series.push(am5map.GraticuleSeries.new(root, { step: 20 }));
-    graticule.mapLines.template.setAll({ stroke: am5.color(0x94a3b8), strokeOpacity: 0.07 });
+    graticule.mapLines.template.setAll({ stroke: am5.color(0x000000), strokeOpacity: 0.12 });
 
     const tooltip = am5.Tooltip.new(root, { getFillFromSprite: false, labelText: "{name}", paddingTop: 4, paddingBottom: 4 });
-    tooltip.get("background")?.setAll({ fill: am5.color(0x0f172a), fillOpacity: 0.95, stroke: am5.color(0x334155), strokeOpacity: 1 });
-    tooltip.label.setAll({ fill: am5.color(0xf1f5f9), fontSize: 12 });
+    tooltip.get("background")?.setAll({ fill: am5.color(0xffffff), fillOpacity: 1, stroke: am5.color(0x000000), strokeOpacity: 1, strokeWidth: 2 });
+    tooltip.label.setAll({ fill: am5.color(0x000000), fontSize: 16, fontFamily: bangers.style.fontFamily });
 
     const land = chart.series.push(am5map.MapPolygonSeries.new(root, { geoJSON: am5geodata_worldLow, exclude: ["AQ"] }));
     land.mapPolygons.template.setAll({
       fill: am5.color(COLORS.land),
       stroke: am5.color(COLORS.border),
-      strokeWidth: 0.5,
+      strokeWidth: 0.8,
       tooltip,
       tooltipText: "{name}",
     });
-    land.mapPolygons.template.states.create("hover", { stroke: am5.color(0xffffff), strokeWidth: 1.2 });
+    land.mapPolygons.template.states.create("hover", { strokeWidth: 2.4 });
     land.mapPolygons.template.events.on("click", (ev) => {
       const id = polygonId(ev.target.dataItem);
       if (id && byCode.has(id)) latest.current.onSelect(id);
@@ -109,10 +112,10 @@ export function Globe({ selected, filter, reducedMotion, onSelect, onInteract }:
     // Routes from Bangkok: solid for places visited, dashed for the wishlist.
     const routes = chart.series.push(am5map.MapLineSeries.new(root, {}));
     const routeOf = new Map<am5.DataItem<am5map.IMapLineSeriesDataItem>, Country>();
-    routes.mapLines.template.setAll({ strokeWidth: 1.3, strokeOpacity: 0 });
+    routes.mapLines.template.setAll({ strokeWidth: 2, strokeOpacity: 0 });
     routes.mapLines.template.adapters.add("stroke", (stroke, target) => {
       const c = routeOf.get(target.dataItem as am5.DataItem<am5map.IMapLineSeriesDataItem>);
-      return c ? am5.color(c.visited ? COLORS.visited : COLORS.wishlist) : stroke;
+      return c ? am5.color(c.visited ? COLORS.route : 0x000000) : stroke;
     });
     routes.mapLines.template.adapters.add("strokeDasharray", (dash, target) => {
       const c = routeOf.get(target.dataItem as am5.DataItem<am5map.IMapLineSeriesDataItem>);
@@ -124,11 +127,12 @@ export function Globe({ selected, filter, reducedMotion, onSelect, onInteract }:
       am5.Bullet.new(root, {
         sprite: am5.Graphics.new(root, {
           svgPath: PLANE,
-          scale: 0.55,
+          scale: 0.75,
           centerX: am5.p50,
           centerY: am5.p50,
           fill: am5.color(0xffffff),
-          fillOpacity: 0.95,
+          stroke: am5.color(0x000000),
+          strokeWidth: 1.6,
         }),
       }),
     );
@@ -163,14 +167,14 @@ export function Globe({ selected, filter, reducedMotion, onSelect, onInteract }:
       const ctx = dataItem.dataContext as CityPoint;
       const group = am5.Container.new(r, {});
       const halo = group.children.push(
-        am5.Circle.new(r, { radius: ctx.big ? 5 : 3.5, fill: am5.color(ctx.color), fillOpacity: 0.45 }),
+        am5.Circle.new(r, { radius: ctx.big ? 6 : 4, fill: am5.color(ctx.color), fillOpacity: 0.5, stroke: am5.color(0x000000), strokeWidth: 1 }),
       );
       group.children.push(
         am5.Circle.new(r, {
-          radius: ctx.big ? 3.6 : 2.2,
+          radius: ctx.big ? 4.5 : 3,
           fill: am5.color(ctx.color),
           stroke: am5.color(COLORS.border),
-          strokeWidth: 1,
+          strokeWidth: 1.5,
         }),
       );
       if (ctx.pulse && !reducedMotion) {
@@ -189,7 +193,7 @@ export function Globe({ selected, filter, reducedMotion, onSelect, onInteract }:
           big: false,
         })),
       ),
-      { geometry: { type: "Point" as const, coordinates: [home.lon, home.lat] }, color: 0xffffff, code: "TH", pulse: true, big: true },
+      { geometry: { type: "Point" as const, coordinates: [home.lon, home.lat] }, color: 0x111111, code: "TH", pulse: true, big: true },
     ]);
 
     /* ── Behaviour ── */
@@ -236,7 +240,7 @@ export function Globe({ selected, filter, reducedMotion, onSelect, onInteract }:
       });
       for (const [route, c] of routeOf) {
         const show = matches(c, f) && (sel == null || c.code === sel || f !== "all");
-        route.get("mapLine")?.animate({ key: "strokeOpacity", to: show ? (c.visited ? 0.55 : 0.3) : 0.04, duration });
+        route.get("mapLine")?.animate({ key: "strokeOpacity", to: show ? (c.visited ? 0.9 : 0.55) : 0.06, duration });
       }
       planes.animate({ key: "opacity", to: f === "wishlist" ? 0 : 1, duration });
       cities.dataItems.forEach((item) => {
