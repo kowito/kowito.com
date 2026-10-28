@@ -1,20 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-plus-jakarta",
-})
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-space-grotesk",
-})
+import { bangers, comicNeue } from "@/lib/fonts"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kowito.com"),
@@ -70,7 +57,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#020617",
+  themeColor: "#FFF4DC",
 }
 
 export default function RootLayout({
@@ -82,11 +69,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} font-sans antialiased`}
+        className={`${bangers.variable} ${comicNeue.variable} font-sans antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   )

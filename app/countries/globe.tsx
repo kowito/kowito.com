@@ -6,7 +6,7 @@ import * as am5map from "@amcharts/amcharts5/map";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
 import { countries, home, type Country } from "./data";
-import { bangers } from "./fonts";
+import { bangers } from "@/lib/fonts";
 
 export type Filter = "all" | "visited" | "wishlist";
 

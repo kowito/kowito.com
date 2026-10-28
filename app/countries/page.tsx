@@ -1,19 +1,11 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useSyncExternalStore,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
-import Link from "next/link";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { SiteFooter } from "@/components/site-footer";
-import { ArrowLeft, ChevronLeft, ChevronRight, MapPin, Pause, Plane, Play, X } from "lucide-react";
+import { Burst, Caption, INK, RED_TEXT, SiteHeader, display, halftone, hardShadow, ink, lettering, press, tilts } from "@/components/comic";
+import { Reveal, useCountUp, useReducedMotion } from "@/components/comic-motion";
+import { ChevronLeft, ChevronRight, MapPin, Pause, Plane, Play, X } from "lucide-react";
 import { countries, distanceKm, flagOf, home, type Country } from "./data";
 import { matches, type Filter } from "./globe";
 import { Landmark } from "./landmarks";
@@ -37,140 +29,10 @@ const filters: { id: Filter; label: string; count: number }[] = [
 
 const TOUR_STEP_MS = 5000;
 
-/* ───────────────────────── Comic ink ───────────────────────── */
-
-const INK = {
-  red: "#FF3B30",
-  yellow: "#FFD400",
-  cyan: "#4CC9F0",
-  purple: "#A855F7",
-};
-
-const display = "font-[family-name:var(--font-bangers)] tracking-wide";
-const ink = "border-[3px] border-black";
-const hardShadow = "shadow-[5px_5px_0_0_#000]";
-/** Buttons press into the page: they drop onto their own shadow. */
-const press =
-  "transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[2px_2px_0_0_#000]";
-
-/** Ben-Day dots, the printed shading of old comics. */
-const halftone = (dot = "rgba(0,0,0,0.16)", size = 7): CSSProperties => ({
-  backgroundImage: `radial-gradient(${dot} 1.3px, transparent 1.7px)`,
-  backgroundSize: `${size}px ${size}px`,
-});
-
-/** Outlined, drop-shadowed lettering for big titles. */
-const lettering = (stroke = 3, shadow = 5): CSSProperties => ({
-  WebkitTextStroke: `${stroke}px #000`,
-  paintOrder: "stroke fill",
-  textShadow: `${shadow}px ${shadow}px 0 #000`,
-});
+/* ───────────────────────── Comic pieces ───────────────────────── */
 
 const SOUNDS = ["WHOOSH!", "ZOOM!", "SWOOSH!", "VROOM!", "KA-POW!", "ZIP!", "WHAM!"];
 const soundFor = (code: string) => SOUNDS[(code.charCodeAt(0) * 7 + code.charCodeAt(1)) % SOUNDS.length];
-
-/* ───────────────────────── Motion helpers ───────────────────────── */
-
-const motionQuery = "(prefers-reduced-motion: reduce)";
-const subscribeMotion = (onChange: () => void) => {
-  const mq = window.matchMedia(motionQuery);
-  mq.addEventListener("change", onChange);
-  return () => mq.removeEventListener("change", onChange);
-};
-
-function useReducedMotion() {
-  return useSyncExternalStore(subscribeMotion, () => window.matchMedia(motionQuery).matches, () => false);
-}
-
-/** Eases a number from 0 up to `target` once, after `delay` ms. */
-function useCountUp(target: number, duration = 1600, delay = 0) {
-  const [value, setValue] = useState(0);
-  const reduced = useReducedMotion();
-  useEffect(() => {
-    const start = performance.now() + (reduced ? 0 : delay);
-    const length = reduced ? 0 : duration;
-    let frame = 0;
-    const tick = (now: number) => {
-      const t = length === 0 ? 1 : Math.min(1, Math.max(0, (now - start) / length));
-      setValue(target * (1 - (1 - t) ** 3));
-      if (t < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [target, duration, delay, reduced]);
-  return value;
-}
-
-/** Pops its children in, with a little overshoot, the first time they scroll into view. */
-function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(false);
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px" },
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-500 ease-[cubic-bezier(.2,.9,.3,1.5)] motion-reduce:scale-100 motion-reduce:opacity-100 motion-reduce:transition-none ${
-        shown ? "scale-100 opacity-100" : "scale-75 opacity-0"
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-}
-
-/* ───────────────────────── Comic pieces ───────────────────────── */
-
-/** A jagged starburst with a sound effect in it. Spikes are seeded so every render matches. */
-function Burst({ text, className = "" }: { text: string; className?: string }) {
-  const spikes = 13;
-  const points = Array.from({ length: spikes * 2 }, (_, i) => {
-    const r = i % 2 ? 31 + ((i * 37) % 7) : 48 - ((i * 53) % 5);
-    const a = (Math.PI * i) / spikes - Math.PI / 2;
-    return `${(50 + r * Math.cos(a)).toFixed(1)},${(50 + r * Math.sin(a)).toFixed(1)}`;
-  }).join(" ");
-  return (
-    <svg viewBox="0 0 100 100" className={className} aria-hidden>
-      <polygon points={points} fill={INK.yellow} stroke="#000" strokeWidth="3" strokeLinejoin="round" />
-      <text
-        x="50"
-        y="57"
-        textAnchor="middle"
-        fontSize={text.length > 6 ? 15 : 19}
-        fill={INK.red}
-        stroke="#000"
-        strokeWidth="1.2"
-        style={{ fontFamily: "var(--font-bangers)", paintOrder: "stroke", letterSpacing: "0.5px" }}
-        transform="rotate(-8 50 50)"
-      >
-        {text}
-      </text>
-    </svg>
-  );
-}
-
-/** The yellow narration box comics use for "Meanwhile…". */
-function Caption({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return (
-    <span className={`inline-block bg-[#FFD400] px-3 py-1 text-xs font-bold uppercase tracking-wider text-black ${ink} shadow-[3px_3px_0_0_#000] ${className}`}>
-      {children}
-    </span>
-  );
-}
 
 function Stamp({ country, className = "" }: { country: Country; className?: string }) {
   const color = country.visited ? INK.red : "#000";
@@ -260,7 +122,7 @@ function SpeechBubble({
   const navButton = `inline-flex items-center gap-0.5 bg-white px-2.5 py-1 ${display} text-base ${ink} shadow-[3px_3px_0_0_#000] ${press}`;
   return (
     <div
-      className={`relative rounded-[26px] bg-white p-4 text-black sm:p-5 ${ink} shadow-[6px_6px_0_0_#000] animate-in fade-in zoom-in-75 duration-300 ease-[cubic-bezier(.2,.9,.3,1.4)] motion-reduce:animate-none`}
+      className={`relative rounded-[26px] bg-white p-4 text-black sm:p-5 ${ink} shadow-[6px_6px_0_0_#000] animate-in fade-in zoom-in-75 duration-300 [animation-timing-function:cubic-bezier(.2,.9,.3,1.4)] motion-reduce:animate-none`}
     >
       {/* The bubble's tail, pointing up at the globe. */}
       <span aria-hidden className="absolute -top-[15px] left-16 h-7 w-7 rotate-45 border-l-[3px] border-t-[3px] border-black bg-white" />
@@ -323,7 +185,7 @@ function SpeechBubble({
 
 /** A manga panel of the country's landmark, captioned, with the details underneath. */
 function CountryPanel({ country, index, active, onSelect }: { country: Country; index: number; active: boolean; onSelect: () => void }) {
-  const tilt = ["-rotate-1", "rotate-1", "rotate-[0.5deg]", "-rotate-[1.5deg]"][index % 4];
+  const tilt = tilts[index % tilts.length];
   return (
     <button
       onClick={onSelect}
@@ -413,20 +275,8 @@ export default function CountriesPage() {
   };
 
   return (
-    <div
-      className="flex min-h-screen flex-col overflow-x-hidden bg-[#FFF4DC] font-[family-name:var(--font-comic)] text-black"
-      style={halftone("rgba(0,0,0,0.07)", 10)}
-    >
-      {/* Header */}
-      <header className="container mx-auto flex max-w-6xl items-center justify-between px-4 py-6">
-        <Link href="/" className={`${display} text-2xl text-black`}>
-          Kowit C.
-        </Link>
-        <Link href="/" className={`inline-flex items-center gap-1.5 bg-white px-3 py-1 ${display} text-lg ${ink} shadow-[3px_3px_0_0_#000] ${press}`}>
-          <ArrowLeft className="h-4 w-4" strokeWidth={3} />
-          Back
-        </Link>
-      </header>
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
+      <SiteHeader className="max-w-6xl" />
 
       <main className="container mx-auto max-w-6xl flex-1 px-4 pb-20">
         {/* Hero: intro and controls on the left, globe on the right. Phones get intro, globe, then controls. */}
@@ -438,7 +288,7 @@ export default function CountriesPage() {
             </h1>
             <p className="max-w-md text-base leading-relaxed">
               Our hero collects passport stamps and airport lounges. Every route starts in {home.name}:{" "}
-              <b className="text-[#E5221A]">red lines</b> are trips taken, <b>dashed ones</b> are adventures still to
+              <b style={{ color: RED_TEXT }}>red lines</b> are trips taken, <b>dashed ones</b> are adventures still to
               come.
             </p>
           </div>
@@ -570,9 +420,7 @@ export default function CountriesPage() {
           ))}
       </main>
 
-      <div className="border-t-4 border-black bg-neutral-950 text-gray-100">
-        <SiteFooter className="max-w-6xl border-t-0 px-4" />
-      </div>
+      <SiteFooter className="max-w-6xl px-4" />
     </div>
   );
 }

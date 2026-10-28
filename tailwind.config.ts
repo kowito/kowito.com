@@ -22,8 +22,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-plus-jakarta)", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["var(--font-space-grotesk)", "var(--font-plus-jakarta)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-comic)", "ui-rounded", "system-ui", "sans-serif"],
+        display: ["var(--font-bangers)", "var(--font-comic)", "Impact", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

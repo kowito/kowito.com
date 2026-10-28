@@ -1,6 +1,12 @@
 import { Bangers, Comic_Neue } from "next/font/google";
 
-/** Comic lettering for headlines, and a friendly hand for body text. Countries page only. */
+/** Comic lettering for headlines, and a friendly hand for body text, across the whole site. */
 export const bangers = Bangers({ subsets: ["latin"], weight: "400", display: "swap", variable: "--font-bangers" });
 
-export const comicNeue = Comic_Neue({ subsets: ["latin"], weight: ["400", "700"], display: "swap", variable: "--font-comic" });
+export const comicNeue = Comic_Neue({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-comic",
+});

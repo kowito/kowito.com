@@ -12,20 +12,22 @@ const links = [
   { href: "/opensource", label: "Open Source" },
 ]
 
-/** Site-wide footer. Pass a max-width class so it lines up with the page's own column. */
+/** Site-wide footer: the black strip at the bottom of the comic page. Pass a max-width class so it lines up with the page's own column. */
 export function SiteFooter({ className }: { className?: string }) {
   return (
-    <footer className={cn("container mx-auto px-6 py-12 border-t border-gray-800", className)}>
+    <footer className="border-t-4 border-black bg-neutral-950 text-white">
       {/* Wraps instead of switching at a breakpoint, so it also fits pages with a narrow column. */}
-      <div className="flex flex-wrap items-center justify-center md:justify-between gap-x-8 gap-y-4 text-sm text-gray-400 font-light">
-        <p className="whitespace-nowrap">&copy; {new Date().getFullYear()} Kowit C. All rights reserved.</p>
-        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+      <div className={cn("container mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-4 px-6 py-10 md:justify-between", className)}>
+        <p className="whitespace-nowrap font-display text-xl tracking-wide">
+          <span className="text-[#FFD400]">The end!</span> &copy; {new Date().getFullYear()} Kowit C.
+        </p>
+        <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-bold">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="hover:text-white transition-colors"
+              className="text-gray-300 underline-offset-4 transition-colors hover:text-[#FFD400] hover:underline"
             >
               {link.label}
             </Link>

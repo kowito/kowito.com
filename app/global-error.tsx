@@ -1,10 +1,12 @@
 "use client"
 
+import "./globals.css"
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
+import { buttonClass, lettering } from "@/components/comic"
+import { ErrorSplash } from "@/components/error-splash"
+import { bangers, comicNeue } from "@/lib/fonts"
 import { Home, RefreshCcw } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
 
 export default function GlobalError({
   error,
@@ -15,32 +17,25 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en">
-      <body className="flex min-h-screen flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100 antialiased">
-        <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-24 text-center">
-          <p className="text-sm uppercase tracking-[0.2em] text-red-300">500</p>
-          <h1 className="mt-4 text-4xl font-light tracking-tight text-white md:text-5xl">
-            Something went wrong
-          </h1>
-          <p className="mt-5 max-w-lg text-balance text-gray-300">
+      <body className={`${bangers.variable} ${comicNeue.variable} flex min-h-screen flex-col overflow-x-hidden font-sans antialiased`}>
+        <ErrorSplash sound="KA-BOOM!" caption="500 · Something exploded…" title="Something went wrong">
+          <p className="mt-6 max-w-lg text-balance text-lg">
             An unexpected server error occurred. Please try again, or return to the homepage.
           </p>
 
-          {error?.digest ? <p className="mt-2 text-xs text-gray-500">Error ID: {error.digest}</p> : null}
+          {error?.digest ? <p className="mt-2 text-xs font-bold text-black/60">Error ID: {error.digest}</p> : null}
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Button onClick={() => reset()} className="rounded-full px-6">
-              <RefreshCcw className="mr-2 h-4 w-4" />
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <button onClick={() => reset()} className={buttonClass("md", "bg-[#FF3B30] text-white")} style={lettering(1.5, 2)}>
+              <RefreshCcw className="h-5 w-5" strokeWidth={2.5} />
               Try again
-            </Button>
-
-            <Button asChild variant="outline" className="rounded-full px-6 border-gray-700 text-gray-300 hover:text-white hover:bg-gray-800">
-              <Link href="/">
-                <Home className="mr-2 h-4 w-4" />
-                Back home
-              </Link>
-            </Button>
+            </button>
+            <Link href="/" className={buttonClass("md")}>
+              <Home className="h-5 w-5" strokeWidth={2.5} />
+              Back home
+            </Link>
           </div>
-        </main>
+        </ErrorSplash>
 
         <SiteFooter />
       </body>
