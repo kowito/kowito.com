@@ -334,6 +334,9 @@ export default function Home() {
             <Link href="/countries" className="hover:text-white transition-colors">
               Countries
             </Link>
+            <Link href="/books" className="hover:text-white transition-colors">
+              Books
+            </Link>
             <Link href="/opensource" className="hover:text-white transition-colors">
               Open Source
             </Link>

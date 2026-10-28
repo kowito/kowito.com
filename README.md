@@ -18,6 +18,7 @@ Personal portfolio site for Kowit C. — Digital Craftsman.
 | `/` | Homepage — intro, open source highlights, tech stack, contact |
 | `/personal-training` | Machine-only Mon–Wed–Fri workout plan with coaching cues |
 | `/diet` | Thai street food meal plan with 7-day schedule |
+| `/books` | Bookshelf — 30 books in shelf order, grouped by topic, with store links |
 | `/opensource` | Open source work overview (Chopin, kowito-json, Monoio drivers) |
 | `/opensource/chopin` | Chopin async Rust framework project page |
 
