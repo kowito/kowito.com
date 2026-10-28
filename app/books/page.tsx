@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, BookOpen, ExternalLink, Library } from "lucide-react";
 import { books, type Book, type Shelf } from "./data";
@@ -88,37 +89,67 @@ function Spine({ book }: { book: Book }) {
   );
 }
 
-function BookCard({ book }: { book: Book }) {
-  const style = styleOf(book.shelf);
+/** The real cover when we have one, otherwise a typeset stand-in in the shelf's colour. */
+function Cover({ book }: { book: Book }) {
+  if (book.cover) {
+    return (
+      <Image
+        src={book.cover}
+        alt={`Cover of ${book.thaiTitle ?? book.title}`}
+        width={400}
+        height={600}
+        className="h-full w-full object-cover"
+      />
+    );
+  }
   return (
-    <article
-      id={`book-${book.id}`}
-      className="flex scroll-mt-6 gap-4 rounded-2xl border border-gray-800 bg-gray-900/50 p-4 transition-colors hover:border-gray-700 target:border-gray-500 target:bg-gray-900"
-    >
-      <div
-        className={`relative h-20 w-14 shrink-0 overflow-hidden rounded-md bg-gradient-to-br ${style.cover} shadow-lg shadow-black/40`}
-      >
-        <span aria-hidden className="absolute inset-y-0 left-1.5 w-px bg-black/25" />
-        <span className="absolute inset-x-0 bottom-1.5 text-center font-display text-xs font-medium text-white/80">
-          {String(book.id).padStart(2, "0")}
-        </span>
-      </div>
-      <div className="min-w-0 flex-1">
-        <h3 className="text-base font-medium leading-snug text-white">{book.title}</h3>
-        {book.thaiTitle && <p className="mt-0.5 text-sm leading-snug text-gray-400">{book.thaiTitle}</p>}
-        <p className="mt-2 text-sm text-gray-300">{book.author}</p>
-        <div className="mt-3 flex items-start justify-between gap-3">
-          <span className="text-xs leading-snug text-gray-500">{book.genre}</span>
+    <div className={`flex h-full w-full flex-col justify-between bg-gradient-to-br ${styleOf(book.shelf).cover} p-3 pl-4`}>
+      <span className="line-clamp-6 font-display text-sm font-medium leading-snug text-white/90">{book.title}</span>
+      <span className="text-[11px] leading-snug text-white/70">{book.author}</span>
+    </div>
+  );
+}
+
+function BookCard({ book }: { book: Book }) {
+  const coverClass =
+    "relative block aspect-[2/3] overflow-hidden rounded-md bg-gray-900 shadow-xl shadow-black/50 ring-1 ring-white/10 group-target:ring-2 group-target:ring-white/70";
+  const cover = (
+    <>
+      <Cover book={book} />
+      <span aria-hidden className="absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-black/30 to-transparent" />
+    </>
+  );
+  return (
+    <article id={`book-${book.id}`} className="group scroll-mt-6">
+      {book.link ? (
+        <a
+          href={book.link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${book.title} on ${book.link.store}`}
+          className={`${coverClass} transition-transform duration-200 hover:-translate-y-1`}
+        >
+          {cover}
+        </a>
+      ) : (
+        <div className={coverClass}>{cover}</div>
+      )}
+      <h3 className="mt-3 text-sm font-medium leading-snug text-white">{book.title}</h3>
+      {book.thaiTitle && <p className="mt-0.5 text-xs leading-snug text-gray-400">{book.thaiTitle}</p>}
+      <p className="mt-1.5 text-xs text-gray-300">{book.author}</p>
+      <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+        <span className="text-[11px] leading-snug text-gray-500">{book.genre}</span>
+        {book.link && (
           <a
-            href={book.url}
+            href={book.link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-1 text-xs text-gray-400 transition-colors hover:text-white"
+            className="inline-flex shrink-0 items-center gap-1 text-[11px] text-gray-400 transition-colors hover:text-white"
           >
-            {book.store}
+            {book.link.store}
             <ExternalLink className="h-3 w-3" />
           </a>
-        </div>
+        )}
       </div>
     </article>
   );
@@ -219,7 +250,7 @@ export default function BooksPage() {
                   </div>
                   <span className="shrink-0 text-sm text-gray-500">{shelfBooks.length} books</span>
                 </div>
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
                   {shelfBooks.map((book) => (
                     <BookCard key={book.id} book={book} />
                   ))}
