@@ -8,6 +8,7 @@ const links = [
   { href: "/diet", label: "Diet" },
   { href: "/countries", label: "Countries" },
   { href: "/books", label: "Books" },
+  { href: "/apple-prices", label: "Apple Prices" },
   { href: "/opensource", label: "Open Source" },
 ]
 
