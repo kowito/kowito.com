@@ -8,12 +8,18 @@
     "build": "next build",
     "start": "serve -s out -l 3001",
     "lint": "eslint .",
-    "prices": "node scripts/fetch-apple-prices.mjs"
+    "prices": "node scripts/fetch-apple-prices.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@amcharts/amcharts5": "^5.17.3",
     "@amcharts/amcharts5-geodata": "^5.1.5",
+    "@safe-global/protocol-kit": "8.0.11",
+    "@safe-global/safe-deployments": "1.37.66",
+    "@safe-global/types-kit": "4.0.1",
     "@tailwindcss/typography": "^0.5.19",
+    "@tanstack/react-query": "5.105.1",
+    "@walletconnect/ethereum-provider": "2.26.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.454.0",
     "next": "^16.2.6",
@@ -22,7 +28,9 @@
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.6.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "viem": "2.57.14",
+    "wagmi": "3.7.9"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
@@ -34,6 +42,7 @@
     "postcss": "^8.5.14",
     "serve": "^14.2.6",
     "tailwindcss": "^3.4.19",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "5.0.5"
   }
 }

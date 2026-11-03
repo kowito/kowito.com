@@ -2,7 +2,24 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 import type { Metadata } from "next"
-import { Github, ArrowRight, Flame, Globe, Video, Coffee, Wrench, Coins, Boxes, Music4, PackageOpen } from "lucide-react"
+import {
+  Github,
+  ArrowRight,
+  Flame,
+  Globe,
+  Video,
+  Coffee,
+  Wrench,
+  Coins,
+  Boxes,
+  Music4,
+  PackageOpen,
+  Vault,
+  Check,
+  Apple,
+  Earth,
+  Library,
+} from "lucide-react"
 import type { ElementType } from "react"
 import {
   Burst,
@@ -24,7 +41,8 @@ import { Reveal } from "@/components/comic-motion"
 
 export const metadata: Metadata = {
   title: "Home",
-  description: "Kowit C. portfolio: software engineering work, open source projects, training plan, and diet plan.",
+  description:
+    "Kowit C. portfolio: software engineering work, open source projects, a Safe multisig wallet, Apple price checks, travel and books.",
   alternates: {
     canonical: "/",
   },
@@ -91,6 +109,52 @@ const stack = [
 
 const stackInks = [INK.yellow, INK.cyan, INK.pink, INK.green, "#fff", INK.orange]
 
+const safeFeatures = [
+  "Every transaction re-hashed in your browser and checked against the Safe contract",
+  "Plain-language summaries, with warnings for risky calls",
+  "Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain and Sepolia",
+  "Opens links copied from the Safe{Wallet} app",
+]
+
+type LinkCardItem = {
+  href: string
+  external?: boolean
+  icon: ElementType
+  title: string
+  body: string
+  color: string
+}
+
+const siteTools: LinkCardItem[] = [
+  { href: "/apple-prices", icon: Apple, title: "Apple Prices", body: "Apple's own prices across Asia, in baht.", color: INK.cyan },
+  { href: "/countries", icon: Earth, title: "Countries", body: "A spinning globe of where I've been.", color: INK.green },
+  { href: "/books", icon: Library, title: "Books", body: "Every book on my shelf, by topic.", color: INK.orange },
+]
+
+/** A pressable link panel: inked icon tile, title and one line, with an arrow that nudges on hover. */
+function LinkCard({ item, tilt }: { item: LinkCardItem; tilt: string }) {
+  const Icon = item.icon
+  return (
+    <Link
+      href={item.href}
+      {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`group flex h-full items-center gap-4 bg-white p-4 ${ink} ${hardShadow} ${tilt} ${lift}`}
+    >
+      <span
+        className="grid h-14 w-14 shrink-0 place-items-center border-[3px] border-black group-hover:animate-wiggle motion-reduce:animate-none"
+        style={{ backgroundColor: item.color, ...halftone("rgba(0,0,0,0.16)", 5) }}
+      >
+        <Icon className="h-6 w-6" strokeWidth={2.5} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className={`${display} block text-2xl leading-none`}>{item.title}</span>
+        <span className="mt-1 block text-sm font-bold text-black/60">{item.body}</span>
+      </span>
+      <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" strokeWidth={3} />
+    </Link>
+  )
+}
+
 /** A colour-blocked panel: the interest's ink and icon on top, the punchline underneath. */
 function InterestCard({ item, index }: { item: InterestItem; index: number }) {
   const Icon = item.icon
@@ -123,7 +187,14 @@ function SpeechBubble({ children, className = "" }: { children: React.ReactNode;
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden">
-      <SiteHeader className="max-w-5xl" back={false} links={[{ href: "/opensource", label: "Open Source", icon: Boxes }]} />
+      <SiteHeader
+        className="max-w-5xl"
+        back={false}
+        links={[
+          { href: "/safe", label: "Safe", icon: Vault },
+          { href: "/opensource", label: "Open Source", icon: Boxes },
+        ]}
+      />
 
       <main className="container mx-auto max-w-5xl flex-1 px-4 pb-24 pt-6 md:pt-10">
         <div className="space-y-24">
@@ -207,6 +278,66 @@ export default function Home() {
             </div>
           </section>
 
+          {/* ── Built here ── */}
+          <section className="space-y-7">
+            <Reveal>
+              <SectionTitle title="Built Here!" sub="Try it yourself" color={INK.yellow} />
+            </Reveal>
+
+            <Reveal>
+              <Link href="/safe" className={`group block bg-white ${ink} ${hardShadow} -rotate-[0.5deg] ${lift}`}>
+                <div
+                  className="flex items-center gap-4 border-b-[3px] border-black px-4 py-3 sm:px-5"
+                  style={{ backgroundColor: INK.purple, ...halftone("rgba(0,0,0,0.16)", 6) }}
+                >
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-[3px] border-black bg-white group-hover:animate-wiggle motion-reduce:animate-none">
+                    <Vault className="h-6 w-6" strokeWidth={2.5} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className={`${display} block text-3xl leading-none text-white md:text-4xl`} style={lettering(1.5, 2)}>
+                      Safe Multisig Wallet
+                    </span>
+                    <span className="mt-1 block text-sm font-bold text-white">kowito.com/safe</span>
+                  </span>
+                  <Sticker color={INK.yellow} className="hidden rotate-3 text-sm sm:inline-flex">
+                    New!
+                  </Sticker>
+                </div>
+                <div className="grid gap-6 p-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+                  <div className="space-y-4">
+                    <p className="text-lg leading-relaxed">
+                      A friendlier way to run a Safe multisig: see what&apos;s inside, send money and approve what the other
+                      owners propose, all in plain words instead of hex. Connect a browser wallet and go; there&apos;s nothing
+                      to sign up for.
+                    </p>
+                    <ul className="grid gap-2 sm:grid-cols-2">
+                      {safeFeatures.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2 text-sm font-bold leading-snug">
+                          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center border-2 border-black" style={{ backgroundColor: INK.green }}>
+                            <Check className="h-3 w-3" strokeWidth={4} />
+                          </span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <span className={buttonClass("lg", "self-start bg-[#FFD400] md:self-end")}>
+                    Open a Safe
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" strokeWidth={3} />
+                  </span>
+                </div>
+              </Link>
+            </Reveal>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {siteTools.map((item, i) => (
+                <Reveal key={item.href} delay={i * 70}>
+                  <LinkCard item={item} tilt={tilts[(i + 1) % tilts.length]} />
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
           {/* ── Open Source ── */}
           <section className="space-y-7">
             <Reveal className="space-y-4">
@@ -219,27 +350,11 @@ export default function Home() {
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {[
-                { href: "https://crates.io/users/kowito", external: true, icon: PackageOpen, title: "crates.io Profile", body: "crates.io/users/kowito", color: INK.cyan, tilt: "-rotate-1" },
-                { href: "/opensource/chopin", external: false, icon: Music4, title: "Chopin", body: "Dedicated project page", color: INK.purple, tilt: "rotate-1" },
-              ].map(({ href, external, icon: Icon, title, body, color, tilt }) => (
-                <Reveal key={href}>
-                  <Link
-                    href={href}
-                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className={`group flex items-center gap-4 bg-white p-4 ${ink} ${hardShadow} ${tilt} ${lift}`}
-                  >
-                    <span
-                      className="grid h-14 w-14 shrink-0 place-items-center border-[3px] border-black group-hover:animate-wiggle motion-reduce:animate-none"
-                      style={{ backgroundColor: color, ...halftone("rgba(0,0,0,0.16)", 5) }}
-                    >
-                      <Icon className="h-6 w-6" strokeWidth={2.5} />
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className={`${display} block text-2xl leading-none`}>{title}</span>
-                      <span className="mt-1 block truncate text-sm font-bold text-black/60">{body}</span>
-                    </span>
-                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" strokeWidth={3} />
-                  </Link>
+                { item: { href: "https://crates.io/users/kowito", external: true, icon: PackageOpen, title: "crates.io Profile", body: "crates.io/users/kowito", color: INK.cyan }, tilt: "-rotate-1" },
+                { item: { href: "/opensource/chopin", icon: Music4, title: "Chopin", body: "Dedicated project page", color: INK.purple }, tilt: "rotate-1" },
+              ].map(({ item, tilt }) => (
+                <Reveal key={item.href}>
+                  <LinkCard item={item} tilt={tilt} />
                 </Reveal>
               ))}
             </div>

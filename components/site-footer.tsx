@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 const links = [
   { href: "https://github.com/kowito", label: "GitHub", external: true },
   { href: "https://twitter.com/kowito", label: "Twitter", external: true },
+  { href: "/safe", label: "Safe" },
   { href: "/personal-training", label: "Training" },
   { href: "/diet", label: "Diet" },
   { href: "/countries", label: "Countries" },

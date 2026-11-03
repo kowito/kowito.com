@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local Cloudflare Pages runs (wrangler pages dev)
+.wrangler
