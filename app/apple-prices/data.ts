@@ -57,7 +57,7 @@ export const countries: Country[] = [
     headline: "The baseline. Everything else on this page is measured against Apple Thailand.",
     notes: [
       "Coming home with a new laptop or phone? Anything over the 20,000-baht allowance goes through the red channel: no import duty, but 7% VAT.",
-      "The 14″ MacBook Pro with M6 has a Thai price, but no Thai release date yet.",
+      "The 14″ MacBook Pro with M6 has a Thai price, but Apple Thailand still says to check back for a release date.",
     ],
     store: "https://www.apple.com/th/",
   },
@@ -160,7 +160,6 @@ export const countries: Country[] = [
       "China's departure tax refund returns about 9% at participating stores, but I found no sign Apple Stores take part, so it isn't counted.",
       "iPhone 17 and 18 Pro take two physical nano-SIMs. Air and Duo are eSIM-only, so check your Thai carrier's eSIM works on a China model.",
       "JD and Tmall often undercut Apple, but the best deals lean on a national subsidy that needs local eligibility.",
-      "Apple China says the M6 MacBook Pro goes on sale only “after approval.”",
     ],
     store: "https://www.apple.com.cn/",
   },
@@ -268,7 +267,7 @@ export const configCount = variants.reduce(
 
 export const variantNotes: Record<string, string> = {
   "macbook-pro/14inch/m6-12-12":
-    "Announced 27 Oct 2026. Pre-orders open 29 Oct across Asia and ship from 6 Nov, except Thailand, which has no date yet.",
+    "Announced 27 Oct 2026 and on sale since 6 Nov everywhere here except Thailand, which still has no release date.",
   "iphone/iphoneair": "eSIM only, with no SIM tray.",
   "iphone/iphoneduo": "eSIM only, with no SIM tray.",
 };

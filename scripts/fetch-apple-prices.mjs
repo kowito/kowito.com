@@ -39,8 +39,8 @@ const GROUP_NAMES = {
   "ethernet_adapter-ethernetBandwidth": "ethernet",
 };
 
-const UA =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
+// Apple's store pages serve plain clients, so say who we are instead of posing as a browser.
+const UA = "kowito.com-apple-prices (+https://kowito.com/apple-prices)";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
